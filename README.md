@@ -8,7 +8,7 @@ This example shows how to implement a **GraphQL server with an email-password-ba
 
 Clone the repository:
 
-```
+```ssh
 git clone git@github.com:prisma/prisma-examples.git
 ```
 
@@ -46,35 +46,34 @@ Then, follow these steps in the interactive CLI wizard:
 
 1. Ensure you have Docker installed on your machine. If not, you can get it from [here](https://store.docker.com/search?offering=community&type=edition).
 1. Create `docker-compose.yml` for MySQL (see [here](https://www.prisma.io/docs/prisma-server/database-connector-POSTGRES-jgfr/) for Postgres):
-    ```yml
-    version: '3'
-    services:
-      prisma:
-        image: prismagraphql/prisma:1.23
-        restart: always
-        ports:
-        - "4466:4466"
-        environment:
-          PRISMA_CONFIG: |
-            port: 4466
-            databases:
-              default:
-                connector: mysql
-                host: mysql
-                port: 3306
-                user: root
-                password: prisma
-                migrations: true
-      mysql:
-        image: mysql:5.7
-        restart: always
-        environment:
-          MYSQL_ROOT_PASSWORD: prisma
-        volumes:
-          - mysql:/var/lib/mysql
-    volumes:
-      mysql:
-    ```
+   ```yml
+   version: '3'
+   services:
+     prisma:
+       image: prismagraphql/prisma:1.23
+       restart: always
+       ports:
+         - '4466:4466'
+       environment:
+         PRISMA_CONFIG: |
+           port: 4466
+           databases:
+             default:
+               connector: mysql
+               host: mysql
+               port: 3306
+               user: root
+               password: prisma
+               migrations: true
+     mysql:
+       image: mysql:5.7
+       restart: always
+       environment:
+         MYSQL_ROOT_PASSWORD: prisma
+       volumes:
+         - mysql:/var/lib/mysql
+   volumes: mysql:
+   ```
 1. Run `docker-compose up -d`
 1. Run `prisma deploy`
 
@@ -208,7 +207,7 @@ mutation {
 
 #### Search for posts with a specific title or content
 
-You need to be logged in for this query to work, i.e. an authentication token that was retrieved through a `signup` or `login` mutation needs to be added to the `Authorization` header in the GraphQL Playground. 
+You need to be logged in for this query to work, i.e. an authentication token that was retrieved through a `signup` or `login` mutation needs to be added to the `Authorization` header in the GraphQL Playground.
 
 ```graphql
 {
@@ -216,7 +215,7 @@ You need to be logged in for this query to work, i.e. an authentication token th
     id
     title
     content
-    published 
+    published
     author {
       id
       name
@@ -228,7 +227,7 @@ You need to be logged in for this query to work, i.e. an authentication token th
 
 #### Retrieve a single post
 
-You need to be logged in for this query to work, i.e. an authentication token that was retrieved through a `signup` or `login` mutation needs to be added to the `Authorization` header in the GraphQL Playground. 
+You need to be logged in for this query to work, i.e. an authentication token that was retrieved through a `signup` or `login` mutation needs to be added to the `Authorization` header in the GraphQL Playground.
 
 ```graphql
 {
@@ -272,7 +271,7 @@ After you made changes to `schema.graphql`, you need to update the generated typ
 yarn generate
 ```
 
-This invokes [`graphqlgen`](https://github.com/prisma/graphqlgen) and updates `./src/generated/graphqlgen.ts` to incorporate the schema changes in your TS type definitions. It also generates scaffolded resolvers in `./src/generated/tmp/resolvers` that you might need to copy and paste into `./src/resolvers`. 
+This invokes [`graphqlgen`](https://github.com/prisma/graphqlgen) and updates `./src/generated/graphqlgen.ts` to incorporate the schema changes in your TS type definitions. It also generates scaffolded resolvers in `./src/generated/tmp/resolvers` that you might need to copy and paste into `./src/resolvers`.
 
 ## Next steps
 
