@@ -1,7 +1,3 @@
-# Specifies the HTTP endpoint of your Prisma API.
-#endpoint: ''
-endpoint: https://eu1.prisma.sh/mate-papp-6c597a/demo-auth/dev
-
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma
 
@@ -18,3 +14,5 @@ hooks:
 # Seeds initial data into the database by running a script.
 seed:
   import: seed.graphql
+
+endpoint: https://heroku-staging-76f474ba06.herokuapp.com/cogito-backend/staging

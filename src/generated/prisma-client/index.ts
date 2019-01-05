@@ -918,6 +918,6 @@ export const models: Model[] = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `https://eu1.prisma.sh/mate-papp-6c597a/demo-auth/dev`
+  endpoint: `https://heroku-staging-76f474ba06.herokuapp.com/cogito-backend/staging`
 });
 export const prisma = new Prisma();
