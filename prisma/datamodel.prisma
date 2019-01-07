@@ -15,31 +15,34 @@ enum NoteType {
 
 type Note {
   id: ID! @unique
-  authorId: ID!
+  author: User! @relation(name: "NotesByUser")
   text: String!
-  comments: [ID!]
-  noteType: NoteType!
+  subject: Subject!
+  comments: [Comment!]
+  type: NoteType!
   description: String
-  upvotes: [ID!]
+  upvotes: [User!] @relation(name: "UpvotedNotes")
 }
 
 type Comment {
   id: ID! @unique
-  authorId: ID!
+  author: User! @relation(name: "CommentsByUser")
+  note: Note!
   text: String!
-  replies: [ID!]
-  upvotes: [ID!]
+  replies: [Comment!]
+  upvotes: [User!] @relation(name: "UpvotedComments")
 }
 
 type Subject {
   id: ID! @unique
-  name: String! @unique
   code: String! @unique
-  faculty: [ID!]
-  students: [ID!]
-  subjectInfos: [SubjectInfo!]!
-  prerequisites: [ID!]
-  notes: [ID!]
+  name: String!
+  description: String!
+  faculty: [User!] @relation(name: "SubjectsByTeacher")
+  students: [User!] @relation(name: "SubjectsByStudent")
+  subjectInfos: [SubjectInfo!]
+  prerequisites: [Subject!]
+  notes: [Note!]
 }
 
 type SubjectInfo {
@@ -48,12 +51,17 @@ type SubjectInfo {
   text: String!
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 type User {
-  id: ID!
+  id: ID! @unique
   password: String!
   email: String! @unique
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String! @unique
-  isAdmin: Boolean!
+  role: Role!
 }

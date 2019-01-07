@@ -28,10 +28,11 @@ type BatchPayload {
 
 type Comment {
   id: ID!
-  authorId: ID!
+  author: User!
+  note: Note!
   text: String!
-  replies: [ID!]!
-  upvotes: [ID!]!
+  replies(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  upvotes(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type CommentConnection {
@@ -41,18 +42,28 @@ type CommentConnection {
 }
 
 input CommentCreateInput {
-  authorId: ID!
+  author: UserCreateOneInput!
+  note: NoteCreateOneWithoutCommentsInput!
   text: String!
-  replies: CommentCreaterepliesInput
-  upvotes: CommentCreateupvotesInput
+  replies: CommentCreateManyInput
+  upvotes: UserCreateManyInput
 }
 
-input CommentCreaterepliesInput {
-  set: [ID!]
+input CommentCreateManyInput {
+  create: [CommentCreateInput!]
+  connect: [CommentWhereUniqueInput!]
 }
 
-input CommentCreateupvotesInput {
-  set: [ID!]
+input CommentCreateManyWithoutNoteInput {
+  create: [CommentCreateWithoutNoteInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutNoteInput {
+  author: UserCreateOneInput!
+  text: String!
+  replies: CommentCreateManyInput
+  upvotes: UserCreateManyInput
 }
 
 type CommentEdge {
@@ -63,8 +74,6 @@ type CommentEdge {
 enum CommentOrderByInput {
   id_ASC
   id_DESC
-  authorId_ASC
-  authorId_DESC
   text_ASC
   text_DESC
   createdAt_ASC
@@ -75,10 +84,41 @@ enum CommentOrderByInput {
 
 type CommentPreviousValues {
   id: ID!
-  authorId: ID!
   text: String!
-  replies: [ID!]!
-  upvotes: [ID!]!
+}
+
+input CommentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
 }
 
 type CommentSubscriptionPayload {
@@ -99,26 +139,84 @@ input CommentSubscriptionWhereInput {
   NOT: [CommentSubscriptionWhereInput!]
 }
 
-input CommentUpdateInput {
-  authorId: ID
+input CommentUpdateDataInput {
+  author: UserUpdateOneRequiredInput
+  note: NoteUpdateOneRequiredWithoutCommentsInput
   text: String
-  replies: CommentUpdaterepliesInput
-  upvotes: CommentUpdateupvotesInput
+  replies: CommentUpdateManyInput
+  upvotes: UserUpdateManyInput
+}
+
+input CommentUpdateInput {
+  author: UserUpdateOneRequiredInput
+  note: NoteUpdateOneRequiredWithoutCommentsInput
+  text: String
+  replies: CommentUpdateManyInput
+  upvotes: UserUpdateManyInput
+}
+
+input CommentUpdateManyDataInput {
+  text: String
+}
+
+input CommentUpdateManyInput {
+  create: [CommentCreateInput!]
+  update: [CommentUpdateWithWhereUniqueNestedInput!]
+  upsert: [CommentUpsertWithWhereUniqueNestedInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
 
 input CommentUpdateManyMutationInput {
-  authorId: ID
   text: String
-  replies: CommentUpdaterepliesInput
-  upvotes: CommentUpdateupvotesInput
 }
 
-input CommentUpdaterepliesInput {
-  set: [ID!]
+input CommentUpdateManyWithoutNoteInput {
+  create: [CommentCreateWithoutNoteInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutNoteInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutNoteInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
 
-input CommentUpdateupvotesInput {
-  set: [ID!]
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutNoteDataInput {
+  author: UserUpdateOneRequiredInput
+  text: String
+  replies: CommentUpdateManyInput
+  upvotes: UserUpdateManyInput
+}
+
+input CommentUpdateWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutNoteInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutNoteDataInput!
+}
+
+input CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateDataInput!
+  create: CommentCreateInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutNoteInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutNoteDataInput!
+  create: CommentCreateWithoutNoteInput!
 }
 
 input CommentWhereInput {
@@ -136,20 +234,8 @@ input CommentWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  authorId: ID
-  authorId_not: ID
-  authorId_in: [ID!]
-  authorId_not_in: [ID!]
-  authorId_lt: ID
-  authorId_lte: ID
-  authorId_gt: ID
-  authorId_gte: ID
-  authorId_contains: ID
-  authorId_not_contains: ID
-  authorId_starts_with: ID
-  authorId_not_starts_with: ID
-  authorId_ends_with: ID
-  authorId_not_ends_with: ID
+  author: UserWhereInput
+  note: NoteWhereInput
   text: String
   text_not: String
   text_in: [String!]
@@ -164,6 +250,12 @@ input CommentWhereInput {
   text_not_starts_with: String
   text_ends_with: String
   text_not_ends_with: String
+  replies_every: CommentWhereInput
+  replies_some: CommentWhereInput
+  replies_none: CommentWhereInput
+  upvotes_every: UserWhereInput
+  upvotes_some: UserWhereInput
+  upvotes_none: UserWhereInput
   AND: [CommentWhereInput!]
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
@@ -225,12 +317,13 @@ interface Node {
 
 type Note {
   id: ID!
-  authorId: ID!
+  author: User!
   text: String!
-  comments: [ID!]!
-  noteType: NoteType!
+  subject: Subject!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  type: NoteType!
   description: String
-  upvotes: [ID!]!
+  upvotes(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type NoteConnection {
@@ -239,21 +332,42 @@ type NoteConnection {
   aggregate: AggregateNote!
 }
 
-input NoteCreatecommentsInput {
-  set: [ID!]
-}
-
 input NoteCreateInput {
-  authorId: ID!
+  author: UserCreateOneInput!
   text: String!
-  comments: NoteCreatecommentsInput
-  noteType: NoteType!
+  subject: SubjectCreateOneWithoutNotesInput!
+  comments: CommentCreateManyWithoutNoteInput
+  type: NoteType!
   description: String
-  upvotes: NoteCreateupvotesInput
+  upvotes: UserCreateManyInput
 }
 
-input NoteCreateupvotesInput {
-  set: [ID!]
+input NoteCreateManyWithoutSubjectInput {
+  create: [NoteCreateWithoutSubjectInput!]
+  connect: [NoteWhereUniqueInput!]
+}
+
+input NoteCreateOneWithoutCommentsInput {
+  create: NoteCreateWithoutCommentsInput
+  connect: NoteWhereUniqueInput
+}
+
+input NoteCreateWithoutCommentsInput {
+  author: UserCreateOneInput!
+  text: String!
+  subject: SubjectCreateOneWithoutNotesInput!
+  type: NoteType!
+  description: String
+  upvotes: UserCreateManyInput
+}
+
+input NoteCreateWithoutSubjectInput {
+  author: UserCreateOneInput!
+  text: String!
+  comments: CommentCreateManyWithoutNoteInput
+  type: NoteType!
+  description: String
+  upvotes: UserCreateManyInput
 }
 
 type NoteEdge {
@@ -264,12 +378,10 @@ type NoteEdge {
 enum NoteOrderByInput {
   id_ASC
   id_DESC
-  authorId_ASC
-  authorId_DESC
   text_ASC
   text_DESC
-  noteType_ASC
-  noteType_DESC
+  type_ASC
+  type_DESC
   description_ASC
   description_DESC
   createdAt_ASC
@@ -280,12 +392,61 @@ enum NoteOrderByInput {
 
 type NotePreviousValues {
   id: ID!
-  authorId: ID!
   text: String!
-  comments: [ID!]!
-  noteType: NoteType!
+  type: NoteType!
   description: String
-  upvotes: [ID!]!
+}
+
+input NoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  type: NoteType
+  type_not: NoteType
+  type_in: [NoteType!]
+  type_not_in: [NoteType!]
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  AND: [NoteScalarWhereInput!]
+  OR: [NoteScalarWhereInput!]
+  NOT: [NoteScalarWhereInput!]
 }
 
 type NoteSubscriptionPayload {
@@ -311,30 +472,83 @@ enum NoteType {
   CASE_STUDY
 }
 
-input NoteUpdatecommentsInput {
-  set: [ID!]
+input NoteUpdateInput {
+  author: UserUpdateOneRequiredInput
+  text: String
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  comments: CommentUpdateManyWithoutNoteInput
+  type: NoteType
+  description: String
+  upvotes: UserUpdateManyInput
 }
 
-input NoteUpdateInput {
-  authorId: ID
+input NoteUpdateManyDataInput {
   text: String
-  comments: NoteUpdatecommentsInput
-  noteType: NoteType
+  type: NoteType
   description: String
-  upvotes: NoteUpdateupvotesInput
 }
 
 input NoteUpdateManyMutationInput {
-  authorId: ID
   text: String
-  comments: NoteUpdatecommentsInput
-  noteType: NoteType
+  type: NoteType
   description: String
-  upvotes: NoteUpdateupvotesInput
 }
 
-input NoteUpdateupvotesInput {
-  set: [ID!]
+input NoteUpdateManyWithoutSubjectInput {
+  create: [NoteCreateWithoutSubjectInput!]
+  delete: [NoteWhereUniqueInput!]
+  connect: [NoteWhereUniqueInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutSubjectInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutSubjectInput!]
+  deleteMany: [NoteScalarWhereInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+}
+
+input NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput!
+  data: NoteUpdateManyDataInput!
+}
+
+input NoteUpdateOneRequiredWithoutCommentsInput {
+  create: NoteCreateWithoutCommentsInput
+  update: NoteUpdateWithoutCommentsDataInput
+  upsert: NoteUpsertWithoutCommentsInput
+  connect: NoteWhereUniqueInput
+}
+
+input NoteUpdateWithoutCommentsDataInput {
+  author: UserUpdateOneRequiredInput
+  text: String
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  type: NoteType
+  description: String
+  upvotes: UserUpdateManyInput
+}
+
+input NoteUpdateWithoutSubjectDataInput {
+  author: UserUpdateOneRequiredInput
+  text: String
+  comments: CommentUpdateManyWithoutNoteInput
+  type: NoteType
+  description: String
+  upvotes: UserUpdateManyInput
+}
+
+input NoteUpdateWithWhereUniqueWithoutSubjectInput {
+  where: NoteWhereUniqueInput!
+  data: NoteUpdateWithoutSubjectDataInput!
+}
+
+input NoteUpsertWithoutCommentsInput {
+  update: NoteUpdateWithoutCommentsDataInput!
+  create: NoteCreateWithoutCommentsInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutSubjectInput {
+  where: NoteWhereUniqueInput!
+  update: NoteUpdateWithoutSubjectDataInput!
+  create: NoteCreateWithoutSubjectInput!
 }
 
 input NoteWhereInput {
@@ -352,20 +566,7 @@ input NoteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  authorId: ID
-  authorId_not: ID
-  authorId_in: [ID!]
-  authorId_not_in: [ID!]
-  authorId_lt: ID
-  authorId_lte: ID
-  authorId_gt: ID
-  authorId_gte: ID
-  authorId_contains: ID
-  authorId_not_contains: ID
-  authorId_starts_with: ID
-  authorId_not_starts_with: ID
-  authorId_ends_with: ID
-  authorId_not_ends_with: ID
+  author: UserWhereInput
   text: String
   text_not: String
   text_in: [String!]
@@ -380,10 +581,14 @@ input NoteWhereInput {
   text_not_starts_with: String
   text_ends_with: String
   text_not_ends_with: String
-  noteType: NoteType
-  noteType_not: NoteType
-  noteType_in: [NoteType!]
-  noteType_not_in: [NoteType!]
+  subject: SubjectWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+  type: NoteType
+  type_not: NoteType
+  type_in: [NoteType!]
+  type_not_in: [NoteType!]
   description: String
   description_not: String
   description_in: [String!]
@@ -398,6 +603,9 @@ input NoteWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  upvotes_every: UserWhereInput
+  upvotes_some: UserWhereInput
+  upvotes_none: UserWhereInput
   AND: [NoteWhereInput!]
   OR: [NoteWhereInput!]
   NOT: [NoteWhereInput!]
@@ -589,15 +797,21 @@ type Query {
   node(id: ID!): Node
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 type Subject {
   id: ID!
-  name: String!
   code: String!
-  faculty: [ID!]!
-  students: [ID!]!
+  name: String!
+  description: String!
+  faculty(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   subjectInfos(where: SubjectInfoWhereInput, orderBy: SubjectInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectInfo!]
-  prerequisites: [ID!]!
-  notes: [ID!]!
+  prerequisites(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
 }
 
 type SubjectConnection {
@@ -606,30 +820,35 @@ type SubjectConnection {
   aggregate: AggregateSubject!
 }
 
-input SubjectCreatefacultyInput {
-  set: [ID!]
-}
-
 input SubjectCreateInput {
-  name: String!
   code: String!
-  faculty: SubjectCreatefacultyInput
-  students: SubjectCreatestudentsInput
+  name: String!
+  description: String!
+  faculty: UserCreateManyInput
+  students: UserCreateManyInput
   subjectInfos: SubjectInfoCreateManyInput
-  prerequisites: SubjectCreateprerequisitesInput
-  notes: SubjectCreatenotesInput
+  prerequisites: SubjectCreateManyInput
+  notes: NoteCreateManyWithoutSubjectInput
 }
 
-input SubjectCreatenotesInput {
-  set: [ID!]
+input SubjectCreateManyInput {
+  create: [SubjectCreateInput!]
+  connect: [SubjectWhereUniqueInput!]
 }
 
-input SubjectCreateprerequisitesInput {
-  set: [ID!]
+input SubjectCreateOneWithoutNotesInput {
+  create: SubjectCreateWithoutNotesInput
+  connect: SubjectWhereUniqueInput
 }
 
-input SubjectCreatestudentsInput {
-  set: [ID!]
+input SubjectCreateWithoutNotesInput {
+  code: String!
+  name: String!
+  description: String!
+  faculty: UserCreateManyInput
+  students: UserCreateManyInput
+  subjectInfos: SubjectInfoCreateManyInput
+  prerequisites: SubjectCreateManyInput
 }
 
 type SubjectEdge {
@@ -825,10 +1044,12 @@ input SubjectInfoWhereInput {
 enum SubjectOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
   code_ASC
   code_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -837,12 +1058,71 @@ enum SubjectOrderByInput {
 
 type SubjectPreviousValues {
   id: ID!
-  name: String!
   code: String!
-  faculty: [ID!]!
-  students: [ID!]!
-  prerequisites: [ID!]!
-  notes: [ID!]!
+  name: String!
+  description: String!
+}
+
+input SubjectScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  code: String
+  code_not: String
+  code_in: [String!]
+  code_not_in: [String!]
+  code_lt: String
+  code_lte: String
+  code_gt: String
+  code_gte: String
+  code_contains: String
+  code_not_contains: String
+  code_starts_with: String
+  code_not_starts_with: String
+  code_ends_with: String
+  code_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  AND: [SubjectScalarWhereInput!]
+  OR: [SubjectScalarWhereInput!]
+  NOT: [SubjectScalarWhereInput!]
 }
 
 type SubjectSubscriptionPayload {
@@ -863,39 +1143,87 @@ input SubjectSubscriptionWhereInput {
   NOT: [SubjectSubscriptionWhereInput!]
 }
 
-input SubjectUpdatefacultyInput {
-  set: [ID!]
+input SubjectUpdateDataInput {
+  code: String
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
+  subjectInfos: SubjectInfoUpdateManyInput
+  prerequisites: SubjectUpdateManyInput
+  notes: NoteUpdateManyWithoutSubjectInput
 }
 
 input SubjectUpdateInput {
-  name: String
   code: String
-  faculty: SubjectUpdatefacultyInput
-  students: SubjectUpdatestudentsInput
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
   subjectInfos: SubjectInfoUpdateManyInput
-  prerequisites: SubjectUpdateprerequisitesInput
-  notes: SubjectUpdatenotesInput
+  prerequisites: SubjectUpdateManyInput
+  notes: NoteUpdateManyWithoutSubjectInput
+}
+
+input SubjectUpdateManyDataInput {
+  code: String
+  name: String
+  description: String
+}
+
+input SubjectUpdateManyInput {
+  create: [SubjectCreateInput!]
+  update: [SubjectUpdateWithWhereUniqueNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
+  delete: [SubjectWhereUniqueInput!]
+  connect: [SubjectWhereUniqueInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  deleteMany: [SubjectScalarWhereInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
 }
 
 input SubjectUpdateManyMutationInput {
-  name: String
   code: String
-  faculty: SubjectUpdatefacultyInput
-  students: SubjectUpdatestudentsInput
-  prerequisites: SubjectUpdateprerequisitesInput
-  notes: SubjectUpdatenotesInput
+  name: String
+  description: String
 }
 
-input SubjectUpdatenotesInput {
-  set: [ID!]
+input SubjectUpdateManyWithWhereNestedInput {
+  where: SubjectScalarWhereInput!
+  data: SubjectUpdateManyDataInput!
 }
 
-input SubjectUpdateprerequisitesInput {
-  set: [ID!]
+input SubjectUpdateOneRequiredWithoutNotesInput {
+  create: SubjectCreateWithoutNotesInput
+  update: SubjectUpdateWithoutNotesDataInput
+  upsert: SubjectUpsertWithoutNotesInput
+  connect: SubjectWhereUniqueInput
 }
 
-input SubjectUpdatestudentsInput {
-  set: [ID!]
+input SubjectUpdateWithoutNotesDataInput {
+  code: String
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
+  subjectInfos: SubjectInfoUpdateManyInput
+  prerequisites: SubjectUpdateManyInput
+}
+
+input SubjectUpdateWithWhereUniqueNestedInput {
+  where: SubjectWhereUniqueInput!
+  data: SubjectUpdateDataInput!
+}
+
+input SubjectUpsertWithoutNotesInput {
+  update: SubjectUpdateWithoutNotesDataInput!
+  create: SubjectCreateWithoutNotesInput!
+}
+
+input SubjectUpsertWithWhereUniqueNestedInput {
+  where: SubjectWhereUniqueInput!
+  update: SubjectUpdateDataInput!
+  create: SubjectCreateInput!
 }
 
 input SubjectWhereInput {
@@ -913,20 +1241,6 @@ input SubjectWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
   code: String
   code_not: String
   code_in: [String!]
@@ -941,9 +1255,49 @@ input SubjectWhereInput {
   code_not_starts_with: String
   code_ends_with: String
   code_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  faculty_every: UserWhereInput
+  faculty_some: UserWhereInput
+  faculty_none: UserWhereInput
+  students_every: UserWhereInput
+  students_some: UserWhereInput
+  students_none: UserWhereInput
   subjectInfos_every: SubjectInfoWhereInput
   subjectInfos_some: SubjectInfoWhereInput
   subjectInfos_none: SubjectInfoWhereInput
+  prerequisites_every: SubjectWhereInput
+  prerequisites_some: SubjectWhereInput
+  prerequisites_none: SubjectWhereInput
+  notes_every: NoteWhereInput
+  notes_some: NoteWhereInput
+  notes_none: NoteWhereInput
   AND: [SubjectWhereInput!]
   OR: [SubjectWhereInput!]
   NOT: [SubjectWhereInput!]
@@ -951,7 +1305,6 @@ input SubjectWhereInput {
 
 input SubjectWhereUniqueInput {
   id: ID
-  name: String
   code: String
 }
 
@@ -968,10 +1321,10 @@ type User {
   id: ID!
   password: String!
   email: String!
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String!
-  isAdmin: Boolean!
+  role: Role!
 }
 
 type UserConnection {
@@ -983,10 +1336,15 @@ type UserConnection {
 input UserCreateInput {
   password: String!
   email: String!
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String!
-  isAdmin: Boolean!
+  role: Role!
+}
+
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneInput {
@@ -1006,14 +1364,14 @@ enum UserOrderByInput {
   password_DESC
   email_ASC
   email_DESC
-  firstname_ASC
-  firstname_DESC
-  lastname_ASC
-  lastname_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
   neptun_ASC
   neptun_DESC
-  isAdmin_ASC
-  isAdmin_DESC
+  role_ASC
+  role_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1024,10 +1382,104 @@ type UserPreviousValues {
   id: ID!
   password: String!
   email: String!
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String!
-  isAdmin: Boolean!
+  role: Role!
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  neptun: String
+  neptun_not: String
+  neptun_in: [String!]
+  neptun_not_in: [String!]
+  neptun_lt: String
+  neptun_lte: String
+  neptun_gt: String
+  neptun_gte: String
+  neptun_contains: String
+  neptun_not_contains: String
+  neptun_starts_with: String
+  neptun_not_starts_with: String
+  neptun_ends_with: String
+  neptun_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -1051,28 +1503,53 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   password: String
   email: String
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String
-  isAdmin: Boolean
+  role: Role
 }
 
 input UserUpdateInput {
   password: String
   email: String
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String
-  isAdmin: Boolean
+  role: Role
+}
+
+input UserUpdateManyDataInput {
+  password: String
+  email: String
+  firstName: String
+  lastName: String
+  neptun: String
+  role: Role
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyMutationInput {
   password: String
   email: String
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String
-  isAdmin: Boolean
+  role: Role
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredInput {
@@ -1082,7 +1559,18 @@ input UserUpdateOneRequiredInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
+}
+
 input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateDataInput!
   create: UserCreateInput!
 }
@@ -1130,34 +1618,34 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  firstname: String
-  firstname_not: String
-  firstname_in: [String!]
-  firstname_not_in: [String!]
-  firstname_lt: String
-  firstname_lte: String
-  firstname_gt: String
-  firstname_gte: String
-  firstname_contains: String
-  firstname_not_contains: String
-  firstname_starts_with: String
-  firstname_not_starts_with: String
-  firstname_ends_with: String
-  firstname_not_ends_with: String
-  lastname: String
-  lastname_not: String
-  lastname_in: [String!]
-  lastname_not_in: [String!]
-  lastname_lt: String
-  lastname_lte: String
-  lastname_gt: String
-  lastname_gte: String
-  lastname_contains: String
-  lastname_not_contains: String
-  lastname_starts_with: String
-  lastname_not_starts_with: String
-  lastname_ends_with: String
-  lastname_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
   neptun: String
   neptun_not: String
   neptun_in: [String!]
@@ -1172,8 +1660,10 @@ input UserWhereInput {
   neptun_not_starts_with: String
   neptun_ends_with: String
   neptun_not_ends_with: String
-  isAdmin: Boolean
-  isAdmin_not: Boolean
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

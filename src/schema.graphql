@@ -14,7 +14,7 @@ type Mutation {
     email: String!
     password: String!
     neptun: String!
-    isAdmin: Boolean!
+    role: Role!
   ): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 }
@@ -31,31 +31,34 @@ enum NoteType {
 
 type Note {
   id: ID!
-  authorId: ID!
+  author: User!
   text: String!
-  comments: [ID!]
-  noteType: NoteType!
+  comments: [Comment!]
+  subject: Subject!
+  type: NoteType!
   description: String
-  upvotes: [ID!]
+  upvotes: [User!]
 }
 
 type Comment {
   id: ID!
-  authorId: ID!
+  author: User!
   text: String!
-  replies: [ID!]
-  upvotes: [ID!]
+  note: Note!
+  replies: [Comment!]
+  upvotes: [User!]
 }
 
 type Subject {
   id: ID!
-  name: String!
   code: String!
-  faculty: [ID!]
-  students: [ID!]
-  subjectInfos: [ID!]!
-  prerequisites: [ID!]
-  notes: [ID!]
+  name: String!
+  description: String!
+  faculty: [User!]
+  students: [User!]
+  subjectInfos: [SubjectInfo!]
+  prerequisites: [Subject!]
+  notes: [Note!]
 }
 
 type SubjectInfo {
@@ -64,11 +67,16 @@ type SubjectInfo {
   text: String!
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 type User {
   id: ID!
   email: String!
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   neptun: String!
-  isAdmin: Boolean!
+  role: Role!
 }
