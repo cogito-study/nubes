@@ -2,16 +2,19 @@ scalar DateTime
 
 type Query {
   me: User
-  feed: [Post!]!
-  filterPosts(searchString: String): [Post!]!
-  post(id: ID!): Post
+  notes: [Note!]
+  subjects: [Subject!]
+  note(id: ID!): Note
+  subject(id: ID!): Subject
 }
 
 type Mutation {
-  createDraft(title: String!, content: String): Post!
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
-  signup(email: String!, password: String!, name: String): AuthPayload!
+  signup(
+    email: String!
+    password: String!
+    neptun: String!
+    isAdmin: Boolean!
+  ): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 }
 
@@ -20,19 +23,51 @@ type AuthPayload {
   user: User!
 }
 
-type Post {
+enum NoteType {
+  NOTE
+  CASE_STUDY
+}
+
+type Note {
   id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean!
+  authorId: ID!
+  text: String!
+  comments: [ID!]
+  noteType: NoteType!
+  description: String
+  upvotes: [ID!]
+}
+
+type Comment {
+  id: ID!
+  authorId: ID!
+  text: String!
+  replies: [ID!]
+  upvotes: [ID!]
+}
+
+type Subject {
+  id: ID!
+  name: String!
+  code: String!
+  faculty: [ID!]
+  students: [ID!]
+  subjectInfos: [ID!]!
+  prerequisites: [ID!]
+  notes: [ID!]
+}
+
+type SubjectInfo {
   title: String!
-  content: String
-  author: User!
+  subtitle: String
+  text: String!
 }
 
 type User {
   id: ID!
   email: String!
-  name: String
-  posts: [Post!]!
+  firstname: String
+  lastname: String
+  neptun: String!
+  isAdmin: Boolean!
 }

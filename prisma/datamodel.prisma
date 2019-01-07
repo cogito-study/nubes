@@ -8,10 +8,52 @@ type Post {
   author: User!
 }
 
-type User {
+enum NoteType {
+  NOTE
+  CASE_STUDY
+}
+
+type Note {
   id: ID! @unique
-  email: String! @unique
+  authorId: ID!
+  text: String!
+  comments: [ID!]
+  noteType: NoteType!
+  description: String
+  upvotes: [ID!]
+}
+
+type Comment {
+  id: ID! @unique
+  authorId: ID!
+  text: String!
+  replies: [ID!]
+  upvotes: [ID!]
+}
+
+type Subject {
+  id: ID! @unique
+  name: String! @unique
+  code: String! @unique
+  faculty: [ID!]
+  students: [ID!]
+  subjectInfos: [SubjectInfo!]!
+  prerequisites: [ID!]
+  notes: [ID!]
+}
+
+type SubjectInfo {
+  title: String!
+  subtitle: String
+  text: String!
+}
+
+type User {
+  id: ID!
   password: String!
-  name: String
-  posts: [Post!]!
+  email: String! @unique
+  firstname: String
+  lastname: String
+  neptun: String! @unique
+  isAdmin: Boolean!
 }

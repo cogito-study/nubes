@@ -1,31 +1,21 @@
-import { QueryResolvers } from '../generated/graphqlgen'
-import { getUserId } from '../utils'
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
+import { QueryResolvers } from "../generated/graphqlgen";
+import { getUserId } from "../utils";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-
-  me: (parent, args, context) => {
-    const userId = getUserId(context)
-    return context.prisma.user({ id: userId })
+  me: (parent, args, ctx) => {
+    const userId = getUserId(ctx);
+    return ctx.prisma.user({ id: userId });
   },
-  feed: (parent, args, context) => {
-    return context.prisma.posts({ where: { published: true } })
+  notes: (parent, args, ctx) => {
+    return ctx.prisma.notes();
   },
-  filterPosts: (parent, { searchString }, context) => {
-    return context.prisma.posts({
-      where: {
-        OR: [
-          {
-            title_contains: searchString,
-          },
-          {
-            content_contains: searchString,
-          },
-        ],
-      },
-    })
+  subjects: (parent, args, ctx) => {
+    return ctx.prisma.subjects();
   },
-  post: (parent, { id }, context) => {
-    return context.prisma.post({ id })
-  },
-}
+  note: (_, { id }, ctx) => ctx.prisma.note({ id }),
+  subject: (_, { id }, ctx) => ctx.prisma.subject({ id })
+};
