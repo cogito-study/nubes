@@ -1,34 +1,32 @@
-type Post {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean! @default(value: "false")
-  title: String!
-  content: String
-  author: User!
-}
-
 enum NoteType {
   NOTE
   CASE_STUDY
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
 type Note {
   id: ID! @unique
-  author: User! @relation(name: "NotesByUser")
   text: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  author: User! @relation(name: "NotesByUser")
   subject: Subject!
   comments: [Comment!]
   type: NoteType!
-  description: String
   upvotes: [User!] @relation(name: "UpvotedNotes")
 }
 
 type Comment {
   id: ID! @unique
-  author: User! @relation(name: "CommentsByUser")
-  note: Note!
   text: String!
+  createdAt: DateTime!
+  note: Note!
+  author: User! @relation(name: "CommentsByUser")
   replies: [Comment!]
   upvotes: [User!] @relation(name: "UpvotedComments")
 }
@@ -40,28 +38,24 @@ type Subject {
   description: String!
   faculty: [User!] @relation(name: "SubjectsByTeacher")
   students: [User!] @relation(name: "SubjectsByStudent")
-  subjectInfos: [SubjectInfo!]
-  prerequisites: [Subject!]
+  info: [SubjectInfo!]
   notes: [Note!]
+  prerequisites: [Subject!]
 }
 
 type SubjectInfo {
   title: String!
   subtitle: String
   text: String!
-}
-
-enum Role {
-  USER
-  ADMIN
+  subject: Subject!
 }
 
 type User {
   id: ID! @unique
-  password: String!
   email: String! @unique
+  neptun: String! @unique
+  password: String!
   firstName: String
   lastName: String
-  neptun: String! @unique
-  role: Role!
+  role: UserRole! @default(value: "USER")
 }

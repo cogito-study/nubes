@@ -16,7 +16,6 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export interface Exists {
   comment: (where?: CommentWhereInput) => Promise<boolean>;
   note: (where?: NoteWhereInput) => Promise<boolean>;
-  post: (where?: PostWhereInput) => Promise<boolean>;
   subject: (where?: SubjectWhereInput) => Promise<boolean>;
   subjectInfo: (where?: SubjectInfoWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
@@ -87,29 +86,6 @@ export interface Prisma {
       last?: Int;
     }
   ) => NoteConnectionPromise;
-  post: (where: PostWhereUniqueInput) => PostPromise;
-  posts: (
-    args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Post>;
-  postsConnection: (
-    args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => PostConnectionPromise;
   subject: (where: SubjectWhereUniqueInput) => SubjectPromise;
   subjects: (
     args?: {
@@ -216,22 +192,6 @@ export interface Prisma {
   ) => NotePromise;
   deleteNote: (where: NoteWhereUniqueInput) => NotePromise;
   deleteManyNotes: (where?: NoteWhereInput) => BatchPayloadPromise;
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (
-    args: { data: PostUpdateInput; where: PostWhereUniqueInput }
-  ) => PostPromise;
-  updateManyPosts: (
-    args: { data: PostUpdateManyMutationInput; where?: PostWhereInput }
-  ) => BatchPayloadPromise;
-  upsertPost: (
-    args: {
-      where: PostWhereUniqueInput;
-      create: PostCreateInput;
-      update: PostUpdateInput;
-    }
-  ) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
   createSubject: (data: SubjectCreateInput) => SubjectPromise;
   updateSubject: (
     args: { data: SubjectUpdateInput; where: SubjectWhereUniqueInput }
@@ -289,9 +249,6 @@ export interface Subscription {
   note: (
     where?: NoteSubscriptionWhereInput
   ) => NoteSubscriptionPayloadSubscription;
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
   subject: (
     where?: SubjectSubscriptionWhereInput
   ) => SubjectSubscriptionPayloadSubscription;
@@ -311,6 +268,30 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "neptun_ASC"
+  | "neptun_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "firstName_ASC"
+  | "firstName_DESC"
+  | "lastName_ASC"
+  | "lastName_DESC"
+  | "role_ASC"
+  | "role_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type NoteType = "NOTE" | "CASE_STUDY";
+
+export type UserRole = "USER" | "ADMIN";
+
 export type SubjectInfoOrderByInput =
   | "title_ASC"
   | "title_DESC"
@@ -325,27 +306,19 @@ export type SubjectInfoOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type UserOrderByInput =
+export type NoteOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "password_ASC"
-  | "password_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "firstName_ASC"
-  | "firstName_DESC"
-  | "lastName_ASC"
-  | "lastName_DESC"
-  | "neptun_ASC"
-  | "neptun_DESC"
-  | "role_ASC"
-  | "role_DESC"
+  | "text_ASC"
+  | "text_DESC"
+  | "description_ASC"
+  | "description_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type NoteType = "NOTE" | "CASE_STUDY";
+  | "updatedAt_DESC"
+  | "type_ASC"
+  | "type_DESC";
 
 export type SubjectOrderByInput =
   | "id_ASC"
@@ -361,22 +334,6 @@ export type SubjectOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type NoteOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "text_ASC"
-  | "text_DESC"
-  | "type_ASC"
-  | "type_DESC"
-  | "description_ASC"
-  | "description_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type Role = "USER" | "ADMIN";
-
 export type CommentOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -387,36 +344,28 @@ export type CommentOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type PostOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "published_ASC"
-  | "published_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "content_ASC"
-  | "content_DESC";
-
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface NoteUpdateWithoutCommentsDataInput {
-  author?: UserUpdateOneRequiredInput;
-  text?: String;
-  subject?: SubjectUpdateOneRequiredWithoutNotesInput;
-  type?: NoteType;
+export interface SubjectUpdateWithoutNotesDataInput {
+  code?: String;
+  name?: String;
   description?: String;
-  upvotes?: UserUpdateManyInput;
+  faculty?: UserUpdateManyInput;
+  students?: UserUpdateManyInput;
+  info?: SubjectInfoUpdateManyWithoutSubjectInput;
+  prerequisites?: SubjectUpdateManyInput;
 }
 
 export type CommentWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface UserScalarWhereInput {
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
+}
+
+export interface UserWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -431,20 +380,6 @@ export interface UserScalarWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  password?: String;
-  password_not?: String;
-  password_in?: String[] | String;
-  password_not_in?: String[] | String;
-  password_lt?: String;
-  password_lte?: String;
-  password_gt?: String;
-  password_gte?: String;
-  password_contains?: String;
-  password_not_contains?: String;
-  password_starts_with?: String;
-  password_not_starts_with?: String;
-  password_ends_with?: String;
-  password_not_ends_with?: String;
   email?: String;
   email_not?: String;
   email_in?: String[] | String;
@@ -459,6 +394,34 @@ export interface UserScalarWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
+  neptun?: String;
+  neptun_not?: String;
+  neptun_in?: String[] | String;
+  neptun_not_in?: String[] | String;
+  neptun_lt?: String;
+  neptun_lte?: String;
+  neptun_gt?: String;
+  neptun_gte?: String;
+  neptun_contains?: String;
+  neptun_not_contains?: String;
+  neptun_starts_with?: String;
+  neptun_not_starts_with?: String;
+  neptun_ends_with?: String;
+  neptun_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
   firstName?: String;
   firstName_not?: String;
   firstName_in?: String[] | String;
@@ -487,27 +450,22 @@ export interface UserScalarWhereInput {
   lastName_not_starts_with?: String;
   lastName_ends_with?: String;
   lastName_not_ends_with?: String;
+  role?: UserRole;
+  role_not?: UserRole;
+  role_in?: UserRole[] | UserRole;
+  role_not_in?: UserRole[] | UserRole;
+  AND?: UserWhereInput[] | UserWhereInput;
+  OR?: UserWhereInput[] | UserWhereInput;
+  NOT?: UserWhereInput[] | UserWhereInput;
+}
+
+export interface UserUpdateManyDataInput {
+  email?: String;
   neptun?: String;
-  neptun_not?: String;
-  neptun_in?: String[] | String;
-  neptun_not_in?: String[] | String;
-  neptun_lt?: String;
-  neptun_lte?: String;
-  neptun_gt?: String;
-  neptun_gte?: String;
-  neptun_contains?: String;
-  neptun_not_contains?: String;
-  neptun_starts_with?: String;
-  neptun_not_starts_with?: String;
-  neptun_ends_with?: String;
-  neptun_not_ends_with?: String;
-  role?: Role;
-  role_not?: Role;
-  role_in?: Role[] | Role;
-  role_not_in?: Role[] | Role;
-  AND?: UserScalarWhereInput[] | UserScalarWhereInput;
-  OR?: UserScalarWhereInput[] | UserScalarWhereInput;
-  NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
+  password?: String;
+  firstName?: String;
+  lastName?: String;
+  role?: UserRole;
 }
 
 export interface SubjectInfoWhereInput {
@@ -553,243 +511,23 @@ export interface SubjectInfoWhereInput {
   text_not_starts_with?: String;
   text_ends_with?: String;
   text_not_ends_with?: String;
+  subject?: SubjectWhereInput;
   AND?: SubjectInfoWhereInput[] | SubjectInfoWhereInput;
   OR?: SubjectInfoWhereInput[] | SubjectInfoWhereInput;
   NOT?: SubjectInfoWhereInput[] | SubjectInfoWhereInput;
 }
 
-export interface SubjectInfoCreateManyInput {
-  create?: SubjectInfoCreateInput[] | SubjectInfoCreateInput;
+export interface SubjectInfoUpdateManyWithoutSubjectInput {
+  create?:
+    | SubjectInfoCreateWithoutSubjectInput[]
+    | SubjectInfoCreateWithoutSubjectInput;
+  deleteMany?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
+  updateMany?:
+    | SubjectInfoUpdateManyWithWhereNestedInput[]
+    | SubjectInfoUpdateManyWithWhereNestedInput;
 }
 
-export interface CommentUpsertWithWhereUniqueWithoutNoteInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateWithoutNoteDataInput;
-  create: CommentCreateWithoutNoteInput;
-}
-
-export interface SubjectInfoCreateInput {
-  title: String;
-  subtitle?: String;
-  text: String;
-}
-
-export interface UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput;
-  data: UserUpdateManyDataInput;
-}
-
-export interface SubjectCreateManyInput {
-  create?: SubjectCreateInput[] | SubjectCreateInput;
-  connect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
-}
-
-export interface CommentWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  author?: UserWhereInput;
-  note?: NoteWhereInput;
-  text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
-  replies_every?: CommentWhereInput;
-  replies_some?: CommentWhereInput;
-  replies_none?: CommentWhereInput;
-  upvotes_every?: UserWhereInput;
-  upvotes_some?: UserWhereInput;
-  upvotes_none?: UserWhereInput;
-  AND?: CommentWhereInput[] | CommentWhereInput;
-  OR?: CommentWhereInput[] | CommentWhereInput;
-  NOT?: CommentWhereInput[] | CommentWhereInput;
-}
-
-export interface SubjectCreateInput {
-  code: String;
-  name: String;
-  description: String;
-  faculty?: UserCreateManyInput;
-  students?: UserCreateManyInput;
-  subjectInfos?: SubjectInfoCreateManyInput;
-  prerequisites?: SubjectCreateManyInput;
-  notes?: NoteCreateManyWithoutSubjectInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface NoteCreateManyWithoutSubjectInput {
-  create?: NoteCreateWithoutSubjectInput[] | NoteCreateWithoutSubjectInput;
-  connect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
-}
-
-export interface SubjectSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: SubjectWhereInput;
-  AND?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
-  OR?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
-  NOT?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
-}
-
-export interface NoteCreateWithoutSubjectInput {
-  author: UserCreateOneInput;
-  text: String;
-  comments?: CommentCreateManyWithoutNoteInput;
-  type: NoteType;
-  description?: String;
-  upvotes?: UserCreateManyInput;
-}
-
-export interface NoteSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: NoteWhereInput;
-  AND?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
-  OR?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
-  NOT?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
-}
-
-export interface CommentCreateManyWithoutNoteInput {
-  create?: CommentCreateWithoutNoteInput[] | CommentCreateWithoutNoteInput;
-  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  password?: String;
-  email?: String;
-  firstName?: String;
-  lastName?: String;
-  neptun?: String;
-  role?: Role;
-}
-
-export interface CommentCreateWithoutNoteInput {
-  author: UserCreateOneInput;
-  text: String;
-  replies?: CommentCreateManyInput;
-  upvotes?: UserCreateManyInput;
-}
-
-export type NoteWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface CommentCreateManyInput {
-  create?: CommentCreateInput[] | CommentCreateInput;
-  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
-}
-
-export interface SubjectUpdateManyMutationInput {
-  code?: String;
-  name?: String;
-  description?: String;
-}
-
-export interface CommentUpdateInput {
-  author?: UserUpdateOneRequiredInput;
-  note?: NoteUpdateOneRequiredWithoutCommentsInput;
-  text?: String;
-  replies?: CommentUpdateManyInput;
-  upvotes?: UserUpdateManyInput;
-}
-
-export type PostWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput;
-  update?: UserUpdateDataInput;
-  upsert?: UserUpsertNestedInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface PostUpdateInput {
-  published?: Boolean;
-  title?: String;
-  content?: String;
-  author?: UserUpdateOneRequiredInput;
-}
-
-export interface UserUpdateDataInput {
-  password?: String;
-  email?: String;
-  firstName?: String;
-  lastName?: String;
-  neptun?: String;
-  role?: Role;
-}
-
-export interface PostCreateInput {
-  published?: Boolean;
-  title: String;
-  content?: String;
-  author: UserCreateOneInput;
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
-}
-
-export interface NoteUpdateInput {
-  author?: UserUpdateOneRequiredInput;
-  text?: String;
-  subject?: SubjectUpdateOneRequiredWithoutNotesInput;
-  comments?: CommentUpdateManyWithoutNoteInput;
-  type?: NoteType;
-  description?: String;
-  upvotes?: UserUpdateManyInput;
-}
-
-export interface NoteUpdateOneRequiredWithoutCommentsInput {
-  create?: NoteCreateWithoutCommentsInput;
-  update?: NoteUpdateWithoutCommentsDataInput;
-  upsert?: NoteUpsertWithoutCommentsInput;
-  connect?: NoteWhereUniqueInput;
-}
-
-export type SubjectWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  code?: String;
-}>;
-
-export interface NoteScalarWhereInput {
+export interface NoteWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -818,10 +556,6 @@ export interface NoteScalarWhereInput {
   text_not_starts_with?: String;
   text_ends_with?: String;
   text_not_ends_with?: String;
-  type?: NoteType;
-  type_not?: NoteType;
-  type_in?: NoteType[] | NoteType;
-  type_not_in?: NoteType[] | NoteType;
   description?: String;
   description_not?: String;
   description_in?: String[] | String;
@@ -836,15 +570,206 @@ export interface NoteScalarWhereInput {
   description_not_starts_with?: String;
   description_ends_with?: String;
   description_not_ends_with?: String;
-  AND?: NoteScalarWhereInput[] | NoteScalarWhereInput;
-  OR?: NoteScalarWhereInput[] | NoteScalarWhereInput;
-  NOT?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  author?: UserWhereInput;
+  subject?: SubjectWhereInput;
+  comments_every?: CommentWhereInput;
+  comments_some?: CommentWhereInput;
+  comments_none?: CommentWhereInput;
+  type?: NoteType;
+  type_not?: NoteType;
+  type_in?: NoteType[] | NoteType;
+  type_not_in?: NoteType[] | NoteType;
+  upvotes_every?: UserWhereInput;
+  upvotes_some?: UserWhereInput;
+  upvotes_none?: UserWhereInput;
+  AND?: NoteWhereInput[] | NoteWhereInput;
+  OR?: NoteWhereInput[] | NoteWhereInput;
+  NOT?: NoteWhereInput[] | NoteWhereInput;
 }
 
-export interface NoteUpsertWithoutCommentsInput {
-  update: NoteUpdateWithoutCommentsDataInput;
-  create: NoteCreateWithoutCommentsInput;
+export interface CommentCreateManyWithoutNoteInput {
+  create?: CommentCreateWithoutNoteInput[] | CommentCreateWithoutNoteInput;
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
 }
+
+export interface NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput;
+  data: NoteUpdateManyDataInput;
+}
+
+export interface CommentCreateWithoutNoteInput {
+  text: String;
+  author: UserCreateOneInput;
+  replies?: CommentCreateManyInput;
+  upvotes?: UserCreateManyInput;
+}
+
+export interface SubjectInfoScalarWhereInput {
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  subtitle?: String;
+  subtitle_not?: String;
+  subtitle_in?: String[] | String;
+  subtitle_not_in?: String[] | String;
+  subtitle_lt?: String;
+  subtitle_lte?: String;
+  subtitle_gt?: String;
+  subtitle_gte?: String;
+  subtitle_contains?: String;
+  subtitle_not_contains?: String;
+  subtitle_starts_with?: String;
+  subtitle_not_starts_with?: String;
+  subtitle_ends_with?: String;
+  subtitle_not_ends_with?: String;
+  text?: String;
+  text_not?: String;
+  text_in?: String[] | String;
+  text_not_in?: String[] | String;
+  text_lt?: String;
+  text_lte?: String;
+  text_gt?: String;
+  text_gte?: String;
+  text_contains?: String;
+  text_not_contains?: String;
+  text_starts_with?: String;
+  text_not_starts_with?: String;
+  text_ends_with?: String;
+  text_not_ends_with?: String;
+  AND?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
+  OR?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
+  NOT?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
+}
+
+export interface CommentCreateManyInput {
+  create?: CommentCreateInput[] | CommentCreateInput;
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
+}
+
+export interface SubjectInfoSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SubjectInfoWhereInput;
+  AND?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
+  OR?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
+  NOT?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
+}
+
+export interface CommentUpdateInput {
+  text?: String;
+  note?: NoteUpdateOneRequiredWithoutCommentsInput;
+  author?: UserUpdateOneRequiredInput;
+  replies?: CommentUpdateManyInput;
+  upvotes?: UserUpdateManyInput;
+}
+
+export interface NoteSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: NoteWhereInput;
+  AND?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+  OR?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+  NOT?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+}
+
+export interface NoteUpdateOneRequiredWithoutCommentsInput {
+  create?: NoteCreateWithoutCommentsInput;
+  update?: NoteUpdateWithoutCommentsDataInput;
+  upsert?: NoteUpsertWithoutCommentsInput;
+  connect?: NoteWhereUniqueInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String;
+  neptun?: String;
+  password?: String;
+  firstName?: String;
+  lastName?: String;
+  role?: UserRole;
+}
+
+export interface NoteUpdateWithoutCommentsDataInput {
+  text?: String;
+  description?: String;
+  author?: UserUpdateOneRequiredInput;
+  subject?: SubjectUpdateOneRequiredWithoutNotesInput;
+  type?: NoteType;
+  upvotes?: UserUpdateManyInput;
+}
+
+export interface SubjectInfoUpdateManyMutationInput {
+  title?: String;
+  subtitle?: String;
+  text?: String;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export type NoteWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface UserUpdateDataInput {
+  email?: String;
+  neptun?: String;
+  password?: String;
+  firstName?: String;
+  lastName?: String;
+  role?: UserRole;
+}
+
+export interface SubjectInfoCreateInput {
+  title: String;
+  subtitle?: String;
+  text: String;
+  subject: SubjectCreateOneWithoutInfoInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export type SubjectWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  code?: String;
+}>;
 
 export interface SubjectUpdateOneRequiredWithoutNotesInput {
   create?: SubjectCreateWithoutNotesInput;
@@ -853,20 +778,10 @@ export interface SubjectUpdateOneRequiredWithoutNotesInput {
   connect?: SubjectWhereUniqueInput;
 }
 
-export interface SubjectUpdateManyDataInput {
-  code?: String;
-  name?: String;
+export interface NoteUpdateManyMutationInput {
+  text?: String;
   description?: String;
-}
-
-export interface SubjectUpdateWithoutNotesDataInput {
-  code?: String;
-  name?: String;
-  description?: String;
-  faculty?: UserUpdateManyInput;
-  students?: UserUpdateManyInput;
-  subjectInfos?: SubjectInfoUpdateManyInput;
-  prerequisites?: SubjectUpdateManyInput;
+  type?: NoteType;
 }
 
 export interface SubjectScalarWhereInput {
@@ -931,6 +846,16 @@ export interface SubjectScalarWhereInput {
   NOT?: SubjectScalarWhereInput[] | SubjectScalarWhereInput;
 }
 
+export interface NoteCreateInput {
+  text: String;
+  description?: String;
+  author: UserCreateOneInput;
+  subject: SubjectCreateOneWithoutNotesInput;
+  comments?: CommentCreateManyWithoutNoteInput;
+  type: NoteType;
+  upvotes?: UserCreateManyInput;
+}
+
 export interface UserUpdateManyInput {
   create?: UserCreateInput[] | UserCreateInput;
   update?:
@@ -948,10 +873,9 @@ export interface UserUpdateManyInput {
     | UserUpdateManyWithWhereNestedInput;
 }
 
-export interface SubjectUpsertWithWhereUniqueNestedInput {
-  where: SubjectWhereUniqueInput;
-  update: SubjectUpdateDataInput;
-  create: SubjectCreateInput;
+export interface NoteUpsertWithoutCommentsInput {
+  update: NoteUpdateWithoutCommentsDataInput;
+  create: NoteCreateWithoutCommentsInput;
 }
 
 export interface UserUpdateWithWhereUniqueNestedInput {
@@ -959,9 +883,9 @@ export interface UserUpdateWithWhereUniqueNestedInput {
   data: UserUpdateDataInput;
 }
 
-export interface NoteUpdateManyWithWhereNestedInput {
-  where: NoteScalarWhereInput;
-  data: NoteUpdateManyDataInput;
+export interface SubjectUpsertWithoutNotesInput {
+  update: SubjectUpdateWithoutNotesDataInput;
+  create: SubjectCreateWithoutNotesInput;
 }
 
 export interface UserUpsertWithWhereUniqueNestedInput {
@@ -970,27 +894,126 @@ export interface UserUpsertWithWhereUniqueNestedInput {
   create: UserCreateInput;
 }
 
+export interface SubjectUpdateManyWithWhereNestedInput {
+  where: SubjectScalarWhereInput;
+  data: SubjectUpdateManyDataInput;
+}
+
+export interface UserScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  neptun?: String;
+  neptun_not?: String;
+  neptun_in?: String[] | String;
+  neptun_not_in?: String[] | String;
+  neptun_lt?: String;
+  neptun_lte?: String;
+  neptun_gt?: String;
+  neptun_gte?: String;
+  neptun_contains?: String;
+  neptun_not_contains?: String;
+  neptun_starts_with?: String;
+  neptun_not_starts_with?: String;
+  neptun_ends_with?: String;
+  neptun_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
+  firstName?: String;
+  firstName_not?: String;
+  firstName_in?: String[] | String;
+  firstName_not_in?: String[] | String;
+  firstName_lt?: String;
+  firstName_lte?: String;
+  firstName_gt?: String;
+  firstName_gte?: String;
+  firstName_contains?: String;
+  firstName_not_contains?: String;
+  firstName_starts_with?: String;
+  firstName_not_starts_with?: String;
+  firstName_ends_with?: String;
+  firstName_not_ends_with?: String;
+  lastName?: String;
+  lastName_not?: String;
+  lastName_in?: String[] | String;
+  lastName_not_in?: String[] | String;
+  lastName_lt?: String;
+  lastName_lte?: String;
+  lastName_gt?: String;
+  lastName_gte?: String;
+  lastName_contains?: String;
+  lastName_not_contains?: String;
+  lastName_starts_with?: String;
+  lastName_not_starts_with?: String;
+  lastName_ends_with?: String;
+  lastName_not_ends_with?: String;
+  role?: UserRole;
+  role_not?: UserRole;
+  role_in?: UserRole[] | UserRole;
+  role_not_in?: UserRole[] | UserRole;
+  AND?: UserScalarWhereInput[] | UserScalarWhereInput;
+  OR?: UserScalarWhereInput[] | UserScalarWhereInput;
+  NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
+}
+
 export interface CommentCreateInput {
-  author: UserCreateOneInput;
-  note: NoteCreateOneWithoutCommentsInput;
   text: String;
+  note: NoteCreateOneWithoutCommentsInput;
+  author: UserCreateOneInput;
   replies?: CommentCreateManyInput;
   upvotes?: UserCreateManyInput;
 }
 
-export interface NoteUpsertWithWhereUniqueWithoutSubjectInput {
-  where: NoteWhereUniqueInput;
-  update: NoteUpdateWithoutSubjectDataInput;
-  create: NoteCreateWithoutSubjectInput;
+export interface SubjectUpsertWithWhereUniqueNestedInput {
+  where: SubjectWhereUniqueInput;
+  update: SubjectUpdateDataInput;
+  create: SubjectCreateInput;
 }
 
-export interface UserCreateInput {
-  password: String;
-  email: String;
-  firstName?: String;
-  lastName?: String;
-  neptun: String;
-  role: Role;
+export interface NoteCreateWithoutCommentsInput {
+  text: String;
+  description?: String;
+  author: UserCreateOneInput;
+  subject: SubjectCreateOneWithoutNotesInput;
+  type: NoteType;
+  upvotes?: UserCreateManyInput;
 }
 
 export interface SubjectWhereInput {
@@ -1056,57 +1079,30 @@ export interface SubjectWhereInput {
   students_every?: UserWhereInput;
   students_some?: UserWhereInput;
   students_none?: UserWhereInput;
-  subjectInfos_every?: SubjectInfoWhereInput;
-  subjectInfos_some?: SubjectInfoWhereInput;
-  subjectInfos_none?: SubjectInfoWhereInput;
-  prerequisites_every?: SubjectWhereInput;
-  prerequisites_some?: SubjectWhereInput;
-  prerequisites_none?: SubjectWhereInput;
+  info_every?: SubjectInfoWhereInput;
+  info_some?: SubjectInfoWhereInput;
+  info_none?: SubjectInfoWhereInput;
   notes_every?: NoteWhereInput;
   notes_some?: NoteWhereInput;
   notes_none?: NoteWhereInput;
+  prerequisites_every?: SubjectWhereInput;
+  prerequisites_some?: SubjectWhereInput;
+  prerequisites_none?: SubjectWhereInput;
   AND?: SubjectWhereInput[] | SubjectWhereInput;
   OR?: SubjectWhereInput[] | SubjectWhereInput;
   NOT?: SubjectWhereInput[] | SubjectWhereInput;
 }
 
-export interface NoteCreateWithoutCommentsInput {
-  author: UserCreateOneInput;
-  text: String;
-  subject: SubjectCreateOneWithoutNotesInput;
-  type: NoteType;
-  description?: String;
-  upvotes?: UserCreateManyInput;
-}
-
-export interface UserUpdateManyDataInput {
-  password?: String;
-  email?: String;
+export interface UserCreateInput {
+  email: String;
+  neptun: String;
+  password: String;
   firstName?: String;
   lastName?: String;
-  neptun?: String;
-  role?: Role;
+  role?: UserRole;
 }
 
-export interface SubjectCreateWithoutNotesInput {
-  code: String;
-  name: String;
-  description: String;
-  faculty?: UserCreateManyInput;
-  students?: UserCreateManyInput;
-  subjectInfos?: SubjectInfoCreateManyInput;
-  prerequisites?: SubjectCreateManyInput;
-}
-
-export interface SubjectInfoUpdateManyInput {
-  create?: SubjectInfoCreateInput[] | SubjectInfoCreateInput;
-  deleteMany?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
-  updateMany?:
-    | SubjectInfoUpdateManyWithWhereNestedInput[]
-    | SubjectInfoUpdateManyWithWhereNestedInput;
-}
-
-export interface NoteWhereInput {
+export interface CommentWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -1121,7 +1117,6 @@ export interface NoteWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  author?: UserWhereInput;
   text?: String;
   text_not?: String;
   text_in?: String[] | String;
@@ -1136,93 +1131,47 @@ export interface NoteWhereInput {
   text_not_starts_with?: String;
   text_ends_with?: String;
   text_not_ends_with?: String;
-  subject?: SubjectWhereInput;
-  comments_every?: CommentWhereInput;
-  comments_some?: CommentWhereInput;
-  comments_none?: CommentWhereInput;
-  type?: NoteType;
-  type_not?: NoteType;
-  type_in?: NoteType[] | NoteType;
-  type_not_in?: NoteType[] | NoteType;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  note?: NoteWhereInput;
+  author?: UserWhereInput;
+  replies_every?: CommentWhereInput;
+  replies_some?: CommentWhereInput;
+  replies_none?: CommentWhereInput;
   upvotes_every?: UserWhereInput;
   upvotes_some?: UserWhereInput;
   upvotes_none?: UserWhereInput;
-  AND?: NoteWhereInput[] | NoteWhereInput;
-  OR?: NoteWhereInput[] | NoteWhereInput;
-  NOT?: NoteWhereInput[] | NoteWhereInput;
+  AND?: CommentWhereInput[] | CommentWhereInput;
+  OR?: CommentWhereInput[] | CommentWhereInput;
+  NOT?: CommentWhereInput[] | CommentWhereInput;
 }
 
-export interface SubjectInfoScalarWhereInput {
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  subtitle?: String;
-  subtitle_not?: String;
-  subtitle_in?: String[] | String;
-  subtitle_not_in?: String[] | String;
-  subtitle_lt?: String;
-  subtitle_lte?: String;
-  subtitle_gt?: String;
-  subtitle_gte?: String;
-  subtitle_contains?: String;
-  subtitle_not_contains?: String;
-  subtitle_starts_with?: String;
-  subtitle_not_starts_with?: String;
-  subtitle_ends_with?: String;
-  subtitle_not_ends_with?: String;
+export interface SubjectCreateWithoutNotesInput {
+  code: String;
+  name: String;
+  description: String;
+  faculty?: UserCreateManyInput;
+  students?: UserCreateManyInput;
+  info?: SubjectInfoCreateManyWithoutSubjectInput;
+  prerequisites?: SubjectCreateManyInput;
+}
+
+export interface NoteUpdateManyDataInput {
   text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
-  AND?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
-  OR?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
-  NOT?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
+  description?: String;
+  type?: NoteType;
 }
 
-export interface SubjectInfoSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: SubjectInfoWhereInput;
-  AND?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
-  OR?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
-  NOT?: SubjectInfoSubscriptionWhereInput[] | SubjectInfoSubscriptionWhereInput;
+export interface SubjectInfoCreateManyWithoutSubjectInput {
+  create?:
+    | SubjectInfoCreateWithoutSubjectInput[]
+    | SubjectInfoCreateWithoutSubjectInput;
 }
 
 export interface SubjectInfoUpdateManyWithWhereNestedInput {
@@ -1230,15 +1179,9 @@ export interface SubjectInfoUpdateManyWithWhereNestedInput {
   data: SubjectInfoUpdateManyDataInput;
 }
 
-export interface CommentSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: CommentWhereInput;
-  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
-  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
-  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
+export interface SubjectCreateManyInput {
+  create?: SubjectCreateInput[] | SubjectCreateInput;
+  connect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
 }
 
 export interface SubjectInfoUpdateManyDataInput {
@@ -1247,10 +1190,9 @@ export interface SubjectInfoUpdateManyDataInput {
   text?: String;
 }
 
-export interface SubjectInfoUpdateManyMutationInput {
-  title?: String;
-  subtitle?: String;
-  text?: String;
+export interface NoteCreateManyWithoutSubjectInput {
+  create?: NoteCreateWithoutSubjectInput[] | NoteCreateWithoutSubjectInput;
+  connect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
 }
 
 export interface SubjectUpdateManyInput {
@@ -1270,10 +1212,15 @@ export interface SubjectUpdateManyInput {
     | SubjectUpdateManyWithWhereNestedInput;
 }
 
-export interface PostUpdateManyMutationInput {
-  published?: Boolean;
-  title?: String;
-  content?: String;
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
 export interface SubjectUpdateWithWhereUniqueNestedInput {
@@ -1281,10 +1228,15 @@ export interface SubjectUpdateWithWhereUniqueNestedInput {
   data: SubjectUpdateDataInput;
 }
 
-export interface NoteUpdateManyMutationInput {
-  text?: String;
-  type?: NoteType;
-  description?: String;
+export interface CommentSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CommentWhereInput;
+  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
+  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
+  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput;
 }
 
 export interface SubjectUpdateDataInput {
@@ -1293,13 +1245,19 @@ export interface SubjectUpdateDataInput {
   description?: String;
   faculty?: UserUpdateManyInput;
   students?: UserUpdateManyInput;
-  subjectInfos?: SubjectInfoUpdateManyInput;
-  prerequisites?: SubjectUpdateManyInput;
+  info?: SubjectInfoUpdateManyWithoutSubjectInput;
   notes?: NoteUpdateManyWithoutSubjectInput;
+  prerequisites?: SubjectUpdateManyInput;
 }
 
-export interface CommentUpdateManyMutationInput {
-  text?: String;
+export interface SubjectCreateWithoutInfoInput {
+  code: String;
+  name: String;
+  description: String;
+  faculty?: UserCreateManyInput;
+  students?: UserCreateManyInput;
+  notes?: NoteCreateManyWithoutSubjectInput;
+  prerequisites?: SubjectCreateManyInput;
 }
 
 export interface NoteUpdateManyWithoutSubjectInput {
@@ -1319,9 +1277,10 @@ export interface NoteUpdateManyWithoutSubjectInput {
     | NoteUpdateManyWithWhereNestedInput;
 }
 
-export interface SubjectUpdateManyWithWhereNestedInput {
-  where: SubjectScalarWhereInput;
-  data: SubjectUpdateManyDataInput;
+export interface SubjectUpdateManyMutationInput {
+  code?: String;
+  name?: String;
+  description?: String;
 }
 
 export interface NoteUpdateWithWhereUniqueWithoutSubjectInput {
@@ -1329,25 +1288,30 @@ export interface NoteUpdateWithWhereUniqueWithoutSubjectInput {
   data: NoteUpdateWithoutSubjectDataInput;
 }
 
-export interface NoteUpdateManyDataInput {
+export interface NoteUpdateInput {
   text?: String;
-  type?: NoteType;
   description?: String;
-}
-
-export interface NoteUpdateWithoutSubjectDataInput {
   author?: UserUpdateOneRequiredInput;
-  text?: String;
+  subject?: SubjectUpdateOneRequiredWithoutNotesInput;
   comments?: CommentUpdateManyWithoutNoteInput;
   type?: NoteType;
-  description?: String;
   upvotes?: UserUpdateManyInput;
 }
 
-export interface UserCreateOneInput {
-  create?: UserCreateInput;
-  connect?: UserWhereUniqueInput;
+export interface NoteUpdateWithoutSubjectDataInput {
+  text?: String;
+  description?: String;
+  author?: UserUpdateOneRequiredInput;
+  comments?: CommentUpdateManyWithoutNoteInput;
+  type?: NoteType;
+  upvotes?: UserUpdateManyInput;
 }
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+  neptun?: String;
+}>;
 
 export interface CommentUpdateManyWithoutNoteInput {
   create?: CommentCreateWithoutNoteInput[] | CommentCreateWithoutNoteInput;
@@ -1366,9 +1330,9 @@ export interface CommentUpdateManyWithoutNoteInput {
     | CommentUpdateManyWithWhereNestedInput;
 }
 
-export interface SubjectCreateOneWithoutNotesInput {
-  create?: SubjectCreateWithoutNotesInput;
-  connect?: SubjectWhereUniqueInput;
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface CommentUpdateWithWhereUniqueWithoutNoteInput {
@@ -1376,114 +1340,27 @@ export interface CommentUpdateWithWhereUniqueWithoutNoteInput {
   data: CommentUpdateWithoutNoteDataInput;
 }
 
-export interface UserWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  password?: String;
-  password_not?: String;
-  password_in?: String[] | String;
-  password_not_in?: String[] | String;
-  password_lt?: String;
-  password_lte?: String;
-  password_gt?: String;
-  password_gte?: String;
-  password_contains?: String;
-  password_not_contains?: String;
-  password_starts_with?: String;
-  password_not_starts_with?: String;
-  password_ends_with?: String;
-  password_not_ends_with?: String;
-  email?: String;
-  email_not?: String;
-  email_in?: String[] | String;
-  email_not_in?: String[] | String;
-  email_lt?: String;
-  email_lte?: String;
-  email_gt?: String;
-  email_gte?: String;
-  email_contains?: String;
-  email_not_contains?: String;
-  email_starts_with?: String;
-  email_not_starts_with?: String;
-  email_ends_with?: String;
-  email_not_ends_with?: String;
-  firstName?: String;
-  firstName_not?: String;
-  firstName_in?: String[] | String;
-  firstName_not_in?: String[] | String;
-  firstName_lt?: String;
-  firstName_lte?: String;
-  firstName_gt?: String;
-  firstName_gte?: String;
-  firstName_contains?: String;
-  firstName_not_contains?: String;
-  firstName_starts_with?: String;
-  firstName_not_starts_with?: String;
-  firstName_ends_with?: String;
-  firstName_not_ends_with?: String;
-  lastName?: String;
-  lastName_not?: String;
-  lastName_in?: String[] | String;
-  lastName_not_in?: String[] | String;
-  lastName_lt?: String;
-  lastName_lte?: String;
-  lastName_gt?: String;
-  lastName_gte?: String;
-  lastName_contains?: String;
-  lastName_not_contains?: String;
-  lastName_starts_with?: String;
-  lastName_not_starts_with?: String;
-  lastName_ends_with?: String;
-  lastName_not_ends_with?: String;
-  neptun?: String;
-  neptun_not?: String;
-  neptun_in?: String[] | String;
-  neptun_not_in?: String[] | String;
-  neptun_lt?: String;
-  neptun_lte?: String;
-  neptun_gt?: String;
-  neptun_gte?: String;
-  neptun_contains?: String;
-  neptun_not_contains?: String;
-  neptun_starts_with?: String;
-  neptun_not_starts_with?: String;
-  neptun_ends_with?: String;
-  neptun_not_ends_with?: String;
-  role?: Role;
-  role_not?: Role;
-  role_in?: Role[] | Role;
-  role_not_in?: Role[] | Role;
-  AND?: UserWhereInput[] | UserWhereInput;
-  OR?: UserWhereInput[] | UserWhereInput;
-  NOT?: UserWhereInput[] | UserWhereInput;
+export interface UserCreateManyInput {
+  create?: UserCreateInput[] | UserCreateInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
 }
 
 export interface CommentUpdateWithoutNoteDataInput {
-  author?: UserUpdateOneRequiredInput;
   text?: String;
+  author?: UserUpdateOneRequiredInput;
   replies?: CommentUpdateManyInput;
   upvotes?: UserUpdateManyInput;
 }
 
-export interface UserUpdateInput {
-  password?: String;
-  email?: String;
-  firstName?: String;
-  lastName?: String;
-  neptun?: String;
-  role?: Role;
+export interface SubjectCreateInput {
+  code: String;
+  name: String;
+  description: String;
+  faculty?: UserCreateManyInput;
+  students?: UserCreateManyInput;
+  info?: SubjectInfoCreateManyWithoutSubjectInput;
+  notes?: NoteCreateManyWithoutSubjectInput;
+  prerequisites?: SubjectCreateManyInput;
 }
 
 export interface CommentUpdateManyInput {
@@ -1503,71 +1380,15 @@ export interface CommentUpdateManyInput {
     | CommentUpdateManyWithWhereNestedInput;
 }
 
-export interface PostWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  published?: Boolean;
-  published_not?: Boolean;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  content?: String;
-  content_not?: String;
-  content_in?: String[] | String;
-  content_not_in?: String[] | String;
-  content_lt?: String;
-  content_lte?: String;
-  content_gt?: String;
-  content_gte?: String;
-  content_contains?: String;
-  content_not_contains?: String;
-  content_starts_with?: String;
-  content_not_starts_with?: String;
-  content_ends_with?: String;
-  content_not_ends_with?: String;
-  author?: UserWhereInput;
-  AND?: PostWhereInput[] | PostWhereInput;
-  OR?: PostWhereInput[] | PostWhereInput;
-  NOT?: PostWhereInput[] | PostWhereInput;
+export interface SubjectSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SubjectWhereInput;
+  AND?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
+  OR?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
+  NOT?: SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput;
 }
 
 export interface CommentUpdateWithWhereUniqueNestedInput {
@@ -1575,31 +1396,32 @@ export interface CommentUpdateWithWhereUniqueNestedInput {
   data: CommentUpdateDataInput;
 }
 
-export interface SubjectUpsertWithoutNotesInput {
-  update: SubjectUpdateWithoutNotesDataInput;
-  create: SubjectCreateWithoutNotesInput;
+export interface SubjectCreateOneWithoutInfoInput {
+  create?: SubjectCreateWithoutInfoInput;
+  connect?: SubjectWhereUniqueInput;
 }
 
 export interface CommentUpdateDataInput {
-  author?: UserUpdateOneRequiredInput;
-  note?: NoteUpdateOneRequiredWithoutCommentsInput;
   text?: String;
+  note?: NoteUpdateOneRequiredWithoutCommentsInput;
+  author?: UserUpdateOneRequiredInput;
   replies?: CommentUpdateManyInput;
   upvotes?: UserUpdateManyInput;
 }
 
-export interface UserCreateManyInput {
-  create?: UserCreateInput[] | UserCreateInput;
-  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
-}
-
-export interface CommentUpdateManyDataInput {
+export interface CommentUpdateManyMutationInput {
   text?: String;
 }
 
-export interface CommentUpdateManyWithWhereNestedInput {
-  where: CommentScalarWhereInput;
-  data: CommentUpdateManyDataInput;
+export interface CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateDataInput;
+  create: CommentCreateInput;
+}
+
+export interface NoteCreateOneWithoutCommentsInput {
+  create?: NoteCreateWithoutCommentsInput;
+  connect?: NoteWhereUniqueInput;
 }
 
 export interface CommentScalarWhereInput {
@@ -1631,47 +1453,121 @@ export interface CommentScalarWhereInput {
   text_not_starts_with?: String;
   text_ends_with?: String;
   text_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
   AND?: CommentScalarWhereInput[] | CommentScalarWhereInput;
   OR?: CommentScalarWhereInput[] | CommentScalarWhereInput;
   NOT?: CommentScalarWhereInput[] | CommentScalarWhereInput;
 }
 
-export interface CommentUpsertWithWhereUniqueNestedInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateDataInput;
-  create: CommentCreateInput;
+export interface SubjectInfoCreateWithoutSubjectInput {
+  title: String;
+  subtitle?: String;
+  text: String;
 }
 
-export interface PostSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: PostWhereInput;
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+export interface CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput;
+  data: CommentUpdateManyDataInput;
 }
 
-export interface NoteCreateOneWithoutCommentsInput {
-  create?: NoteCreateWithoutCommentsInput;
-  connect?: NoteWhereUniqueInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
+export interface UserUpdateInput {
   email?: String;
   neptun?: String;
-}>;
+  password?: String;
+  firstName?: String;
+  lastName?: String;
+  role?: UserRole;
+}
 
-export interface NoteCreateInput {
-  author: UserCreateOneInput;
-  text: String;
-  subject: SubjectCreateOneWithoutNotesInput;
-  comments?: CommentCreateManyWithoutNoteInput;
-  type: NoteType;
+export interface NoteScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  text?: String;
+  text_not?: String;
+  text_in?: String[] | String;
+  text_not_in?: String[] | String;
+  text_lt?: String;
+  text_lte?: String;
+  text_gt?: String;
+  text_gte?: String;
+  text_contains?: String;
+  text_not_contains?: String;
+  text_starts_with?: String;
+  text_not_starts_with?: String;
+  text_ends_with?: String;
+  text_not_ends_with?: String;
   description?: String;
-  upvotes?: UserCreateManyInput;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  type?: NoteType;
+  type_not?: NoteType;
+  type_in?: NoteType[] | NoteType;
+  type_not_in?: NoteType[] | NoteType;
+  AND?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  OR?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  NOT?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+}
+
+export interface NoteUpsertWithWhereUniqueWithoutSubjectInput {
+  where: NoteWhereUniqueInput;
+  update: NoteUpdateWithoutSubjectDataInput;
+  create: NoteCreateWithoutSubjectInput;
+}
+
+export interface CommentUpsertWithWhereUniqueWithoutNoteInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateWithoutNoteDataInput;
+  create: CommentCreateWithoutNoteInput;
+}
+
+export interface CommentUpdateManyDataInput {
+  text?: String;
 }
 
 export interface SubjectUpdateInput {
@@ -1680,9 +1576,29 @@ export interface SubjectUpdateInput {
   description?: String;
   faculty?: UserUpdateManyInput;
   students?: UserUpdateManyInput;
-  subjectInfos?: SubjectInfoUpdateManyInput;
-  prerequisites?: SubjectUpdateManyInput;
+  info?: SubjectInfoUpdateManyWithoutSubjectInput;
   notes?: NoteUpdateManyWithoutSubjectInput;
+  prerequisites?: SubjectUpdateManyInput;
+}
+
+export interface NoteCreateWithoutSubjectInput {
+  text: String;
+  description?: String;
+  author: UserCreateOneInput;
+  comments?: CommentCreateManyWithoutNoteInput;
+  type: NoteType;
+  upvotes?: UserCreateManyInput;
+}
+
+export interface SubjectCreateOneWithoutNotesInput {
+  create?: SubjectCreateWithoutNotesInput;
+  connect?: SubjectWhereUniqueInput;
+}
+
+export interface SubjectUpdateManyDataInput {
+  code?: String;
+  name?: String;
+  description?: String;
 }
 
 export interface NodeNode {
@@ -1691,109 +1607,36 @@ export interface NodeNode {
 
 export interface UserPreviousValues {
   id: ID_Output;
-  password: String;
   email: String;
+  neptun: String;
+  password: String;
   firstName?: String;
   lastName?: String;
-  neptun: String;
-  role: Role;
+  role: UserRole;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  password: () => Promise<String>;
   email: () => Promise<String>;
+  neptun: () => Promise<String>;
+  password: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  neptun: () => Promise<String>;
-  role: () => Promise<Role>;
+  role: () => Promise<UserRole>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  password: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
+  neptun: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
-  neptun: () => Promise<AsyncIterator<String>>;
-  role: () => Promise<AsyncIterator<Role>>;
-}
-
-export interface NoteConnection {
-  pageInfo: PageInfo;
-  edges: NoteEdge[];
-}
-
-export interface NoteConnectionPromise
-  extends Promise<NoteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<NoteEdge>>() => T;
-  aggregate: <T = AggregateNotePromise>() => T;
-}
-
-export interface NoteConnectionSubscription
-  extends Promise<AsyncIterator<NoteConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateNoteSubscription>() => T;
-}
-
-export interface SubjectInfo {
-  title: String;
-  subtitle?: String;
-  text: String;
-}
-
-export interface SubjectInfoPromise extends Promise<SubjectInfo>, Fragmentable {
-  title: () => Promise<String>;
-  subtitle: () => Promise<String>;
-  text: () => Promise<String>;
-}
-
-export interface SubjectInfoSubscription
-  extends Promise<AsyncIterator<SubjectInfo>>,
-    Fragmentable {
-  title: () => Promise<AsyncIterator<String>>;
-  subtitle: () => Promise<AsyncIterator<String>>;
-  text: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateComment {
-  count: Int;
-}
-
-export interface AggregateCommentPromise
-  extends Promise<AggregateComment>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateCommentSubscription
-  extends Promise<AsyncIterator<AggregateComment>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  role: () => Promise<AsyncIterator<UserRole>>;
 }
 
 export interface CommentEdge {
@@ -1811,373 +1654,6 @@ export interface CommentEdgeSubscription
     Fragmentable {
   node: <T = CommentSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Note {
-  id: ID_Output;
-  text: String;
-  type: NoteType;
-  description?: String;
-}
-
-export interface NotePromise extends Promise<Note>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  author: <T = UserPromise>() => T;
-  text: () => Promise<String>;
-  subject: <T = SubjectPromise>() => T;
-  comments: <T = FragmentableArray<Comment>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  type: () => Promise<NoteType>;
-  description: () => Promise<String>;
-  upvotes: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface NoteSubscription
-  extends Promise<AsyncIterator<Note>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  author: <T = UserSubscription>() => T;
-  text: () => Promise<AsyncIterator<String>>;
-  subject: <T = SubjectSubscription>() => T;
-  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  type: () => Promise<AsyncIterator<NoteType>>;
-  description: () => Promise<AsyncIterator<String>>;
-  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface AggregateSubjectInfo {
-  count: Int;
-}
-
-export interface AggregateSubjectInfoPromise
-  extends Promise<AggregateSubjectInfo>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateSubjectInfoSubscription
-  extends Promise<AsyncIterator<AggregateSubjectInfo>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface SubjectInfoEdge {
-  node: SubjectInfo;
-  cursor: String;
-}
-
-export interface SubjectInfoEdgePromise
-  extends Promise<SubjectInfoEdge>,
-    Fragmentable {
-  node: <T = SubjectInfoPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SubjectInfoEdgeSubscription
-  extends Promise<AsyncIterator<SubjectInfoEdge>>,
-    Fragmentable {
-  node: <T = SubjectInfoSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface SubjectInfoConnection {
-  pageInfo: PageInfo;
-  edges: SubjectInfoEdge[];
-}
-
-export interface SubjectInfoConnectionPromise
-  extends Promise<SubjectInfoConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SubjectInfoEdge>>() => T;
-  aggregate: <T = AggregateSubjectInfoPromise>() => T;
-}
-
-export interface SubjectInfoConnectionSubscription
-  extends Promise<AsyncIterator<SubjectInfoConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SubjectInfoEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSubjectInfoSubscription>() => T;
-}
-
-export interface SubjectEdge {
-  node: Subject;
-  cursor: String;
-}
-
-export interface SubjectEdgePromise extends Promise<SubjectEdge>, Fragmentable {
-  node: <T = SubjectPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SubjectEdgeSubscription
-  extends Promise<AsyncIterator<SubjectEdge>>,
-    Fragmentable {
-  node: <T = SubjectSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Comment {
-  id: ID_Output;
-  text: String;
-}
-
-export interface CommentPromise extends Promise<Comment>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  author: <T = UserPromise>() => T;
-  note: <T = NotePromise>() => T;
-  text: () => Promise<String>;
-  replies: <T = FragmentableArray<Comment>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  upvotes: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface CommentSubscription
-  extends Promise<AsyncIterator<Comment>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  author: <T = UserSubscription>() => T;
-  note: <T = NoteSubscription>() => T;
-  text: () => Promise<AsyncIterator<String>>;
-  replies: <T = Promise<AsyncIterator<CommentSubscription>>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface CommentSubscriptionPayload {
-  mutation: MutationType;
-  node: Comment;
-  updatedFields: String[];
-  previousValues: CommentPreviousValues;
-}
-
-export interface CommentSubscriptionPayloadPromise
-  extends Promise<CommentSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = CommentPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = CommentPreviousValuesPromise>() => T;
-}
-
-export interface CommentSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<CommentSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = CommentSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = CommentPreviousValuesSubscription>() => T;
-}
-
-export interface AggregatePost {
-  count: Int;
-}
-
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface CommentPreviousValues {
-  id: ID_Output;
-  text: String;
-}
-
-export interface CommentPreviousValuesPromise
-  extends Promise<CommentPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
-}
-
-export interface CommentPreviousValuesSubscription
-  extends Promise<AsyncIterator<CommentPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PostConnection {
-  pageInfo: PageInfo;
-  edges: PostEdge[];
-}
-
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
-}
-
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface Subject {
@@ -2214,21 +1690,10 @@ export interface SubjectPromise extends Promise<Subject>, Fragmentable {
       last?: Int;
     }
   ) => T;
-  subjectInfos: <T = FragmentableArray<SubjectInfo>>(
+  info: <T = FragmentableArray<SubjectInfo>>(
     args?: {
       where?: SubjectInfoWhereInput;
       orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  prerequisites: <T = FragmentableArray<Subject>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -2240,6 +1705,17 @@ export interface SubjectPromise extends Promise<Subject>, Fragmentable {
     args?: {
       where?: NoteWhereInput;
       orderBy?: NoteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  prerequisites: <T = FragmentableArray<Subject>>(
+    args?: {
+      where?: SubjectWhereInput;
+      orderBy?: SubjectOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -2278,21 +1754,10 @@ export interface SubjectSubscription
       last?: Int;
     }
   ) => T;
-  subjectInfos: <T = Promise<AsyncIterator<SubjectInfoSubscription>>>(
+  info: <T = Promise<AsyncIterator<SubjectInfoSubscription>>>(
     args?: {
       where?: SubjectInfoWhereInput;
       orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  prerequisites: <T = Promise<AsyncIterator<SubjectSubscription>>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -2311,6 +1776,497 @@ export interface SubjectSubscription
       last?: Int;
     }
   ) => T;
+  prerequisites: <T = Promise<AsyncIterator<SubjectSubscription>>>(
+    args?: {
+      where?: SubjectWhereInput;
+      orderBy?: SubjectOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface AggregateComment {
+  count: Int;
+}
+
+export interface AggregateCommentPromise
+  extends Promise<AggregateComment>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCommentSubscription
+  extends Promise<AsyncIterator<AggregateComment>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Note {
+  id: ID_Output;
+  text: String;
+  description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  type: NoteType;
+}
+
+export interface NotePromise extends Promise<Note>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+  description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  author: <T = UserPromise>() => T;
+  subject: <T = SubjectPromise>() => T;
+  comments: <T = FragmentableArray<Comment>>(
+    args?: {
+      where?: CommentWhereInput;
+      orderBy?: CommentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  type: () => Promise<NoteType>;
+  upvotes: <T = FragmentableArray<User>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface NoteSubscription
+  extends Promise<AsyncIterator<Note>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  author: <T = UserSubscription>() => T;
+  subject: <T = SubjectSubscription>() => T;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(
+    args?: {
+      where?: CommentWhereInput;
+      orderBy?: CommentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  type: () => Promise<AsyncIterator<NoteType>>;
+  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface SubjectInfo {
+  title: String;
+  subtitle?: String;
+  text: String;
+}
+
+export interface SubjectInfoPromise extends Promise<SubjectInfo>, Fragmentable {
+  title: () => Promise<String>;
+  subtitle: () => Promise<String>;
+  text: () => Promise<String>;
+  subject: <T = SubjectPromise>() => T;
+}
+
+export interface SubjectInfoSubscription
+  extends Promise<AsyncIterator<SubjectInfo>>,
+    Fragmentable {
+  title: () => Promise<AsyncIterator<String>>;
+  subtitle: () => Promise<AsyncIterator<String>>;
+  text: () => Promise<AsyncIterator<String>>;
+  subject: <T = SubjectSubscription>() => T;
+}
+
+export interface User {
+  id: ID_Output;
+  email: String;
+  neptun: String;
+  password: String;
+  firstName?: String;
+  lastName?: String;
+  role: UserRole;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  neptun: () => Promise<String>;
+  password: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  role: () => Promise<UserRole>;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  neptun: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  firstName: () => Promise<AsyncIterator<String>>;
+  lastName: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<UserRole>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SubjectInfoEdge {
+  node: SubjectInfo;
+  cursor: String;
+}
+
+export interface SubjectInfoEdgePromise
+  extends Promise<SubjectInfoEdge>,
+    Fragmentable {
+  node: <T = SubjectInfoPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SubjectInfoEdgeSubscription
+  extends Promise<AsyncIterator<SubjectInfoEdge>>,
+    Fragmentable {
+  node: <T = SubjectInfoSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommentConnection {
+  pageInfo: PageInfo;
+  edges: CommentEdge[];
+}
+
+export interface CommentConnectionPromise
+  extends Promise<CommentConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CommentEdge>>() => T;
+  aggregate: <T = AggregateCommentPromise>() => T;
+}
+
+export interface CommentConnectionSubscription
+  extends Promise<AsyncIterator<CommentConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CommentEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCommentSubscription>() => T;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface Comment {
+  id: ID_Output;
+  text: String;
+  createdAt: DateTimeOutput;
+}
+
+export interface CommentPromise extends Promise<Comment>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  note: <T = NotePromise>() => T;
+  author: <T = UserPromise>() => T;
+  replies: <T = FragmentableArray<Comment>>(
+    args?: {
+      where?: CommentWhereInput;
+      orderBy?: CommentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  upvotes: <T = FragmentableArray<User>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface CommentSubscription
+  extends Promise<AsyncIterator<Comment>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  note: <T = NoteSubscription>() => T;
+  author: <T = UserSubscription>() => T;
+  replies: <T = Promise<AsyncIterator<CommentSubscription>>>(
+    args?: {
+      where?: CommentWhereInput;
+      orderBy?: CommentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface AggregateSubject {
+  count: Int;
+}
+
+export interface AggregateSubjectPromise
+  extends Promise<AggregateSubject>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSubjectSubscription
+  extends Promise<AsyncIterator<AggregateSubject>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CommentSubscriptionPayload {
+  mutation: MutationType;
+  node: Comment;
+  updatedFields: String[];
+  previousValues: CommentPreviousValues;
+}
+
+export interface CommentSubscriptionPayloadPromise
+  extends Promise<CommentSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CommentPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CommentPreviousValuesPromise>() => T;
+}
+
+export interface CommentSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CommentSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CommentSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CommentPreviousValuesSubscription>() => T;
+}
+
+export interface SubjectConnection {
+  pageInfo: PageInfo;
+  edges: SubjectEdge[];
+}
+
+export interface SubjectConnectionPromise
+  extends Promise<SubjectConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SubjectEdge>>() => T;
+  aggregate: <T = AggregateSubjectPromise>() => T;
+}
+
+export interface SubjectConnectionSubscription
+  extends Promise<AsyncIterator<SubjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SubjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSubjectSubscription>() => T;
+}
+
+export interface CommentPreviousValues {
+  id: ID_Output;
+  text: String;
+  createdAt: DateTimeOutput;
+}
+
+export interface CommentPreviousValuesPromise
+  extends Promise<CommentPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface CommentPreviousValuesSubscription
+  extends Promise<AsyncIterator<CommentPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface NoteEdge {
+  node: Note;
+  cursor: String;
+}
+
+export interface NoteEdgePromise extends Promise<NoteEdge>, Fragmentable {
+  node: <T = NotePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface NoteEdgeSubscription
+  extends Promise<AsyncIterator<NoteEdge>>,
+    Fragmentable {
+  node: <T = NoteSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SubjectInfoPreviousValues {
+  title: String;
+  subtitle?: String;
+  text: String;
+}
+
+export interface SubjectInfoPreviousValuesPromise
+  extends Promise<SubjectInfoPreviousValues>,
+    Fragmentable {
+  title: () => Promise<String>;
+  subtitle: () => Promise<String>;
+  text: () => Promise<String>;
+}
+
+export interface SubjectInfoPreviousValuesSubscription
+  extends Promise<AsyncIterator<SubjectInfoPreviousValues>>,
+    Fragmentable {
+  title: () => Promise<AsyncIterator<String>>;
+  subtitle: () => Promise<AsyncIterator<String>>;
+  text: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface NoteSubscriptionPayload {
@@ -2338,182 +2294,37 @@ export interface NoteSubscriptionPayloadSubscription
   previousValues: <T = NotePreviousValuesSubscription>() => T;
 }
 
-export interface AggregateNote {
-  count: Int;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface AggregateNotePromise
-  extends Promise<AggregateNote>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  count: () => Promise<Int>;
+  count: () => Promise<Long>;
 }
 
-export interface AggregateNoteSubscription
-  extends Promise<AsyncIterator<AggregateNote>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface NotePreviousValues {
-  id: ID_Output;
-  text: String;
-  type: NoteType;
-  description?: String;
-}
-
-export interface NotePreviousValuesPromise
-  extends Promise<NotePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
-  type: () => Promise<NoteType>;
-  description: () => Promise<String>;
-}
-
-export interface NotePreviousValuesSubscription
-  extends Promise<AsyncIterator<NotePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
-  type: () => Promise<AsyncIterator<NoteType>>;
-  description: () => Promise<AsyncIterator<String>>;
-}
-
-export interface SubjectInfoPreviousValues {
-  title: String;
-  subtitle?: String;
-  text: String;
-}
-
-export interface SubjectInfoPreviousValuesPromise
-  extends Promise<SubjectInfoPreviousValues>,
-    Fragmentable {
-  title: () => Promise<String>;
-  subtitle: () => Promise<String>;
-  text: () => Promise<String>;
-}
-
-export interface SubjectInfoPreviousValuesSubscription
-  extends Promise<AsyncIterator<SubjectInfoPreviousValues>>,
-    Fragmentable {
-  title: () => Promise<AsyncIterator<String>>;
-  subtitle: () => Promise<AsyncIterator<String>>;
-  text: () => Promise<AsyncIterator<String>>;
-}
-
-export interface CommentConnection {
-  pageInfo: PageInfo;
-  edges: CommentEdge[];
-}
-
-export interface CommentConnectionPromise
-  extends Promise<CommentConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<CommentEdge>>() => T;
-  aggregate: <T = AggregateCommentPromise>() => T;
-}
-
-export interface CommentConnectionSubscription
-  extends Promise<AsyncIterator<CommentConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CommentEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCommentSubscription>() => T;
-}
-
-export interface SubjectConnection {
-  pageInfo: PageInfo;
-  edges: SubjectEdge[];
-}
-
-export interface SubjectConnectionPromise
-  extends Promise<SubjectConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SubjectEdge>>() => T;
-  aggregate: <T = AggregateSubjectPromise>() => T;
-}
-
-export interface SubjectConnectionSubscription
-  extends Promise<AsyncIterator<SubjectConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SubjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSubjectSubscription>() => T;
-}
-
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
-}
-
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
-}
-
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
-}
-
-export interface PostEdge {
-  node: Post;
+export interface SubjectEdge {
+  node: Subject;
   cursor: String;
 }
 
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
+export interface SubjectEdgePromise extends Promise<SubjectEdge>, Fragmentable {
+  node: <T = SubjectPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
+export interface SubjectEdgeSubscription
+  extends Promise<AsyncIterator<SubjectEdge>>,
     Fragmentable {
-  node: <T = PostSubscription>() => T;
+  node: <T = SubjectSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Post {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
-}
-
-export interface PostPromise extends Promise<Post>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
-}
-
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-  author: <T = UserSubscription>() => T;
 }
 
 export interface SubjectPreviousValues {
@@ -2591,125 +2402,109 @@ export interface SubjectInfoSubscriptionPayloadSubscription
   previousValues: <T = SubjectInfoPreviousValuesSubscription>() => T;
 }
 
-export interface PostPreviousValues {
+export interface NotePreviousValues {
   id: ID_Output;
+  text: String;
+  description?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
+  type: NoteType;
 }
 
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
+export interface NotePreviousValuesPromise
+  extends Promise<NotePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+  description: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
+  type: () => Promise<NoteType>;
 }
 
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
+export interface NotePreviousValuesSubscription
+  extends Promise<AsyncIterator<NotePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<NoteType>>;
 }
 
-export interface NoteEdge {
-  node: Note;
-  cursor: String;
-}
-
-export interface NoteEdgePromise extends Promise<NoteEdge>, Fragmentable {
-  node: <T = NotePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface NoteEdgeSubscription
-  extends Promise<AsyncIterator<NoteEdge>>,
-    Fragmentable {
-  node: <T = NoteSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface User {
-  id: ID_Output;
-  password: String;
-  email: String;
-  firstName?: String;
-  lastName?: String;
-  neptun: String;
-  role: Role;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  password: () => Promise<String>;
-  email: () => Promise<String>;
-  firstName: () => Promise<String>;
-  lastName: () => Promise<String>;
-  neptun: () => Promise<String>;
-  role: () => Promise<Role>;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  password: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  firstName: () => Promise<AsyncIterator<String>>;
-  lastName: () => Promise<AsyncIterator<String>>;
-  neptun: () => Promise<AsyncIterator<String>>;
-  role: () => Promise<AsyncIterator<Role>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateSubject {
+export interface AggregateNote {
   count: Int;
 }
 
-export interface AggregateSubjectPromise
-  extends Promise<AggregateSubject>,
+export interface AggregateNotePromise
+  extends Promise<AggregateNote>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateSubjectSubscription
-  extends Promise<AsyncIterator<AggregateSubject>>,
+export interface AggregateNoteSubscription
+  extends Promise<AsyncIterator<AggregateNote>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SubjectInfoConnection {
+  pageInfo: PageInfo;
+  edges: SubjectInfoEdge[];
+}
+
+export interface SubjectInfoConnectionPromise
+  extends Promise<SubjectInfoConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SubjectInfoEdge>>() => T;
+  aggregate: <T = AggregateSubjectInfoPromise>() => T;
+}
+
+export interface SubjectInfoConnectionSubscription
+  extends Promise<AsyncIterator<SubjectInfoConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SubjectInfoEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSubjectInfoSubscription>() => T;
+}
+
+export interface AggregateSubjectInfo {
+  count: Int;
+}
+
+export interface AggregateSubjectInfoPromise
+  extends Promise<AggregateSubjectInfo>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSubjectInfoSubscription
+  extends Promise<AsyncIterator<AggregateSubjectInfo>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface NoteConnection {
+  pageInfo: PageInfo;
+  edges: NoteEdge[];
+}
+
+export interface NoteConnectionPromise
+  extends Promise<NoteConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<NoteEdge>>() => T;
+  aggregate: <T = AggregateNotePromise>() => T;
+}
+
+export interface NoteConnectionSubscription
+  extends Promise<AsyncIterator<NoteConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNoteSubscription>() => T;
 }
 
 /*
@@ -2718,11 +2513,22 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean;
 
 /*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
+
+export type Long = string;
+
+/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
 
-export type Long = string;
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -2733,17 +2539,6 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
 
 /**
  * Model Metadata
@@ -2763,14 +2558,6 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "Post",
-    embedded: false
-  },
-  {
-    name: "Role",
-    embedded: false
-  },
-  {
     name: "Subject",
     embedded: false
   },
@@ -2780,6 +2567,10 @@ export const models: Model[] = [
   },
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "UserRole",
     embedded: false
   }
 ];

@@ -12,7 +12,7 @@ export const Subject: SubjectResolvers.Type = {
   students: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  subjectInfos: (parent, args, ctx) => {
+  info: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
   prerequisites: (parent, args, ctx) => {
