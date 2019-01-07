@@ -2,6 +2,7 @@ scalar DateTime
 
 type Query {
   me: User
+  users: [User!]
   notes: [Note!]
   subjects: [Subject!]
   note(id: ID!): Note

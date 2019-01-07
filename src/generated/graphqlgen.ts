@@ -25,6 +25,13 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => User | null | Promise<User | null>;
 
+  export type UsersResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User[] | Promise<User[]>;
+
   export type NotesResolver = (
     parent: undefined,
     args: {},
@@ -60,6 +67,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | null | Promise<User | null>;
+
+    users: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User[] | Promise<User[]>;
 
     notes: (
       parent: undefined,
@@ -192,6 +206,7 @@ export namespace UserResolvers {
 
 export namespace NoteResolvers {
   export const defaultResolvers = {
+    id: (parent: Note) => parent.id,
     authorId: (parent: Note) => parent.authorId,
     text: (parent: Note) => parent.text,
     comments: (parent: Note) => parent.comments,
@@ -304,11 +319,11 @@ export namespace NoteResolvers {
 
 export namespace SubjectResolvers {
   export const defaultResolvers = {
+    id: (parent: Subject) => parent.id,
     name: (parent: Subject) => parent.name,
     code: (parent: Subject) => parent.code,
     faculty: (parent: Subject) => parent.faculty,
     students: (parent: Subject) => parent.students,
-    subjectInfos: (parent: Subject) => parent.subjectInfos,
     prerequisites: (parent: Subject) => parent.prerequisites,
     notes: (parent: Subject) => parent.notes
   };
@@ -513,6 +528,7 @@ export namespace AuthPayloadResolvers {
 
 export namespace CommentResolvers {
   export const defaultResolvers = {
+    id: (parent: Comment) => parent.id,
     authorId: (parent: Comment) => parent.authorId,
     text: (parent: Comment) => parent.text,
     replies: (parent: Comment) => parent.replies,
