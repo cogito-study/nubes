@@ -16,9 +16,9 @@ type Note {
   updatedAt: DateTime!
   author: User! @relation(name: "NotesByUser")
   subject: Subject!
-  comments: [Comment!]
+  comments: [Comment!]!
   type: NoteType!
-  upvotes: [User!] @relation(name: "UpvotedNotes")
+  upvotes: [User!]! @relation(name: "UpvotedNotes")
 }
 
 type Comment {
@@ -27,8 +27,8 @@ type Comment {
   createdAt: DateTime!
   note: Note!
   author: User! @relation(name: "CommentsByUser")
-  replies: [Comment!]
-  upvotes: [User!] @relation(name: "UpvotedComments")
+  replies: [Comment!]!
+  upvotes: [User!]! @relation(name: "UpvotedComments")
 }
 
 type Subject {
@@ -36,11 +36,11 @@ type Subject {
   code: String! @unique
   name: String!
   description: String!
-  faculty: [User!] @relation(name: "SubjectsByTeacher")
-  students: [User!] @relation(name: "SubjectsByStudent")
-  info: [SubjectInfo!]
-  notes: [Note!]
-  prerequisites: [Subject!]
+  faculty: [User!]! @relation(name: "SubjectsByTeacher")
+  students: [User!]! @relation(name: "SubjectsByStudent")
+  info: [SubjectInfo!]!
+  notes: [Note!]!
+  prerequisites: [Subject!]!
 }
 
 type SubjectInfo {

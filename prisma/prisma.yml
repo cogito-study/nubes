@@ -1,6 +1,8 @@
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma
 
+secret: ${env:PRISMA_SECRET}
+
 # Specifies the language and directory for the generated Prisma client.
 generate:
   - generator: typescript-client
@@ -15,4 +17,4 @@ hooks:
 # seed:
 #   import: seed.graphql
 
-endpoint: https://heroku-staging-76f474ba06.herokuapp.com/cogito-backend/staging
+endpoint: ${env:PRISMA_ENDPOINT}
