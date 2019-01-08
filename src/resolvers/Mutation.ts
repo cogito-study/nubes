@@ -1,7 +1,6 @@
 import { MutationResolvers } from "../generated/graphqlgen";
 import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { APP_SECRET } from "../utils";
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -14,7 +13,7 @@ export const Mutation: MutationResolvers.Type = {
       role
     });
     return {
-      token: sign({ userId: user.id }, APP_SECRET),
+      token: sign({ userId: user.id }, process.env.APP_SECRET),
       user
     };
   },
@@ -31,7 +30,7 @@ export const Mutation: MutationResolvers.Type = {
     }
 
     return {
-      token: sign({ userId: user.id }, APP_SECRET),
+      token: sign({ userId: user.id }, process.env.APP_SECRET),
       user
     };
   }
