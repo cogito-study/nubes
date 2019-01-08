@@ -3,7 +3,5 @@ import { SubjectInfoResolvers } from "../generated/graphqlgen";
 export const SubjectInfo: SubjectInfoResolvers.Type = {
   ...SubjectInfoResolvers.defaultResolvers,
 
-  subject: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  }
+  subject: ({ id }, _, ctx) => ctx.prisma.subjectInfo({ id }).subject()
 };

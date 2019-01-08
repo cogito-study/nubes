@@ -44,6 +44,7 @@ type Subject {
 }
 
 type SubjectInfo {
+  id: ID! @unique
   title: String!
   subtitle: String
   text: String!

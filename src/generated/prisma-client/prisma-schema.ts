@@ -303,7 +303,10 @@ type Mutation {
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
   createSubjectInfo(data: SubjectInfoCreateInput!): SubjectInfo!
+  updateSubjectInfo(data: SubjectInfoUpdateInput!, where: SubjectInfoWhereUniqueInput!): SubjectInfo
   updateManySubjectInfoes(data: SubjectInfoUpdateManyMutationInput!, where: SubjectInfoWhereInput): BatchPayload!
+  upsertSubjectInfo(where: SubjectInfoWhereUniqueInput!, create: SubjectInfoCreateInput!, update: SubjectInfoUpdateInput!): SubjectInfo!
+  deleteSubjectInfo(where: SubjectInfoWhereUniqueInput!): SubjectInfo
   deleteManySubjectInfoes(where: SubjectInfoWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
@@ -676,6 +679,7 @@ type Query {
   subject(where: SubjectWhereUniqueInput!): Subject
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
+  subjectInfo(where: SubjectInfoWhereUniqueInput!): SubjectInfo
   subjectInfoes(where: SubjectInfoWhereInput, orderBy: SubjectInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectInfo]!
   subjectInfoesConnection(where: SubjectInfoWhereInput, orderBy: SubjectInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectInfoConnection!
   user(where: UserWhereUniqueInput!): User
@@ -754,6 +758,7 @@ type SubjectEdge {
 }
 
 type SubjectInfo {
+  id: ID!
   title: String!
   subtitle: String
   text: String!
@@ -775,6 +780,7 @@ input SubjectInfoCreateInput {
 
 input SubjectInfoCreateManyWithoutSubjectInput {
   create: [SubjectInfoCreateWithoutSubjectInput!]
+  connect: [SubjectInfoWhereUniqueInput!]
 }
 
 input SubjectInfoCreateWithoutSubjectInput {
@@ -789,14 +795,14 @@ type SubjectInfoEdge {
 }
 
 enum SubjectInfoOrderByInput {
+  id_ASC
+  id_DESC
   title_ASC
   title_DESC
   subtitle_ASC
   subtitle_DESC
   text_ASC
   text_DESC
-  id_ASC
-  id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -804,12 +810,27 @@ enum SubjectInfoOrderByInput {
 }
 
 type SubjectInfoPreviousValues {
+  id: ID!
   title: String!
   subtitle: String
   text: String!
 }
 
 input SubjectInfoScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   title: String
   title_not: String
   title_in: [String!]
@@ -875,6 +896,13 @@ input SubjectInfoSubscriptionWhereInput {
   NOT: [SubjectInfoSubscriptionWhereInput!]
 }
 
+input SubjectInfoUpdateInput {
+  title: String
+  subtitle: String
+  text: String
+  subject: SubjectUpdateOneRequiredWithoutInfoInput
+}
+
 input SubjectInfoUpdateManyDataInput {
   title: String
   subtitle: String
@@ -889,6 +917,11 @@ input SubjectInfoUpdateManyMutationInput {
 
 input SubjectInfoUpdateManyWithoutSubjectInput {
   create: [SubjectInfoCreateWithoutSubjectInput!]
+  delete: [SubjectInfoWhereUniqueInput!]
+  connect: [SubjectInfoWhereUniqueInput!]
+  disconnect: [SubjectInfoWhereUniqueInput!]
+  update: [SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput!]
+  upsert: [SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput!]
   deleteMany: [SubjectInfoScalarWhereInput!]
   updateMany: [SubjectInfoUpdateManyWithWhereNestedInput!]
 }
@@ -898,7 +931,38 @@ input SubjectInfoUpdateManyWithWhereNestedInput {
   data: SubjectInfoUpdateManyDataInput!
 }
 
+input SubjectInfoUpdateWithoutSubjectDataInput {
+  title: String
+  subtitle: String
+  text: String
+}
+
+input SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput {
+  where: SubjectInfoWhereUniqueInput!
+  data: SubjectInfoUpdateWithoutSubjectDataInput!
+}
+
+input SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput {
+  where: SubjectInfoWhereUniqueInput!
+  update: SubjectInfoUpdateWithoutSubjectDataInput!
+  create: SubjectInfoCreateWithoutSubjectInput!
+}
+
 input SubjectInfoWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   title: String
   title_not: String
   title_in: [String!]
@@ -945,6 +1009,10 @@ input SubjectInfoWhereInput {
   AND: [SubjectInfoWhereInput!]
   OR: [SubjectInfoWhereInput!]
   NOT: [SubjectInfoWhereInput!]
+}
+
+input SubjectInfoWhereUniqueInput {
+  id: ID
 }
 
 enum SubjectOrderByInput {
@@ -1099,11 +1167,28 @@ input SubjectUpdateManyWithWhereNestedInput {
   data: SubjectUpdateManyDataInput!
 }
 
+input SubjectUpdateOneRequiredWithoutInfoInput {
+  create: SubjectCreateWithoutInfoInput
+  update: SubjectUpdateWithoutInfoDataInput
+  upsert: SubjectUpsertWithoutInfoInput
+  connect: SubjectWhereUniqueInput
+}
+
 input SubjectUpdateOneRequiredWithoutNotesInput {
   create: SubjectCreateWithoutNotesInput
   update: SubjectUpdateWithoutNotesDataInput
   upsert: SubjectUpsertWithoutNotesInput
   connect: SubjectWhereUniqueInput
+}
+
+input SubjectUpdateWithoutInfoDataInput {
+  code: String
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
+  notes: NoteUpdateManyWithoutSubjectInput
+  prerequisites: SubjectUpdateManyInput
 }
 
 input SubjectUpdateWithoutNotesDataInput {
@@ -1119,6 +1204,11 @@ input SubjectUpdateWithoutNotesDataInput {
 input SubjectUpdateWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
   data: SubjectUpdateDataInput!
+}
+
+input SubjectUpsertWithoutInfoInput {
+  update: SubjectUpdateWithoutInfoDataInput!
+  create: SubjectCreateWithoutInfoInput!
 }
 
 input SubjectUpsertWithoutNotesInput {

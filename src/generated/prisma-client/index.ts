@@ -109,6 +109,7 @@ export interface Prisma {
       last?: Int;
     }
   ) => SubjectConnectionPromise;
+  subjectInfo: (where: SubjectInfoWhereUniqueInput) => SubjectInfoPromise;
   subjectInfoes: (
     args?: {
       where?: SubjectInfoWhereInput;
@@ -209,12 +210,23 @@ export interface Prisma {
   deleteSubject: (where: SubjectWhereUniqueInput) => SubjectPromise;
   deleteManySubjects: (where?: SubjectWhereInput) => BatchPayloadPromise;
   createSubjectInfo: (data: SubjectInfoCreateInput) => SubjectInfoPromise;
+  updateSubjectInfo: (
+    args: { data: SubjectInfoUpdateInput; where: SubjectInfoWhereUniqueInput }
+  ) => SubjectInfoPromise;
   updateManySubjectInfoes: (
     args: {
       data: SubjectInfoUpdateManyMutationInput;
       where?: SubjectInfoWhereInput;
     }
   ) => BatchPayloadPromise;
+  upsertSubjectInfo: (
+    args: {
+      where: SubjectInfoWhereUniqueInput;
+      create: SubjectInfoCreateInput;
+      update: SubjectInfoUpdateInput;
+    }
+  ) => SubjectInfoPromise;
+  deleteSubjectInfo: (where: SubjectInfoWhereUniqueInput) => SubjectInfoPromise;
   deleteManySubjectInfoes: (
     where?: SubjectInfoWhereInput
   ) => BatchPayloadPromise;
@@ -293,14 +305,14 @@ export type UserOrderByInput =
 export type NoteType = "NOTE" | "CASE_STUDY";
 
 export type SubjectInfoOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
   | "title_ASC"
   | "title_DESC"
   | "subtitle_ASC"
   | "subtitle_DESC"
   | "text_ASC"
   | "text_DESC"
-  | "id_ASC"
-  | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -445,6 +457,20 @@ export interface UserWhereInput {
 }
 
 export interface SubjectInfoWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
   title?: String;
   title_not?: String;
   title_in?: String[] | String;
@@ -705,6 +731,10 @@ export type SubjectWhereUniqueInput = AtLeastOne<{
   code?: String;
 }>;
 
+export type SubjectInfoWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
   email?: String;
@@ -771,6 +801,7 @@ export interface SubjectInfoCreateManyWithoutSubjectInput {
   create?:
     | SubjectInfoCreateWithoutSubjectInput[]
     | SubjectInfoCreateWithoutSubjectInput;
+  connect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
 }
 
 export interface SubjectInfoCreateWithoutSubjectInput {
@@ -1028,13 +1059,53 @@ export interface SubjectInfoUpdateManyWithoutSubjectInput {
   create?:
     | SubjectInfoCreateWithoutSubjectInput[]
     | SubjectInfoCreateWithoutSubjectInput;
+  delete?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
+  connect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
+  disconnect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
+  update?:
+    | SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput[]
+    | SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput;
+  upsert?:
+    | SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput[]
+    | SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput;
   deleteMany?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
   updateMany?:
     | SubjectInfoUpdateManyWithWhereNestedInput[]
     | SubjectInfoUpdateManyWithWhereNestedInput;
 }
 
+export interface SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput {
+  where: SubjectInfoWhereUniqueInput;
+  data: SubjectInfoUpdateWithoutSubjectDataInput;
+}
+
+export interface SubjectInfoUpdateWithoutSubjectDataInput {
+  title?: String;
+  subtitle?: String;
+  text?: String;
+}
+
+export interface SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput {
+  where: SubjectInfoWhereUniqueInput;
+  update: SubjectInfoUpdateWithoutSubjectDataInput;
+  create: SubjectInfoCreateWithoutSubjectInput;
+}
+
 export interface SubjectInfoScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
   title?: String;
   title_not?: String;
   title_in?: String[] | String;
@@ -1522,6 +1593,35 @@ export interface SubjectCreateWithoutInfoInput {
   prerequisites?: SubjectCreateManyInput;
 }
 
+export interface SubjectInfoUpdateInput {
+  title?: String;
+  subtitle?: String;
+  text?: String;
+  subject?: SubjectUpdateOneRequiredWithoutInfoInput;
+}
+
+export interface SubjectUpdateOneRequiredWithoutInfoInput {
+  create?: SubjectCreateWithoutInfoInput;
+  update?: SubjectUpdateWithoutInfoDataInput;
+  upsert?: SubjectUpsertWithoutInfoInput;
+  connect?: SubjectWhereUniqueInput;
+}
+
+export interface SubjectUpdateWithoutInfoDataInput {
+  code?: String;
+  name?: String;
+  description?: String;
+  faculty?: UserUpdateManyInput;
+  students?: UserUpdateManyInput;
+  notes?: NoteUpdateManyWithoutSubjectInput;
+  prerequisites?: SubjectUpdateManyInput;
+}
+
+export interface SubjectUpsertWithoutInfoInput {
+  update: SubjectUpdateWithoutInfoDataInput;
+  create: SubjectCreateWithoutInfoInput;
+}
+
 export interface SubjectInfoUpdateManyMutationInput {
   title?: String;
   subtitle?: String;
@@ -1916,12 +2016,14 @@ export interface SubjectSubscription
 }
 
 export interface SubjectInfo {
+  id: ID_Output;
   title: String;
   subtitle?: String;
   text: String;
 }
 
 export interface SubjectInfoPromise extends Promise<SubjectInfo>, Fragmentable {
+  id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   subtitle: () => Promise<String>;
   text: () => Promise<String>;
@@ -1931,6 +2033,7 @@ export interface SubjectInfoPromise extends Promise<SubjectInfo>, Fragmentable {
 export interface SubjectInfoSubscription
   extends Promise<AsyncIterator<SubjectInfo>>,
     Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   subtitle: () => Promise<AsyncIterator<String>>;
   text: () => Promise<AsyncIterator<String>>;
@@ -2427,6 +2530,7 @@ export interface SubjectInfoSubscriptionPayloadSubscription
 }
 
 export interface SubjectInfoPreviousValues {
+  id: ID_Output;
   title: String;
   subtitle?: String;
   text: String;
@@ -2435,6 +2539,7 @@ export interface SubjectInfoPreviousValues {
 export interface SubjectInfoPreviousValuesPromise
   extends Promise<SubjectInfoPreviousValues>,
     Fragmentable {
+  id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   subtitle: () => Promise<String>;
   text: () => Promise<String>;
@@ -2443,6 +2548,7 @@ export interface SubjectInfoPreviousValuesPromise
 export interface SubjectInfoPreviousValuesSubscription
   extends Promise<AsyncIterator<SubjectInfoPreviousValues>>,
     Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   subtitle: () => Promise<AsyncIterator<String>>;
   text: () => Promise<AsyncIterator<String>>;

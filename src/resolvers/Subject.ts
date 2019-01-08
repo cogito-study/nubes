@@ -6,19 +6,9 @@ import { SubjectResolvers } from "../generated/graphqlgen";
 export const Subject: SubjectResolvers.Type = {
   ...SubjectResolvers.defaultResolvers,
 
-  faculty: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  students: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  info: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  prerequisites: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  notes: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  }
+  faculty: ({ id }, _, ctx) => ctx.prisma.subject({ id }).faculty(),
+  students: ({ id }, _, ctx) => ctx.prisma.subject({ id }).students(),
+  info: ({ id }, _, ctx) => ctx.prisma.subject({ id }).info(),
+  prerequisites: ({ id }, _, ctx) => ctx.prisma.subject({ id }).prerequisites(),
+  notes: ({ id }, _, ctx) => ctx.prisma.subject({ id }).notes()
 };

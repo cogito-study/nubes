@@ -3,16 +3,9 @@ import { NoteResolvers } from "../generated/graphqlgen";
 export const Note: NoteResolvers.Type = {
   ...NoteResolvers.defaultResolvers,
 
-  author: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  comments: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  subject: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  upvotes: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
+  author: ({ id }, _, ctx) => ctx.prisma.note({ id }).author(),
+  comments: ({ id }, _, ctx) => ctx.prisma.note({ id }).comments(),
+  subject: ({ id }, _, ctx) => ctx.prisma.note({ id }).subject(),
+  upvotes: ({ id }, _, ctx) => ctx.prisma.note({ id }).upvotes()
   }
 };
