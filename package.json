@@ -2,7 +2,7 @@
   "name": "graphql-auth",
   "license": "MIT",
   "scripts": {
-    "start-dev": "dotenv .env ts-node src/index.ts",
+    "start-dev": "dotenv -e .env ts-node src/index.ts",
     "deploy-prisma": "prisma deploy --env-file env.prod",
     "start": "ts-node src/index.ts",
     "generate": "graphqlgen"
