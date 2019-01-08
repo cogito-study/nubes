@@ -7,5 +7,4 @@ export const Note: NoteResolvers.Type = {
   comments: ({ id }, _, ctx) => ctx.prisma.note({ id }).comments(),
   subject: ({ id }, _, ctx) => ctx.prisma.note({ id }).subject(),
   upvotes: ({ id }, _, ctx) => ctx.prisma.note({ id }).upvotes()
-  }
 };
