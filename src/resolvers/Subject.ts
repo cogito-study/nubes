@@ -6,9 +6,10 @@ import { SubjectResolvers } from "../generated/graphqlgen";
 export const Subject: SubjectResolvers.Type = {
   ...SubjectResolvers.defaultResolvers,
 
-  faculty: ({ id }, _, ctx) => ctx.prisma.subject({ id }).faculty(),
-  students: ({ id }, _, ctx) => ctx.prisma.subject({ id }).students(),
-  info: ({ id }, _, ctx) => ctx.prisma.subject({ id }).info(),
-  prerequisites: ({ id }, _, ctx) => ctx.prisma.subject({ id }).prerequisites(),
-  notes: ({ id }, _, ctx) => ctx.prisma.subject({ id }).notes()
+  faculty: ({ id }, _, context) => context.prisma.subject({ id }).faculty(),
+  students: ({ id }, _, context) => context.prisma.subject({ id }).students(),
+  info: ({ id }, _, context) => context.prisma.subject({ id }).info(),
+  prerequisites: ({ id }, _, context) =>
+    context.prisma.subject({ id }).prerequisites(),
+  notes: ({ id }, _, context) => context.prisma.subject({ id }).notes()
 };

@@ -3,8 +3,8 @@ import { NoteResolvers } from "../generated/graphqlgen";
 export const Note: NoteResolvers.Type = {
   ...NoteResolvers.defaultResolvers,
 
-  author: ({ id }, _, ctx) => ctx.prisma.note({ id }).author(),
-  comments: ({ id }, _, ctx) => ctx.prisma.note({ id }).comments(),
-  subject: ({ id }, _, ctx) => ctx.prisma.note({ id }).subject(),
-  upvotes: ({ id }, _, ctx) => ctx.prisma.note({ id }).upvotes()
+  author: ({ id }, _, context) => context.prisma.note({ id }).author(),
+  comments: ({ id }, _, context) => context.prisma.note({ id }).comments(),
+  subject: ({ id }, _, context) => context.prisma.note({ id }).subject(),
+  upvotes: ({ id }, _, context) => context.prisma.note({ id }).upvotes()
 };
