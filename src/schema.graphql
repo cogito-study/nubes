@@ -1,3 +1,5 @@
+# import Comment, Note, Subject, User, UserRole from './generated/prisma.graphql'
+
 scalar DateTime
 
 type Query {
@@ -22,66 +24,4 @@ type Mutation {
 type AuthPayload {
   token: String!
   user: User!
-}
-
-enum NoteType {
-  NOTE
-  CASE_STUDY
-}
-
-enum UserRole {
-  USER
-  ADMIN
-}
-
-type Note {
-  id: ID!
-  text: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  author: User!
-  subject: Subject!
-  comments: [Comment!]
-  type: NoteType!
-  upvotes: [User!]
-}
-
-type Comment {
-  id: ID!
-  text: String!
-  createdAt: DateTime!
-  note: Note!
-  author: User!
-  replies: [Comment!]
-  upvotes: [User!]
-}
-
-type Subject {
-  id: ID!
-  code: String!
-  name: String!
-  description: String!
-  faculty: [User!]
-  students: [User!]
-  info: [SubjectInfo!]
-  notes: [Note!]
-  prerequisites: [Subject!]
-}
-
-type SubjectInfo {
-  title: String!
-  subtitle: String
-  text: String!
-  subject: Subject!
-}
-
-type User {
-  id: ID!
-  email: String!
-  neptun: String!
-  password: String!
-  firstName: String
-  lastName: String
-  role: UserRole!
 }
