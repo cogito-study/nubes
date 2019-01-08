@@ -6,7 +6,74 @@ import { AuthPayload } from "../types";
 import { Context } from "../types";
 
 type UserRole = "USER" | "ADMIN";
+type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "neptun_ASC"
+  | "neptun_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "firstName_ASC"
+  | "firstName_DESC"
+  | "lastName_ASC"
+  | "lastName_DESC"
+  | "role_ASC"
+  | "role_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 type NoteType = "NOTE" | "CASE_STUDY";
+type SubjectInfoOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "subtitle_ASC"
+  | "subtitle_DESC"
+  | "text_ASC"
+  | "text_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+type NoteOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "text_ASC"
+  | "text_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "type_ASC"
+  | "type_DESC";
+type SubjectOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "code_ASC"
+  | "code_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+type CommentOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "text_ASC"
+  | "text_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -231,6 +298,382 @@ export namespace NoteResolvers {
     type: (parent: Note) => parent.type
   };
 
+  export interface CommentWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    note: NoteWhereInput | null;
+    author: UserWhereInput | null;
+    replies_every: CommentWhereInput | null;
+    replies_some: CommentWhereInput | null;
+    replies_none: CommentWhereInput | null;
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: CommentWhereInput[];
+    OR: CommentWhereInput[];
+    NOT: CommentWhereInput[];
+  }
+  export interface NoteWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    updatedAt: string | null;
+    updatedAt_not: string | null;
+    updatedAt_in: string[];
+    updatedAt_not_in: string[];
+    updatedAt_lt: string | null;
+    updatedAt_lte: string | null;
+    updatedAt_gt: string | null;
+    updatedAt_gte: string | null;
+    author: UserWhereInput | null;
+    subject: SubjectWhereInput | null;
+    comments_every: CommentWhereInput | null;
+    comments_some: CommentWhereInput | null;
+    comments_none: CommentWhereInput | null;
+    type: NoteType | null;
+    type_not: NoteType | null;
+    type_in: NoteType[];
+    type_not_in: NoteType[];
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: NoteWhereInput[];
+    OR: NoteWhereInput[];
+    NOT: NoteWhereInput[];
+  }
+  export interface UserWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    neptun: string | null;
+    neptun_not: string | null;
+    neptun_in: string[];
+    neptun_not_in: string[];
+    neptun_lt: string | null;
+    neptun_lte: string | null;
+    neptun_gt: string | null;
+    neptun_gte: string | null;
+    neptun_contains: string | null;
+    neptun_not_contains: string | null;
+    neptun_starts_with: string | null;
+    neptun_not_starts_with: string | null;
+    neptun_ends_with: string | null;
+    neptun_not_ends_with: string | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    firstName: string | null;
+    firstName_not: string | null;
+    firstName_in: string[];
+    firstName_not_in: string[];
+    firstName_lt: string | null;
+    firstName_lte: string | null;
+    firstName_gt: string | null;
+    firstName_gte: string | null;
+    firstName_contains: string | null;
+    firstName_not_contains: string | null;
+    firstName_starts_with: string | null;
+    firstName_not_starts_with: string | null;
+    firstName_ends_with: string | null;
+    firstName_not_ends_with: string | null;
+    lastName: string | null;
+    lastName_not: string | null;
+    lastName_in: string[];
+    lastName_not_in: string[];
+    lastName_lt: string | null;
+    lastName_lte: string | null;
+    lastName_gt: string | null;
+    lastName_gte: string | null;
+    lastName_contains: string | null;
+    lastName_not_contains: string | null;
+    lastName_starts_with: string | null;
+    lastName_not_starts_with: string | null;
+    lastName_ends_with: string | null;
+    lastName_not_ends_with: string | null;
+    role: UserRole | null;
+    role_not: UserRole | null;
+    role_in: UserRole[];
+    role_not_in: UserRole[];
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+  }
+  export interface SubjectWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    code: string | null;
+    code_not: string | null;
+    code_in: string[];
+    code_not_in: string[];
+    code_lt: string | null;
+    code_lte: string | null;
+    code_gt: string | null;
+    code_gte: string | null;
+    code_contains: string | null;
+    code_not_contains: string | null;
+    code_starts_with: string | null;
+    code_not_starts_with: string | null;
+    code_ends_with: string | null;
+    code_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    faculty_every: UserWhereInput | null;
+    faculty_some: UserWhereInput | null;
+    faculty_none: UserWhereInput | null;
+    students_every: UserWhereInput | null;
+    students_some: UserWhereInput | null;
+    students_none: UserWhereInput | null;
+    info_every: SubjectInfoWhereInput | null;
+    info_some: SubjectInfoWhereInput | null;
+    info_none: SubjectInfoWhereInput | null;
+    notes_every: NoteWhereInput | null;
+    notes_some: NoteWhereInput | null;
+    notes_none: NoteWhereInput | null;
+    prerequisites_every: SubjectWhereInput | null;
+    prerequisites_some: SubjectWhereInput | null;
+    prerequisites_none: SubjectWhereInput | null;
+    AND: SubjectWhereInput[];
+    OR: SubjectWhereInput[];
+    NOT: SubjectWhereInput[];
+  }
+  export interface SubjectInfoWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    title: string | null;
+    title_not: string | null;
+    title_in: string[];
+    title_not_in: string[];
+    title_lt: string | null;
+    title_lte: string | null;
+    title_gt: string | null;
+    title_gte: string | null;
+    title_contains: string | null;
+    title_not_contains: string | null;
+    title_starts_with: string | null;
+    title_not_starts_with: string | null;
+    title_ends_with: string | null;
+    title_not_ends_with: string | null;
+    subtitle: string | null;
+    subtitle_not: string | null;
+    subtitle_in: string[];
+    subtitle_not_in: string[];
+    subtitle_lt: string | null;
+    subtitle_lte: string | null;
+    subtitle_gt: string | null;
+    subtitle_gte: string | null;
+    subtitle_contains: string | null;
+    subtitle_not_contains: string | null;
+    subtitle_starts_with: string | null;
+    subtitle_not_starts_with: string | null;
+    subtitle_ends_with: string | null;
+    subtitle_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    subject: SubjectWhereInput | null;
+    AND: SubjectInfoWhereInput[];
+    OR: SubjectInfoWhereInput[];
+    NOT: SubjectInfoWhereInput[];
+  }
+
+  export interface ArgsComments {
+    where: CommentWhereInput | null;
+    orderBy: CommentOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsUpvotes {
+    where: UserWhereInput | null;
+    orderBy: UserOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
   export type IdResolver = (
     parent: Note,
     args: {},
@@ -282,7 +725,7 @@ export namespace NoteResolvers {
 
   export type CommentsResolver = (
     parent: Note,
-    args: {},
+    args: ArgsComments,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Comment[] | Promise<Comment[]>;
@@ -296,7 +739,7 @@ export namespace NoteResolvers {
 
   export type UpvotesResolver = (
     parent: Note,
-    args: {},
+    args: ArgsUpvotes,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User[] | Promise<User[]>;
@@ -353,7 +796,7 @@ export namespace NoteResolvers {
 
     comments: (
       parent: Note,
-      args: {},
+      args: ArgsComments,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Comment[] | Promise<Comment[]>;
@@ -367,7 +810,7 @@ export namespace NoteResolvers {
 
     upvotes: (
       parent: Note,
-      args: {},
+      args: ArgsUpvotes,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User[] | Promise<User[]>;
@@ -381,6 +824,412 @@ export namespace SubjectResolvers {
     name: (parent: Subject) => parent.name,
     description: (parent: Subject) => parent.description
   };
+
+  export interface UserWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    neptun: string | null;
+    neptun_not: string | null;
+    neptun_in: string[];
+    neptun_not_in: string[];
+    neptun_lt: string | null;
+    neptun_lte: string | null;
+    neptun_gt: string | null;
+    neptun_gte: string | null;
+    neptun_contains: string | null;
+    neptun_not_contains: string | null;
+    neptun_starts_with: string | null;
+    neptun_not_starts_with: string | null;
+    neptun_ends_with: string | null;
+    neptun_not_ends_with: string | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    firstName: string | null;
+    firstName_not: string | null;
+    firstName_in: string[];
+    firstName_not_in: string[];
+    firstName_lt: string | null;
+    firstName_lte: string | null;
+    firstName_gt: string | null;
+    firstName_gte: string | null;
+    firstName_contains: string | null;
+    firstName_not_contains: string | null;
+    firstName_starts_with: string | null;
+    firstName_not_starts_with: string | null;
+    firstName_ends_with: string | null;
+    firstName_not_ends_with: string | null;
+    lastName: string | null;
+    lastName_not: string | null;
+    lastName_in: string[];
+    lastName_not_in: string[];
+    lastName_lt: string | null;
+    lastName_lte: string | null;
+    lastName_gt: string | null;
+    lastName_gte: string | null;
+    lastName_contains: string | null;
+    lastName_not_contains: string | null;
+    lastName_starts_with: string | null;
+    lastName_not_starts_with: string | null;
+    lastName_ends_with: string | null;
+    lastName_not_ends_with: string | null;
+    role: UserRole | null;
+    role_not: UserRole | null;
+    role_in: UserRole[];
+    role_not_in: UserRole[];
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+  }
+  export interface SubjectInfoWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    title: string | null;
+    title_not: string | null;
+    title_in: string[];
+    title_not_in: string[];
+    title_lt: string | null;
+    title_lte: string | null;
+    title_gt: string | null;
+    title_gte: string | null;
+    title_contains: string | null;
+    title_not_contains: string | null;
+    title_starts_with: string | null;
+    title_not_starts_with: string | null;
+    title_ends_with: string | null;
+    title_not_ends_with: string | null;
+    subtitle: string | null;
+    subtitle_not: string | null;
+    subtitle_in: string[];
+    subtitle_not_in: string[];
+    subtitle_lt: string | null;
+    subtitle_lte: string | null;
+    subtitle_gt: string | null;
+    subtitle_gte: string | null;
+    subtitle_contains: string | null;
+    subtitle_not_contains: string | null;
+    subtitle_starts_with: string | null;
+    subtitle_not_starts_with: string | null;
+    subtitle_ends_with: string | null;
+    subtitle_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    subject: SubjectWhereInput | null;
+    AND: SubjectInfoWhereInput[];
+    OR: SubjectInfoWhereInput[];
+    NOT: SubjectInfoWhereInput[];
+  }
+  export interface SubjectWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    code: string | null;
+    code_not: string | null;
+    code_in: string[];
+    code_not_in: string[];
+    code_lt: string | null;
+    code_lte: string | null;
+    code_gt: string | null;
+    code_gte: string | null;
+    code_contains: string | null;
+    code_not_contains: string | null;
+    code_starts_with: string | null;
+    code_not_starts_with: string | null;
+    code_ends_with: string | null;
+    code_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    faculty_every: UserWhereInput | null;
+    faculty_some: UserWhereInput | null;
+    faculty_none: UserWhereInput | null;
+    students_every: UserWhereInput | null;
+    students_some: UserWhereInput | null;
+    students_none: UserWhereInput | null;
+    info_every: SubjectInfoWhereInput | null;
+    info_some: SubjectInfoWhereInput | null;
+    info_none: SubjectInfoWhereInput | null;
+    notes_every: NoteWhereInput | null;
+    notes_some: NoteWhereInput | null;
+    notes_none: NoteWhereInput | null;
+    prerequisites_every: SubjectWhereInput | null;
+    prerequisites_some: SubjectWhereInput | null;
+    prerequisites_none: SubjectWhereInput | null;
+    AND: SubjectWhereInput[];
+    OR: SubjectWhereInput[];
+    NOT: SubjectWhereInput[];
+  }
+  export interface NoteWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    updatedAt: string | null;
+    updatedAt_not: string | null;
+    updatedAt_in: string[];
+    updatedAt_not_in: string[];
+    updatedAt_lt: string | null;
+    updatedAt_lte: string | null;
+    updatedAt_gt: string | null;
+    updatedAt_gte: string | null;
+    author: UserWhereInput | null;
+    subject: SubjectWhereInput | null;
+    comments_every: CommentWhereInput | null;
+    comments_some: CommentWhereInput | null;
+    comments_none: CommentWhereInput | null;
+    type: NoteType | null;
+    type_not: NoteType | null;
+    type_in: NoteType[];
+    type_not_in: NoteType[];
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: NoteWhereInput[];
+    OR: NoteWhereInput[];
+    NOT: NoteWhereInput[];
+  }
+  export interface CommentWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    note: NoteWhereInput | null;
+    author: UserWhereInput | null;
+    replies_every: CommentWhereInput | null;
+    replies_some: CommentWhereInput | null;
+    replies_none: CommentWhereInput | null;
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: CommentWhereInput[];
+    OR: CommentWhereInput[];
+    NOT: CommentWhereInput[];
+  }
+
+  export interface ArgsFaculty {
+    where: UserWhereInput | null;
+    orderBy: UserOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsStudents {
+    where: UserWhereInput | null;
+    orderBy: UserOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsInfo {
+    where: SubjectInfoWhereInput | null;
+    orderBy: SubjectInfoOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsNotes {
+    where: NoteWhereInput | null;
+    orderBy: NoteOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsPrerequisites {
+    where: SubjectWhereInput | null;
+    orderBy: SubjectOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
 
   export type IdResolver = (
     parent: Subject,
@@ -412,35 +1261,35 @@ export namespace SubjectResolvers {
 
   export type FacultyResolver = (
     parent: Subject,
-    args: {},
+    args: ArgsFaculty,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User[] | Promise<User[]>;
 
   export type StudentsResolver = (
     parent: Subject,
-    args: {},
+    args: ArgsStudents,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User[] | Promise<User[]>;
 
   export type InfoResolver = (
     parent: Subject,
-    args: {},
+    args: ArgsInfo,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => SubjectInfo[] | Promise<SubjectInfo[]>;
 
   export type NotesResolver = (
     parent: Subject,
-    args: {},
+    args: ArgsNotes,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Note[] | Promise<Note[]>;
 
   export type PrerequisitesResolver = (
     parent: Subject,
-    args: {},
+    args: ArgsPrerequisites,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Subject[] | Promise<Subject[]>;
@@ -476,35 +1325,35 @@ export namespace SubjectResolvers {
 
     faculty: (
       parent: Subject,
-      args: {},
+      args: ArgsFaculty,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User[] | Promise<User[]>;
 
     students: (
       parent: Subject,
-      args: {},
+      args: ArgsStudents,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User[] | Promise<User[]>;
 
     info: (
       parent: Subject,
-      args: {},
+      args: ArgsInfo,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => SubjectInfo[] | Promise<SubjectInfo[]>;
 
     notes: (
       parent: Subject,
-      args: {},
+      args: ArgsNotes,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Note[] | Promise<Note[]>;
 
     prerequisites: (
       parent: Subject,
-      args: {},
+      args: ArgsPrerequisites,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Subject[] | Promise<Subject[]>;
@@ -513,11 +1362,19 @@ export namespace SubjectResolvers {
 
 export namespace SubjectInfoResolvers {
   export const defaultResolvers = {
+    id: (parent: SubjectInfo) => parent.id,
     title: (parent: SubjectInfo) => parent.title,
     subtitle: (parent: SubjectInfo) =>
       parent.subtitle === undefined ? null : parent.subtitle,
     text: (parent: SubjectInfo) => parent.text
   };
+
+  export type IdResolver = (
+    parent: SubjectInfo,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
 
   export type TitleResolver = (
     parent: SubjectInfo,
@@ -548,6 +1405,13 @@ export namespace SubjectInfoResolvers {
   ) => Subject | Promise<Subject>;
 
   export interface Type {
+    id: (
+      parent: SubjectInfo,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
     title: (
       parent: SubjectInfo,
       args: {},
@@ -584,6 +1448,382 @@ export namespace CommentResolvers {
     text: (parent: Comment) => parent.text,
     createdAt: (parent: Comment) => parent.createdAt
   };
+
+  export interface CommentWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    note: NoteWhereInput | null;
+    author: UserWhereInput | null;
+    replies_every: CommentWhereInput | null;
+    replies_some: CommentWhereInput | null;
+    replies_none: CommentWhereInput | null;
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: CommentWhereInput[];
+    OR: CommentWhereInput[];
+    NOT: CommentWhereInput[];
+  }
+  export interface NoteWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    createdAt: string | null;
+    createdAt_not: string | null;
+    createdAt_in: string[];
+    createdAt_not_in: string[];
+    createdAt_lt: string | null;
+    createdAt_lte: string | null;
+    createdAt_gt: string | null;
+    createdAt_gte: string | null;
+    updatedAt: string | null;
+    updatedAt_not: string | null;
+    updatedAt_in: string[];
+    updatedAt_not_in: string[];
+    updatedAt_lt: string | null;
+    updatedAt_lte: string | null;
+    updatedAt_gt: string | null;
+    updatedAt_gte: string | null;
+    author: UserWhereInput | null;
+    subject: SubjectWhereInput | null;
+    comments_every: CommentWhereInput | null;
+    comments_some: CommentWhereInput | null;
+    comments_none: CommentWhereInput | null;
+    type: NoteType | null;
+    type_not: NoteType | null;
+    type_in: NoteType[];
+    type_not_in: NoteType[];
+    upvotes_every: UserWhereInput | null;
+    upvotes_some: UserWhereInput | null;
+    upvotes_none: UserWhereInput | null;
+    AND: NoteWhereInput[];
+    OR: NoteWhereInput[];
+    NOT: NoteWhereInput[];
+  }
+  export interface UserWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    neptun: string | null;
+    neptun_not: string | null;
+    neptun_in: string[];
+    neptun_not_in: string[];
+    neptun_lt: string | null;
+    neptun_lte: string | null;
+    neptun_gt: string | null;
+    neptun_gte: string | null;
+    neptun_contains: string | null;
+    neptun_not_contains: string | null;
+    neptun_starts_with: string | null;
+    neptun_not_starts_with: string | null;
+    neptun_ends_with: string | null;
+    neptun_not_ends_with: string | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    firstName: string | null;
+    firstName_not: string | null;
+    firstName_in: string[];
+    firstName_not_in: string[];
+    firstName_lt: string | null;
+    firstName_lte: string | null;
+    firstName_gt: string | null;
+    firstName_gte: string | null;
+    firstName_contains: string | null;
+    firstName_not_contains: string | null;
+    firstName_starts_with: string | null;
+    firstName_not_starts_with: string | null;
+    firstName_ends_with: string | null;
+    firstName_not_ends_with: string | null;
+    lastName: string | null;
+    lastName_not: string | null;
+    lastName_in: string[];
+    lastName_not_in: string[];
+    lastName_lt: string | null;
+    lastName_lte: string | null;
+    lastName_gt: string | null;
+    lastName_gte: string | null;
+    lastName_contains: string | null;
+    lastName_not_contains: string | null;
+    lastName_starts_with: string | null;
+    lastName_not_starts_with: string | null;
+    lastName_ends_with: string | null;
+    lastName_not_ends_with: string | null;
+    role: UserRole | null;
+    role_not: UserRole | null;
+    role_in: UserRole[];
+    role_not_in: UserRole[];
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+  }
+  export interface SubjectWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    code: string | null;
+    code_not: string | null;
+    code_in: string[];
+    code_not_in: string[];
+    code_lt: string | null;
+    code_lte: string | null;
+    code_gt: string | null;
+    code_gte: string | null;
+    code_contains: string | null;
+    code_not_contains: string | null;
+    code_starts_with: string | null;
+    code_not_starts_with: string | null;
+    code_ends_with: string | null;
+    code_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    faculty_every: UserWhereInput | null;
+    faculty_some: UserWhereInput | null;
+    faculty_none: UserWhereInput | null;
+    students_every: UserWhereInput | null;
+    students_some: UserWhereInput | null;
+    students_none: UserWhereInput | null;
+    info_every: SubjectInfoWhereInput | null;
+    info_some: SubjectInfoWhereInput | null;
+    info_none: SubjectInfoWhereInput | null;
+    notes_every: NoteWhereInput | null;
+    notes_some: NoteWhereInput | null;
+    notes_none: NoteWhereInput | null;
+    prerequisites_every: SubjectWhereInput | null;
+    prerequisites_some: SubjectWhereInput | null;
+    prerequisites_none: SubjectWhereInput | null;
+    AND: SubjectWhereInput[];
+    OR: SubjectWhereInput[];
+    NOT: SubjectWhereInput[];
+  }
+  export interface SubjectInfoWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    title: string | null;
+    title_not: string | null;
+    title_in: string[];
+    title_not_in: string[];
+    title_lt: string | null;
+    title_lte: string | null;
+    title_gt: string | null;
+    title_gte: string | null;
+    title_contains: string | null;
+    title_not_contains: string | null;
+    title_starts_with: string | null;
+    title_not_starts_with: string | null;
+    title_ends_with: string | null;
+    title_not_ends_with: string | null;
+    subtitle: string | null;
+    subtitle_not: string | null;
+    subtitle_in: string[];
+    subtitle_not_in: string[];
+    subtitle_lt: string | null;
+    subtitle_lte: string | null;
+    subtitle_gt: string | null;
+    subtitle_gte: string | null;
+    subtitle_contains: string | null;
+    subtitle_not_contains: string | null;
+    subtitle_starts_with: string | null;
+    subtitle_not_starts_with: string | null;
+    subtitle_ends_with: string | null;
+    subtitle_not_ends_with: string | null;
+    text: string | null;
+    text_not: string | null;
+    text_in: string[];
+    text_not_in: string[];
+    text_lt: string | null;
+    text_lte: string | null;
+    text_gt: string | null;
+    text_gte: string | null;
+    text_contains: string | null;
+    text_not_contains: string | null;
+    text_starts_with: string | null;
+    text_not_starts_with: string | null;
+    text_ends_with: string | null;
+    text_not_ends_with: string | null;
+    subject: SubjectWhereInput | null;
+    AND: SubjectInfoWhereInput[];
+    OR: SubjectInfoWhereInput[];
+    NOT: SubjectInfoWhereInput[];
+  }
+
+  export interface ArgsReplies {
+    where: CommentWhereInput | null;
+    orderBy: CommentOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsUpvotes {
+    where: UserWhereInput | null;
+    orderBy: UserOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
 
   export type IdResolver = (
     parent: Comment,
@@ -622,14 +1862,14 @@ export namespace CommentResolvers {
 
   export type RepliesResolver = (
     parent: Comment,
-    args: {},
+    args: ArgsReplies,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Comment[] | Promise<Comment[]>;
 
   export type UpvotesResolver = (
     parent: Comment,
-    args: {},
+    args: ArgsUpvotes,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User[] | Promise<User[]>;
@@ -672,14 +1912,14 @@ export namespace CommentResolvers {
 
     replies: (
       parent: Comment,
-      args: {},
+      args: ArgsReplies,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Comment[] | Promise<Comment[]>;
 
     upvotes: (
       parent: Comment,
-      args: {},
+      args: ArgsUpvotes,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User[] | Promise<User[]>;
