@@ -2,9 +2,18 @@
   "name": "graphql-auth",
   "license": "MIT",
   "scripts": {
-    "start-dev": "dotenv -e .env ts-node src/index.ts",
-    "deploy-prisma": "prisma deploy --env-file .env.prod",
-    "start": "ts-node src/index.ts",
+    "start:dev": "env-cmd .env.dev ts-node src/index.ts",
+    "start:staging": "env-cmd .env.staging ts-node src/index.ts",
+    "start:prod": "env-cmd .env.prod ts-node src/index.ts",
+    "prisma-generate:dev": "prisma generate --env-file .env.dev",
+    "prisma-generate:staging": "prisma generate --env-file .env.staging",
+    "prisma-generate:prod": "prisma generate --env-file .env.prod",
+    "prisma-token:dev": "prisma token --env-file .env.dev",
+    "prisma-token:staging": "prisma token --env-file .env.staging",
+    "prisma-token:prod": "prisma token --env-file .env.prod",
+    "prisma-deploy:dev": "prisma deploy --env-file .env.dev",
+    "prisma-deploy:staging": "prisma deploy --env-file .env.staging",
+    "prisma-deploy:prod": "prisma deploy --env-file .env.prod",
     "generate": "graphqlgen"
   },
   "dependencies": {
@@ -21,7 +30,12 @@
     "@types/graphql": "14.0.4",
     "@types/jsonwebtoken": "8.3.0",
     "@types/ws": "6.0.1",
+    "env-cmd": "^8.0.2",
+    "prettier": "1.15.3",
     "ts-node": "7.0.1",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "3.2.2"
   }
 }
