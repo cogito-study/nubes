@@ -1,6 +1,6 @@
-import { MutationResolvers } from "../generated/graphqlgen";
-import { hash, compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import { MutationResolvers } from '../generated/graphqlgen';
+import { hash, compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -10,11 +10,11 @@ export const Mutation: MutationResolvers.Type = {
       email,
       password: hashedPassword,
       neptun,
-      role
+      role,
     });
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),
-      user
+      user,
     };
   },
   login: async (parent, { email, password }, context) => {
@@ -26,12 +26,12 @@ export const Mutation: MutationResolvers.Type = {
 
     const passwordValid = await compare(password, user.password);
     if (!passwordValid) {
-      throw new Error("Invalid password");
+      throw new Error('Invalid password');
     }
 
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),
-      user
+      user,
     };
-  }
+  },
 };

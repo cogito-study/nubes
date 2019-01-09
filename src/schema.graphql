@@ -12,12 +12,7 @@ type Query {
 }
 
 type Mutation {
-  signup(
-    email: String!
-    password: String!
-    neptun: String!
-    role: UserRole!
-  ): AuthPayload!
+  signup(email: String!, password: String!, neptun: String!, role: UserRole!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 }
 

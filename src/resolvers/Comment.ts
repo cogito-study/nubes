@@ -1,4 +1,4 @@
-import { CommentResolvers } from "../generated/graphqlgen";
+import { CommentResolvers } from '../generated/graphqlgen';
 
 export const Comment: CommentResolvers.Type = {
   ...CommentResolvers.defaultResolvers,
@@ -6,5 +6,5 @@ export const Comment: CommentResolvers.Type = {
   author: ({ id }, _, context) => context.prisma.comment({ id }).author(),
   note: ({ id }, _, context) => context.prisma.comment({ id }).note(),
   replies: ({ id }, _, context) => context.prisma.comment({ id }).replies(),
-  upvotes: ({ id }, _, context) => context.prisma.comment({ id }).upvotes()
+  upvotes: ({ id }, _, context) => context.prisma.comment({ id }).upvotes(),
 };

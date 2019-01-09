@@ -1,5 +1,5 @@
-import { QueryResolvers } from "../generated/graphqlgen";
-import { getUserId } from "../utils";
+import { QueryResolvers } from '../generated/graphqlgen';
+import { getUserId } from '../utils';
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
@@ -9,5 +9,5 @@ export const Query: QueryResolvers.Type = {
   subjects: (_, _args, context) => context.prisma.subjects(),
   users: (_, _args, context) => context.prisma.users(),
   note: (_, { id }, context) => context.prisma.note({ id }),
-  subject: (_, { id }, context) => context.prisma.subject({ id })
+  subject: (_, { id }, context) => context.prisma.subject({ id }),
 };
