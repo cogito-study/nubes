@@ -17,6 +17,11 @@
     "generate": "graphqlgen"
   },
   "dependencies": {
+    "@types/aws-lambda": "8.10.17",
+    "@types/graphql": "14.0.4",
+    "@types/ws": "6.0.1",
+    "@types/jsonwebtoken": "8.3.0",
+    "@types/bcrypt": "3.0.0",
     "bcrypt": "3.0.3",
     "graphql-import": "^0.7.1",
     "graphql-shield": "5.1.0",
@@ -28,11 +33,6 @@
     "env-cmd": "^8.0.2"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.17",
-    "@types/bcrypt": "3.0.0",
-    "@types/graphql": "14.0.4",
-    "@types/jsonwebtoken": "8.3.0",
-    "@types/ws": "6.0.1",
     "prettier": "1.15.3",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
