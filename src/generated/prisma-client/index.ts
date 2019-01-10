@@ -1938,7 +1938,7 @@ export interface User {
   id: ID_Output;
   email: String;
   neptun: String;
-  isActive?: Boolean;
+  isActive: Boolean;
   password: String;
   firstName?: String;
   lastName?: String;
@@ -2682,7 +2682,7 @@ export interface UserPreviousValues {
   id: ID_Output;
   email: String;
   neptun: String;
-  isActive?: Boolean;
+  isActive: Boolean;
   password: String;
   firstName?: String;
   lastName?: String;

@@ -1387,7 +1387,7 @@ type User {
   id: ID!
   email: String!
   neptun: String!
-  isActive: Boolean
+  isActive: Boolean!
   password: String!
   firstName: String
   lastName: String
@@ -1452,7 +1452,7 @@ type UserPreviousValues {
   id: ID!
   email: String!
   neptun: String!
-  isActive: Boolean
+  isActive: Boolean!
   password: String!
   firstName: String
   lastName: String
