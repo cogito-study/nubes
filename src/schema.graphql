@@ -7,13 +7,25 @@ type Query {
   users: [User!]
   notes: [Note!]
   subjects: [Subject!]
+  user(id: ID!): User
   note(id: ID!): Note
-  subject(id: ID!): Subject
+  comment(id: ID!): Comment
+  subject(code: String!): Subject
 }
 
 type Mutation {
   signup(email: String!, password: String!, neptun: String!, role: UserRole!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+  activate(id: ID!, password: String!): AuthPayload!
+  upvoteComment(id: ID!): Comment!
+  unvoteComment(id: ID!): Comment!
+  submitComment(noteID: ID!, input: CommentInput!): Comment!
+  deleteComment(id: ID!): Boolean!
+}
+
+input CommentInput {
+  text: String!
+  locationInText: String!
 }
 
 type AuthPayload {

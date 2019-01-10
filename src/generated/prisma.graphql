@@ -25,7 +25,9 @@ type BatchPayload {
 type Comment {
   id: ID!
   text: String!
+  locationInText: Json!
   createdAt: DateTime!
+  updatedAt: DateTime!
   note: Note!
   author: User!
   replies(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -40,6 +42,7 @@ type CommentConnection {
 
 input CommentCreateInput {
   text: String!
+  locationInText: Json!
   note: NoteCreateOneWithoutCommentsInput!
   author: UserCreateOneInput!
   replies: CommentCreateManyInput
@@ -58,6 +61,7 @@ input CommentCreateManyWithoutNoteInput {
 
 input CommentCreateWithoutNoteInput {
   text: String!
+  locationInText: Json!
   author: UserCreateOneInput!
   replies: CommentCreateManyInput
   upvotes: UserCreateManyInput
@@ -73,6 +77,8 @@ enum CommentOrderByInput {
   id_DESC
   text_ASC
   text_DESC
+  locationInText_ASC
+  locationInText_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -82,7 +88,9 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   text: String!
+  locationInText: Json!
   createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input CommentScalarWhereInput {
@@ -122,6 +130,14 @@ input CommentScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CommentScalarWhereInput!]
   OR: [CommentScalarWhereInput!]
   NOT: [CommentScalarWhereInput!]
@@ -147,6 +163,7 @@ input CommentSubscriptionWhereInput {
 
 input CommentUpdateDataInput {
   text: String
+  locationInText: Json
   note: NoteUpdateOneRequiredWithoutCommentsInput
   author: UserUpdateOneRequiredInput
   replies: CommentUpdateManyInput
@@ -155,6 +172,7 @@ input CommentUpdateDataInput {
 
 input CommentUpdateInput {
   text: String
+  locationInText: Json
   note: NoteUpdateOneRequiredWithoutCommentsInput
   author: UserUpdateOneRequiredInput
   replies: CommentUpdateManyInput
@@ -163,6 +181,7 @@ input CommentUpdateInput {
 
 input CommentUpdateManyDataInput {
   text: String
+  locationInText: Json
 }
 
 input CommentUpdateManyInput {
@@ -178,6 +197,7 @@ input CommentUpdateManyInput {
 
 input CommentUpdateManyMutationInput {
   text: String
+  locationInText: Json
 }
 
 input CommentUpdateManyWithoutNoteInput {
@@ -198,6 +218,7 @@ input CommentUpdateManyWithWhereNestedInput {
 
 input CommentUpdateWithoutNoteDataInput {
   text: String
+  locationInText: Json
   author: UserUpdateOneRequiredInput
   replies: CommentUpdateManyInput
   upvotes: UserUpdateManyInput
@@ -262,6 +283,14 @@ input CommentWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   note: NoteWhereInput
   author: UserWhereInput
   replies_every: CommentWhereInput
@@ -280,6 +309,8 @@ input CommentWhereUniqueInput {
 }
 
 scalar DateTime
+
+scalar Json
 
 scalar Long
 
@@ -328,7 +359,9 @@ interface Node {
 
 type Note {
   id: ID!
-  text: String!
+  text: Json!
+  title: String!
+  number: Int!
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -346,7 +379,9 @@ type NoteConnection {
 }
 
 input NoteCreateInput {
-  text: String!
+  text: Json!
+  title: String!
+  number: Int!
   description: String
   author: UserCreateOneInput!
   subject: SubjectCreateOneWithoutNotesInput!
@@ -366,7 +401,9 @@ input NoteCreateOneWithoutCommentsInput {
 }
 
 input NoteCreateWithoutCommentsInput {
-  text: String!
+  text: Json!
+  title: String!
+  number: Int!
   description: String
   author: UserCreateOneInput!
   subject: SubjectCreateOneWithoutNotesInput!
@@ -375,7 +412,9 @@ input NoteCreateWithoutCommentsInput {
 }
 
 input NoteCreateWithoutSubjectInput {
-  text: String!
+  text: Json!
+  title: String!
+  number: Int!
   description: String
   author: UserCreateOneInput!
   comments: CommentCreateManyWithoutNoteInput
@@ -393,6 +432,10 @@ enum NoteOrderByInput {
   id_DESC
   text_ASC
   text_DESC
+  title_ASC
+  title_DESC
+  number_ASC
+  number_DESC
   description_ASC
   description_DESC
   createdAt_ASC
@@ -405,7 +448,9 @@ enum NoteOrderByInput {
 
 type NotePreviousValues {
   id: ID!
-  text: String!
+  text: Json!
+  title: String!
+  number: Int!
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -427,20 +472,28 @@ input NoteScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  text: String
-  text_not: String
-  text_in: [String!]
-  text_not_in: [String!]
-  text_lt: String
-  text_lte: String
-  text_gt: String
-  text_gte: String
-  text_contains: String
-  text_not_contains: String
-  text_starts_with: String
-  text_not_starts_with: String
-  text_ends_with: String
-  text_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   description: String
   description_not: String
   description_in: [String!]
@@ -504,7 +557,9 @@ enum NoteType {
 }
 
 input NoteUpdateInput {
-  text: String
+  text: Json
+  title: String
+  number: Int
   description: String
   author: UserUpdateOneRequiredInput
   subject: SubjectUpdateOneRequiredWithoutNotesInput
@@ -514,13 +569,17 @@ input NoteUpdateInput {
 }
 
 input NoteUpdateManyDataInput {
-  text: String
+  text: Json
+  title: String
+  number: Int
   description: String
   type: NoteType
 }
 
 input NoteUpdateManyMutationInput {
-  text: String
+  text: Json
+  title: String
+  number: Int
   description: String
   type: NoteType
 }
@@ -549,7 +608,9 @@ input NoteUpdateOneRequiredWithoutCommentsInput {
 }
 
 input NoteUpdateWithoutCommentsDataInput {
-  text: String
+  text: Json
+  title: String
+  number: Int
   description: String
   author: UserUpdateOneRequiredInput
   subject: SubjectUpdateOneRequiredWithoutNotesInput
@@ -558,7 +619,9 @@ input NoteUpdateWithoutCommentsDataInput {
 }
 
 input NoteUpdateWithoutSubjectDataInput {
-  text: String
+  text: Json
+  title: String
+  number: Int
   description: String
   author: UserUpdateOneRequiredInput
   comments: CommentUpdateManyWithoutNoteInput
@@ -597,20 +660,28 @@ input NoteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  text: String
-  text_not: String
-  text_in: [String!]
-  text_not_in: [String!]
-  text_lt: String
-  text_lte: String
-  text_gt: String
-  text_gte: String
-  text_contains: String
-  text_not_contains: String
-  text_starts_with: String
-  text_not_starts_with: String
-  text_ends_with: String
-  text_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   description: String
   description_not: String
   description_in: [String!]
