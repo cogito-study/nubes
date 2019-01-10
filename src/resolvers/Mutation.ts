@@ -1,7 +1,6 @@
 import { MutationResolvers } from '../generated/graphqlgen';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { prisma } from '../generated/prisma-client';
 import { getUserId } from '../utils';
 
 const hashPassword = (password: String) => hash(password, 10);
