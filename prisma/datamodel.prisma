@@ -59,6 +59,7 @@ type User {
   id: ID! @unique
   email: String! @unique
   neptun: String! @unique
+  isActive: Boolean @default(value: "false")
   password: String!
   firstName: String
   lastName: String

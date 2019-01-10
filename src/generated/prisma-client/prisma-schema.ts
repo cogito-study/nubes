@@ -1387,6 +1387,7 @@ type User {
   id: ID!
   email: String!
   neptun: String!
+  isActive: Boolean
   password: String!
   firstName: String
   lastName: String
@@ -1402,6 +1403,7 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   neptun: String!
+  isActive: Boolean
   password: String!
   firstName: String
   lastName: String
@@ -1430,6 +1432,8 @@ enum UserOrderByInput {
   email_DESC
   neptun_ASC
   neptun_DESC
+  isActive_ASC
+  isActive_DESC
   password_ASC
   password_DESC
   firstName_ASC
@@ -1448,6 +1452,7 @@ type UserPreviousValues {
   id: ID!
   email: String!
   neptun: String!
+  isActive: Boolean
   password: String!
   firstName: String
   lastName: String
@@ -1502,6 +1507,8 @@ input UserScalarWhereInput {
   neptun_not_starts_with: String
   neptun_ends_with: String
   neptun_not_ends_with: String
+  isActive: Boolean
+  isActive_not: Boolean
   password: String
   password_not: String
   password_in: [String!]
@@ -1574,6 +1581,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   email: String
   neptun: String
+  isActive: Boolean
   password: String
   firstName: String
   lastName: String
@@ -1583,6 +1591,7 @@ input UserUpdateDataInput {
 input UserUpdateInput {
   email: String
   neptun: String
+  isActive: Boolean
   password: String
   firstName: String
   lastName: String
@@ -1592,6 +1601,7 @@ input UserUpdateInput {
 input UserUpdateManyDataInput {
   email: String
   neptun: String
+  isActive: Boolean
   password: String
   firstName: String
   lastName: String
@@ -1612,6 +1622,7 @@ input UserUpdateManyInput {
 input UserUpdateManyMutationInput {
   email: String
   neptun: String
+  isActive: Boolean
   password: String
   firstName: String
   lastName: String
@@ -1689,6 +1700,8 @@ input UserWhereInput {
   neptun_not_starts_with: String
   neptun_ends_with: String
   neptun_not_ends_with: String
+  isActive: Boolean
+  isActive_not: Boolean
   password: String
   password_not: String
   password_in: [String!]

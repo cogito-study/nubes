@@ -9,5 +9,7 @@ export const Query: QueryResolvers.Type = {
   subjects: (_, _args, context) => context.prisma.subjects(),
   users: (_, _args, context) => context.prisma.users(),
   note: (_, { id }, context) => context.prisma.note({ id }),
-  subject: (_, { id }, context) => context.prisma.subject({ id }),
+  subject: (_, { code }, context) => context.prisma.subject({ code }),
+  user: (_, { id }, context) => context.prisma.user({ id }),
+  comment: (_, { id }, context) => context.prisma.comment({ id }),
 };
