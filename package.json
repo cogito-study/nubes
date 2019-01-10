@@ -1,6 +1,5 @@
 {
   "name": "graphql-auth",
-  "license": "MIT",
   "scripts": {
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
     "start:staging": "env-cmd .env.staging ts-node src/index.ts",
