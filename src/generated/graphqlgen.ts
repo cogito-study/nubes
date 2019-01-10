@@ -13,6 +13,8 @@ type UserOrderByInput =
   | 'email_DESC'
   | 'neptun_ASC'
   | 'neptun_DESC'
+  | 'isActive_ASC'
+  | 'isActive_DESC'
   | 'password_ASC'
   | 'password_DESC'
   | 'firstName_ASC'
@@ -200,6 +202,7 @@ export namespace UserResolvers {
     id: (parent: User) => parent.id,
     email: (parent: User) => parent.email,
     neptun: (parent: User) => parent.neptun,
+    isActive: (parent: User) => (parent.isActive === undefined ? null : parent.isActive),
     password: (parent: User) => parent.password,
     firstName: (parent: User) => (parent.firstName === undefined ? null : parent.firstName),
     lastName: (parent: User) => (parent.lastName === undefined ? null : parent.lastName),
@@ -221,6 +224,13 @@ export namespace UserResolvers {
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => string | Promise<string>;
+
+  export type IsActiveResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | null | Promise<boolean | null>;
 
   export type PasswordResolver = (
     parent: User,
@@ -256,6 +266,13 @@ export namespace UserResolvers {
     email: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
     neptun: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+
+    isActive: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | null | Promise<boolean | null>;
 
     password: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
@@ -472,6 +489,8 @@ export namespace NoteResolvers {
     neptun_not_starts_with: string | null;
     neptun_ends_with: string | null;
     neptun_not_ends_with: string | null;
+    isActive: boolean | null;
+    isActive_not: boolean | null;
     password: string | null;
     password_not: string | null;
     password_in: string[];
@@ -843,6 +862,8 @@ export namespace SubjectResolvers {
     neptun_not_starts_with: string | null;
     neptun_ends_with: string | null;
     neptun_not_ends_with: string | null;
+    isActive: boolean | null;
+    isActive_not: boolean | null;
     password: string | null;
     password_not: string | null;
     password_in: string[];
@@ -1569,6 +1590,8 @@ export namespace CommentResolvers {
     neptun_not_starts_with: string | null;
     neptun_ends_with: string | null;
     neptun_not_ends_with: string | null;
+    isActive: boolean | null;
+    isActive_not: boolean | null;
     password: string | null;
     password_not: string | null;
     password_in: string[];

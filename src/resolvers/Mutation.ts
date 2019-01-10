@@ -5,6 +5,7 @@ import { prisma } from '../generated/prisma-client';
 import { getUserId } from '../utils';
 
 const hashPassword = (password: String) => hash(password, 10);
+const generateToken = (userId: string) => sign({ userId }, process.env.APP_SECRET);
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -16,7 +17,7 @@ export const Mutation: MutationResolvers.Type = {
       role,
     });
     return {
-      token: sign({ userId: user.id }, process.env.APP_SECRET),
+      token: generateToken(user.id),
       user,
     };
   },
@@ -38,7 +39,14 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
   activate: async (parent, { id, password }, context) => {
-    return context.prisma.updateUser({ where: { id }, args: { isActive: true, password: hashPassword } });
+    const user = await context.prisma.updateUser({
+      where: { id },
+      data: { isActive: true, password: await hashPassword(password) },
+    });
+    return {
+      token: generateToken(user.id),
+      user,
+    };
   },
   upvoteComment: async (parent, { id }, context) => {
     const userId = getUserId(context);
