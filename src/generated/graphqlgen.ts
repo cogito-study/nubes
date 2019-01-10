@@ -202,7 +202,7 @@ export namespace UserResolvers {
     id: (parent: User) => parent.id,
     email: (parent: User) => parent.email,
     neptun: (parent: User) => parent.neptun,
-    isActive: (parent: User) => (parent.isActive === undefined ? null : parent.isActive),
+    isActive: (parent: User) => parent.isActive,
     password: (parent: User) => parent.password,
     firstName: (parent: User) => (parent.firstName === undefined ? null : parent.firstName),
     lastName: (parent: User) => (parent.lastName === undefined ? null : parent.lastName),
@@ -230,7 +230,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo,
-  ) => boolean | null | Promise<boolean | null>;
+  ) => boolean | Promise<boolean>;
 
   export type PasswordResolver = (
     parent: User,
@@ -267,12 +267,7 @@ export namespace UserResolvers {
 
     neptun: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
-    isActive: (
-      parent: User,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => boolean | null | Promise<boolean | null>;
+    isActive: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
     password: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 

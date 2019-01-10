@@ -8,7 +8,7 @@ interface Context {
   request: any;
 }
 
-export function getUserId(context: Context): string {
+export function getUserID(context: Context): string {
   const Authorization = context.request.get('Authorization');
   if (Authorization) {
     const token = Authorization.replace('Bearer ', '');

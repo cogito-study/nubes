@@ -1,13 +1,14 @@
 import { MutationResolvers } from '../generated/graphqlgen';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { getUserId } from '../utils';
+import { getUserID } from '../utils';
 
 const hashPassword = (password: String) => hash(password, 10);
-const generateToken = (userId: string) => sign({ userId }, process.env.APP_SECRET);
+const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
+
   signup: async (_, { email, password, role, neptun }, context) => {
     const user = await context.prisma.createUser({
       email,
@@ -29,11 +30,11 @@ export const Mutation: MutationResolvers.Type = {
 
     const passwordValid = await compare(password, user.password);
     if (!passwordValid) {
-      throw new Error('Invalid password');
+      throw new Error('Invalid password or email');
     }
 
     return {
-      token: sign({ userId: user.id }, process.env.APP_SECRET),
+      token: generateToken(user.id),
       user,
     };
   },
@@ -42,36 +43,39 @@ export const Mutation: MutationResolvers.Type = {
       where: { id },
       data: { isActive: true, password: await hashPassword(password) },
     });
+
     return {
       token: generateToken(user.id),
       user,
     };
   },
   upvoteComment: async (parent, { id }, context) => {
-    const userId = getUserId(context);
+    const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
       where: { id },
-      data: { upvotes: { connect: { id: userId } } },
+      data: { upvotes: { connect: { id: userID } } },
     });
+
     return comment;
   },
   unvoteComment: async (parent, { id }, context) => {
-    const userId = getUserId(context);
+    const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
       where: { id },
-      data: { upvotes: { disconnect: { id: userId } } },
+      data: { upvotes: { disconnect: { id: userID } } },
     });
+
     return comment;
   },
   submitComment: async (parent, { noteID, input: { text, locationInText } }, context) => {
-    const loc: JSON = JSON.parse(locationInText);
-    const userID = getUserId(context);
+    const userID = getUserID(context);
     const comment = await context.prisma.createComment({
       text,
-      locationInText: loc,
+      locationInText: JSON.parse(locationInText),
       note: { connect: { id: noteID } },
       author: { connect: { id: userID } },
     });
+
     return comment;
   },
   deleteComment: async (parent, { id }, context) => {
