@@ -23,6 +23,7 @@
     "graphql-yoga": "1.16.9",
     "jsonwebtoken": "8.4.0",
     "prisma-client-lib": "1.23.4",
+    "ts-node": "7.0.1",
     "env-cmd": "^8.0.2"
   },
   "devDependencies": {
@@ -32,7 +33,6 @@
     "@types/jsonwebtoken": "8.3.0",
     "@types/ws": "6.0.1",
     "prettier": "1.15.3",
-    "ts-node": "7.0.1",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-config-standard": "^8.0.1",
