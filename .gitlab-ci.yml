@@ -37,9 +37,7 @@ deploy_staging:
     - gem install dpl
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
-    - dpl --provider=heroku --api-key=$HEROKU_API_KEY
-  environment:
-    name: staging
-    url: https://devops-react-app.netlify.com
+    - npm run prisma-deploy:staging
+    - dpl --provider=heroku --app=cogito-graphql-backend --api-key=$HEROKU_API_KEY
   only:
     - master
