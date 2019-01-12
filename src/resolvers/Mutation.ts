@@ -1,9 +1,10 @@
-import { MutationResolvers } from '../generated/graphqlgen';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+
+import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
 
-const hashPassword = (password: String) => hash(password, 10);
+const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
 
 export const Mutation: MutationResolvers.Type = {
@@ -39,6 +40,12 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
   activate: async (parent, { id, password }, context) => {
+    const isActivatedUser = await context.prisma.user({ id }).isActive;
+
+    if (isActivatedUser) {
+      throw new Error('User already activated');
+    }
+
     const user = await context.prisma.updateUser({
       where: { id },
       data: { isActive: true, password: await hashPassword(password) },
