@@ -78,4 +78,8 @@ export const Mutation: MutationResolvers.Type = {
     await context.prisma.deleteComment({ id });
     return true;
   },
+  updateNote: (parent, { id, text }, context) => {
+    const note = context.prisma.updateNote({ where: { id }, data: { text } });
+    return note;
+  },
 };

@@ -21,6 +21,7 @@ type Mutation {
   unvoteComment(id: ID!): Comment!
   submitComment(noteID: ID!, input: CommentInput!): Comment!
   deleteComment(id: ID!): Boolean!
+  updateNote(id: ID!, text: Json!): Note!
 }
 
 input CommentInput {

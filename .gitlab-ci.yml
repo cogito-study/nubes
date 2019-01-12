@@ -1,0 +1,42 @@
+image: node:latest
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  HEROKU_API_KEY: 58e574d7-1f07-49bb-8087-b0c14661fc58
+  PRISMA_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJkZWZhdWx0QGRlZmF1bHQiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNTQ3MzA3Mjg3LCJleHAiOjE1NDc5MTIwODd9.RoFM767OvVG0SKUBuYSuo3G5qCTzXpgUQ14VuObqOtw
+
+cache:
+  paths:
+    - node_modules/
+
+testing:
+  stage: test
+
+install_dependencies:
+  stage: build
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update -qy
+    - apt-get install -y heroku-toolbelt
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - prisma login --key $PRISMA_API_KEY
+    - dpl --provider=heroku --api-key=$HEROKU_API_KEY
+  environment:
+    name: staging
+    url: https://devops-react-app.netlify.com
+  only:
+    - development
