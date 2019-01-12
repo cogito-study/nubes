@@ -41,4 +41,4 @@ deploy_staging:
     name: staging
     url: https://devops-react-app.netlify.com
   only:
-    - development
+    - master
