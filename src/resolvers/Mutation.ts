@@ -36,20 +36,20 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
   activate: async (parent, { id, password }, context) => {
-    const isActivatedUser = await context.prisma.user({ id }).isActive;
+    const user = await context.prisma.user({ id });
 
-    if (isActivatedUser) {
+    if (user.isActive) {
       throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
 
-    const user = await context.prisma.updateUser({
+    const updatedUser = await context.prisma.updateUser({
       where: { id },
       data: { isActive: true, password: await hashPassword(password) },
     });
 
     return {
-      token: generateToken(user.id),
-      user,
+      token: generateToken(updatedUser.id),
+      user: updatedUser,
     };
   },
   upvoteComment: async (parent, { id }, context) => {
