@@ -24,14 +24,10 @@ export const Mutation: MutationResolvers.Type = {
   },
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
+    const isValidPassword = await compare(password, user.password);
 
-    if (!user) {
-      throw new Error(`No user found for email: ${email}`);
-    }
-
-    const passwordValid = await compare(password, user.password);
-    if (!passwordValid) {
-      throw new Error('Invalid password or email');
+    if (!user || !isValidPassword) {
+      throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
     return {
@@ -43,7 +39,7 @@ export const Mutation: MutationResolvers.Type = {
     const isActivatedUser = await context.prisma.user({ id }).isActive;
 
     if (isActivatedUser) {
-      throw new Error('User already activated');
+      throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
 
     const user = await context.prisma.updateUser({
