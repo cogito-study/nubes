@@ -35,6 +35,7 @@ deploy_staging:
     - apt-get install -y heroku-toolbelt
     - apt-get install -y ruby-dev
     - gem install dpl
+    - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
     - dpl --provider=heroku --api-key=$HEROKU_API_KEY
   environment:
