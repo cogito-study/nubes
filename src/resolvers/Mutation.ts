@@ -1,9 +1,10 @@
-import { MutationResolvers } from '../generated/graphqlgen';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+
+import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
 
-const hashPassword = (password: String) => hash(password, 10);
+const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
 
 export const Mutation: MutationResolvers.Type = {
@@ -23,14 +24,10 @@ export const Mutation: MutationResolvers.Type = {
   },
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
+    const isValidPassword = await compare(password, user.password);
 
-    if (!user) {
-      throw new Error(`No user found for email: ${email}`);
-    }
-
-    const passwordValid = await compare(password, user.password);
-    if (!passwordValid) {
-      throw new Error('Invalid password or email');
+    if (!user || !isValidPassword) {
+      throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
     return {
@@ -39,14 +36,20 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
   activate: async (parent, { id, password }, context) => {
-    const user = await context.prisma.updateUser({
+    const user = await context.prisma.user({ id });
+
+    if (user.isActive) {
+      throw new Error('A megadott felhasználó korábban már regisztrált.');
+    }
+
+    const updatedUser = await context.prisma.updateUser({
       where: { id },
       data: { isActive: true, password: await hashPassword(password) },
     });
 
     return {
-      token: generateToken(user.id),
-      user,
+      token: generateToken(updatedUser.id),
+      user: updatedUser,
     };
   },
   upvoteComment: async (parent, { id }, context) => {
