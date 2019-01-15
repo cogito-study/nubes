@@ -1,4 +1,5 @@
 import { rule, shield } from 'graphql-shield';
+
 import { getUserID } from '../utils';
 
 const rules = {

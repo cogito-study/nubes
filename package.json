@@ -1,6 +1,7 @@
 {
   "name": "graphql-auth",
   "scripts": {
+    "start": "npm run start:dev",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
     "start:staging": "env-cmd .env.staging ts-node src/index.ts",
     "start:prod": "env-cmd .env.prod ts-node src/index.ts",
@@ -17,19 +18,19 @@
   },
   "dependencies": {
     "@types/aws-lambda": "8.10.17",
-    "@types/graphql": "14.0.4",
-    "@types/ws": "6.0.1",
-    "@types/jsonwebtoken": "8.3.0",
     "@types/bcrypt": "3.0.0",
+    "@types/graphql": "14.0.4",
+    "@types/jsonwebtoken": "8.3.0",
+    "@types/ws": "6.0.1",
     "bcrypt": "3.0.3",
+    "env-cmd": "^8.0.2",
     "graphql-import": "^0.7.1",
     "graphql-shield": "5.1.0",
     "graphql-yoga": "1.16.9",
     "jsonwebtoken": "8.4.0",
     "prisma-client-lib": "1.23.4",
     "ts-node": "7.0.1",
-    "typescript": "3.2.2",
-    "env-cmd": "^8.0.2"
+    "typescript": "3.2.2"
   },
   "devDependencies": {
     "prettier": "1.15.3",

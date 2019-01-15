@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 
 interface Token {
-  userId: string;
+  userID: string;
 }
 
 interface Context {
@@ -13,6 +13,6 @@ export function getUserID(context: Context): string {
   if (Authorization) {
     const token = Authorization.replace('Bearer ', '');
     const verifiedToken = verify(token, process.env.APP_SECRET) as Token;
-    return verifiedToken && verifiedToken.userId;
+    return verifiedToken && verifiedToken.userID;
   }
 }
