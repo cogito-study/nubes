@@ -18,7 +18,7 @@ testing:
   script:
     - echo "to be implemented"
 
-install_dependencies:
+install-dependencies:
   stage: build
   script:
     - npm install
@@ -26,7 +26,7 @@ install_dependencies:
     paths:
       - node_modules/
 
-deploy_staging:
+deploy-staging:
   stage: deploy
   script:
     - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
