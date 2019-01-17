@@ -1,6 +1,8 @@
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 
+import { Range, Value, Editor } from 'slate';
+
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
 
@@ -72,6 +74,7 @@ export const Mutation: MutationResolvers.Type = {
   },
   submitComment: async (parent, { noteID, input: { text, locationInText } }, context) => {
     const userID = getUserID(context);
+
     const comment = await context.prisma.createComment({
       text,
       locationInText: JSON.parse(locationInText),
@@ -79,9 +82,36 @@ export const Mutation: MutationResolvers.Type = {
       author: { connect: { id: userID } },
     });
 
+    const note = context.prisma.note({ id: noteID });
+
+    // új slate editor kontroller létrehozása (html komponens nélkül)
+    const editor = new Editor({ value: note.text });
+
+    // az editor beilleszti az új kommenthez kapcsolódó dolgokat a jegyzet szövegébe
+    const newValue = editor
+      .select(Range.fromJSON(locationInText))
+      .addMark({ type: 'comment', data: { id: comment.id, show: false } }).value;
+
+    // a jegyzet szövegét update-eljük
+    context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue } });
+
     return comment;
   },
-  deleteComment: async (parent, { id }, context) => {
+  deleteComment: async (parent, { noteID, id }, context) => {
+    const comment = await context.prisma.comment({ id });
+    const note = context.prisma.note({ id: noteID });
+
+    // új slate editor kontroller létrehozása (html komponens nélkül)
+    const editor = new Editor({ value: note.text });
+
+    // az editor kiveszi a törölt kommenthez kapcsolódó dolgokat a jegyzet szövegéből
+    const newValue = editor
+      .select(Range.fromJSON(comment.locationInText))
+      .removeMark({ type: 'comment', data: { id: comment.id, show: false } }).value;
+
+    // a jegyzet szövegét update-eljük
+    context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue } });
+
     await context.prisma.deleteComment({ id });
     return true;
   },
