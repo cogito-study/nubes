@@ -1924,6 +1924,7 @@ export namespace MutationResolvers {
   }
 
   export interface ArgsDeleteComment {
+    noteID: string;
     id: string;
   }
 

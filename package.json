@@ -27,8 +27,10 @@
     "graphql-import": "^0.7.1",
     "graphql-shield": "5.1.0",
     "graphql-yoga": "1.16.9",
+    "immutable": "^4.0.0-rc.12",
     "jsonwebtoken": "8.4.0",
     "prisma-client-lib": "1.23.4",
+    "slate": "^0.44.9",
     "ts-node": "7.0.1",
     "typescript": "3.2.2"
   },

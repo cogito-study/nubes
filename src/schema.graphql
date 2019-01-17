@@ -20,7 +20,7 @@ type Mutation {
   upvoteComment(id: ID!): Comment!
   unvoteComment(id: ID!): Comment!
   submitComment(noteID: ID!, input: CommentInput!): Comment!
-  deleteComment(id: ID!): Boolean!
+  deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
 }
 
