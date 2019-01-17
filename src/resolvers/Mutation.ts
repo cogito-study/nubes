@@ -93,7 +93,7 @@ export const Mutation: MutationResolvers.Type = {
       .addMark({ type: 'comment', data: { id: comment.id, show: false } }).value;
 
     // a jegyzet szövegét update-eljük
-    await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue } });
+    await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue.toJSON() } });
 
     return comment;
   },
@@ -110,7 +110,7 @@ export const Mutation: MutationResolvers.Type = {
       .removeMark({ type: 'comment', data: { id, show: false } }).value;
 
     // a jegyzet szövegét update-eljük
-    await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue } });
+    await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue.toJSON() } });
 
     await context.prisma.deleteComment({ id });
     return true;
