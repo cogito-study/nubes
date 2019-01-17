@@ -85,7 +85,7 @@ export const Mutation: MutationResolvers.Type = {
     const note = await context.prisma.note({ id: noteID });
 
     // új slate editor kontroller létrehozása (html komponens nélkül)
-    const editor = new Editor({ value: note.text });
+    const editor = new Editor({ value: Value.fromJSON(note.text) });
 
     // az editor beilleszti az új kommenthez kapcsolódó dolgokat a jegyzet szövegébe
     const newValue = editor
@@ -102,7 +102,7 @@ export const Mutation: MutationResolvers.Type = {
     const note = await context.prisma.note({ id: noteID });
 
     // új slate editor kontroller létrehozása (html komponens nélkül)
-    const editor = new Editor({ value: note.text });
+    const editor = new Editor({ value: Value.fromJSON(note.text) });
 
     // az editor kiveszi a törölt kommenthez kapcsolódó dolgokat a jegyzet szövegéből
     const newValue = editor
