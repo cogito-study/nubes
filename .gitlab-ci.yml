@@ -53,7 +53,7 @@ apollo-service-push-staging:
   stage: deploy
   script:
     - npm i -g apollo
-    - apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=$ENGINE_KEY
+    - apollo service:push --key $ENGINE_KEY --endpoint=https://cogito-graphql-staging.herokuapp.com/
   only:
     - development
 
@@ -83,6 +83,6 @@ apollo-service-push-prod:
   stage: deploy
   script:
     - npm i -g apollo
-    - apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=$ENGINE_KEY
+    - apollo service:push --key $ENGINE_KEY --endpoint=https://cogito-graphql-staging.herokuapp.com/
   only:
     - master
