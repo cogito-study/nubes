@@ -5,10 +5,6 @@ stages:
   - build
   - deploy
 
-variables:
-  HEROKU_API_KEY: 58e574d7-1f07-49bb-8087-b0c14661fc58
-  PRISMA_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanFqbXJhZngzcjc4MDg2MWJhMDdqeXNiIiwiaWF0IjoxNTQ3MzA4NDI0LCJleHAiOjE1NDk5MDA0MjR9.wvGXsp5A04BgLl2UBZKwYGq-PlOHFehBtA1onNEAwy8
-
 cache:
   paths:
     - node_modules/
@@ -35,14 +31,6 @@ prisma-deploy-staging:
   only:
     - development
 
-apollo-service-push-staging:
-  stage: deploy
-  script:
-    - npm install -g apollo
-    - npm run apollo-service-push:staging
-  only:
-    - development
-
 deploy-staging:
   stage: deploy
   script:
@@ -56,7 +44,15 @@ deploy-staging:
   only:
     - development
 
-deploy_prod:
+apollo-service-push-staging:
+  stage: deploy
+  script:
+    - npm install -g apollo
+    - npm run apollo-service-push:staging
+  only:
+    - development
+
+deploy-prod:
   stage: deploy
   script:
     - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
