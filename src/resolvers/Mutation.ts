@@ -1,7 +1,7 @@
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-
 import { Range, Value, Editor } from 'slate';
+import { createTransport, SendMailOptions } from 'nodemailer';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
@@ -19,16 +19,21 @@ export const Mutation: MutationResolvers.Type = {
       neptun,
       role,
     });
+
     return {
       token: generateToken(user.id),
       user,
     };
   },
+
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
-    const isValidPassword = await compare(password, user.password);
+    if (!user) {
+      throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
+    }
 
-    if (!user || !isValidPassword) {
+    const isValidPassword = await compare(password, user.password);
+    if (!isValidPassword) {
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
@@ -37,6 +42,7 @@ export const Mutation: MutationResolvers.Type = {
       user,
     };
   },
+
   activate: async (parent, { id, password }, context) => {
     const user = await context.prisma.user({ id });
 
@@ -54,6 +60,7 @@ export const Mutation: MutationResolvers.Type = {
       user: updatedUser,
     };
   },
+
   forgotPassword: async (parent, { email }, context) => {
     const user = await context.prisma.user({ email });
 
@@ -61,8 +68,27 @@ export const Mutation: MutationResolvers.Type = {
       return false;
     }
 
+    const token = generateToken(user.id);
+    const redirectURL = `${process.env.REACT_APP_URL}/reset-password/${token}`;
+
+    const transporter = createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'trademedicmatt@gmail.com',
+        pass: 'Predator95',
+      },
+    });
+
+    const mailOptions: SendMailOptions = {
+      from: 'trademedicmatt@gmail.com',
+      to: 'matepapp@icloud.com',
+      subject: 'Test forgot password',
+      html: `<h1>Elfelejtetted a jelszavad?</h1><p>Akkor kattints <a href=${redirectURL}>erre a linkre</a>!</p>`,
+    };
+
     return true;
   },
+
   upvoteComment: async (parent, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
@@ -72,6 +98,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return comment;
   },
+
   unvoteComment: async (parent, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
@@ -81,6 +108,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return comment;
   },
+
   submitComment: async (parent, { noteID, input: { text, locationInText } }, context) => {
     const userID = getUserID(context);
 
@@ -101,6 +129,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return comment;
   },
+
   deleteComment: async (parent, { noteID, id }, context) => {
     const comment = await context.prisma.comment({ id });
     const note = await context.prisma.note({ id: noteID });
@@ -115,6 +144,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return true;
   },
+
   updateNote: (parent, { id, text }, context) => {
     const note = context.prisma.updateNote({ where: { id }, data: { text } });
     return note;
