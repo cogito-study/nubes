@@ -1910,6 +1910,10 @@ export namespace MutationResolvers {
     password: string;
   }
 
+  export interface ArgsForgotPassword {
+    email: string;
+  }
+
   export interface ArgsUpvoteComment {
     id: string;
   }
@@ -1953,6 +1957,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => AuthPayload | Promise<AuthPayload>;
+
+  export type ForgotPasswordResolver = (
+    parent: undefined,
+    args: ArgsForgotPassword,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
 
   export type UpvoteCommentResolver = (
     parent: undefined,
@@ -2010,6 +2021,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => AuthPayload | Promise<AuthPayload>;
+
+    forgotPassword: (
+      parent: undefined,
+      args: ArgsForgotPassword,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | Promise<boolean>;
 
     upvoteComment: (
       parent: undefined,
