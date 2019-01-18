@@ -28,6 +28,7 @@ install-dependencies:
 
 prisma-deploy-staging:
   stage: deploy
+  script:
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
     - npm run prisma-deploy:staging
@@ -36,6 +37,7 @@ prisma-deploy-staging:
 
 apollo-service-push-staging:
   stage: deploy
+  script:
     - npm install -g apollo
     - npm run apollo-service-push:staging
   only:
