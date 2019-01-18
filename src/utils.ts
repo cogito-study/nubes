@@ -2,6 +2,8 @@ import { verify } from 'jsonwebtoken';
 
 interface Token {
   userID: string;
+  iat?: number;
+  exp?: number;
 }
 
 interface Context {
