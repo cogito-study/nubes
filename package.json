@@ -5,6 +5,7 @@
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
     "start:staging": "env-cmd .env.staging ts-node src/index.ts",
     "start:prod": "env-cmd .env.prod ts-node src/index.ts",
+    "apollo-service-push:staging": "apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=service:cogito-backend-staging:j0NNNa8XRR0CH4sziCxoqQ",
     "prisma-generate:dev": "prisma generate --env-file .env.dev",
     "prisma-generate:staging": "prisma generate --env-file .env.staging",
     "prisma-generate:prod": "prisma generate --env-file .env.prod",
@@ -14,6 +15,8 @@
     "prisma-deploy:dev": "prisma deploy --env-file .env.dev",
     "prisma-deploy:staging": "prisma deploy --env-file .env.staging",
     "prisma-deploy:prod": "prisma deploy --env-file .env.prod",
+    "deploy:staging": "env-cmd .env.staging dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY",
+    "deploy:prod": "env-cmd .env.prod dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY",
     "generate": "graphqlgen"
   },
   "dependencies": {

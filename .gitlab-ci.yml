@@ -26,6 +26,21 @@ install-dependencies:
     paths:
       - node_modules/
 
+prisma-deploy-staging:
+  stage: deploy
+    - npm install -g prisma
+    - prisma login --key $PRISMA_API_KEY
+    - npm run prisma-deploy:staging
+  only:
+    - development
+
+apollo-service-push-staging:
+  stage: deploy
+    - npm install -g apollo
+    - npm run apollo-service-push:staging
+  only:
+    - development
+
 deploy-staging:
   stage: deploy
   script:
@@ -35,10 +50,7 @@ deploy-staging:
     - apt-get install -y heroku-toolbelt
     - apt-get install -y ruby-dev
     - gem install dpl
-    - npm install -g prisma
-    - prisma login --key $PRISMA_API_KEY
-    - npm run prisma-deploy:staging
-    - dpl --provider=heroku --app=cogito-graphql-backend --api-key=$HEROKU_API_KEY
+    - npm run deploy:staging
   only:
     - development
 
@@ -54,6 +66,6 @@ deploy-prod:
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
     - npm run prisma-deploy:prod
-    - dpl --provider=heroku --app=cogito-graphql-prod --api-key=$HEROKU_API_KEY
+    - npm run deploy:prod
   only:
     - master
