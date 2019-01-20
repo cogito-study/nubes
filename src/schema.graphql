@@ -17,6 +17,7 @@ type Mutation {
   signup(email: String!, password: String!, neptun: String!, role: UserRole!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   activate(id: ID!, password: String!): AuthPayload!
+  forgotPassword(email: String!): Boolean!
   upvoteComment(id: ID!): Comment!
   unvoteComment(id: ID!): Comment!
   submitComment(noteID: ID!, input: CommentInput!): Comment!

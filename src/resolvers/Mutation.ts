@@ -1,7 +1,7 @@
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-
 import { Range, Value, Editor } from 'slate';
+import { createTransport, SendMailOptions } from 'nodemailer';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
@@ -19,16 +19,21 @@ export const Mutation: MutationResolvers.Type = {
       neptun,
       role,
     });
+
     return {
       token: generateToken(user.id),
       user,
     };
   },
+
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
-    const isValidPassword = await compare(password, user.password);
+    if (!user) {
+      throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
+    }
 
-    if (!user || !isValidPassword) {
+    const isValidPassword = await compare(password, user.password);
+    if (!isValidPassword) {
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
@@ -37,6 +42,7 @@ export const Mutation: MutationResolvers.Type = {
       user,
     };
   },
+
   activate: async (parent, { id, password }, context) => {
     const user = await context.prisma.user({ id });
 
@@ -54,6 +60,35 @@ export const Mutation: MutationResolvers.Type = {
       user: updatedUser,
     };
   },
+
+  forgotPassword: async (parent, { email }, context) => {
+    const user = await context.prisma.user({ email });
+
+    if (!user) {
+      return false;
+    }
+
+    const token = generateToken(user.id);
+    const redirectURL = `${process.env.REACT_APP_URL}/reset-password/${token}`;
+
+    const transporter = createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'trademedicmatt@gmail.com',
+        pass: 'Predator95',
+      },
+    });
+
+    const mailOptions: SendMailOptions = {
+      from: 'trademedicmatt@gmail.com',
+      to: 'matepapp@icloud.com',
+      subject: 'Test forgot password',
+      html: `<h1>Elfelejtetted a jelszavad?</h1><p>Akkor kattints <a href=${redirectURL}>erre a linkre</a>!</p>`,
+    };
+
+    return true;
+  },
+
   upvoteComment: async (parent, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
@@ -63,6 +98,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return comment;
   },
+
   unvoteComment: async (parent, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
@@ -72,9 +108,11 @@ export const Mutation: MutationResolvers.Type = {
 
     return comment;
   },
+
   submitComment: async (parent, { noteID, input: { text, locationInText } }, context) => {
     const userID = getUserID(context);
 
+    const note = await context.prisma.note({ id: noteID });
     const comment = await context.prisma.createComment({
       text,
       locationInText: JSON.parse(locationInText),
@@ -82,39 +120,31 @@ export const Mutation: MutationResolvers.Type = {
       author: { connect: { id: userID } },
     });
 
-    const note = await context.prisma.note({ id: noteID });
-
-    // új slate editor kontroller létrehozása (html komponens nélkül)
     const editor = new Editor({ value: Value.fromJSON(note.text) });
-
-    // az editor beilleszti az új kommenthez kapcsolódó dolgokat a jegyzet szövegébe
     const newValue = editor
       .select(Range.fromJSON(JSON.parse(locationInText)))
       .addMark({ type: 'comment', data: { id: comment.id, show: false } }).value;
 
-    // a jegyzet szövegét update-eljük
     await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue.toJSON() } });
 
     return comment;
   },
+
   deleteComment: async (parent, { noteID, id }, context) => {
     const comment = await context.prisma.comment({ id });
     const note = await context.prisma.note({ id: noteID });
 
-    // új slate editor kontroller létrehozása (html komponens nélkül)
     const editor = new Editor({ value: Value.fromJSON(note.text) });
-
-    // az editor kiveszi a törölt kommenthez kapcsolódó dolgokat a jegyzet szövegéből
     const newValue = editor
       .select(Range.fromJSON(comment.locationInText))
       .removeMark({ type: 'comment', data: { id, show: false } }).value;
 
-    // a jegyzet szövegét update-eljük
     await context.prisma.updateNote({ where: { id: noteID }, data: { text: newValue.toJSON() } });
-
     await context.prisma.deleteComment({ id });
+
     return true;
   },
+
   updateNote: (parent, { id, text }, context) => {
     const note = context.prisma.updateNote({ where: { id }, data: { text } });
     return note;
