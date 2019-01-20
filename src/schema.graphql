@@ -1,4 +1,4 @@
-# import Comment, Note, Subject, User, UserRole from './generated/prisma.graphql'
+# import Comment, Note, Subject, User, UserRole, CommentSubscriptionPayload from './generated/prisma.graphql'
 
 scalar DateTime
 
@@ -22,6 +22,10 @@ type Mutation {
   submitComment(noteID: ID!, input: CommentInput!): Comment!
   deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
+}
+
+type Subscription {
+  comments: CommentSubscriptionPayload!
 }
 
 input CommentInput {
