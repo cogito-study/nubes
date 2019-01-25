@@ -23,10 +23,7 @@ type Mutation {
   submitComment(noteID: ID!, input: CommentInput!): Comment!
   deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
-}
-
-type Subscription {
-  comments: CommentSubscriptionPayload!
+  uploadImage(fileName: String, fileType: String): FileUploadPayload!
 }
 
 input CommentInput {
@@ -37,4 +34,9 @@ input CommentInput {
 type AuthPayload {
   token: String!
   user: User!
+}
+
+type FileUploadPayload {
+  data: Json!
+  url: String!
 }
