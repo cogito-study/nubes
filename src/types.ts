@@ -9,3 +9,8 @@ export interface AuthPayload {
   token: string;
   user: User;
 }
+
+export interface FileUploadPayload {
+  data: any;
+  url: string;
+}

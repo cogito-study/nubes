@@ -27,6 +27,7 @@
     "@types/nodemailer": "^4.6.5",
     "@types/slate": "^0.43.8",
     "@types/ws": "6.0.1",
+    "aws-sdk": "^2.394.0",
     "bcrypt": "3.0.3",
     "env-cmd": "^8.0.2",
     "graphql-import": "^0.7.1",

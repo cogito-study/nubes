@@ -3,8 +3,11 @@ import { sign } from 'jsonwebtoken';
 import { Range, Value, Editor } from 'slate';
 import { createTransport, SendMailOptions } from 'nodemailer';
 
+import { S3 } from 'aws-sdk';
+
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
+import { GraphQLError } from 'graphql';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
@@ -148,5 +151,26 @@ export const Mutation: MutationResolvers.Type = {
   updateNote: (parent, { id, text }, context) => {
     const note = context.prisma.updateNote({ where: { id }, data: { text } });
     return note;
+  },
+  uploadImage: async (_, { fileName, fileType }) => {
+    const s3 = new S3();
+    const s3Params = {
+      Bucket: process.env.S3_BUCKET,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read',
+    };
+
+    await s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if (err) {
+        throw new GraphQLError(err.message);
+      }
+      return {
+        data,
+        url: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+      };
+    });
+    throw new GraphQLError('sign request error');
   },
 };
