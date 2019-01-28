@@ -171,6 +171,6 @@ export const Mutation: MutationResolvers.Type = {
         url: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${fileName}`,
       };
     });
-    throw new GraphQLError('sign request error');
+    throw new GraphQLError('sign request error (should not run)');
   },
 };
