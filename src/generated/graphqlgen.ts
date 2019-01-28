@@ -2115,16 +2115,8 @@ export namespace AuthPayloadResolvers {
 
 export namespace FileUploadPayloadResolvers {
   export const defaultResolvers = {
-    data: (parent: FileUploadPayload) => parent.data,
     url: (parent: FileUploadPayload) => parent.url,
   };
-
-  export type DataResolver = (
-    parent: FileUploadPayload,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => string | Promise<string>;
 
   export type UrlResolver = (
     parent: FileUploadPayload,
@@ -2134,8 +2126,6 @@ export namespace FileUploadPayloadResolvers {
   ) => string | Promise<string>;
 
   export interface Type {
-    data: (parent: FileUploadPayload, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
-
     url: (parent: FileUploadPayload, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
   }
 }

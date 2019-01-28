@@ -11,6 +11,5 @@ export interface AuthPayload {
 }
 
 export interface FileUploadPayload {
-  data: any;
   url: string;
 }

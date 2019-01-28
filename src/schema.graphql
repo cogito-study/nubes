@@ -37,6 +37,5 @@ type AuthPayload {
 }
 
 type FileUploadPayload {
-  data: Json!
   url: String!
 }
