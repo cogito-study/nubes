@@ -177,8 +177,8 @@ export const Mutation: MutationResolvers.Type = {
     });
 
     return {
-      resultData,
-      resultUrl,
+      data: resultData,
+      url: resultUrl,
     };
   },
 };
