@@ -162,7 +162,7 @@ export const Mutation: MutationResolvers.Type = {
     };
 
     const url = await s3.getSignedUrl('putObject', s3Params);
-
+    console.log(url);
     return {
       url,
     };
