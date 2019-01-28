@@ -8,6 +8,7 @@ import { S3 } from 'aws-sdk';
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
 import { GraphQLError } from 'graphql';
+import { url } from 'inspector';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
@@ -162,15 +163,22 @@ export const Mutation: MutationResolvers.Type = {
       ACL: 'public-read',
     };
 
+    // tslint:disable:no-var-keyword
+    var resultData = {};
+    var resultUrl = '';
+    // tslint:enable:no-var-keyword
+
     await s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
         throw new GraphQLError(err.message);
       }
-      return {
-        data,
-        url: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${fileName}`,
-      };
+      resultData = data;
+      resultUrl = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${fileName}`;
     });
-    throw new GraphQLError('sign request error (should not run)');
+
+    return {
+      resultData,
+      resultUrl,
+    };
   },
 };
