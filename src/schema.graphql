@@ -32,6 +32,13 @@ input CommentInput {
   locationInText: String!
 }
 
+input BulkCreateUserData {
+  firstName: String!
+  lastName: String!
+  email: String!
+  userType: UserRole!
+}
+
 type AuthPayload {
   token: String!
   user: User!
@@ -39,11 +46,4 @@ type AuthPayload {
 
 type FileUploadPayload {
   url: String!
-}
-
-type BulkCreateUserData {
-  firstName: String!
-  lastName: String!
-  email: String!
-  userType: UserRole!
 }
