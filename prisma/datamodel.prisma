@@ -5,7 +5,6 @@ enum NoteType {
 
 enum UserRole {
   USER
-  STUDENT
   PROFESSOR
   ADMIN
 }
@@ -60,7 +59,7 @@ type SubjectInfo {
 type User {
   id: ID! @unique
   email: String! @unique
-  neptun: String! @unique
+  neptun: String
   isActive: Boolean! @default(value: "false")
   password: String!
   firstName: String

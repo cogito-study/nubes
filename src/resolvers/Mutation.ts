@@ -34,6 +34,10 @@ export const Mutation: MutationResolvers.Type = {
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
+    if (!user.isActive) {
+      throw new Error('A felhasználó még nem aktiválta a profilját.');
+    }
+
     const isValidPassword = await compare(password, user.password);
     if (!isValidPassword) {
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
@@ -165,5 +169,16 @@ export const Mutation: MutationResolvers.Type = {
     return {
       url,
     };
+  },
+  bulkCreateUser: async (_parent, { userDataList }, context) => {
+    for (const user of userDataList) {
+      const { email, firstName, lastName, userType } = user;
+      await context.prisma.createUser({
+        email,
+        password: await hashPassword(email),
+        role: userType,
+      });
+    }
+    return true;
   },
 };

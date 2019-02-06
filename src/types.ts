@@ -10,6 +10,13 @@ export interface AuthPayload {
   user: User;
 }
 
+export interface BulkCreateUserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  userType: any;
+}
+
 export interface FileUploadPayload {
   url: string;
 }
