@@ -5,6 +5,7 @@ enum NoteType {
 
 enum UserRole {
   USER
+  PROFESSOR
   ADMIN
 }
 

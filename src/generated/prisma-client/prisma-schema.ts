@@ -1461,6 +1461,7 @@ type UserPreviousValues {
 
 enum UserRole {
   USER
+  PROFESSOR
   ADMIN
 }
 
