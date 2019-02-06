@@ -75,7 +75,7 @@ deploy-prod:
     - apt-get install -y heroku-toolbelt
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=cogito-graphql-prod --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=cogito-backend-prod --api-key=$HEROKU_API_KEY
   only:
     - master
 
@@ -83,6 +83,6 @@ apollo-service-push-prod:
   stage: deploy
   script:
     - npm i -g apollo
-    - apollo service:push --key $ENGINE_KEY --endpoint=https://cogito-graphql-staging.herokuapp.com/
+    - apollo service:push --key $ENGINE_KEY --endpoint=https://cogito-backend-staging.herokuapp.com/
   only:
     - master
