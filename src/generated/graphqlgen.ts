@@ -2,7 +2,7 @@
 
 import { GraphQLResolveInfo } from 'graphql';
 import { User, Note, Subject, SubjectInfo, Comment, CommentPreviousValues } from './prisma-client';
-import { AuthPayload, FileUploadPayload, BulkCreateUserData } from '../types';
+import { AuthPayload, FileUploadPayload } from '../types';
 import { Context } from '../types';
 
 type UserRole = 'USER' | 'PROFESSOR' | 'ADMIN';
@@ -1893,6 +1893,12 @@ export namespace MutationResolvers {
     text: string;
     locationInText: string;
   }
+  export interface BulkCreateUserData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    userType: UserRole;
+  }
 
   export interface ArgsSignup {
     email: string;
@@ -2148,68 +2154,6 @@ export namespace FileUploadPayloadResolvers {
   }
 }
 
-export namespace BulkCreateUserDataResolvers {
-  export const defaultResolvers = {
-    firstName: (parent: BulkCreateUserData) => parent.firstName,
-    lastName: (parent: BulkCreateUserData) => parent.lastName,
-    email: (parent: BulkCreateUserData) => parent.email,
-    userType: (parent: BulkCreateUserData) => parent.userType,
-  };
-
-  export type FirstNameResolver = (
-    parent: BulkCreateUserData,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => string | Promise<string>;
-
-  export type LastNameResolver = (
-    parent: BulkCreateUserData,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => string | Promise<string>;
-
-  export type EmailResolver = (
-    parent: BulkCreateUserData,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => string | Promise<string>;
-
-  export type UserTypeResolver = (
-    parent: BulkCreateUserData,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => UserRole | Promise<UserRole>;
-
-  export interface Type {
-    firstName: (
-      parent: BulkCreateUserData,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => string | Promise<string>;
-
-    lastName: (
-      parent: BulkCreateUserData,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => string | Promise<string>;
-
-    email: (parent: BulkCreateUserData, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
-
-    userType: (
-      parent: BulkCreateUserData,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => UserRole | Promise<UserRole>;
-  }
-}
-
 export namespace CommentPreviousValuesResolvers {
   export const defaultResolvers = {
     id: (parent: CommentPreviousValues) => parent.id,
@@ -2292,6 +2236,5 @@ export interface Resolvers {
   Mutation: MutationResolvers.Type;
   AuthPayload: AuthPayloadResolvers.Type;
   FileUploadPayload: FileUploadPayloadResolvers.Type;
-  BulkCreateUserData: BulkCreateUserDataResolvers.Type;
   CommentPreviousValues: CommentPreviousValuesResolvers.Type;
 }
