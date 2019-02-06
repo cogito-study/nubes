@@ -9,6 +9,7 @@ import { Comment } from './Comment';
 import { Mutation } from './Mutation';
 import { AuthPayload } from './AuthPayload';
 import { FileUploadPayload } from './FileUploadPayload';
+import { BulkCreateUserData } from './BulkCreateUserData';
 import { CommentPreviousValues } from './CommentPreviousValues';
 
 export const resolvers: Resolvers = {
@@ -21,5 +22,6 @@ export const resolvers: Resolvers = {
   Mutation,
   AuthPayload,
   FileUploadPayload,
+  BulkCreateUserData,
   CommentPreviousValues,
 };

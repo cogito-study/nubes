@@ -24,6 +24,7 @@ type Mutation {
   deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
   uploadImage(fileName: String, fileType: String): FileUploadPayload!
+  bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
 }
 
 input CommentInput {
@@ -38,4 +39,11 @@ type AuthPayload {
 
 type FileUploadPayload {
   url: String!
+}
+
+type BulkCreateUserData {
+  firstName: String!
+  lastName: String!
+  email: String!
+  userType: UserRole!
 }

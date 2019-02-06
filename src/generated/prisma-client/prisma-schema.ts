@@ -190,6 +190,7 @@ input CommentUpdateManyInput {
   upsert: [CommentUpsertWithWhereUniqueNestedInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
@@ -204,6 +205,7 @@ input CommentUpdateManyWithoutNoteInput {
   create: [CommentCreateWithoutNoteInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   update: [CommentUpdateWithWhereUniqueWithoutNoteInput!]
   upsert: [CommentUpsertWithWhereUniqueWithoutNoteInput!]
@@ -588,6 +590,7 @@ input NoteUpdateManyWithoutSubjectInput {
   create: [NoteCreateWithoutSubjectInput!]
   delete: [NoteWhereUniqueInput!]
   connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
   disconnect: [NoteWhereUniqueInput!]
   update: [NoteUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [NoteUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -990,6 +993,7 @@ input SubjectInfoUpdateManyWithoutSubjectInput {
   create: [SubjectInfoCreateWithoutSubjectInput!]
   delete: [SubjectInfoWhereUniqueInput!]
   connect: [SubjectInfoWhereUniqueInput!]
+  set: [SubjectInfoWhereUniqueInput!]
   disconnect: [SubjectInfoWhereUniqueInput!]
   update: [SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -1222,6 +1226,7 @@ input SubjectUpdateManyInput {
   upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
   delete: [SubjectWhereUniqueInput!]
   connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
   disconnect: [SubjectWhereUniqueInput!]
   deleteMany: [SubjectScalarWhereInput!]
   updateMany: [SubjectUpdateManyWithWhereNestedInput!]
@@ -1386,7 +1391,7 @@ type Subscription {
 type User {
   id: ID!
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean!
   password: String!
   firstName: String
@@ -1402,7 +1407,7 @@ type UserConnection {
 
 input UserCreateInput {
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean
   password: String!
   firstName: String
@@ -1451,7 +1456,7 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean!
   password: String!
   firstName: String
@@ -1615,6 +1620,7 @@ input UserUpdateManyInput {
   upsert: [UserUpsertWithWhereUniqueNestedInput!]
   delete: [UserWhereUniqueInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   deleteMany: [UserScalarWhereInput!]
   updateMany: [UserUpdateManyWithWhereNestedInput!]
@@ -1757,6 +1763,5 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
-  neptun: String
 }
 `

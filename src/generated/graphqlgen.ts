@@ -2,10 +2,10 @@
 
 import { GraphQLResolveInfo } from 'graphql';
 import { User, Note, Subject, SubjectInfo, Comment, CommentPreviousValues } from './prisma-client';
-import { AuthPayload, FileUploadPayload } from '../types';
+import { AuthPayload, FileUploadPayload, BulkCreateUserData } from '../types';
 import { Context } from '../types';
 
-type UserRole = 'USER' | 'ADMIN';
+type UserRole = 'USER' | 'PROFESSOR' | 'ADMIN';
 type UserOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
@@ -202,7 +202,7 @@ export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
     email: (parent: User) => parent.email,
-    neptun: (parent: User) => parent.neptun,
+    neptun: (parent: User) => (parent.neptun === undefined ? null : parent.neptun),
     isActive: (parent: User) => parent.isActive,
     password: (parent: User) => parent.password,
     firstName: (parent: User) => (parent.firstName === undefined ? null : parent.firstName),
@@ -224,7 +224,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo,
-  ) => string | Promise<string>;
+  ) => string | null | Promise<string | null>;
 
   export type IsActiveResolver = (
     parent: User,
@@ -266,7 +266,7 @@ export namespace UserResolvers {
 
     email: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
-    neptun: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+    neptun: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | null | Promise<string | null>;
 
     isActive: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
@@ -1943,6 +1943,10 @@ export namespace MutationResolvers {
     fileType: string | null;
   }
 
+  export interface ArgsBulkCreateUser {
+    userDataList: BulkCreateUserData[];
+  }
+
   export type SignupResolver = (
     parent: undefined,
     args: ArgsSignup,
@@ -2012,6 +2016,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => FileUploadPayload | Promise<FileUploadPayload>;
+
+  export type BulkCreateUserResolver = (
+    parent: undefined,
+    args: ArgsBulkCreateUser,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
 
   export interface Type {
     signup: (
@@ -2083,6 +2094,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => FileUploadPayload | Promise<FileUploadPayload>;
+
+    bulkCreateUser: (
+      parent: undefined,
+      args: ArgsBulkCreateUser,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | Promise<boolean>;
   }
 }
 
@@ -2127,6 +2145,68 @@ export namespace FileUploadPayloadResolvers {
 
   export interface Type {
     url: (parent: FileUploadPayload, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+  }
+}
+
+export namespace BulkCreateUserDataResolvers {
+  export const defaultResolvers = {
+    firstName: (parent: BulkCreateUserData) => parent.firstName,
+    lastName: (parent: BulkCreateUserData) => parent.lastName,
+    email: (parent: BulkCreateUserData) => parent.email,
+    userType: (parent: BulkCreateUserData) => parent.userType,
+  };
+
+  export type FirstNameResolver = (
+    parent: BulkCreateUserData,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | Promise<string>;
+
+  export type LastNameResolver = (
+    parent: BulkCreateUserData,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | Promise<string>;
+
+  export type EmailResolver = (
+    parent: BulkCreateUserData,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | Promise<string>;
+
+  export type UserTypeResolver = (
+    parent: BulkCreateUserData,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => UserRole | Promise<UserRole>;
+
+  export interface Type {
+    firstName: (
+      parent: BulkCreateUserData,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => string | Promise<string>;
+
+    lastName: (
+      parent: BulkCreateUserData,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => string | Promise<string>;
+
+    email: (parent: BulkCreateUserData, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+
+    userType: (
+      parent: BulkCreateUserData,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => UserRole | Promise<UserRole>;
   }
 }
 
@@ -2212,5 +2292,6 @@ export interface Resolvers {
   Mutation: MutationResolvers.Type;
   AuthPayload: AuthPayloadResolvers.Type;
   FileUploadPayload: FileUploadPayloadResolvers.Type;
+  BulkCreateUserData: BulkCreateUserDataResolvers.Type;
   CommentPreviousValues: CommentPreviousValuesResolvers.Type;
 }
