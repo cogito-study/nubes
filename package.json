@@ -29,6 +29,7 @@
     "@types/ws": "6.0.1",
     "aws-sdk": "^2.394.0",
     "bcrypt": "3.0.3",
+    "email-validator": "^2.0.4",
     "env-cmd": "^8.0.2",
     "graphql-import": "^0.7.1",
     "graphql-shield": "5.1.0",

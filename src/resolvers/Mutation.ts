@@ -5,6 +5,8 @@ import { createTransport, SendMailOptions } from 'nodemailer';
 
 import { S3 } from 'aws-sdk';
 
+import * as EmailValidator from 'email-validator';
+
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
 
@@ -170,11 +172,22 @@ export const Mutation: MutationResolvers.Type = {
       url,
     };
   },
+
   bulkCreateUser: async (_parent, { userDataList }, context) => {
     for (const user of userDataList) {
+      const { email } = user;
+      if (!EmailValidator.validate(email)) {
+        throw new Error(`Email not valid: ${email}`);
+      }
+    }
+
+    for (const user of userDataList) {
       const { email, firstName, lastName, userType } = user;
+      console.log(email, firstName, lastName, userType);
       await context.prisma.createUser({
         email,
+        firstName,
+        lastName,
         password: await hashPassword(email),
         role: userType,
       });
