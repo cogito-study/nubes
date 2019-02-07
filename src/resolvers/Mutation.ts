@@ -183,7 +183,6 @@ export const Mutation: MutationResolvers.Type = {
 
     for (const user of userDataList) {
       const { email, firstName, lastName, userType } = user;
-      console.log(email, firstName, lastName, userType);
       await context.prisma.createUser({
         email,
         firstName,
