@@ -6,7 +6,7 @@ import { createTransport, SendMailOptions } from 'nodemailer';
 import { S3 } from 'aws-sdk';
 
 import * as EmailValidator from 'email-validator';
-import * as SIBSdk from 'sib-api-v3-sdk';
+import * as SibApiV3Sdk from 'sib-api-v3-sdk'; // add .d.ts file
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
@@ -196,12 +196,12 @@ export const Mutation: MutationResolvers.Type = {
     return true;
   },
   sendInvites: (_, {}, _context) => {
-    const client = SIBSdk.ApiClient.instance;
+    const client = SibApiV3Sdk.ApiClient.instance;
     const apiKey = client.authentications['api-key'];
     apiKey.apiKey = process.env.SIB_API_KEY;
 
-    const apiInstance = new SIBSdk.SMTPApi();
-    const sendEmail = new SIBSdk.SendSMTPEmail();
+    const apiInstance = new SibApiV3Sdk.SMTPApi();
+    const sendEmail = new SibApiV3Sdk.SendSMTPEmail();
 
     sendEmail.sender = 'welcome@cogito.study';
     sendEmail.to = 'berci.kormendy@cogito.study';
