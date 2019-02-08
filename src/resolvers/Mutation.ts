@@ -194,31 +194,37 @@ export const Mutation: MutationResolvers.Type = {
     }
     return true;
   },
-  sendInvites: (_, {}, _context) => {
-    const options = {
-      method: 'POST',
-      url: 'https://api.sendinblue.com/v3/smtp/email',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': process.env.SIB_API_KEY,
+  sendInvites: async (_, {}, context) => {
+    const usersToRegister = await context.prisma.users({
+      where: {
+        isActive: false,
       },
-      body: {
-        tags: ['Welcome'],
-        sender: { name: 'Berci', email: 'welcome@cogito.study' },
-        to: [{ email: 'berci.kormendy@cogito.study', name: 'Berci' }],
-        replyTo: { email: 'support@cogito.study' },
-        params: { name: 'Dudeon' },
-        templateId: 1,
-      },
-      json: true,
-    };
-
-    request(options, function(error, response, body) {
-      if (error) throw new Error(error);
-
-      console.log(body);
     });
 
+    usersToRegister.forEach((user) => {
+      const { firstName, email } = user;
+      const options = {
+        method: 'POST',
+        url: 'https://api.sendinblue.com/v3/smtp/email',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': process.env.SIB_API_KEY,
+        },
+        body: {
+          tags: ['Welcome'],
+          sender: { name: 'Berci', email: 'welcome@cogito.study' },
+          to: [{ email, name: firstName }],
+          replyTo: { email: 'support@cogito.study' },
+          params: { name: firstName },
+          templateId: 1,
+        },
+        json: true,
+      };
+
+      request(options, function(error, response, body) {
+        if (error) throw new Error(error);
+      });
+    });
     return true;
   },
 };
