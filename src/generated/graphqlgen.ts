@@ -2030,6 +2030,13 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo,
   ) => boolean | Promise<boolean>;
 
+  export type SendInvitesResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
+
   export interface Type {
     signup: (
       parent: undefined,
@@ -2107,6 +2114,8 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => boolean | Promise<boolean>;
+
+    sendInvites: (parent: undefined, args: {}, ctx: Context, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
   }
 }
 

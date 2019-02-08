@@ -25,6 +25,7 @@ type Mutation {
   updateNote(id: ID!, text: Json!): Note!
   uploadImage(fileName: String, fileType: String): FileUploadPayload!
   bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
+  sendInvites: Boolean!
 }
 
 input CommentInput {
