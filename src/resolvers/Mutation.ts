@@ -196,20 +196,18 @@ export const Mutation: MutationResolvers.Type = {
     return true;
   },
   sendInvites: (_, {}, _context) => {
-    const client = SibApiV3Sdk.ApiClient.instance;
-    const apiKey = client.authentications['api-key'];
-    apiKey.apiKey = process.env.SIB_API_KEY;
+    // const client = SibApiV3Sdk.ApiClient.instance;
+    // const apiKey = client.authentications['api-key'];
+    // apiKey.apiKey = process.env.SIB_API_KEY;
 
-    const apiInstance = new SibApiV3Sdk.SMTPApi();
-    const sendEmail = new SibApiV3Sdk.SendSMTPEmail();
+    // const apiInstance = new SibApiV3Sdk.SMTPApi();
+    // const sendEmail = new SibApiV3Sdk.SendSMTPEmail();
 
-    sendEmail.sender = 'welcome@cogito.study';
-    sendEmail.to = 'berci.kormendy@cogito.study';
-    sendEmail.templateId = 1;
-    sendEmail.params = { name: 'Berci' };
-    apiInstance.sendTransacEmail(sendEmail).then(() => {
-      /* nothing */
-    });
+    // sendEmail.sender = 'welcome@cogito.study';
+    // sendEmail.to = 'berci.kormendy@cogito.study';
+    // sendEmail.templateId = 1;
+    // sendEmail.params = { name: 'Berci' };
+    // apiInstance.sendTransacEmail(sendEmail).catch((error) => console.log(error));
 
     return true;
   },
