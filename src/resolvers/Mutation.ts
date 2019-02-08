@@ -6,6 +6,7 @@ import { createTransport, SendMailOptions } from 'nodemailer';
 import { S3 } from 'aws-sdk';
 
 import * as EmailValidator from 'email-validator';
+import * as SIBSdk from 'sib-api-v3-sdk';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
@@ -51,7 +52,7 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
 
-  activate: async (parent, { id, password }, context) => {
+  activate: async (_, { id, password }, context) => {
     const user = await context.prisma.user({ id });
 
     if (user.isActive) {
@@ -69,7 +70,7 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
 
-  forgotPassword: async (parent, { email }, context) => {
+  forgotPassword: async (_, { email }, context) => {
     const user = await context.prisma.user({ email });
 
     if (!user) {
@@ -97,7 +98,7 @@ export const Mutation: MutationResolvers.Type = {
     return true;
   },
 
-  upvoteComment: async (parent, { id }, context) => {
+  upvoteComment: async (_, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
       where: { id },
@@ -107,7 +108,7 @@ export const Mutation: MutationResolvers.Type = {
     return comment;
   },
 
-  unvoteComment: async (parent, { id }, context) => {
+  unvoteComment: async (_, { id }, context) => {
     const userID = getUserID(context);
     const comment = await context.prisma.updateComment({
       where: { id },
@@ -117,7 +118,7 @@ export const Mutation: MutationResolvers.Type = {
     return comment;
   },
 
-  submitComment: async (parent, { noteID, input: { text, locationInText } }, context) => {
+  submitComment: async (_, { noteID, input: { text, locationInText } }, context) => {
     const userID = getUserID(context);
 
     const note = await context.prisma.note({ id: noteID });
@@ -138,7 +139,7 @@ export const Mutation: MutationResolvers.Type = {
     return comment;
   },
 
-  deleteComment: async (parent, { noteID, id }, context) => {
+  deleteComment: async (_, { noteID, id }, context) => {
     const comment = await context.prisma.comment({ id });
     const note = await context.prisma.note({ id: noteID });
 
@@ -153,10 +154,11 @@ export const Mutation: MutationResolvers.Type = {
     return true;
   },
 
-  updateNote: (parent, { id, text }, context) => {
+  updateNote: (_, { id, text }, context) => {
     const note = context.prisma.updateNote({ where: { id }, data: { text } });
     return note;
   },
+
   uploadImage: async (_, { fileName, fileType }) => {
     const s3 = new S3();
     const s3Params = {
@@ -173,7 +175,7 @@ export const Mutation: MutationResolvers.Type = {
     };
   },
 
-  bulkCreateUser: async (_parent, { userDataList }, context) => {
+  bulkCreateUser: async (_, { userDataList }, context) => {
     for (const user of userDataList) {
       const { email } = user;
       if (!EmailValidator.validate(email)) {
@@ -191,6 +193,24 @@ export const Mutation: MutationResolvers.Type = {
         role: userType,
       });
     }
+    return true;
+  },
+  sendInvites: (_, {}, _context) => {
+    const client = SIBSdk.ApiClient.instance;
+    const apiKey = client.authentications['api-key'];
+    apiKey.apiKey = process.env.SIB_API_KEY;
+
+    const apiInstance = new SIBSdk.SMTPApi();
+    const sendEmail = new SIBSdk.SendSMTPEmail();
+
+    sendEmail.sender = 'welcome@cogito.study';
+    sendEmail.to = 'berci.kormendy@cogito.study';
+    sendEmail.templateId = 1;
+    sendEmail.params = { name: 'Berci' };
+    apiInstance.sendTransacEmail(sendEmail).then(() => {
+      /* nothing */
+    });
+
     return true;
   },
 };
