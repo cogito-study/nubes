@@ -4,6 +4,7 @@ stages:
   - test
   - build
   - deploy
+  - apollo
 
 variables:
   ENGINE_API_KEY: service:cogito-backend-staging:uB1g_aecUZVvRppG_ijE4w
@@ -50,7 +51,7 @@ deploy-staging:
     - development
 
 apollo-service-push-staging:
-  stage: deploy
+  stage: apollo
   script:
     - npm i -g apollo
     - apollo service:push --key $ENGINE_API_KEY --endpoint=https://cogito-graphql-staging.herokuapp.com/
@@ -80,7 +81,7 @@ deploy-prod:
     - master
 
 apollo-service-push-prod:
-  stage: deploy
+  stage: apollo
   script:
     - npm i -g apollo
     - apollo service:push --key $ENGINE_API_KEY --endpoint=https://cogito-backend-staging.herokuapp.com/
