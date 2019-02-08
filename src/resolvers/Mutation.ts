@@ -2,11 +2,10 @@ import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { Range, Value, Editor } from 'slate';
 import { createTransport, SendMailOptions } from 'nodemailer';
-
+import * as request from 'request';
 import { S3 } from 'aws-sdk';
 
 import * as EmailValidator from 'email-validator';
-import * as SibApiV3Sdk from 'sib-api-v3-sdk'; // add .d.ts file
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID } from '../utils';
@@ -196,18 +195,29 @@ export const Mutation: MutationResolvers.Type = {
     return true;
   },
   sendInvites: (_, {}, _context) => {
-    const client = SibApiV3Sdk.ApiClient.instance;
-    const apiKey = client.authentications['api-key'];
-    apiKey.apiKey = process.env.SIB_API_KEY;
+    const options = {
+      method: 'POST',
+      url: 'https://api.sendinblue.com/v3/smtp/email',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': process.env.SIB_API_KEY,
+      },
+      body: {
+        tags: ['Welcome'],
+        sender: { name: 'Berci', email: 'welcome@cogito.study' },
+        to: [{ email: 'berci.kormendy@cogito.study', name: 'Berci' }],
+        replyTo: { email: 'support@cogito.study' },
+        params: { name: 'Dudeon' },
+        templateId: 1,
+      },
+      json: true,
+    };
 
-    const apiInstance = new SibApiV3Sdk.SMTPApi();
-    const sendEmail = new SibApiV3Sdk.SendSMTPEmail();
+    request(options, function(error, response, body) {
+      if (error) throw new Error(error);
 
-    sendEmail.sender = 'welcome@cogito.study';
-    sendEmail.to = 'berci.kormendy@cogito.study';
-    sendEmail.templateId = 1;
-    sendEmail.params = { name: 'Berci' };
-    apiInstance.sendTransacEmail(sendEmail).catch((error) => console.error(error));
+      console.log(body);
+    });
 
     return true;
   },
