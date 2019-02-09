@@ -754,6 +754,7 @@ type PageInfo {
 }
 
 type PasswordSetToken {
+  id: ID!
   token: String!
   email: String!
   createdAt: DateTime!
@@ -776,19 +777,20 @@ type PasswordSetTokenEdge {
 }
 
 enum PasswordSetTokenOrderByInput {
+  id_ASC
+  id_DESC
   token_ASC
   token_DESC
   email_ASC
   email_DESC
   createdAt_ASC
   createdAt_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
 type PasswordSetTokenPreviousValues {
+  id: ID!
   token: String!
   email: String!
   createdAt: DateTime!
@@ -823,6 +825,20 @@ input PasswordSetTokenUpdateManyMutationInput {
 }
 
 input PasswordSetTokenWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   token: String
   token_not: String
   token_in: [String!]
@@ -865,6 +881,7 @@ input PasswordSetTokenWhereInput {
 }
 
 input PasswordSetTokenWhereUniqueInput {
+  id: ID
   token: String
   email: String
 }

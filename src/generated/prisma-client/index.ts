@@ -389,14 +389,14 @@ export type CommentOrderByInput =
   | "updatedAt_DESC";
 
 export type PasswordSetTokenOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
   | "token_ASC"
   | "token_DESC"
   | "email_ASC"
   | "email_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
-  | "id_ASC"
-  | "id_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
@@ -789,11 +789,26 @@ export type NoteWhereUniqueInput = AtLeastOne<{
 }>;
 
 export type PasswordSetTokenWhereUniqueInput = AtLeastOne<{
-  token: String;
+  id: ID_Input;
+  token?: String;
   email?: String;
 }>;
 
 export interface PasswordSetTokenWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
   token?: String;
   token_not?: String;
   token_in?: String[] | String;
@@ -2343,6 +2358,7 @@ export interface AggregateNoteSubscription
 }
 
 export interface PasswordSetToken {
+  id: ID_Output;
   token: String;
   email: String;
   createdAt: DateTimeOutput;
@@ -2351,6 +2367,7 @@ export interface PasswordSetToken {
 export interface PasswordSetTokenPromise
   extends Promise<PasswordSetToken>,
     Fragmentable {
+  id: () => Promise<ID_Output>;
   token: () => Promise<String>;
   email: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -2359,6 +2376,7 @@ export interface PasswordSetTokenPromise
 export interface PasswordSetTokenSubscription
   extends Promise<AsyncIterator<PasswordSetToken>>,
     Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
   token: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2741,6 +2759,7 @@ export interface PasswordSetTokenSubscriptionPayloadSubscription
 }
 
 export interface PasswordSetTokenPreviousValues {
+  id: ID_Output;
   token: String;
   email: String;
   createdAt: DateTimeOutput;
@@ -2749,6 +2768,7 @@ export interface PasswordSetTokenPreviousValues {
 export interface PasswordSetTokenPreviousValuesPromise
   extends Promise<PasswordSetTokenPreviousValues>,
     Fragmentable {
+  id: () => Promise<ID_Output>;
   token: () => Promise<String>;
   email: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -2757,6 +2777,7 @@ export interface PasswordSetTokenPreviousValuesPromise
 export interface PasswordSetTokenPreviousValuesSubscription
   extends Promise<AsyncIterator<PasswordSetTokenPreviousValues>>,
     Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
   token: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
