@@ -6,6 +6,10 @@ type AggregateNote {
   count: Int!
 }
 
+type AggregatePasswordSetToken {
+  count: Int!
+}
+
 type AggregateSubject {
   count: Int!
 }
@@ -329,6 +333,12 @@ type Mutation {
   upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   deleteNote(where: NoteWhereUniqueInput!): Note
   deleteManyNotes(where: NoteWhereInput): BatchPayload!
+  createPasswordSetToken(data: PasswordSetTokenCreateInput!): PasswordSetToken!
+  updatePasswordSetToken(data: PasswordSetTokenUpdateInput!, where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  updateManyPasswordSetTokens(data: PasswordSetTokenUpdateManyMutationInput!, where: PasswordSetTokenWhereInput): BatchPayload!
+  upsertPasswordSetToken(where: PasswordSetTokenWhereUniqueInput!, create: PasswordSetTokenCreateInput!, update: PasswordSetTokenUpdateInput!): PasswordSetToken!
+  deletePasswordSetToken(where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  deleteManyPasswordSetTokens(where: PasswordSetTokenWhereInput): BatchPayload!
   createSubject(data: SubjectCreateInput!): Subject!
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
   updateManySubjects(data: SubjectUpdateManyMutationInput!, where: SubjectWhereInput): BatchPayload!
@@ -743,6 +753,111 @@ type PageInfo {
   endCursor: String
 }
 
+type PasswordSetToken {
+  token: String!
+  userID: ID
+}
+
+type PasswordSetTokenConnection {
+  pageInfo: PageInfo!
+  edges: [PasswordSetTokenEdge]!
+  aggregate: AggregatePasswordSetToken!
+}
+
+input PasswordSetTokenCreateInput {
+  token: String!
+  userID: ID
+}
+
+type PasswordSetTokenEdge {
+  node: PasswordSetToken!
+  cursor: String!
+}
+
+enum PasswordSetTokenOrderByInput {
+  token_ASC
+  token_DESC
+  userID_ASC
+  userID_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PasswordSetTokenPreviousValues {
+  token: String!
+  userID: ID
+}
+
+type PasswordSetTokenSubscriptionPayload {
+  mutation: MutationType!
+  node: PasswordSetToken
+  updatedFields: [String!]
+  previousValues: PasswordSetTokenPreviousValues
+}
+
+input PasswordSetTokenSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PasswordSetTokenWhereInput
+  AND: [PasswordSetTokenSubscriptionWhereInput!]
+  OR: [PasswordSetTokenSubscriptionWhereInput!]
+  NOT: [PasswordSetTokenSubscriptionWhereInput!]
+}
+
+input PasswordSetTokenUpdateInput {
+  token: String
+  userID: ID
+}
+
+input PasswordSetTokenUpdateManyMutationInput {
+  token: String
+  userID: ID
+}
+
+input PasswordSetTokenWhereInput {
+  token: String
+  token_not: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_lt: String
+  token_lte: String
+  token_gt: String
+  token_gte: String
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_not_starts_with: String
+  token_ends_with: String
+  token_not_ends_with: String
+  userID: ID
+  userID_not: ID
+  userID_in: [ID!]
+  userID_not_in: [ID!]
+  userID_lt: ID
+  userID_lte: ID
+  userID_gt: ID
+  userID_gte: ID
+  userID_contains: ID
+  userID_not_contains: ID
+  userID_starts_with: ID
+  userID_not_starts_with: ID
+  userID_ends_with: ID
+  userID_not_ends_with: ID
+  AND: [PasswordSetTokenWhereInput!]
+  OR: [PasswordSetTokenWhereInput!]
+  NOT: [PasswordSetTokenWhereInput!]
+}
+
+input PasswordSetTokenWhereUniqueInput {
+  token: String
+}
+
 type Query {
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
@@ -750,6 +865,9 @@ type Query {
   note(where: NoteWhereUniqueInput!): Note
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
+  passwordSetToken(where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  passwordSetTokens(where: PasswordSetTokenWhereInput, orderBy: PasswordSetTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PasswordSetToken]!
+  passwordSetTokensConnection(where: PasswordSetTokenWhereInput, orderBy: PasswordSetTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PasswordSetTokenConnection!
   subject(where: SubjectWhereUniqueInput!): Subject
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
@@ -1383,6 +1501,7 @@ input SubjectWhereUniqueInput {
 type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
+  passwordSetToken(where: PasswordSetTokenSubscriptionWhereInput): PasswordSetTokenSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
   subjectInfo(where: SubjectInfoSubscriptionWhereInput): SubjectInfoSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
