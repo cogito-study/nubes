@@ -35,6 +35,7 @@
     "graphql-import": "^0.7.1",
     "graphql-shield": "5.1.0",
     "graphql-yoga": "1.16.9",
+    "heroku-logger": "^0.3.3",
     "immutable": "^4.0.0-rc.12",
     "jsonwebtoken": "8.4.0",
     "nodemailer": "^5.1.1",

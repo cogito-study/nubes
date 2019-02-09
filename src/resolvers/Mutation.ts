@@ -4,6 +4,7 @@ import { Range, Value, Editor } from 'slate';
 import { createTransport, SendMailOptions } from 'nodemailer';
 import * as request from 'request';
 import { S3 } from 'aws-sdk';
+import * as logger from 'heroku-logger';
 
 import * as EmailValidator from 'email-validator';
 
@@ -24,6 +25,8 @@ export const Mutation: MutationResolvers.Type = {
       role,
     });
 
+    logger.info(`User signed up!`, { email, neptun, role });
+
     return {
       token: generateToken(user.id),
       user,
@@ -33,17 +36,22 @@ export const Mutation: MutationResolvers.Type = {
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
     if (!user) {
+      logger.error(`No such user exists!`, { user });
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
     if (!user.isActive) {
+      logger.error(`Inactive user tried to log in!`, { user });
       throw new Error('A felhasználó még nem aktiválta a profilját.');
     }
 
     const isValidPassword = await compare(password, user.password);
     if (!isValidPassword) {
+      logger.error(`Login attempt with invalid password!`, { user });
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
+
+    logger.info(`User logged in!`, { user });
 
     return {
       token: generateToken(user.id),
@@ -55,6 +63,7 @@ export const Mutation: MutationResolvers.Type = {
     const user = await context.prisma.user({ id });
 
     if (user.isActive) {
+      logger.error(`Active user tried to re-activate!`, { user });
       throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
 
@@ -62,6 +71,8 @@ export const Mutation: MutationResolvers.Type = {
       where: { id },
       data: { isActive: true, password: await hashPassword(password) },
     });
+
+    logger.info(`User activated!`, { user });
 
     return {
       token: generateToken(updatedUser.id),
@@ -93,6 +104,8 @@ export const Mutation: MutationResolvers.Type = {
       subject: 'Test forgot password',
       html: `<h1>Elfelejtetted a jelszavad?</h1><p>Akkor kattints <a href=${redirectURL}>erre a linkre</a>!</p>`,
     };
+
+    logger.info(`Forgot password email sent!`, { user });
 
     return true;
   },
@@ -191,7 +204,9 @@ export const Mutation: MutationResolvers.Type = {
         password: await hashPassword(email),
         role: userType,
       });
+      logger.info('User created!', { user });
     }
+
     return true;
   },
   sendInvites: async (_, {}, context) => {
@@ -222,7 +237,12 @@ export const Mutation: MutationResolvers.Type = {
       };
 
       request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+        if (error) {
+          logger.error('Failed to send invite email!', { user });
+          throw new Error(error);
+        } else {
+          logger.info('Invite email sent!', { user });
+        }
       });
     });
     return true;
