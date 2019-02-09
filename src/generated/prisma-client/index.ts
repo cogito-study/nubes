@@ -393,12 +393,10 @@ export type PasswordSetTokenOrderByInput =
   | "token_DESC"
   | "email_ASC"
   | "email_DESC"
-  | "created_ASC"
-  | "created_DESC"
-  | "id_ASC"
-  | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
+  | "id_ASC"
+  | "id_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
@@ -824,14 +822,14 @@ export interface PasswordSetTokenWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
-  created?: DateTimeInput;
-  created_not?: DateTimeInput;
-  created_in?: DateTimeInput[] | DateTimeInput;
-  created_not_in?: DateTimeInput[] | DateTimeInput;
-  created_lt?: DateTimeInput;
-  created_lte?: DateTimeInput;
-  created_gt?: DateTimeInput;
-  created_gte?: DateTimeInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
   AND?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
   OR?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
   NOT?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
@@ -1717,19 +1715,16 @@ export interface NoteUpdateManyMutationInput {
 export interface PasswordSetTokenCreateInput {
   token: String;
   email: String;
-  created: DateTimeInput;
 }
 
 export interface PasswordSetTokenUpdateInput {
   token?: String;
   email?: String;
-  created?: DateTimeInput;
 }
 
 export interface PasswordSetTokenUpdateManyMutationInput {
   token?: String;
   email?: String;
-  created?: DateTimeInput;
 }
 
 export interface SubjectUpdateInput {
@@ -2350,7 +2345,7 @@ export interface AggregateNoteSubscription
 export interface PasswordSetToken {
   token: String;
   email: String;
-  created: DateTimeOutput;
+  createdAt: DateTimeOutput;
 }
 
 export interface PasswordSetTokenPromise
@@ -2358,7 +2353,7 @@ export interface PasswordSetTokenPromise
     Fragmentable {
   token: () => Promise<String>;
   email: () => Promise<String>;
-  created: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
 }
 
 export interface PasswordSetTokenSubscription
@@ -2366,7 +2361,7 @@ export interface PasswordSetTokenSubscription
     Fragmentable {
   token: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
-  created: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PasswordSetTokenConnection {
@@ -2748,7 +2743,7 @@ export interface PasswordSetTokenSubscriptionPayloadSubscription
 export interface PasswordSetTokenPreviousValues {
   token: String;
   email: String;
-  created: DateTimeOutput;
+  createdAt: DateTimeOutput;
 }
 
 export interface PasswordSetTokenPreviousValuesPromise
@@ -2756,7 +2751,7 @@ export interface PasswordSetTokenPreviousValuesPromise
     Fragmentable {
   token: () => Promise<String>;
   email: () => Promise<String>;
-  created: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
 }
 
 export interface PasswordSetTokenPreviousValuesSubscription
@@ -2764,7 +2759,7 @@ export interface PasswordSetTokenPreviousValuesSubscription
     Fragmentable {
   token: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
-  created: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface SubjectSubscriptionPayload {

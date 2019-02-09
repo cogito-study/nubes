@@ -756,7 +756,7 @@ type PageInfo {
 type PasswordSetToken {
   token: String!
   email: String!
-  created: DateTime!
+  createdAt: DateTime!
 }
 
 type PasswordSetTokenConnection {
@@ -768,7 +768,6 @@ type PasswordSetTokenConnection {
 input PasswordSetTokenCreateInput {
   token: String!
   email: String!
-  created: DateTime!
 }
 
 type PasswordSetTokenEdge {
@@ -781,12 +780,10 @@ enum PasswordSetTokenOrderByInput {
   token_DESC
   email_ASC
   email_DESC
-  created_ASC
-  created_DESC
-  id_ASC
-  id_DESC
   createdAt_ASC
   createdAt_DESC
+  id_ASC
+  id_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -794,7 +791,7 @@ enum PasswordSetTokenOrderByInput {
 type PasswordSetTokenPreviousValues {
   token: String!
   email: String!
-  created: DateTime!
+  createdAt: DateTime!
 }
 
 type PasswordSetTokenSubscriptionPayload {
@@ -818,13 +815,11 @@ input PasswordSetTokenSubscriptionWhereInput {
 input PasswordSetTokenUpdateInput {
   token: String
   email: String
-  created: DateTime
 }
 
 input PasswordSetTokenUpdateManyMutationInput {
   token: String
   email: String
-  created: DateTime
 }
 
 input PasswordSetTokenWhereInput {
@@ -856,14 +851,14 @@ input PasswordSetTokenWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  created: DateTime
-  created_not: DateTime
-  created_in: [DateTime!]
-  created_not_in: [DateTime!]
-  created_lt: DateTime
-  created_lte: DateTime
-  created_gt: DateTime
-  created_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [PasswordSetTokenWhereInput!]
   OR: [PasswordSetTokenWhereInput!]
   NOT: [PasswordSetTokenWhereInput!]
