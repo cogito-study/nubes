@@ -70,5 +70,5 @@ type User {
 type PasswordSetToken {
   token: String! @unique
   email: String! @unique
-  created: DateTime!
+  createdAt: DateTime!
 }

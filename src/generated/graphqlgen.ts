@@ -82,6 +82,7 @@ type CommentOrderByInput =
   | 'createdAt_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC';
+type ResetPasswordResult = 'OK' | 'WAIT';
 type MutationType = 'CREATED' | 'UPDATED' | 'DELETED';
 
 export namespace QueryResolvers {
@@ -1959,6 +1960,7 @@ export namespace MutationResolvers {
 
   export interface ArgsResetPassword {
     token: string;
+    password: string;
   }
 
   export type SignupResolver = (
@@ -2050,7 +2052,7 @@ export namespace MutationResolvers {
     args: ArgsSendResetPasswordEmail,
     ctx: Context,
     info: GraphQLResolveInfo,
-  ) => boolean | Promise<boolean>;
+  ) => ResetPasswordResult | Promise<ResetPasswordResult>;
 
   export type ResetPasswordResolver = (
     parent: undefined,
@@ -2144,7 +2146,7 @@ export namespace MutationResolvers {
       args: ArgsSendResetPasswordEmail,
       ctx: Context,
       info: GraphQLResolveInfo,
-    ) => boolean | Promise<boolean>;
+    ) => ResetPasswordResult | Promise<ResetPasswordResult>;
 
     resetPassword: (
       parent: undefined,

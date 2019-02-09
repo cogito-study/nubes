@@ -2,14 +2,13 @@ import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { Range, Value, Editor } from 'slate';
 import { createTransport, SendMailOptions } from 'nodemailer';
-import * as request from 'request';
 import { S3 } from 'aws-sdk';
 import * as logger from 'heroku-logger';
 
 import * as EmailValidator from 'email-validator';
 
 import { MutationResolvers } from '../generated/graphqlgen';
-import { getUserID } from '../utils';
+import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
@@ -216,41 +215,77 @@ export const Mutation: MutationResolvers.Type = {
       },
     });
 
-    usersToRegister.forEach((user) => {
+    usersToRegister.forEach(async (user) => {
       const { firstName, email } = user;
-      const options = {
-        method: 'POST',
-        url: 'https://api.sendinblue.com/v3/smtp/email',
-        headers: {
-          'Content-Type': 'application/json',
-          'api-key': process.env.SIB_API_KEY,
-        },
-        body: {
-          tags: ['Welcome'],
-          sender: { name: 'Berci', email: 'welcome@cogito.study' },
-          to: [{ email, name: firstName }],
-          replyTo: { email: 'support@cogito.study' },
-          params: { name: firstName },
-          templateId: 1,
-        },
-        json: true,
-      };
-
-      request(options, function(error, response, body) {
-        if (error) {
-          logger.error('Failed to send invite email!', { user });
-          throw new Error(error);
-        } else {
-          logger.info('Invite email sent!', { user });
-        }
-      });
+      const token = generateToken(email);
+      await context.prisma.passwordSetToken({ token, email });
+      try {
+        sendEmail(
+          { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
+          [{ email, name: firstName }],
+          ['Welcome'],
+          { link: `https://cogito.study/activate/${token}` },
+          5,
+        );
+        logger.info('Invite email sent!', { user });
+      } catch (error) {
+        logger.error('Failed to send invite email!', { user }); // TODO better errro handling
+        throw error;
+      }
     });
     return true;
   },
-  sendResetPasswordEmail: (_, { email }, context) => {
-    throw new Error('Resolver not implemented');
+
+  sendResetPasswordEmail: async (_, { email }, context) => {
+    const entries = await context.prisma.passwordSetTokens({ where: { email } });
+    if (entries.length > 0) {
+      if (entries.length > 1) {
+        logger.error('More than 1 password reset token in db!', { entries });
+        throw new Error('Too many tokens in DB!');
+      }
+      // <stackoverflow src="https://stackoverflow.com/a/7709819/4481967">
+      const now = new Date();
+      const entryCreated = new Date(entries[0].createdAt);
+      const diffMs = now.getMilliseconds() - entryCreated.getMilliseconds();
+      const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+      // </stackoverflow>
+      if (diffMins <= 9) {
+        logger.info('Repeated password reset attempt!', { email });
+        return 'WAIT';
+      }
+      await context.prisma.deletePasswordSetToken({ email });
+    }
+    const token = generateToken(email);
+    await context.prisma.passwordSetToken({ token, email });
+    try {
+      sendEmail(
+        { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
+        [{ email }],
+        ['Welcome'],
+        { link: `https://cogito.study/reset/${token}` },
+        3,
+      );
+      logger.info('Password reset email sent!', { email });
+      return 'OK';
+    } catch (error) {
+      logger.error('Failed to send invite email!', { email });
+      throw error;
+    }
   },
-  resetPassword: (_, { token }, context) => {
-    throw new Error('Resolver not implemented');
+
+  resetPassword: async (_, { token, password }, context) => {
+    const entries = await context.prisma.passwordSetTokens({ where: { token } });
+    if (entries.length > 0) {
+      if (entries.length > 1) {
+        logger.error('More than 1 password reset token in db!', { entries });
+        throw new Error('Too many tokens in DB!');
+      }
+      const { email } = entries[0];
+      const user = await context.prisma.user({ email });
+      const newPassword = await hashPassword(password);
+      await context.prisma.updateUser({ where: { email }, data: { password: newPassword } });
+      return true;
+    }
+    return false;
   },
 };
