@@ -26,7 +26,7 @@ type Mutation {
   uploadImage(fileName: String, fileType: String): FileUploadPayload!
   bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
   sendInvites: Boolean!
-  sendResetPasswordEmail: Boolean!
+  sendResetPasswordEmail(email: String!): Boolean!
   resetPassword(token: String!): Boolean!
 }
 
