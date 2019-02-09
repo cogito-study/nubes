@@ -16,6 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export interface Exists {
   comment: (where?: CommentWhereInput) => Promise<boolean>;
   note: (where?: NoteWhereInput) => Promise<boolean>;
+  passwordSetToken: (where?: PasswordSetTokenWhereInput) => Promise<boolean>;
   subject: (where?: SubjectWhereInput) => Promise<boolean>;
   subjectInfo: (where?: SubjectInfoWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
@@ -78,6 +79,27 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => NoteConnectionPromise;
+  passwordSetToken: (
+    where: PasswordSetTokenWhereUniqueInput
+  ) => PasswordSetTokenPromise;
+  passwordSetTokens: (args?: {
+    where?: PasswordSetTokenWhereInput;
+    orderBy?: PasswordSetTokenOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<PasswordSetToken>;
+  passwordSetTokensConnection: (args?: {
+    where?: PasswordSetTokenWhereInput;
+    orderBy?: PasswordSetTokenOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PasswordSetTokenConnectionPromise;
   subject: (where: SubjectWhereUniqueInput) => SubjectPromise;
   subjects: (args?: {
     where?: SubjectWhereInput;
@@ -173,6 +195,28 @@ export interface Prisma {
   }) => NotePromise;
   deleteNote: (where: NoteWhereUniqueInput) => NotePromise;
   deleteManyNotes: (where?: NoteWhereInput) => BatchPayloadPromise;
+  createPasswordSetToken: (
+    data: PasswordSetTokenCreateInput
+  ) => PasswordSetTokenPromise;
+  updatePasswordSetToken: (args: {
+    data: PasswordSetTokenUpdateInput;
+    where: PasswordSetTokenWhereUniqueInput;
+  }) => PasswordSetTokenPromise;
+  updateManyPasswordSetTokens: (args: {
+    data: PasswordSetTokenUpdateManyMutationInput;
+    where?: PasswordSetTokenWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPasswordSetToken: (args: {
+    where: PasswordSetTokenWhereUniqueInput;
+    create: PasswordSetTokenCreateInput;
+    update: PasswordSetTokenUpdateInput;
+  }) => PasswordSetTokenPromise;
+  deletePasswordSetToken: (
+    where: PasswordSetTokenWhereUniqueInput
+  ) => PasswordSetTokenPromise;
+  deleteManyPasswordSetTokens: (
+    where?: PasswordSetTokenWhereInput
+  ) => BatchPayloadPromise;
   createSubject: (data: SubjectCreateInput) => SubjectPromise;
   updateSubject: (args: {
     data: SubjectUpdateInput;
@@ -238,6 +282,9 @@ export interface Subscription {
   note: (
     where?: NoteSubscriptionWhereInput
   ) => NoteSubscriptionPayloadSubscription;
+  passwordSetToken: (
+    where?: PasswordSetTokenSubscriptionWhereInput
+  ) => PasswordSetTokenSubscriptionPayloadSubscription;
   subject: (
     where?: SubjectSubscriptionWhereInput
   ) => SubjectSubscriptionPayloadSubscription;
@@ -336,6 +383,18 @@ export type CommentOrderByInput =
   | "text_DESC"
   | "locationInText_ASC"
   | "locationInText_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type PasswordSetTokenOrderByInput =
+  | "token_ASC"
+  | "token_DESC"
+  | "userID_ASC"
+  | "userID_DESC"
+  | "id_ASC"
+  | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -728,6 +787,44 @@ export interface CommentWhereInput {
 export type NoteWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
+
+export type PasswordSetTokenWhereUniqueInput = AtLeastOne<{
+  token: String;
+}>;
+
+export interface PasswordSetTokenWhereInput {
+  token?: String;
+  token_not?: String;
+  token_in?: String[] | String;
+  token_not_in?: String[] | String;
+  token_lt?: String;
+  token_lte?: String;
+  token_gt?: String;
+  token_gte?: String;
+  token_contains?: String;
+  token_not_contains?: String;
+  token_starts_with?: String;
+  token_not_starts_with?: String;
+  token_ends_with?: String;
+  token_not_ends_with?: String;
+  userID?: ID_Input;
+  userID_not?: ID_Input;
+  userID_in?: ID_Input[] | ID_Input;
+  userID_not_in?: ID_Input[] | ID_Input;
+  userID_lt?: ID_Input;
+  userID_lte?: ID_Input;
+  userID_gt?: ID_Input;
+  userID_gte?: ID_Input;
+  userID_contains?: ID_Input;
+  userID_not_contains?: ID_Input;
+  userID_starts_with?: ID_Input;
+  userID_not_starts_with?: ID_Input;
+  userID_ends_with?: ID_Input;
+  userID_not_ends_with?: ID_Input;
+  AND?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
+  OR?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
+  NOT?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
+}
 
 export type SubjectWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
@@ -1606,6 +1703,21 @@ export interface NoteUpdateManyMutationInput {
   type?: NoteType;
 }
 
+export interface PasswordSetTokenCreateInput {
+  token: String;
+  userID?: ID_Input;
+}
+
+export interface PasswordSetTokenUpdateInput {
+  token?: String;
+  userID?: ID_Input;
+}
+
+export interface PasswordSetTokenUpdateManyMutationInput {
+  token?: String;
+  userID?: ID_Input;
+}
+
 export interface SubjectUpdateInput {
   code?: String;
   name?: String;
@@ -1720,6 +1832,23 @@ export interface NoteSubscriptionWhereInput {
   AND?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
   OR?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
   NOT?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+}
+
+export interface PasswordSetTokenSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: PasswordSetTokenWhereInput;
+  AND?:
+    | PasswordSetTokenSubscriptionWhereInput[]
+    | PasswordSetTokenSubscriptionWhereInput;
+  OR?:
+    | PasswordSetTokenSubscriptionWhereInput[]
+    | PasswordSetTokenSubscriptionWhereInput;
+  NOT?:
+    | PasswordSetTokenSubscriptionWhereInput[]
+    | PasswordSetTokenSubscriptionWhereInput;
 }
 
 export interface SubjectSubscriptionWhereInput {
@@ -2204,6 +2333,81 @@ export interface AggregateNoteSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface PasswordSetToken {
+  token: String;
+  userID?: ID_Output;
+}
+
+export interface PasswordSetTokenPromise
+  extends Promise<PasswordSetToken>,
+    Fragmentable {
+  token: () => Promise<String>;
+  userID: () => Promise<ID_Output>;
+}
+
+export interface PasswordSetTokenSubscription
+  extends Promise<AsyncIterator<PasswordSetToken>>,
+    Fragmentable {
+  token: () => Promise<AsyncIterator<String>>;
+  userID: () => Promise<AsyncIterator<ID_Output>>;
+}
+
+export interface PasswordSetTokenConnection {
+  pageInfo: PageInfo;
+  edges: PasswordSetTokenEdge[];
+}
+
+export interface PasswordSetTokenConnectionPromise
+  extends Promise<PasswordSetTokenConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PasswordSetTokenEdge>>() => T;
+  aggregate: <T = AggregatePasswordSetTokenPromise>() => T;
+}
+
+export interface PasswordSetTokenConnectionSubscription
+  extends Promise<AsyncIterator<PasswordSetTokenConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PasswordSetTokenEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePasswordSetTokenSubscription>() => T;
+}
+
+export interface PasswordSetTokenEdge {
+  node: PasswordSetToken;
+  cursor: String;
+}
+
+export interface PasswordSetTokenEdgePromise
+  extends Promise<PasswordSetTokenEdge>,
+    Fragmentable {
+  node: <T = PasswordSetTokenPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PasswordSetTokenEdgeSubscription
+  extends Promise<AsyncIterator<PasswordSetTokenEdge>>,
+    Fragmentable {
+  node: <T = PasswordSetTokenSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatePasswordSetToken {
+  count: Int;
+}
+
+export interface AggregatePasswordSetTokenPromise
+  extends Promise<AggregatePasswordSetToken>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePasswordSetTokenSubscription
+  extends Promise<AsyncIterator<AggregatePasswordSetToken>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface SubjectConnection {
   pageInfo: PageInfo;
   edges: SubjectEdge[];
@@ -2499,6 +2703,50 @@ export interface NotePreviousValuesSubscription
   type: () => Promise<AsyncIterator<NoteType>>;
 }
 
+export interface PasswordSetTokenSubscriptionPayload {
+  mutation: MutationType;
+  node: PasswordSetToken;
+  updatedFields: String[];
+  previousValues: PasswordSetTokenPreviousValues;
+}
+
+export interface PasswordSetTokenSubscriptionPayloadPromise
+  extends Promise<PasswordSetTokenSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PasswordSetTokenPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PasswordSetTokenPreviousValuesPromise>() => T;
+}
+
+export interface PasswordSetTokenSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PasswordSetTokenSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PasswordSetTokenSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PasswordSetTokenPreviousValuesSubscription>() => T;
+}
+
+export interface PasswordSetTokenPreviousValues {
+  token: String;
+  userID?: ID_Output;
+}
+
+export interface PasswordSetTokenPreviousValuesPromise
+  extends Promise<PasswordSetTokenPreviousValues>,
+    Fragmentable {
+  token: () => Promise<String>;
+  userID: () => Promise<ID_Output>;
+}
+
+export interface PasswordSetTokenPreviousValuesSubscription
+  extends Promise<AsyncIterator<PasswordSetTokenPreviousValues>>,
+    Fragmentable {
+  token: () => Promise<AsyncIterator<String>>;
+  userID: () => Promise<AsyncIterator<ID_Output>>;
+}
+
 export interface SubjectSubscriptionPayload {
   mutation: MutationType;
   node: Subject;
@@ -2711,6 +2959,10 @@ export const models: Model[] = [
   },
   {
     name: "NoteType",
+    embedded: false
+  },
+  {
+    name: "PasswordSetToken",
     embedded: false
   },
   {

@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
+import * as logger from 'heroku-logger';
 
 import { prisma } from './generated/prisma-client';
 import { resolvers } from './resolvers';
@@ -15,4 +16,4 @@ const server = new GraphQLServer({
     };
   },
 });
-server.start(() => console.log('Server is running on http://localhost:4000'));
+server.start(() => logger.info('Server started!'));

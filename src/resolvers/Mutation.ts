@@ -247,4 +247,10 @@ export const Mutation: MutationResolvers.Type = {
     });
     return true;
   },
+  sendResetPasswordEmail: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
+  resetPassword: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

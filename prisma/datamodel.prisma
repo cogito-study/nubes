@@ -66,3 +66,8 @@ type User {
   lastName: String
   role: UserRole! @default(value: "USER")
 }
+
+type PasswordSetToken {
+  token: String! @unique
+  userID: ID
+}

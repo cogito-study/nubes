@@ -1953,6 +1953,10 @@ export namespace MutationResolvers {
     userDataList: BulkCreateUserData[];
   }
 
+  export interface ArgsResetPassword {
+    token: string;
+  }
+
   export type SignupResolver = (
     parent: undefined,
     args: ArgsSignup,
@@ -2037,6 +2041,20 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo,
   ) => boolean | Promise<boolean>;
 
+  export type SendResetPasswordEmailResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
+
+  export type ResetPasswordResolver = (
+    parent: undefined,
+    args: ArgsResetPassword,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
+
   export interface Type {
     signup: (
       parent: undefined,
@@ -2116,6 +2134,20 @@ export namespace MutationResolvers {
     ) => boolean | Promise<boolean>;
 
     sendInvites: (parent: undefined, args: {}, ctx: Context, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+    sendResetPasswordEmail: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | Promise<boolean>;
+
+    resetPassword: (
+      parent: undefined,
+      args: ArgsResetPassword,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | Promise<boolean>;
   }
 }
 
