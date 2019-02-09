@@ -755,7 +755,8 @@ type PageInfo {
 
 type PasswordSetToken {
   token: String!
-  userID: ID
+  email: String!
+  created: DateTime!
 }
 
 type PasswordSetTokenConnection {
@@ -766,7 +767,8 @@ type PasswordSetTokenConnection {
 
 input PasswordSetTokenCreateInput {
   token: String!
-  userID: ID
+  email: String!
+  created: DateTime!
 }
 
 type PasswordSetTokenEdge {
@@ -777,8 +779,10 @@ type PasswordSetTokenEdge {
 enum PasswordSetTokenOrderByInput {
   token_ASC
   token_DESC
-  userID_ASC
-  userID_DESC
+  email_ASC
+  email_DESC
+  created_ASC
+  created_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -789,7 +793,8 @@ enum PasswordSetTokenOrderByInput {
 
 type PasswordSetTokenPreviousValues {
   token: String!
-  userID: ID
+  email: String!
+  created: DateTime!
 }
 
 type PasswordSetTokenSubscriptionPayload {
@@ -812,12 +817,14 @@ input PasswordSetTokenSubscriptionWhereInput {
 
 input PasswordSetTokenUpdateInput {
   token: String
-  userID: ID
+  email: String
+  created: DateTime
 }
 
 input PasswordSetTokenUpdateManyMutationInput {
   token: String
-  userID: ID
+  email: String
+  created: DateTime
 }
 
 input PasswordSetTokenWhereInput {
@@ -835,20 +842,28 @@ input PasswordSetTokenWhereInput {
   token_not_starts_with: String
   token_ends_with: String
   token_not_ends_with: String
-  userID: ID
-  userID_not: ID
-  userID_in: [ID!]
-  userID_not_in: [ID!]
-  userID_lt: ID
-  userID_lte: ID
-  userID_gt: ID
-  userID_gte: ID
-  userID_contains: ID
-  userID_not_contains: ID
-  userID_starts_with: ID
-  userID_not_starts_with: ID
-  userID_ends_with: ID
-  userID_not_ends_with: ID
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  created: DateTime
+  created_not: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
   AND: [PasswordSetTokenWhereInput!]
   OR: [PasswordSetTokenWhereInput!]
   NOT: [PasswordSetTokenWhereInput!]
@@ -856,6 +871,7 @@ input PasswordSetTokenWhereInput {
 
 input PasswordSetTokenWhereUniqueInput {
   token: String
+  email: String
 }
 
 type Query {

@@ -391,8 +391,10 @@ export type CommentOrderByInput =
 export type PasswordSetTokenOrderByInput =
   | "token_ASC"
   | "token_DESC"
-  | "userID_ASC"
-  | "userID_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "created_ASC"
+  | "created_DESC"
   | "id_ASC"
   | "id_DESC"
   | "createdAt_ASC"
@@ -790,6 +792,7 @@ export type NoteWhereUniqueInput = AtLeastOne<{
 
 export type PasswordSetTokenWhereUniqueInput = AtLeastOne<{
   token: String;
+  email?: String;
 }>;
 
 export interface PasswordSetTokenWhereInput {
@@ -807,20 +810,28 @@ export interface PasswordSetTokenWhereInput {
   token_not_starts_with?: String;
   token_ends_with?: String;
   token_not_ends_with?: String;
-  userID?: ID_Input;
-  userID_not?: ID_Input;
-  userID_in?: ID_Input[] | ID_Input;
-  userID_not_in?: ID_Input[] | ID_Input;
-  userID_lt?: ID_Input;
-  userID_lte?: ID_Input;
-  userID_gt?: ID_Input;
-  userID_gte?: ID_Input;
-  userID_contains?: ID_Input;
-  userID_not_contains?: ID_Input;
-  userID_starts_with?: ID_Input;
-  userID_not_starts_with?: ID_Input;
-  userID_ends_with?: ID_Input;
-  userID_not_ends_with?: ID_Input;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  created?: DateTimeInput;
+  created_not?: DateTimeInput;
+  created_in?: DateTimeInput[] | DateTimeInput;
+  created_not_in?: DateTimeInput[] | DateTimeInput;
+  created_lt?: DateTimeInput;
+  created_lte?: DateTimeInput;
+  created_gt?: DateTimeInput;
+  created_gte?: DateTimeInput;
   AND?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
   OR?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
   NOT?: PasswordSetTokenWhereInput[] | PasswordSetTokenWhereInput;
@@ -1705,17 +1716,20 @@ export interface NoteUpdateManyMutationInput {
 
 export interface PasswordSetTokenCreateInput {
   token: String;
-  userID?: ID_Input;
+  email: String;
+  created: DateTimeInput;
 }
 
 export interface PasswordSetTokenUpdateInput {
   token?: String;
-  userID?: ID_Input;
+  email?: String;
+  created?: DateTimeInput;
 }
 
 export interface PasswordSetTokenUpdateManyMutationInput {
   token?: String;
-  userID?: ID_Input;
+  email?: String;
+  created?: DateTimeInput;
 }
 
 export interface SubjectUpdateInput {
@@ -2335,21 +2349,24 @@ export interface AggregateNoteSubscription
 
 export interface PasswordSetToken {
   token: String;
-  userID?: ID_Output;
+  email: String;
+  created: DateTimeOutput;
 }
 
 export interface PasswordSetTokenPromise
   extends Promise<PasswordSetToken>,
     Fragmentable {
   token: () => Promise<String>;
-  userID: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  created: () => Promise<DateTimeOutput>;
 }
 
 export interface PasswordSetTokenSubscription
   extends Promise<AsyncIterator<PasswordSetToken>>,
     Fragmentable {
   token: () => Promise<AsyncIterator<String>>;
-  userID: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  created: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PasswordSetTokenConnection {
@@ -2730,21 +2747,24 @@ export interface PasswordSetTokenSubscriptionPayloadSubscription
 
 export interface PasswordSetTokenPreviousValues {
   token: String;
-  userID?: ID_Output;
+  email: String;
+  created: DateTimeOutput;
 }
 
 export interface PasswordSetTokenPreviousValuesPromise
   extends Promise<PasswordSetTokenPreviousValues>,
     Fragmentable {
   token: () => Promise<String>;
-  userID: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  created: () => Promise<DateTimeOutput>;
 }
 
 export interface PasswordSetTokenPreviousValuesSubscription
   extends Promise<AsyncIterator<PasswordSetTokenPreviousValues>>,
     Fragmentable {
   token: () => Promise<AsyncIterator<String>>;
-  userID: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  created: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface SubjectSubscriptionPayload {

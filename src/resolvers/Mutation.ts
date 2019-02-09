@@ -247,10 +247,10 @@ export const Mutation: MutationResolvers.Type = {
     });
     return true;
   },
-  sendResetPasswordEmail: (parent, args, ctx) => {
+  sendResetPasswordEmail: (_, { email }, context) => {
     throw new Error('Resolver not implemented');
   },
-  resetPassword: (parent, args, ctx) => {
+  resetPassword: (_, { token }, context) => {
     throw new Error('Resolver not implemented');
   },
 };
