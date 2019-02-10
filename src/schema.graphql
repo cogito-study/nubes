@@ -2,11 +2,6 @@
 
 scalar DateTime
 
-enum ResetPasswordResult {
-  OK
-  WAIT
-}
-
 type Query {
   me: User
   users: [User!]
@@ -21,8 +16,7 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, neptun: String!, role: UserRole!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  activate(id: ID!, password: String!): AuthPayload!
-  forgotPassword(email: String!): Boolean!
+  activate(token: String!, password: String!): Boolean!
   upvoteComment(id: ID!): Comment!
   unvoteComment(id: ID!): Comment!
   submitComment(noteID: ID!, input: CommentInput!): Comment!
@@ -31,7 +25,7 @@ type Mutation {
   uploadImage(fileName: String, fileType: String): FileUploadPayload!
   bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
   sendInvites: Boolean!
-  sendResetPasswordEmail(email: String!): ResetPasswordResult!
+  sendResetPasswordEmail(email: String!): Boolean!
   resetPassword(token: String!, password: String!): Boolean!
 }
 

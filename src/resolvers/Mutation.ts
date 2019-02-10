@@ -1,7 +1,6 @@
 import { hash, compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { Range, Value, Editor } from 'slate';
-import { createTransport, SendMailOptions } from 'nodemailer';
 import { S3 } from 'aws-sdk';
 import * as logger from 'heroku-logger';
 
@@ -9,9 +8,30 @@ import * as EmailValidator from 'email-validator';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID, sendEmail } from '../utils';
+import { Context } from 'graphql-yoga/dist/types';
 
 const hashPassword = (password: string) => hash(password, 10);
-const generateToken = (userID: string) => sign({ userID }, process.env.APP_SECRET);
+const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
+
+const resetPassword = async (token: string, password: string, context: Context) => {
+  const entries = await context.prisma.passwordSetTokens({ where: { token } });
+  if (entries.length > 0) {
+    try {
+      verify(token, process.env.APP_SECRET);
+    } catch (error) {
+      throw new Error('Token expired!');
+    }
+    if (entries.length > 1) {
+      logger.error('More than 1 password reset token in db!', { entries });
+      throw new Error('Too many tokens in DB!');
+    }
+    const { email } = entries[0];
+    const newPassword = await hashPassword(password);
+    await context.prisma.updateUser({ where: { email }, data: { password: newPassword } });
+    return true;
+  }
+  return false;
+};
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -56,57 +76,6 @@ export const Mutation: MutationResolvers.Type = {
       token: generateToken(user.id),
       user,
     };
-  },
-
-  activate: async (_, { id, password }, context) => {
-    const user = await context.prisma.user({ id });
-
-    if (user.isActive) {
-      logger.error(`Active user tried to re-activate!`, { user });
-      throw new Error('A megadott felhasználó korábban már regisztrált.');
-    }
-
-    const updatedUser = await context.prisma.updateUser({
-      where: { id },
-      data: { isActive: true, password: await hashPassword(password) },
-    });
-
-    logger.info(`User activated!`, { user });
-
-    return {
-      token: generateToken(updatedUser.id),
-      user: updatedUser,
-    };
-  },
-
-  forgotPassword: async (_, { email }, context) => {
-    const user = await context.prisma.user({ email });
-
-    if (!user) {
-      return false;
-    }
-
-    const token = generateToken(user.id);
-    const redirectURL = `${process.env.REACT_APP_URL}/reset-password/${token}`;
-
-    const transporter = createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'trademedicmatt@gmail.com',
-        pass: 'Predator95',
-      },
-    });
-
-    const mailOptions: SendMailOptions = {
-      from: 'trademedicmatt@gmail.com',
-      to: 'matepapp@icloud.com',
-      subject: 'Test forgot password',
-      html: `<h1>Elfelejtetted a jelszavad?</h1><p>Akkor kattints <a href=${redirectURL}>erre a linkre</a>!</p>`,
-    };
-
-    logger.info(`Forgot password email sent!`, { user });
-
-    return true;
   },
 
   upvoteComment: async (_, { id }, context) => {
@@ -208,6 +177,7 @@ export const Mutation: MutationResolvers.Type = {
 
     return true;
   },
+
   sendInvites: async (_, {}, context) => {
     const usersToRegister = await context.prisma.users({
       where: {
@@ -217,23 +187,44 @@ export const Mutation: MutationResolvers.Type = {
 
     usersToRegister.forEach(async (user) => {
       const { firstName, email } = user;
-      const token = generateToken(email);
+      const token = generateToken(email, { expiresIn: '1y' });
       await context.prisma.passwordSetToken({ token, email });
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
           [{ email, name: firstName }],
           ['Welcome'],
-          { link: `https://cogito.study/activate/${token}` },
+          { link: `https://cogito.study/activate/?token=${token}&id=${user.id}` },
           5,
         );
         logger.info('Invite email sent!', { user });
-      } catch (error) {
-        logger.error('Failed to send invite email!', { user }); // TODO better errro handling
-        throw error;
+      } catch {
+        logger.error('Failed to send invite email!', { user });
+        throw new Error('Failed to send invite email!');
       }
     });
     return true;
+  },
+
+  activate: async (_, { token, password }, context) => {
+    const { email } = await context.prisma.passwordSetToken({ token });
+    const user = await context.prisma.user({ email });
+
+    if (user.isActive) {
+      logger.error(`Active user tried to re-activate!`, { user });
+      throw new Error('A megadott felhasználó korábban már regisztrált.');
+    }
+
+    if (resetPassword(token, password, context)) {
+      await context.prisma.updateUser({
+        where: { id: user.id },
+        data: { isActive: true },
+      });
+      logger.info(`User activated!`, { user });
+      return true;
+    }
+    logger.error(`Activation unsuccessful!`, { user });
+    throw new Error('Activation unsuccessful');
   },
 
   sendResetPasswordEmail: async (_, { email }, context) => {
@@ -249,13 +240,14 @@ export const Mutation: MutationResolvers.Type = {
       const diffMs = now.getMilliseconds() - entryCreated.getMilliseconds();
       const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
       // </stackoverflow>
-      if (diffMins <= 9) {
-        logger.info('Repeated password reset attempt!', { email });
-        return 'WAIT';
+      if (diffMins <= 12) {
+        logger.error('Repeated password reset attempt!', { email });
+        throw new Error(`Please wait ${diffMins} minutes`);
       }
       await context.prisma.deletePasswordSetToken({ email });
     }
-    const token = generateToken(email);
+
+    const token = generateToken(email, { expiresIn: '1d' });
     await context.prisma.createPasswordSetToken({ token, email });
     try {
       sendEmail(
@@ -266,7 +258,7 @@ export const Mutation: MutationResolvers.Type = {
         3,
       );
       logger.info('Password reset email sent!', { email });
-      return 'OK';
+      return true;
     } catch (error) {
       logger.error('Failed to send invite email!', { email });
       throw error;
@@ -274,18 +266,6 @@ export const Mutation: MutationResolvers.Type = {
   },
 
   resetPassword: async (_, { token, password }, context) => {
-    const entries = await context.prisma.passwordSetTokens({ where: { token } });
-    if (entries.length > 0) {
-      if (entries.length > 1) {
-        logger.error('More than 1 password reset token in db!', { entries });
-        throw new Error('Too many tokens in DB!');
-      }
-      const { email } = entries[0];
-      const user = await context.prisma.user({ email });
-      const newPassword = await hashPassword(password);
-      await context.prisma.updateUser({ where: { email }, data: { password: newPassword } });
-      return true;
-    }
-    return false;
+    return resetPassword(token, password, context);
   },
 };

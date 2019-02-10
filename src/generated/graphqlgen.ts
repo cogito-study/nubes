@@ -82,7 +82,6 @@ type CommentOrderByInput =
   | 'createdAt_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC';
-type ResetPasswordResult = 'OK' | 'WAIT';
 type MutationType = 'CREATED' | 'UPDATED' | 'DELETED';
 
 export namespace QueryResolvers {
@@ -1914,12 +1913,8 @@ export namespace MutationResolvers {
   }
 
   export interface ArgsActivate {
-    id: string;
+    token: string;
     password: string;
-  }
-
-  export interface ArgsForgotPassword {
-    email: string;
   }
 
   export interface ArgsUpvoteComment {
@@ -1980,13 +1975,6 @@ export namespace MutationResolvers {
   export type ActivateResolver = (
     parent: undefined,
     args: ArgsActivate,
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => AuthPayload | Promise<AuthPayload>;
-
-  export type ForgotPasswordResolver = (
-    parent: undefined,
-    args: ArgsForgotPassword,
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => boolean | Promise<boolean>;
@@ -2052,7 +2040,7 @@ export namespace MutationResolvers {
     args: ArgsSendResetPasswordEmail,
     ctx: Context,
     info: GraphQLResolveInfo,
-  ) => ResetPasswordResult | Promise<ResetPasswordResult>;
+  ) => boolean | Promise<boolean>;
 
   export type ResetPasswordResolver = (
     parent: undefined,
@@ -2079,13 +2067,6 @@ export namespace MutationResolvers {
     activate: (
       parent: undefined,
       args: ArgsActivate,
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => AuthPayload | Promise<AuthPayload>;
-
-    forgotPassword: (
-      parent: undefined,
-      args: ArgsForgotPassword,
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => boolean | Promise<boolean>;
@@ -2146,7 +2127,7 @@ export namespace MutationResolvers {
       args: ArgsSendResetPasswordEmail,
       ctx: Context,
       info: GraphQLResolveInfo,
-    ) => ResetPasswordResult | Promise<ResetPasswordResult>;
+    ) => boolean | Promise<boolean>;
 
     resetPassword: (
       parent: undefined,
