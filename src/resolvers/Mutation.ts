@@ -208,12 +208,12 @@ export const Mutation: MutationResolvers.Type = {
 
   activate: async (_, { token, password }, context) => {
     const { email } = await context.prisma.passwordSetToken({ token });
-    const user = await context.prisma.user({ email });
-
-    if (user.isActive) {
-      logger.error(`Active user tried to re-activate!`, { user });
+    if (email === null) {
+      logger.error(`Active user tried to re-activate with token`, { token });
       throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
+
+    const user = await context.prisma.user({ email });
 
     if (resetPassword(token, password, context)) {
       await context.prisma.updateUser({
