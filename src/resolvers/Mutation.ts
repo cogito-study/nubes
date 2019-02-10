@@ -187,7 +187,7 @@ export const Mutation: MutationResolvers.Type = {
     usersToRegister.forEach(async (user) => {
       const { firstName, email } = user;
       const token = generateToken(email, { expiresIn: '1y' });
-      await context.prisma.passwordSetToken({ token, email });
+      await context.prisma.createPasswordSetToken({ token, email });
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
