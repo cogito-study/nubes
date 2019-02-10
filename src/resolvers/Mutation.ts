@@ -193,7 +193,7 @@ export const Mutation: MutationResolvers.Type = {
           { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
           [{ email, name: firstName }],
           ['Welcome'],
-          { link: `https://cogito.study/activate/?token=${token}&id=${user.id}` },
+          { link: `https://cogito.study/register?token=${token}&id=${user.id}` },
           5,
         );
         logger.info('Invite email sent!', { user });
@@ -253,7 +253,7 @@ export const Mutation: MutationResolvers.Type = {
         { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
         [{ email }],
         ['Welcome'],
-        { link: `https://cogito.study/reset/${token}` },
+        { link: `https://cogito.study/reset?token=${token}` },
         3,
       );
       logger.info('Password reset email sent!', { email });
