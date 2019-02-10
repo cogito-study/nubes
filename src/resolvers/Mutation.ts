@@ -240,7 +240,7 @@ export const Mutation: MutationResolvers.Type = {
       const diffMs = now.getMilliseconds() - entryCreated.getMilliseconds();
       const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
       // </stackoverflow>
-      if (diffMins <= 12) {
+      if (0 < diffMins && diffMins <= 12) {
         logger.error('Repeated password reset attempt!', { email });
         throw new Error(`Please wait ${diffMins} minutes`);
       }
