@@ -2,13 +2,12 @@ import { hash, compare } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { Range, Value, Editor } from 'slate';
 import { S3 } from 'aws-sdk';
+import { Context } from 'graphql-yoga/dist/types';
 import * as logger from 'heroku-logger';
-
 import * as EmailValidator from 'email-validator';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID, sendEmail } from '../utils';
-import { Context } from 'graphql-yoga/dist/types';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
