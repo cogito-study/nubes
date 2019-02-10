@@ -26,6 +26,7 @@ const resetPassword = async (token: string, password: string, context: Context) 
     }
     const { email } = entries[0];
     const newPassword = await hashPassword(password);
+    await context.prisma.deletePasswordSetToken({ token });
     await context.prisma.updateUser({ where: { email }, data: { password: newPassword } });
     return true;
   }
