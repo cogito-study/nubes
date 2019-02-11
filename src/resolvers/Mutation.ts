@@ -17,7 +17,7 @@ const resetPassword = async (token: string, password: string, context: Context) 
   if (entries.length > 0) {
     try {
       verify(token, process.env.APP_SECRET);
-    } catch (error) {
+    } catch {
       throw new Error('Token expired!');
     }
     if (entries.length > 1) {
@@ -207,12 +207,12 @@ export const Mutation: MutationResolvers.Type = {
   },
 
   activate: async (_, { token, password }, context) => {
-    const { email } = await context.prisma.passwordSetToken({ token });
-    if (email === null) {
+    const entry = await context.prisma.passwordSetToken({ token });
+    if (entry === null) {
       logger.error(`Active user tried to re-activate with token`, { token });
       throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
-
+    const { email } = entry;
     const user = await context.prisma.user({ email });
 
     if (resetPassword(token, password, context)) {
