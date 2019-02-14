@@ -11,6 +11,7 @@ import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
+const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.random() * 6];
 
 const resetPassword = async (token: string, password: string, context: Context) => {
   const entries = await context.prisma.passwordSetTokens({ where: { token } });
@@ -191,7 +192,7 @@ export const Mutation: MutationResolvers.Type = {
       await context.prisma.createPasswordSetToken({ token, email });
       try {
         sendEmail(
-          { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
+          { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
           [{ email, name: firstName }],
           ['Welcome'],
           { link: `https://cogito.study/register?token=${token}&id=${user.id}` },
@@ -240,7 +241,7 @@ export const Mutation: MutationResolvers.Type = {
       const diffMins = diffMs / 1000 / 60; // millisecs / secs
       if (diffMins <= 12) {
         logger.error('Repeated password reset attempt!', { email });
-        throw new Error(`Please wait ${diffMins} minutes`);
+        throw new Error(`Please wait ${12 - Math.floor(diffMins)} minutes`);
       }
       await context.prisma.deletePasswordSetToken({ email });
     }
@@ -249,7 +250,7 @@ export const Mutation: MutationResolvers.Type = {
     await context.prisma.createPasswordSetToken({ token, email });
     try {
       sendEmail(
-        { email: 'welcome@cogito.study', name: 'Berci from Cogito' },
+        { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
         [{ email }],
         ['Welcome'],
         { link: `https://cogito.study/reset?token=${token}` },
