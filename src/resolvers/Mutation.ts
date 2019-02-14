@@ -226,7 +226,7 @@ export const Mutation: MutationResolvers.Type = {
       return true;
     }
     logger.error(`Activation unsuccessful!`, { user });
-    throw new Error('Activation unsuccessful');
+    throw new Error('Sikertelen regisztráció');
   },
 
   sendResetPasswordEmail: async (_, { email }, context) => {
@@ -240,9 +240,9 @@ export const Mutation: MutationResolvers.Type = {
       const entryCreated = new Date(entries[0].createdAt);
       const diffMs = now.getTime() - entryCreated.getTime();
       const diffMins = diffMs / 1000 / 60; // millisecs / secs
-      if (diffMins <= 12) {
+      if (diffMins < 12) {
         logger.error('Repeated password reset attempt!', { email });
-        throw new Error(`Please wait ${12 - Math.floor(diffMins)} minutes`);
+        throw new Error(`Kérlek várj még ${12 - Math.floor(diffMins)} percet`);
       }
       await context.prisma.deletePasswordSetToken({ email });
     }
