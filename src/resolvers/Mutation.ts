@@ -14,6 +14,18 @@ const generateToken = (userID: string, options = {}) => sign({ userID }, process
 
 const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.floor(Math.random() * 6)];
 
+const validateEmail = (email) => {
+  if (!EmailValidator.validate(email)) {
+    throw new Error(`Email not valid: ${email}`);
+  }
+};
+
+const validatePassword = (password) => {
+  if (password.length < 7) {
+    throw new Error('A jelszónak 7 karakternél hosszabbnak kell lennie');
+  }
+};
+
 const resetPassword = async (token: string, password: string, context: Context) => {
   const entries = await context.prisma.passwordSetTokens({ where: { token } });
   if (entries.length > 0) {
@@ -160,9 +172,7 @@ export const Mutation: MutationResolvers.Type = {
   bulkCreateUser: async (_, { userDataList }, context) => {
     for (const user of userDataList) {
       const { email } = user;
-      if (!EmailValidator.validate(email)) {
-        throw new Error(`Email not valid: ${email}`);
-      }
+      validateEmail(email);
     }
 
     for (const user of userDataList) {
@@ -191,13 +201,14 @@ export const Mutation: MutationResolvers.Type = {
       const { firstName, email } = user;
       const token = generateToken(email, { expiresIn: '1y' });
       await context.prisma.createPasswordSetToken({ token, email });
+      const templateID = user.role === 'USER' ? 5 : 5; // insert teacher invite email at second position
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
           [{ email, name: firstName }],
           ['Welcome'],
           { link: `https://cogito.study/register?token=${token}&id=${user.id}` },
-          5,
+          templateID,
         );
         logger.info('Invite email sent!', { user });
       } catch {
@@ -209,6 +220,7 @@ export const Mutation: MutationResolvers.Type = {
   },
 
   activate: async (_, { token, password }, context) => {
+    validatePassword(password);
     const entry = await context.prisma.passwordSetToken({ token });
     if (entry === null) {
       logger.error(`Active user tried to re-activate with token`, { token });
@@ -230,6 +242,7 @@ export const Mutation: MutationResolvers.Type = {
   },
 
   sendResetPasswordEmail: async (_, { email }, context) => {
+    validateEmail(email);
     const entries = await context.prisma.passwordSetTokens({ where: { email } });
     if (entries.length > 0) {
       if (entries.length > 1) {
@@ -266,6 +279,7 @@ export const Mutation: MutationResolvers.Type = {
   },
 
   resetPassword: async (_, { token, password }, context) => {
+    validatePassword(password);
     return resetPassword(token, password, context);
   },
 };
