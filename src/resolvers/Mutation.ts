@@ -11,7 +11,8 @@ import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
-const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.random() * 6];
+
+const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.floor(Math.random() * 6)];
 
 const resetPassword = async (token: string, password: string, context: Context) => {
   const entries = await context.prisma.passwordSetTokens({ where: { token } });
