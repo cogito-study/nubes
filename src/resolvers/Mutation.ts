@@ -234,13 +234,11 @@ export const Mutation: MutationResolvers.Type = {
         logger.error('More than 1 password reset token in db!', { entries });
         throw new Error('Too many tokens in DB!');
       }
-      // <stackoverflow src="https://stackoverflow.com/a/7709819/4481967">
       const now = new Date();
       const entryCreated = new Date(entries[0].createdAt);
-      const diffMs = now.getMilliseconds() - entryCreated.getMilliseconds();
-      const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-      // </stackoverflow>
-      if (0 < diffMins && diffMins <= 12) {
+      const diffMs = now.getTime() - entryCreated.getTime();
+      const diffMins = diffMs / 1000 / 60; // millisecs / secs
+      if (diffMins <= 12) {
         logger.error('Repeated password reset attempt!', { email });
         throw new Error(`Please wait ${diffMins} minutes`);
       }
