@@ -14,30 +14,35 @@ const generateToken = (userID: string, options = {}) => sign({ userID }, process
 
 const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.floor(Math.random() * 6)];
 
-const validateEmail = (email) => {
+const validateEmail = (email: string) => {
   if (!EmailValidator.validate(email)) {
     throw new Error(`Email not valid: ${email}`);
   }
 };
 
-const validatePassword = (password) => {
+const validatePassword = (password: string) => {
   if (password.length < 7) {
     throw new Error('A jelszónak 7 karakternél hosszabbnak kell lennie');
+  }
+};
+
+const checkTokenValid = (token: string) => {
+  try {
+    verify(token, process.env.APP_SECRET);
+    return true;
+  } catch {
+    return false;
   }
 };
 
 const resetPassword = async (token: string, password: string, context: Context) => {
   const entries = await context.prisma.passwordSetTokens({ where: { token } });
   if (entries.length > 0) {
-    try {
-      verify(token, process.env.APP_SECRET);
-    } catch {
-      throw new Error('Token expired!');
-    }
     if (entries.length > 1) {
       logger.error('More than 1 password reset token in db!', { entries });
       throw new Error('Too many tokens in DB!');
     }
+    checkTokenValid(token);
     const { email } = entries[0];
     const newPassword = await hashPassword(password);
     await context.prisma.deletePasswordSetToken({ token });
@@ -281,5 +286,13 @@ export const Mutation: MutationResolvers.Type = {
   resetPassword: async (_, { token, password }, context) => {
     validatePassword(password);
     return resetPassword(token, password, context);
+  },
+
+  checkTokenValid: async (_, { token }, context) => {
+    const entries = await context.prisma.passwordSetTokens({ where: { token } });
+    if (entries.length > 1) {
+      throw Error('Too many tokens in DB!');
+    }
+    return checkTokenValid(entries[0].token);
   },
 };

@@ -1958,6 +1958,10 @@ export namespace MutationResolvers {
     password: string;
   }
 
+  export interface ArgsCheckTokenValid {
+    token: string | null;
+  }
+
   export type SignupResolver = (
     parent: undefined,
     args: ArgsSignup,
@@ -2049,6 +2053,13 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo,
   ) => boolean | Promise<boolean>;
 
+  export type CheckTokenValidResolver = (
+    parent: undefined,
+    args: ArgsCheckTokenValid,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => boolean | Promise<boolean>;
+
   export interface Type {
     signup: (
       parent: undefined,
@@ -2132,6 +2143,13 @@ export namespace MutationResolvers {
     resetPassword: (
       parent: undefined,
       args: ArgsResetPassword,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => boolean | Promise<boolean>;
+
+    checkTokenValid: (
+      parent: undefined,
+      args: ArgsCheckTokenValid,
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => boolean | Promise<boolean>;
