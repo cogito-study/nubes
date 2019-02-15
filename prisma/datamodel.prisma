@@ -36,6 +36,11 @@ type Comment {
   upvotes: [User!]! @relation(name: "UpvotedComments")
 }
 
+type Institute {
+  name: String!
+  subjects: [Subject!]! @relation(name: "Institute")
+}
+
 type Subject {
   id: ID! @unique
   code: String! @unique
@@ -64,6 +69,7 @@ type User {
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole! @default(value: "USER")
 }
 
