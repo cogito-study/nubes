@@ -1,11 +1,10 @@
-import { hash, compare } from 'bcrypt';
-import { sign, verify } from 'jsonwebtoken';
-import { Range, Value, Editor } from 'slate';
 import { S3 } from 'aws-sdk';
+import { compare, hash } from 'bcrypt';
+import * as EmailValidator from 'email-validator';
 import { Context } from 'graphql-yoga/dist/types';
 import * as logger from 'heroku-logger';
-import * as EmailValidator from 'email-validator';
-
+import { sign, verify } from 'jsonwebtoken';
+import { Editor, Range, Value } from 'slate';
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID, sendEmail } from '../utils';
 
@@ -206,7 +205,7 @@ export const Mutation: MutationResolvers.Type = {
       const { firstName, email } = user;
       const token = generateToken(email, { expiresIn: '1y' });
       await context.prisma.createPasswordSetToken({ token, email });
-      const templateID = user.role === 'USER' ? 5 : 5; // insert teacher invite email at second position
+      const templateID = user.role === 'PROFESSOR' ? 9 : 5;
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
