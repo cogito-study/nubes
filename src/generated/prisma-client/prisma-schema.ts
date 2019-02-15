@@ -2,6 +2,10 @@ export const typeDefs = /* GraphQL */ `type AggregateComment {
   count: Int!
 }
 
+type AggregateInstitute {
+  count: Int!
+}
+
 type AggregateNote {
   count: Int!
 }
@@ -316,6 +320,87 @@ input CommentWhereUniqueInput {
 
 scalar DateTime
 
+type Institute {
+  name: String!
+  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
+}
+
+type InstituteConnection {
+  pageInfo: PageInfo!
+  edges: [InstituteEdge]!
+  aggregate: AggregateInstitute!
+}
+
+input InstituteCreateInput {
+  name: String!
+  subjects: SubjectCreateManyInput
+}
+
+type InstituteEdge {
+  node: Institute!
+  cursor: String!
+}
+
+enum InstituteOrderByInput {
+  name_ASC
+  name_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InstitutePreviousValues {
+  name: String!
+}
+
+type InstituteSubscriptionPayload {
+  mutation: MutationType!
+  node: Institute
+  updatedFields: [String!]
+  previousValues: InstitutePreviousValues
+}
+
+input InstituteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InstituteWhereInput
+  AND: [InstituteSubscriptionWhereInput!]
+  OR: [InstituteSubscriptionWhereInput!]
+  NOT: [InstituteSubscriptionWhereInput!]
+}
+
+input InstituteUpdateManyMutationInput {
+  name: String
+}
+
+input InstituteWhereInput {
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  subjects_every: SubjectWhereInput
+  subjects_some: SubjectWhereInput
+  subjects_none: SubjectWhereInput
+  AND: [InstituteWhereInput!]
+  OR: [InstituteWhereInput!]
+  NOT: [InstituteWhereInput!]
+}
+
 scalar Json
 
 scalar Long
@@ -327,6 +412,9 @@ type Mutation {
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteManyComments(where: CommentWhereInput): BatchPayload!
+  createInstitute(data: InstituteCreateInput!): Institute!
+  updateManyInstitutes(data: InstituteUpdateManyMutationInput!, where: InstituteWhereInput): BatchPayload!
+  deleteManyInstitutes(where: InstituteWhereInput): BatchPayload!
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
@@ -890,6 +978,8 @@ type Query {
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  institutes(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institute]!
+  institutesConnection(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstituteConnection!
   note(where: NoteWhereUniqueInput!): Note
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
@@ -1528,6 +1618,7 @@ input SubjectWhereUniqueInput {
 
 type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  institute(where: InstituteSubscriptionWhereInput): InstituteSubscriptionPayload
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   passwordSetToken(where: PasswordSetTokenSubscriptionWhereInput): PasswordSetTokenSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
@@ -1543,6 +1634,7 @@ type User {
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole!
 }
 
@@ -1559,6 +1651,7 @@ input UserCreateInput {
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1592,6 +1685,8 @@ enum UserOrderByInput {
   firstName_DESC
   lastName_ASC
   lastName_DESC
+  phone_ASC
+  phone_DESC
   role_ASC
   role_DESC
   createdAt_ASC
@@ -1608,6 +1703,7 @@ type UserPreviousValues {
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole!
 }
 
@@ -1704,6 +1800,20 @@ input UserScalarWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
   role: UserRole
   role_not: UserRole
   role_in: [UserRole!]
@@ -1738,6 +1848,7 @@ input UserUpdateDataInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1748,6 +1859,7 @@ input UserUpdateInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1758,6 +1870,7 @@ input UserUpdateManyDataInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1780,6 +1893,7 @@ input UserUpdateManyMutationInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1898,6 +2012,20 @@ input UserWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
   role: UserRole
   role_not: UserRole
   role_in: [UserRole!]
