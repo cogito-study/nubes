@@ -21,6 +21,8 @@ type UserOrderByInput =
   | 'firstName_DESC'
   | 'lastName_ASC'
   | 'lastName_DESC'
+  | 'phone_ASC'
+  | 'phone_DESC'
   | 'role_ASC'
   | 'role_DESC'
   | 'createdAt_ASC'
@@ -207,6 +209,7 @@ export namespace UserResolvers {
     password: (parent: User) => parent.password,
     firstName: (parent: User) => (parent.firstName === undefined ? null : parent.firstName),
     lastName: (parent: User) => (parent.lastName === undefined ? null : parent.lastName),
+    phone: (parent: User) => (parent.phone === undefined ? null : parent.phone),
     role: (parent: User) => parent.role,
   };
 
@@ -254,6 +257,13 @@ export namespace UserResolvers {
     info: GraphQLResolveInfo,
   ) => string | null | Promise<string | null>;
 
+  export type PhoneResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | null | Promise<string | null>;
+
   export type RoleResolver = (
     parent: User,
     args: {},
@@ -285,6 +295,8 @@ export namespace UserResolvers {
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => string | null | Promise<string | null>;
+
+    phone: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | null | Promise<string | null>;
 
     role: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => UserRole | Promise<UserRole>;
   }
@@ -529,6 +541,20 @@ export namespace NoteResolvers {
     lastName_not_starts_with: string | null;
     lastName_ends_with: string | null;
     lastName_not_ends_with: string | null;
+    phone: string | null;
+    phone_not: string | null;
+    phone_in: string[];
+    phone_not_in: string[];
+    phone_lt: string | null;
+    phone_lte: string | null;
+    phone_gt: string | null;
+    phone_gte: string | null;
+    phone_contains: string | null;
+    phone_not_contains: string | null;
+    phone_starts_with: string | null;
+    phone_not_starts_with: string | null;
+    phone_ends_with: string | null;
+    phone_not_ends_with: string | null;
     role: UserRole | null;
     role_not: UserRole | null;
     role_in: UserRole[];
@@ -902,6 +928,20 @@ export namespace SubjectResolvers {
     lastName_not_starts_with: string | null;
     lastName_ends_with: string | null;
     lastName_not_ends_with: string | null;
+    phone: string | null;
+    phone_not: string | null;
+    phone_in: string[];
+    phone_not_in: string[];
+    phone_lt: string | null;
+    phone_lte: string | null;
+    phone_gt: string | null;
+    phone_gte: string | null;
+    phone_contains: string | null;
+    phone_not_contains: string | null;
+    phone_starts_with: string | null;
+    phone_not_starts_with: string | null;
+    phone_ends_with: string | null;
+    phone_not_ends_with: string | null;
     role: UserRole | null;
     role_not: UserRole | null;
     role_in: UserRole[];
@@ -1630,6 +1670,20 @@ export namespace CommentResolvers {
     lastName_not_starts_with: string | null;
     lastName_ends_with: string | null;
     lastName_not_ends_with: string | null;
+    phone: string | null;
+    phone_not: string | null;
+    phone_in: string[];
+    phone_not_in: string[];
+    phone_lt: string | null;
+    phone_lte: string | null;
+    phone_gt: string | null;
+    phone_gte: string | null;
+    phone_contains: string | null;
+    phone_not_contains: string | null;
+    phone_starts_with: string | null;
+    phone_not_starts_with: string | null;
+    phone_ends_with: string | null;
+    phone_not_ends_with: string | null;
     role: UserRole | null;
     role_not: UserRole | null;
     role_in: UserRole[];
