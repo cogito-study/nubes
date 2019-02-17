@@ -47,7 +47,7 @@ type Subject {
   code: String! @unique
   name: String!
   description: String!
-  institute: Institute!
+  institute: Institute! @relation(name: "subjectByInstitute")
   faculty: [User!]! @relation(name: "SubjectsByTeacher")
   students: [User!]! @relation(name: "SubjectsByStudent")
   info: [SubjectInfo!]!
