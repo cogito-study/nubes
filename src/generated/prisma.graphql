@@ -321,6 +321,7 @@ input CommentWhereUniqueInput {
 scalar DateTime
 
 type Institute {
+  id: ID!
   name: String!
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
 }
@@ -333,7 +334,16 @@ type InstituteConnection {
 
 input InstituteCreateInput {
   name: String!
-  subjects: SubjectCreateManyInput
+  subjects: SubjectCreateManyWithoutInstituteInput
+}
+
+input InstituteCreateOneWithoutSubjectsInput {
+  create: InstituteCreateWithoutSubjectsInput
+  connect: InstituteWhereUniqueInput
+}
+
+input InstituteCreateWithoutSubjectsInput {
+  name: String!
 }
 
 type InstituteEdge {
@@ -342,10 +352,10 @@ type InstituteEdge {
 }
 
 enum InstituteOrderByInput {
-  name_ASC
-  name_DESC
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -353,6 +363,7 @@ enum InstituteOrderByInput {
 }
 
 type InstitutePreviousValues {
+  id: ID!
   name: String!
 }
 
@@ -374,11 +385,46 @@ input InstituteSubscriptionWhereInput {
   NOT: [InstituteSubscriptionWhereInput!]
 }
 
+input InstituteUpdateInput {
+  name: String
+  subjects: SubjectUpdateManyWithoutInstituteInput
+}
+
 input InstituteUpdateManyMutationInput {
   name: String
 }
 
+input InstituteUpdateOneRequiredWithoutSubjectsInput {
+  create: InstituteCreateWithoutSubjectsInput
+  update: InstituteUpdateWithoutSubjectsDataInput
+  upsert: InstituteUpsertWithoutSubjectsInput
+  connect: InstituteWhereUniqueInput
+}
+
+input InstituteUpdateWithoutSubjectsDataInput {
+  name: String
+}
+
+input InstituteUpsertWithoutSubjectsInput {
+  update: InstituteUpdateWithoutSubjectsDataInput!
+  create: InstituteCreateWithoutSubjectsInput!
+}
+
 input InstituteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   name: String
   name_not: String
   name_in: [String!]
@@ -401,6 +447,10 @@ input InstituteWhereInput {
   NOT: [InstituteWhereInput!]
 }
 
+input InstituteWhereUniqueInput {
+  id: ID
+}
+
 scalar Json
 
 scalar Long
@@ -413,7 +463,10 @@ type Mutation {
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   createInstitute(data: InstituteCreateInput!): Institute!
+  updateInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
   updateManyInstitutes(data: InstituteUpdateManyMutationInput!, where: InstituteWhereInput): BatchPayload!
+  upsertInstitute(where: InstituteWhereUniqueInput!, create: InstituteCreateInput!, update: InstituteUpdateInput!): Institute!
+  deleteInstitute(where: InstituteWhereUniqueInput!): Institute
   deleteManyInstitutes(where: InstituteWhereInput): BatchPayload!
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
@@ -978,6 +1031,7 @@ type Query {
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  institute(where: InstituteWhereUniqueInput!): Institute
   institutes(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institute]!
   institutesConnection(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstituteConnection!
   note(where: NoteWhereUniqueInput!): Note
@@ -1003,6 +1057,7 @@ type Subject {
   code: String!
   name: String!
   description: String!
+  institute: Institute!
   faculty(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   info(where: SubjectInfoWhereInput, orderBy: SubjectInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectInfo!]
@@ -1020,6 +1075,7 @@ input SubjectCreateInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput!
   faculty: UserCreateManyInput
   students: UserCreateManyInput
   info: SubjectInfoCreateManyWithoutSubjectInput
@@ -1029,6 +1085,11 @@ input SubjectCreateInput {
 
 input SubjectCreateManyInput {
   create: [SubjectCreateInput!]
+  connect: [SubjectWhereUniqueInput!]
+}
+
+input SubjectCreateManyWithoutInstituteInput {
+  create: [SubjectCreateWithoutInstituteInput!]
   connect: [SubjectWhereUniqueInput!]
 }
 
@@ -1046,8 +1107,20 @@ input SubjectCreateWithoutInfoInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput!
   faculty: UserCreateManyInput
   students: UserCreateManyInput
+  notes: NoteCreateManyWithoutSubjectInput
+  prerequisites: SubjectCreateManyInput
+}
+
+input SubjectCreateWithoutInstituteInput {
+  code: String!
+  name: String!
+  description: String!
+  faculty: UserCreateManyInput
+  students: UserCreateManyInput
+  info: SubjectInfoCreateManyWithoutSubjectInput
   notes: NoteCreateManyWithoutSubjectInput
   prerequisites: SubjectCreateManyInput
 }
@@ -1056,6 +1129,7 @@ input SubjectCreateWithoutNotesInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput!
   faculty: UserCreateManyInput
   students: UserCreateManyInput
   info: SubjectInfoCreateManyWithoutSubjectInput
@@ -1432,6 +1506,7 @@ input SubjectUpdateDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneRequiredWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1443,6 +1518,7 @@ input SubjectUpdateInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneRequiredWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1474,6 +1550,18 @@ input SubjectUpdateManyMutationInput {
   description: String
 }
 
+input SubjectUpdateManyWithoutInstituteInput {
+  create: [SubjectCreateWithoutInstituteInput!]
+  delete: [SubjectWhereUniqueInput!]
+  connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutInstituteInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutInstituteInput!]
+  deleteMany: [SubjectScalarWhereInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
+}
+
 input SubjectUpdateManyWithWhereNestedInput {
   where: SubjectScalarWhereInput!
   data: SubjectUpdateManyDataInput!
@@ -1497,8 +1585,20 @@ input SubjectUpdateWithoutInfoDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneRequiredWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
+  notes: NoteUpdateManyWithoutSubjectInput
+  prerequisites: SubjectUpdateManyInput
+}
+
+input SubjectUpdateWithoutInstituteDataInput {
+  code: String
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
+  info: SubjectInfoUpdateManyWithoutSubjectInput
   notes: NoteUpdateManyWithoutSubjectInput
   prerequisites: SubjectUpdateManyInput
 }
@@ -1507,6 +1607,7 @@ input SubjectUpdateWithoutNotesDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneRequiredWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1516,6 +1617,11 @@ input SubjectUpdateWithoutNotesDataInput {
 input SubjectUpdateWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
   data: SubjectUpdateDataInput!
+}
+
+input SubjectUpdateWithWhereUniqueWithoutInstituteInput {
+  where: SubjectWhereUniqueInput!
+  data: SubjectUpdateWithoutInstituteDataInput!
 }
 
 input SubjectUpsertWithoutInfoInput {
@@ -1532,6 +1638,12 @@ input SubjectUpsertWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
   update: SubjectUpdateDataInput!
   create: SubjectCreateInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutInstituteInput {
+  where: SubjectWhereUniqueInput!
+  update: SubjectUpdateWithoutInstituteDataInput!
+  create: SubjectCreateWithoutInstituteInput!
 }
 
 input SubjectWhereInput {
@@ -1591,6 +1703,7 @@ input SubjectWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  institute: InstituteWhereInput
   faculty_every: UserWhereInput
   faculty_some: UserWhereInput
   faculty_none: UserWhereInput
