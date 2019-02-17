@@ -1386,7 +1386,7 @@ export namespace SubjectResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo,
-  ) => Institute | Promise<Institute>;
+  ) => Institute | null | Promise<Institute | null>;
 
   export type FacultyResolver = (
     parent: Subject,
@@ -1432,7 +1432,12 @@ export namespace SubjectResolvers {
 
     description: (parent: Subject, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
-    institute: (parent: Subject, args: {}, ctx: Context, info: GraphQLResolveInfo) => Institute | Promise<Institute>;
+    institute: (
+      parent: Subject,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => Institute | null | Promise<Institute | null>;
 
     faculty: (parent: Subject, args: ArgsFaculty, ctx: Context, info: GraphQLResolveInfo) => User[] | Promise<User[]>;
 
