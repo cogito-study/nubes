@@ -39,7 +39,7 @@ type Comment {
 type Institute {
   id: ID! @unique
   name: String!
-  subjects: [Subject!]! @relation(name: "subjectsByInstitute")
+  subjects: [Subject!]! @relation(name: "SubjectsByInstitute")
 }
 
 type Subject {
@@ -47,7 +47,7 @@ type Subject {
   code: String! @unique
   name: String!
   description: String!
-  institute: Institute! @relation(name: "subjectByInstitute")
+  institute: Institute @relation(name: "InstituteOfSubject")
   faculty: [User!]! @relation(name: "SubjectsByTeacher")
   students: [User!]! @relation(name: "SubjectsByStudent")
   info: [SubjectInfo!]!
