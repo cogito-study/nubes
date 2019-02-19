@@ -1,11 +1,12 @@
 {
-  "name": "graphql-auth",
+  "name": "cogito-backend",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
     "start:staging": "env-cmd .env.staging ts-node src/index.ts",
     "start:prod": "env-cmd .env.prod ts-node src/index.ts",
-    "apollo-service-push:staging": "apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=service:cogito-backend-staging:j0NNNa8XRR0CH4sziCxoqQ",
+    "apollo-service-push:staging": "apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=service:cogito-backend-staging:uB1g_aecUZVvRppG_ijE4w",
+    "apollo-service-push:prod": "apollo service:push --endpoint=https://cogito-graphql-prod.herokuapp.com/  --key=service:cogito-backend-prod:7DzU4ECQnW5sGiDbMM2fEw",
     "prisma-generate:dev": "prisma generate --env-file .env.dev",
     "prisma-generate:staging": "prisma generate --env-file .env.staging",
     "prisma-generate:prod": "prisma generate --env-file .env.prod",
