@@ -1,5 +1,5 @@
 {
-  "name": "graphql-auth",
+  "name": "cogito-backend",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
