@@ -1,4 +1,4 @@
-# import Comment, Note, Subject, User, UserRole from './generated/prisma.graphql'
+# import Comment, Note, Subject, User, UserRole, CommentSubscriptionPayload from './generated/prisma.graphql'
 
 scalar DateTime
 
@@ -16,12 +16,18 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, neptun: String!, role: UserRole!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  activate(id: ID!, password: String!): AuthPayload!
+  activate(token: String!, password: String!): Boolean!
   upvoteComment(id: ID!): Comment!
   unvoteComment(id: ID!): Comment!
   submitComment(noteID: ID!, input: CommentInput!): Comment!
-  deleteComment(id: ID!): Boolean!
+  deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
+  uploadImage(fileName: String, fileType: String): FileUploadPayload!
+  bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
+  sendInvites: Boolean!
+  sendResetPasswordEmail(email: String!): Boolean!
+  resetPassword(token: String!, password: String!): Boolean!
+  checkTokenValid(token: String): Boolean!
 }
 
 input CommentInput {
@@ -29,7 +35,18 @@ input CommentInput {
   locationInText: String!
 }
 
+input BulkCreateUserData {
+  firstName: String!
+  lastName: String!
+  email: String!
+  userType: UserRole!
+}
+
 type AuthPayload {
   token: String!
   user: User!
+}
+
+type FileUploadPayload {
+  url: String!
 }

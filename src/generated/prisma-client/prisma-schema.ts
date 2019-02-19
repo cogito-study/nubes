@@ -2,7 +2,15 @@ export const typeDefs = /* GraphQL */ `type AggregateComment {
   count: Int!
 }
 
+type AggregateInstitute {
+  count: Int!
+}
+
 type AggregateNote {
+  count: Int!
+}
+
+type AggregatePasswordSetToken {
   count: Int!
 }
 
@@ -190,6 +198,7 @@ input CommentUpdateManyInput {
   upsert: [CommentUpsertWithWhereUniqueNestedInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
@@ -204,6 +213,7 @@ input CommentUpdateManyWithoutNoteInput {
   create: [CommentCreateWithoutNoteInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   update: [CommentUpdateWithWhereUniqueWithoutNoteInput!]
   upsert: [CommentUpsertWithWhereUniqueWithoutNoteInput!]
@@ -310,6 +320,139 @@ input CommentWhereUniqueInput {
 
 scalar DateTime
 
+type Institute {
+  id: ID!
+  name: String!
+  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
+}
+
+type InstituteConnection {
+  pageInfo: PageInfo!
+  edges: [InstituteEdge]!
+  aggregate: AggregateInstitute!
+}
+
+input InstituteCreateInput {
+  name: String!
+  subjects: SubjectCreateManyWithoutInstituteInput
+}
+
+input InstituteCreateOneWithoutSubjectsInput {
+  create: InstituteCreateWithoutSubjectsInput
+  connect: InstituteWhereUniqueInput
+}
+
+input InstituteCreateWithoutSubjectsInput {
+  name: String!
+}
+
+type InstituteEdge {
+  node: Institute!
+  cursor: String!
+}
+
+enum InstituteOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InstitutePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type InstituteSubscriptionPayload {
+  mutation: MutationType!
+  node: Institute
+  updatedFields: [String!]
+  previousValues: InstitutePreviousValues
+}
+
+input InstituteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InstituteWhereInput
+  AND: [InstituteSubscriptionWhereInput!]
+  OR: [InstituteSubscriptionWhereInput!]
+  NOT: [InstituteSubscriptionWhereInput!]
+}
+
+input InstituteUpdateInput {
+  name: String
+  subjects: SubjectUpdateManyWithoutInstituteInput
+}
+
+input InstituteUpdateManyMutationInput {
+  name: String
+}
+
+input InstituteUpdateOneWithoutSubjectsInput {
+  create: InstituteCreateWithoutSubjectsInput
+  update: InstituteUpdateWithoutSubjectsDataInput
+  upsert: InstituteUpsertWithoutSubjectsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: InstituteWhereUniqueInput
+}
+
+input InstituteUpdateWithoutSubjectsDataInput {
+  name: String
+}
+
+input InstituteUpsertWithoutSubjectsInput {
+  update: InstituteUpdateWithoutSubjectsDataInput!
+  create: InstituteCreateWithoutSubjectsInput!
+}
+
+input InstituteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  subjects_every: SubjectWhereInput
+  subjects_some: SubjectWhereInput
+  subjects_none: SubjectWhereInput
+  AND: [InstituteWhereInput!]
+  OR: [InstituteWhereInput!]
+  NOT: [InstituteWhereInput!]
+}
+
+input InstituteWhereUniqueInput {
+  id: ID
+}
+
 scalar Json
 
 scalar Long
@@ -321,12 +464,24 @@ type Mutation {
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteManyComments(where: CommentWhereInput): BatchPayload!
+  createInstitute(data: InstituteCreateInput!): Institute!
+  updateInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
+  updateManyInstitutes(data: InstituteUpdateManyMutationInput!, where: InstituteWhereInput): BatchPayload!
+  upsertInstitute(where: InstituteWhereUniqueInput!, create: InstituteCreateInput!, update: InstituteUpdateInput!): Institute!
+  deleteInstitute(where: InstituteWhereUniqueInput!): Institute
+  deleteManyInstitutes(where: InstituteWhereInput): BatchPayload!
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
   upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   deleteNote(where: NoteWhereUniqueInput!): Note
   deleteManyNotes(where: NoteWhereInput): BatchPayload!
+  createPasswordSetToken(data: PasswordSetTokenCreateInput!): PasswordSetToken!
+  updatePasswordSetToken(data: PasswordSetTokenUpdateInput!, where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  updateManyPasswordSetTokens(data: PasswordSetTokenUpdateManyMutationInput!, where: PasswordSetTokenWhereInput): BatchPayload!
+  upsertPasswordSetToken(where: PasswordSetTokenWhereUniqueInput!, create: PasswordSetTokenCreateInput!, update: PasswordSetTokenUpdateInput!): PasswordSetToken!
+  deletePasswordSetToken(where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  deleteManyPasswordSetTokens(where: PasswordSetTokenWhereInput): BatchPayload!
   createSubject(data: SubjectCreateInput!): Subject!
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
   updateManySubjects(data: SubjectUpdateManyMutationInput!, where: SubjectWhereInput): BatchPayload!
@@ -588,6 +743,7 @@ input NoteUpdateManyWithoutSubjectInput {
   create: [NoteCreateWithoutSubjectInput!]
   delete: [NoteWhereUniqueInput!]
   connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
   disconnect: [NoteWhereUniqueInput!]
   update: [NoteUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [NoteUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -740,13 +896,152 @@ type PageInfo {
   endCursor: String
 }
 
+type PasswordSetToken {
+  id: ID!
+  token: String!
+  email: String!
+  createdAt: DateTime!
+}
+
+type PasswordSetTokenConnection {
+  pageInfo: PageInfo!
+  edges: [PasswordSetTokenEdge]!
+  aggregate: AggregatePasswordSetToken!
+}
+
+input PasswordSetTokenCreateInput {
+  token: String!
+  email: String!
+}
+
+type PasswordSetTokenEdge {
+  node: PasswordSetToken!
+  cursor: String!
+}
+
+enum PasswordSetTokenOrderByInput {
+  id_ASC
+  id_DESC
+  token_ASC
+  token_DESC
+  email_ASC
+  email_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PasswordSetTokenPreviousValues {
+  id: ID!
+  token: String!
+  email: String!
+  createdAt: DateTime!
+}
+
+type PasswordSetTokenSubscriptionPayload {
+  mutation: MutationType!
+  node: PasswordSetToken
+  updatedFields: [String!]
+  previousValues: PasswordSetTokenPreviousValues
+}
+
+input PasswordSetTokenSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PasswordSetTokenWhereInput
+  AND: [PasswordSetTokenSubscriptionWhereInput!]
+  OR: [PasswordSetTokenSubscriptionWhereInput!]
+  NOT: [PasswordSetTokenSubscriptionWhereInput!]
+}
+
+input PasswordSetTokenUpdateInput {
+  token: String
+  email: String
+}
+
+input PasswordSetTokenUpdateManyMutationInput {
+  token: String
+  email: String
+}
+
+input PasswordSetTokenWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  token: String
+  token_not: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_lt: String
+  token_lte: String
+  token_gt: String
+  token_gte: String
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_not_starts_with: String
+  token_ends_with: String
+  token_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [PasswordSetTokenWhereInput!]
+  OR: [PasswordSetTokenWhereInput!]
+  NOT: [PasswordSetTokenWhereInput!]
+}
+
+input PasswordSetTokenWhereUniqueInput {
+  id: ID
+  token: String
+  email: String
+}
+
 type Query {
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  institute(where: InstituteWhereUniqueInput!): Institute
+  institutes(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institute]!
+  institutesConnection(where: InstituteWhereInput, orderBy: InstituteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstituteConnection!
   note(where: NoteWhereUniqueInput!): Note
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
+  passwordSetToken(where: PasswordSetTokenWhereUniqueInput!): PasswordSetToken
+  passwordSetTokens(where: PasswordSetTokenWhereInput, orderBy: PasswordSetTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PasswordSetToken]!
+  passwordSetTokensConnection(where: PasswordSetTokenWhereInput, orderBy: PasswordSetTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PasswordSetTokenConnection!
   subject(where: SubjectWhereUniqueInput!): Subject
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
@@ -764,6 +1059,7 @@ type Subject {
   code: String!
   name: String!
   description: String!
+  institute: Institute
   faculty(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   students(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   info(where: SubjectInfoWhereInput, orderBy: SubjectInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectInfo!]
@@ -781,6 +1077,7 @@ input SubjectCreateInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput
   faculty: UserCreateManyInput
   students: UserCreateManyInput
   info: SubjectInfoCreateManyWithoutSubjectInput
@@ -790,6 +1087,11 @@ input SubjectCreateInput {
 
 input SubjectCreateManyInput {
   create: [SubjectCreateInput!]
+  connect: [SubjectWhereUniqueInput!]
+}
+
+input SubjectCreateManyWithoutInstituteInput {
+  create: [SubjectCreateWithoutInstituteInput!]
   connect: [SubjectWhereUniqueInput!]
 }
 
@@ -807,8 +1109,20 @@ input SubjectCreateWithoutInfoInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput
   faculty: UserCreateManyInput
   students: UserCreateManyInput
+  notes: NoteCreateManyWithoutSubjectInput
+  prerequisites: SubjectCreateManyInput
+}
+
+input SubjectCreateWithoutInstituteInput {
+  code: String!
+  name: String!
+  description: String!
+  faculty: UserCreateManyInput
+  students: UserCreateManyInput
+  info: SubjectInfoCreateManyWithoutSubjectInput
   notes: NoteCreateManyWithoutSubjectInput
   prerequisites: SubjectCreateManyInput
 }
@@ -817,6 +1131,7 @@ input SubjectCreateWithoutNotesInput {
   code: String!
   name: String!
   description: String!
+  institute: InstituteCreateOneWithoutSubjectsInput
   faculty: UserCreateManyInput
   students: UserCreateManyInput
   info: SubjectInfoCreateManyWithoutSubjectInput
@@ -990,6 +1305,7 @@ input SubjectInfoUpdateManyWithoutSubjectInput {
   create: [SubjectInfoCreateWithoutSubjectInput!]
   delete: [SubjectInfoWhereUniqueInput!]
   connect: [SubjectInfoWhereUniqueInput!]
+  set: [SubjectInfoWhereUniqueInput!]
   disconnect: [SubjectInfoWhereUniqueInput!]
   update: [SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -1192,6 +1508,7 @@ input SubjectUpdateDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1203,6 +1520,7 @@ input SubjectUpdateInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1222,6 +1540,7 @@ input SubjectUpdateManyInput {
   upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
   delete: [SubjectWhereUniqueInput!]
   connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
   disconnect: [SubjectWhereUniqueInput!]
   deleteMany: [SubjectScalarWhereInput!]
   updateMany: [SubjectUpdateManyWithWhereNestedInput!]
@@ -1231,6 +1550,18 @@ input SubjectUpdateManyMutationInput {
   code: String
   name: String
   description: String
+}
+
+input SubjectUpdateManyWithoutInstituteInput {
+  create: [SubjectCreateWithoutInstituteInput!]
+  delete: [SubjectWhereUniqueInput!]
+  connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutInstituteInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutInstituteInput!]
+  deleteMany: [SubjectScalarWhereInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
 }
 
 input SubjectUpdateManyWithWhereNestedInput {
@@ -1256,8 +1587,20 @@ input SubjectUpdateWithoutInfoDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
+  notes: NoteUpdateManyWithoutSubjectInput
+  prerequisites: SubjectUpdateManyInput
+}
+
+input SubjectUpdateWithoutInstituteDataInput {
+  code: String
+  name: String
+  description: String
+  faculty: UserUpdateManyInput
+  students: UserUpdateManyInput
+  info: SubjectInfoUpdateManyWithoutSubjectInput
   notes: NoteUpdateManyWithoutSubjectInput
   prerequisites: SubjectUpdateManyInput
 }
@@ -1266,6 +1609,7 @@ input SubjectUpdateWithoutNotesDataInput {
   code: String
   name: String
   description: String
+  institute: InstituteUpdateOneWithoutSubjectsInput
   faculty: UserUpdateManyInput
   students: UserUpdateManyInput
   info: SubjectInfoUpdateManyWithoutSubjectInput
@@ -1275,6 +1619,11 @@ input SubjectUpdateWithoutNotesDataInput {
 input SubjectUpdateWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
   data: SubjectUpdateDataInput!
+}
+
+input SubjectUpdateWithWhereUniqueWithoutInstituteInput {
+  where: SubjectWhereUniqueInput!
+  data: SubjectUpdateWithoutInstituteDataInput!
 }
 
 input SubjectUpsertWithoutInfoInput {
@@ -1291,6 +1640,12 @@ input SubjectUpsertWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
   update: SubjectUpdateDataInput!
   create: SubjectCreateInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutInstituteInput {
+  where: SubjectWhereUniqueInput!
+  update: SubjectUpdateWithoutInstituteDataInput!
+  create: SubjectCreateWithoutInstituteInput!
 }
 
 input SubjectWhereInput {
@@ -1350,6 +1705,7 @@ input SubjectWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  institute: InstituteWhereInput
   faculty_every: UserWhereInput
   faculty_some: UserWhereInput
   faculty_none: UserWhereInput
@@ -1377,7 +1733,9 @@ input SubjectWhereUniqueInput {
 
 type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  institute(where: InstituteSubscriptionWhereInput): InstituteSubscriptionPayload
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
+  passwordSetToken(where: PasswordSetTokenSubscriptionWhereInput): PasswordSetTokenSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
   subjectInfo(where: SubjectInfoSubscriptionWhereInput): SubjectInfoSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -1386,11 +1744,12 @@ type Subscription {
 type User {
   id: ID!
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean!
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole!
 }
 
@@ -1402,11 +1761,12 @@ type UserConnection {
 
 input UserCreateInput {
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1440,6 +1800,8 @@ enum UserOrderByInput {
   firstName_DESC
   lastName_ASC
   lastName_DESC
+  phone_ASC
+  phone_DESC
   role_ASC
   role_DESC
   createdAt_ASC
@@ -1451,16 +1813,18 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String!
-  neptun: String!
+  neptun: String
   isActive: Boolean!
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole!
 }
 
 enum UserRole {
   USER
+  PROFESSOR
   ADMIN
 }
 
@@ -1551,6 +1915,20 @@ input UserScalarWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
   role: UserRole
   role_not: UserRole
   role_in: [UserRole!]
@@ -1585,6 +1963,7 @@ input UserUpdateDataInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1595,6 +1974,7 @@ input UserUpdateInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1605,6 +1985,7 @@ input UserUpdateManyDataInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1614,6 +1995,7 @@ input UserUpdateManyInput {
   upsert: [UserUpsertWithWhereUniqueNestedInput!]
   delete: [UserWhereUniqueInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   deleteMany: [UserScalarWhereInput!]
   updateMany: [UserUpdateManyWithWhereNestedInput!]
@@ -1626,6 +2008,7 @@ input UserUpdateManyMutationInput {
   password: String
   firstName: String
   lastName: String
+  phone: String
   role: UserRole
 }
 
@@ -1744,6 +2127,20 @@ input UserWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
   role: UserRole
   role_not: UserRole
   role_in: [UserRole!]
@@ -1756,6 +2153,5 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
-  neptun: String
 }
 `

@@ -4,10 +4,11 @@ stages:
   - test
   - build
   - deploy
+  - apollo
 
 variables:
   HEROKU_API_KEY: 58e574d7-1f07-49bb-8087-b0c14661fc58
-  PRISMA_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanFqbXJhZngzcjc4MDg2MWJhMDdqeXNiIiwiaWF0IjoxNTQ3MzA4NDI0LCJleHAiOjE1NDk5MDA0MjR9.wvGXsp5A04BgLl2UBZKwYGq-PlOHFehBtA1onNEAwy8
+  PRISMA_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanFqbXJhZngzcjc4MDg2MWJhMDdqeXNiIiwiaWF0IjoxNTUwMTYwNDkyLCJleHAiOjE1NTI3NTI0OTJ9.x54QZ95novmg2g40v5Mf8kZbn_pqDJ1ENDBNEkcaOSA
 
 cache:
   paths:
@@ -18,7 +19,7 @@ testing:
   script:
     - echo "to be implemented"
 
-install_dependencies:
+install-dependencies:
   stage: build
   script:
     - npm install
@@ -26,23 +27,16 @@ install_dependencies:
     paths:
       - node_modules/
 
-deploy_staging:
+prisma-deploy-staging:
   stage: deploy
   script:
-    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
-    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
-    - apt-get update -qy
-    - apt-get install -y heroku-toolbelt
-    - apt-get install -y ruby-dev
-    - gem install dpl
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
     - npm run prisma-deploy:staging
-    - dpl --provider=heroku --app=cogito-graphql-backend --api-key=$HEROKU_API_KEY
   only:
     - development
 
-deploy_prod:
+deploy-staging:
   stage: deploy
   script:
     - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
@@ -51,9 +45,44 @@ deploy_prod:
     - apt-get install -y heroku-toolbelt
     - apt-get install -y ruby-dev
     - gem install dpl
+    - dpl --provider=heroku --app=cogito-graphql-staging --api-key=$HEROKU_API_KEY
+  only:
+    - development
+
+apollo-service-push-staging:
+  stage: apollo
+  script:
+    - npm i -g apollo
+    - npm run apollo-service-push:staging
+  only:
+    - development
+
+prisma-deploy-prod:
+  stage: deploy
+  script:
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
     - npm run prisma-deploy:prod
-    - dpl --provider=heroku --app=cogito-graphql-prod --api-key=$HEROKU_API_KEY
+  only:
+    - master
+
+deploy-prod:
+  stage: deploy
+  script:
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update -qy
+    - apt-get install -y heroku-toolbelt
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=cogito-backend-prod --api-key=$HEROKU_API_KEY
+  only:
+    - master
+
+apollo-service-push-prod:
+  stage: apollo
+  script:
+    - npm i -g apollo
+    - npm run apollo-service-push:prod
   only:
     - master

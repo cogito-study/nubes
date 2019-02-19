@@ -5,6 +5,7 @@ enum NoteType {
 
 enum UserRole {
   USER
+  PROFESSOR
   ADMIN
 }
 
@@ -35,11 +36,18 @@ type Comment {
   upvotes: [User!]! @relation(name: "UpvotedComments")
 }
 
+type Institute {
+  id: ID! @unique
+  name: String!
+  subjects: [Subject!]! @relation(name: "SubjectsByInstitute")
+}
+
 type Subject {
   id: ID! @unique
   code: String! @unique
   name: String!
   description: String!
+  institute: Institute @relation(name: "InstituteOfSubject")
   faculty: [User!]! @relation(name: "SubjectsByTeacher")
   students: [User!]! @relation(name: "SubjectsByStudent")
   info: [SubjectInfo!]!
@@ -58,10 +66,18 @@ type SubjectInfo {
 type User {
   id: ID! @unique
   email: String! @unique
-  neptun: String! @unique
+  neptun: String
   isActive: Boolean! @default(value: "false")
   password: String!
   firstName: String
   lastName: String
+  phone: String
   role: UserRole! @default(value: "USER")
+}
+
+type PasswordSetToken {
+  id: ID! @unique
+  token: String! @unique
+  email: String! @unique
+  createdAt: DateTime!
 }
