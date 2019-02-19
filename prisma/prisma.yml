@@ -1,6 +1,5 @@
 datamodel: datamodel.prisma
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://heroku-prod-0569b463bb.herokuapp.com/prisma-backend-prod/prod
+endpoint: ${env:PRISMA_ENDPOINT}
 secret: ${env:PRISMA_SECRET}
 
 generate:
