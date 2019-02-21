@@ -268,7 +268,7 @@ export const Mutation: MutationResolvers.Type = {
     await context.prisma.createPasswordSetToken({ token, email });
     try {
       sendEmail(
-        { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
+        { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
         [{ email }],
         ['Welcome'],
         { link: `https://cogito.study/reset?token=${token}` },
