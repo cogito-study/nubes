@@ -198,6 +198,7 @@ input CommentUpdateManyInput {
   upsert: [CommentUpsertWithWhereUniqueNestedInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
@@ -212,6 +213,7 @@ input CommentUpdateManyWithoutNoteInput {
   create: [CommentCreateWithoutNoteInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
   update: [CommentUpdateWithWhereUniqueWithoutNoteInput!]
   upsert: [CommentUpsertWithWhereUniqueWithoutNoteInput!]
@@ -741,6 +743,7 @@ input NoteUpdateManyWithoutSubjectInput {
   create: [NoteCreateWithoutSubjectInput!]
   delete: [NoteWhereUniqueInput!]
   connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
   disconnect: [NoteWhereUniqueInput!]
   update: [NoteUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [NoteUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -1302,6 +1305,7 @@ input SubjectInfoUpdateManyWithoutSubjectInput {
   create: [SubjectInfoCreateWithoutSubjectInput!]
   delete: [SubjectInfoWhereUniqueInput!]
   connect: [SubjectInfoWhereUniqueInput!]
+  set: [SubjectInfoWhereUniqueInput!]
   disconnect: [SubjectInfoWhereUniqueInput!]
   update: [SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput!]
   upsert: [SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput!]
@@ -1536,6 +1540,7 @@ input SubjectUpdateManyInput {
   upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
   delete: [SubjectWhereUniqueInput!]
   connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
   disconnect: [SubjectWhereUniqueInput!]
   deleteMany: [SubjectScalarWhereInput!]
   updateMany: [SubjectUpdateManyWithWhereNestedInput!]
@@ -1551,6 +1556,7 @@ input SubjectUpdateManyWithoutInstituteInput {
   create: [SubjectCreateWithoutInstituteInput!]
   delete: [SubjectWhereUniqueInput!]
   connect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
   disconnect: [SubjectWhereUniqueInput!]
   update: [SubjectUpdateWithWhereUniqueWithoutInstituteInput!]
   upsert: [SubjectUpsertWithWhereUniqueWithoutInstituteInput!]
@@ -1737,6 +1743,8 @@ type Subscription {
 
 type User {
   id: ID!
+  profilePicURL: String
+  roleName: String
   email: String!
   neptun: String
   isActive: Boolean!
@@ -1754,6 +1762,8 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  profilePicURL: String
+  roleName: String
   email: String!
   neptun: String
   isActive: Boolean
@@ -1782,6 +1792,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  profilePicURL_ASC
+  profilePicURL_DESC
+  roleName_ASC
+  roleName_DESC
   email_ASC
   email_DESC
   neptun_ASC
@@ -1806,6 +1820,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  profilePicURL: String
+  roleName: String
   email: String!
   neptun: String
   isActive: Boolean!
@@ -1837,6 +1853,34 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  profilePicURL: String
+  profilePicURL_not: String
+  profilePicURL_in: [String!]
+  profilePicURL_not_in: [String!]
+  profilePicURL_lt: String
+  profilePicURL_lte: String
+  profilePicURL_gt: String
+  profilePicURL_gte: String
+  profilePicURL_contains: String
+  profilePicURL_not_contains: String
+  profilePicURL_starts_with: String
+  profilePicURL_not_starts_with: String
+  profilePicURL_ends_with: String
+  profilePicURL_not_ends_with: String
+  roleName: String
+  roleName_not: String
+  roleName_in: [String!]
+  roleName_not_in: [String!]
+  roleName_lt: String
+  roleName_lte: String
+  roleName_gt: String
+  roleName_gte: String
+  roleName_contains: String
+  roleName_not_contains: String
+  roleName_starts_with: String
+  roleName_not_starts_with: String
+  roleName_ends_with: String
+  roleName_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]
@@ -1951,6 +1995,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  profilePicURL: String
+  roleName: String
   email: String
   neptun: String
   isActive: Boolean
@@ -1962,6 +2008,8 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
+  profilePicURL: String
+  roleName: String
   email: String
   neptun: String
   isActive: Boolean
@@ -1973,6 +2021,8 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  profilePicURL: String
+  roleName: String
   email: String
   neptun: String
   isActive: Boolean
@@ -1989,12 +2039,15 @@ input UserUpdateManyInput {
   upsert: [UserUpsertWithWhereUniqueNestedInput!]
   delete: [UserWhereUniqueInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   deleteMany: [UserScalarWhereInput!]
   updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyMutationInput {
+  profilePicURL: String
+  roleName: String
   email: String
   neptun: String
   isActive: Boolean
@@ -2048,6 +2101,34 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  profilePicURL: String
+  profilePicURL_not: String
+  profilePicURL_in: [String!]
+  profilePicURL_not_in: [String!]
+  profilePicURL_lt: String
+  profilePicURL_lte: String
+  profilePicURL_gt: String
+  profilePicURL_gte: String
+  profilePicURL_contains: String
+  profilePicURL_not_contains: String
+  profilePicURL_starts_with: String
+  profilePicURL_not_starts_with: String
+  profilePicURL_ends_with: String
+  profilePicURL_not_ends_with: String
+  roleName: String
+  roleName_not: String
+  roleName_in: [String!]
+  roleName_not_in: [String!]
+  roleName_lt: String
+  roleName_lte: String
+  roleName_gt: String
+  roleName_gte: String
+  roleName_contains: String
+  roleName_not_contains: String
+  roleName_starts_with: String
+  roleName_not_starts_with: String
+  roleName_ends_with: String
+  roleName_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]
