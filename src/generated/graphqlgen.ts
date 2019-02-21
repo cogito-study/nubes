@@ -23,6 +23,10 @@ type SubjectOrderByInput =
 type UserOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
+  | 'profilePicURL_ASC'
+  | 'profilePicURL_DESC'
+  | 'roleName_ASC'
+  | 'roleName_DESC'
   | 'email_ASC'
   | 'email_DESC'
   | 'neptun_ASC'
@@ -203,6 +207,8 @@ export namespace QueryResolvers {
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
+    profilePicURL: (parent: User) => (parent.profilePicURL === undefined ? null : parent.profilePicURL),
+    roleName: (parent: User) => (parent.roleName === undefined ? null : parent.roleName),
     email: (parent: User) => parent.email,
     neptun: (parent: User) => (parent.neptun === undefined ? null : parent.neptun),
     isActive: (parent: User) => parent.isActive,
@@ -214,6 +220,20 @@ export namespace UserResolvers {
   };
 
   export type IdResolver = (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+
+  export type ProfilePicURLResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | null | Promise<string | null>;
+
+  export type RoleNameResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => string | null | Promise<string | null>;
 
   export type EmailResolver = (
     parent: User,
@@ -273,6 +293,20 @@ export namespace UserResolvers {
 
   export interface Type {
     id: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
+
+    profilePicURL: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => string | null | Promise<string | null>;
+
+    roleName: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => string | null | Promise<string | null>;
 
     email: (parent: User, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
@@ -469,6 +503,34 @@ export namespace NoteResolvers {
     id_not_starts_with: string | null;
     id_ends_with: string | null;
     id_not_ends_with: string | null;
+    profilePicURL: string | null;
+    profilePicURL_not: string | null;
+    profilePicURL_in: string[];
+    profilePicURL_not_in: string[];
+    profilePicURL_lt: string | null;
+    profilePicURL_lte: string | null;
+    profilePicURL_gt: string | null;
+    profilePicURL_gte: string | null;
+    profilePicURL_contains: string | null;
+    profilePicURL_not_contains: string | null;
+    profilePicURL_starts_with: string | null;
+    profilePicURL_not_starts_with: string | null;
+    profilePicURL_ends_with: string | null;
+    profilePicURL_not_ends_with: string | null;
+    roleName: string | null;
+    roleName_not: string | null;
+    roleName_in: string[];
+    roleName_not_in: string[];
+    roleName_lt: string | null;
+    roleName_lte: string | null;
+    roleName_gt: string | null;
+    roleName_gte: string | null;
+    roleName_contains: string | null;
+    roleName_not_contains: string | null;
+    roleName_starts_with: string | null;
+    roleName_not_starts_with: string | null;
+    roleName_ends_with: string | null;
+    roleName_not_ends_with: string | null;
     email: string | null;
     email_not: string | null;
     email_in: string[];
@@ -893,6 +955,34 @@ export namespace SubjectResolvers {
     id_not_starts_with: string | null;
     id_ends_with: string | null;
     id_not_ends_with: string | null;
+    profilePicURL: string | null;
+    profilePicURL_not: string | null;
+    profilePicURL_in: string[];
+    profilePicURL_not_in: string[];
+    profilePicURL_lt: string | null;
+    profilePicURL_lte: string | null;
+    profilePicURL_gt: string | null;
+    profilePicURL_gte: string | null;
+    profilePicURL_contains: string | null;
+    profilePicURL_not_contains: string | null;
+    profilePicURL_starts_with: string | null;
+    profilePicURL_not_starts_with: string | null;
+    profilePicURL_ends_with: string | null;
+    profilePicURL_not_ends_with: string | null;
+    roleName: string | null;
+    roleName_not: string | null;
+    roleName_in: string[];
+    roleName_not_in: string[];
+    roleName_lt: string | null;
+    roleName_lte: string | null;
+    roleName_gt: string | null;
+    roleName_gte: string | null;
+    roleName_contains: string | null;
+    roleName_not_contains: string | null;
+    roleName_starts_with: string | null;
+    roleName_not_starts_with: string | null;
+    roleName_ends_with: string | null;
+    roleName_not_ends_with: string | null;
     email: string | null;
     email_not: string | null;
     email_in: string[];
@@ -1595,6 +1685,34 @@ export namespace InstituteResolvers {
     id_not_starts_with: string | null;
     id_ends_with: string | null;
     id_not_ends_with: string | null;
+    profilePicURL: string | null;
+    profilePicURL_not: string | null;
+    profilePicURL_in: string[];
+    profilePicURL_not_in: string[];
+    profilePicURL_lt: string | null;
+    profilePicURL_lte: string | null;
+    profilePicURL_gt: string | null;
+    profilePicURL_gte: string | null;
+    profilePicURL_contains: string | null;
+    profilePicURL_not_contains: string | null;
+    profilePicURL_starts_with: string | null;
+    profilePicURL_not_starts_with: string | null;
+    profilePicURL_ends_with: string | null;
+    profilePicURL_not_ends_with: string | null;
+    roleName: string | null;
+    roleName_not: string | null;
+    roleName_in: string[];
+    roleName_not_in: string[];
+    roleName_lt: string | null;
+    roleName_lte: string | null;
+    roleName_gt: string | null;
+    roleName_gte: string | null;
+    roleName_contains: string | null;
+    roleName_not_contains: string | null;
+    roleName_starts_with: string | null;
+    roleName_not_starts_with: string | null;
+    roleName_ends_with: string | null;
+    roleName_not_ends_with: string | null;
     email: string | null;
     email_not: string | null;
     email_in: string[];
@@ -2162,6 +2280,34 @@ export namespace CommentResolvers {
     id_not_starts_with: string | null;
     id_ends_with: string | null;
     id_not_ends_with: string | null;
+    profilePicURL: string | null;
+    profilePicURL_not: string | null;
+    profilePicURL_in: string[];
+    profilePicURL_not_in: string[];
+    profilePicURL_lt: string | null;
+    profilePicURL_lte: string | null;
+    profilePicURL_gt: string | null;
+    profilePicURL_gte: string | null;
+    profilePicURL_contains: string | null;
+    profilePicURL_not_contains: string | null;
+    profilePicURL_starts_with: string | null;
+    profilePicURL_not_starts_with: string | null;
+    profilePicURL_ends_with: string | null;
+    profilePicURL_not_ends_with: string | null;
+    roleName: string | null;
+    roleName_not: string | null;
+    roleName_in: string[];
+    roleName_not_in: string[];
+    roleName_lt: string | null;
+    roleName_lte: string | null;
+    roleName_gt: string | null;
+    roleName_gte: string | null;
+    roleName_contains: string | null;
+    roleName_not_contains: string | null;
+    roleName_starts_with: string | null;
+    roleName_not_starts_with: string | null;
+    roleName_ends_with: string | null;
+    roleName_not_ends_with: string | null;
     email: string | null;
     email_not: string | null;
     email_in: string[];
