@@ -1,12 +1,11 @@
 import { S3 } from 'aws-sdk';
 import { compare, hash } from 'bcrypt';
-import * as EmailValidator from 'email-validator';
-import { Context } from 'graphql-yoga/dist/types';
-import * as logger from 'heroku-logger';
+import { validate } from 'email-validator';
+import { error, info } from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
-
 import { MutationResolvers } from '../generated/graphqlgen';
+import { Context } from '../types';
 import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
@@ -15,7 +14,7 @@ const generateToken = (userID: string, options = {}) => sign({ userID }, process
 const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.floor(Math.random() * 6)];
 
 const validateEmail = (email: string) => {
-  if (!EmailValidator.validate(email)) {
+  if (!validate(email)) {
     throw new Error(`Email not valid: ${email}`);
   }
 };
@@ -39,14 +38,14 @@ const resetPassword = async (token: string, password: string, context: Context) 
   const entries = await context.prisma.passwordSetTokens({ where: { token } });
   if (entries.length > 0) {
     if (entries.length > 1) {
-      logger.error('More than 1 password reset token in db!', { entries });
+      error('More than 1 password reset token in db!', { entries });
       throw new Error('Too many tokens in DB!');
     }
     checkTokenValid(token);
     const { email } = entries[0];
     const newPassword = await hashPassword(password);
     await context.prisma.deletePasswordSetToken({ token });
-    await context.prisma.updateUser({ where: { email }, data: { password: newPassword } });
+    await context.prisma.updateUser({ where: { email }, data: { password: newPassword, isActive: true } });
     return true;
   }
   return false;
@@ -63,7 +62,7 @@ export const Mutation: MutationResolvers.Type = {
       role,
     });
 
-    logger.info(`User signed up!`, { email, neptun, role });
+    info(`User signed up!`, { email, neptun, role });
 
     return {
       token: generateToken(user.id),
@@ -74,22 +73,22 @@ export const Mutation: MutationResolvers.Type = {
   login: async (_, { email, password }, context) => {
     const user = await context.prisma.user({ email });
     if (!user) {
-      logger.error(`No such user exists!`, { user });
+      error(`No such user exists!`, { user });
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
     if (!user.isActive) {
-      logger.error(`Inactive user tried to log in!`, { user });
+      error(`Inactive user tried to log in!`, { user });
       throw new Error('A felhasználó még nem aktiválta a profilját.');
     }
 
     const isValidPassword = await compare(password, user.password);
     if (!isValidPassword) {
-      logger.error(`Login attempt with invalid password!`, { user });
+      error(`Login attempt with invalid password!`, { user });
       throw new Error('A megadott e-mail cím vagy jelszó nem megfelelő.');
     }
 
-    logger.info(`User logged in!`, { user });
+    info(`User logged in!`, { user });
 
     return {
       token: generateToken(user.id),
@@ -189,7 +188,7 @@ export const Mutation: MutationResolvers.Type = {
         password: await hashPassword(email),
         role: userType,
       });
-      logger.info('User created!', { user });
+      info('User created!', { user });
     }
 
     return true;
@@ -215,9 +214,9 @@ export const Mutation: MutationResolvers.Type = {
           { link: `https://cogito.study/register?token=${token}&id=${user.id}` },
           templateID,
         );
-        logger.info('Invite email sent!', { user });
+        info('Invite email sent!', { user });
       } catch {
-        logger.error('Failed to send invite email!', { user });
+        error('Failed to send invite email!', { user });
         throw new Error('Failed to send invite email!');
       }
     });
@@ -228,7 +227,7 @@ export const Mutation: MutationResolvers.Type = {
     validatePassword(password);
     const entry = await context.prisma.passwordSetToken({ token });
     if (entry === null) {
-      logger.error(`Active user tried to re-activate with token`, { token });
+      error(`Active user tried to re-activate with token`, { token });
       throw new Error('A megadott felhasználó korábban már regisztrált.');
     }
     const { email } = entry;
@@ -239,19 +238,20 @@ export const Mutation: MutationResolvers.Type = {
         where: { id: user.id },
         data: { isActive: true },
       });
-      logger.info(`User activated!`, { user });
+      info(`User activated!`, { user });
       return true;
     }
-    logger.error(`Activation unsuccessful!`, { user });
+    error(`Activation unsuccessful!`, { user });
     throw new Error('Sikertelen regisztráció');
   },
 
+  // eslint-disable-next-line complexity
   sendResetPasswordEmail: async (_, { email }, context) => {
     validateEmail(email);
     const entries = await context.prisma.passwordSetTokens({ where: { email } });
     if (entries.length > 0) {
       if (entries.length > 1) {
-        logger.error('More than 1 password reset token in db!', { entries });
+        error('More than 1 password reset token in db!', { entries });
         throw new Error('Too many tokens in DB!');
       }
       const now = new Date();
@@ -259,7 +259,7 @@ export const Mutation: MutationResolvers.Type = {
       const diffMs = now.getTime() - entryCreated.getTime();
       const diffMins = diffMs / 1000 / 60; // millisecs / secs
       if (diffMins < 12) {
-        logger.error('Repeated password reset attempt!', { email });
+        error('Repeated password reset attempt!', { email });
         throw new Error(`Kérlek várj még ${12 - Math.floor(diffMins)} percet`);
       }
       await context.prisma.deletePasswordSetToken({ email });
@@ -278,10 +278,10 @@ export const Mutation: MutationResolvers.Type = {
           { link: `https://cogito.study/reset?token=${token}` },
           3,
         );
-        logger.info('Password reset email sent!', { email });
+        info('Password reset email sent!', { email });
         return true;
       } catch (error) {
-        logger.error('Failed to send invite email!', { email });
+        error('Failed to send invite email!', { email });
         throw error;
       }
     }

@@ -1,10 +1,10 @@
 import { GraphQLServer } from 'graphql-yoga';
-import * as logger from 'heroku-logger';
-
+import { info } from 'heroku-logger';
 import { prisma } from './generated/prisma-client';
-import { resolvers } from './resolvers';
 import { permissions } from './middlewares/permissions';
+import { resolvers } from './resolvers';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const server = new GraphQLServer({
   typeDefs: 'src/schema.graphql',
   resolvers: resolvers as any,
@@ -16,4 +16,5 @@ const server = new GraphQLServer({
     };
   },
 });
-server.start(() => logger.info('Server started!'));
+
+server.start(() => info('Server started!'));
