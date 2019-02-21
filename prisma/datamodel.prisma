@@ -65,6 +65,8 @@ type SubjectInfo {
 
 type User {
   id: ID! @unique
+  profilePicURL: String
+  roleName: String
   email: String! @unique
   neptun: String
   isActive: Boolean! @default(value: "false")
