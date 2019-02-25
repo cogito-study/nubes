@@ -5,6 +5,7 @@ import { Context } from 'graphql-yoga/dist/types';
 import * as logger from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
+
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID, sendEmail } from '../utils';
 
@@ -267,8 +268,8 @@ export const Mutation: MutationResolvers.Type = {
     const token = generateToken(email, { expiresIn: '1d' });
     await context.prisma.createPasswordSetToken({ token, email });
 
-    const users = await context.prisma.users({ where: { email: email }})
-    if(users.length > 0) {
+    const user = await context.prisma.user({ email });
+    if (user) {
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
