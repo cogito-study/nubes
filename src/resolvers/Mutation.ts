@@ -266,20 +266,25 @@ export const Mutation: MutationResolvers.Type = {
 
     const token = generateToken(email, { expiresIn: '1d' });
     await context.prisma.createPasswordSetToken({ token, email });
-    try {
-      sendEmail(
-        { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
-        [{ email }],
-        ['Welcome'],
-        { link: `https://cogito.study/reset?token=${token}` },
-        3,
-      );
-      logger.info('Password reset email sent!', { email });
-      return true;
-    } catch (error) {
-      logger.error('Failed to send invite email!', { email });
-      throw error;
+
+    const users = await context.prisma.users({ where: { email: email }})
+    if(users.length > 0) {
+      try {
+        sendEmail(
+          { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
+          [{ email }],
+          ['Welcome'],
+          { link: `https://cogito.study/reset?token=${token}` },
+          3,
+        );
+        logger.info('Password reset email sent!', { email });
+        return true;
+      } catch (error) {
+        logger.error('Failed to send invite email!', { email });
+        throw error;
+      }
     }
+    return true;
   },
 
   resetPassword: async (_, { token, password }, context) => {
