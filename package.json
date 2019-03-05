@@ -1,6 +1,6 @@
 {
   "name": "cogito-backend",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
