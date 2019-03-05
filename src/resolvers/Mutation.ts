@@ -5,6 +5,7 @@ import { Context } from 'graphql-yoga/dist/types';
 import * as logger from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
+
 import { MutationResolvers } from '../generated/graphqlgen';
 import { getUserID, sendEmail } from '../utils';
 
@@ -266,20 +267,25 @@ export const Mutation: MutationResolvers.Type = {
 
     const token = generateToken(email, { expiresIn: '1d' });
     await context.prisma.createPasswordSetToken({ token, email });
-    try {
-      sendEmail(
-        { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
-        [{ email }],
-        ['Welcome'],
-        { link: `https://cogito.study/reset?token=${token}` },
-        3,
-      );
-      logger.info('Password reset email sent!', { email });
-      return true;
-    } catch (error) {
-      logger.error('Failed to send invite email!', { email });
-      throw error;
+
+    const user = await context.prisma.user({ email });
+    if (user) {
+      try {
+        sendEmail(
+          { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
+          [{ email }],
+          ['Welcome'],
+          { link: `https://cogito.study/reset?token=${token}` },
+          3,
+        );
+        logger.info('Password reset email sent!', { email });
+        return true;
+      } catch (error) {
+        logger.error('Failed to send invite email!', { email });
+        throw error;
+      }
     }
+    return true;
   },
 
   resetPassword: async (_, { token, password }, context) => {

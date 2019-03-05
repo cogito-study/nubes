@@ -1,5 +1,6 @@
 {
   "name": "cogito-backend",
+  "version": "0.1.0",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
@@ -21,36 +22,36 @@
     "generate": "graphqlgen"
   },
   "dependencies": {
-    "@types/aws-lambda": "8.10.17",
+    "@types/aws-lambda": "^8.10.20",
     "@types/bcrypt": "3.0.0",
-    "@types/graphql": "14.0.4",
+    "@types/graphql": "^14.0.7",
     "@types/jsonwebtoken": "8.3.0",
-    "@types/nodemailer": "^4.6.5",
+    "@types/nodemailer": "^4.6.6",
     "@types/request": "^2.48.1",
-    "@types/slate": "^0.43.8",
+    "@types/slate": "^0.44.0",
     "@types/ws": "6.0.1",
-    "aws-sdk": "^2.394.0",
-    "bcrypt": "3.0.3",
+    "aws-sdk": "^2.413.0",
+    "bcrypt": "^3.0.4",
     "email-validator": "^2.0.4",
     "env-cmd": "^8.0.2",
     "graphql-import": "^0.7.1",
-    "graphql-shield": "5.1.0",
-    "graphql-yoga": "1.16.9",
+    "graphql-shield": "5.3.0",
+    "graphql-yoga": "1.17.4",
     "heroku-logger": "^0.3.3",
     "immutable": "^4.0.0-rc.12",
-    "jsonwebtoken": "8.4.0",
+    "jsonwebtoken": "8.5.0",
     "nodemailer": "^5.1.1",
-    "prisma": "^1.25.7",
-    "prisma-client-lib": "1.23.4",
+    "prisma": "^1.27.4",
+    "prisma-client-lib": "^1.27.4",
     "request": "^2.88.0",
-    "slate": "^0.44.9",
-    "ts-node": "7.0.1",
-    "typescript": "3.2.2"
+    "slate": "^0.44.10",
+    "ts-node": "8.0.2",
+    "typescript": "^3.3.0"
   },
   "devDependencies": {
-    "prettier": "1.15.3",
-    "tslint": "^5.12.0",
-    "tslint-config-prettier": "^1.17.0",
+    "prettier": "1.16.4",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1"
   }
 }
