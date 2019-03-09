@@ -2,7 +2,7 @@
   "name": "cogito-backend",
   "version": "0.1.0",
   "scripts": {
-    "start": "npm run start:dev",
+    "start": "ts-node src/index.ts",
     "start:dev": "env-cmd .env.dev ts-node src/index.ts",
     "start:staging": "env-cmd .env.staging ts-node src/index.ts",
     "start:prod": "env-cmd .env.prod ts-node src/index.ts",
