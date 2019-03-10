@@ -1,10 +1,12 @@
 version: '3'
 services:
+  server:
+    build: .
+    ports:
+      - '4000:4000'
   prisma:
     image: prismagraphql/prisma:1.27
     restart: always
-    ports:
-      - '4466:4466'
     environment:
       PRISMA_CONFIG: |
         port: 4466
