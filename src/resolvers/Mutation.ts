@@ -1,7 +1,7 @@
 import { S3 } from 'aws-sdk';
 import { compare, hash } from 'bcrypt';
 import { validate } from 'email-validator';
-import { Context } from 'graphql-yoga/dist/types';
+import { Context } from '../types';
 import { Logger } from 'heroku-Logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
