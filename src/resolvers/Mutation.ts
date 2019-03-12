@@ -2,7 +2,7 @@ import { S3 } from 'aws-sdk';
 import { compare, hash } from 'bcrypt';
 import { validate } from 'email-validator';
 import { Context } from '../types';
-import { error, info } from 'heroku-Logger';
+import { error, info } from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
 import { MutationResolvers } from '../generated/graphqlgen';
