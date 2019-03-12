@@ -1,7 +1,6 @@
 import { rule, shield } from 'graphql-shield';
-
-import { getUserID } from '../utils';
 import { Context } from '../types';
+import { getUserID } from '../utils';
 
 const isAuthenticatedUser = rule('authenticated')((parent, args, context: Context) => {
   const userID = getUserID(context);
