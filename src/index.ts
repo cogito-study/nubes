@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Logger } from 'heroku-logger';
+import { info } from 'heroku-logger';
 import { prisma } from './generated/prisma-client';
 import { permissions } from './middlewares/permissions';
 import { resolvers } from './resolvers';
@@ -17,4 +17,4 @@ const server = new GraphQLServer({
   },
 });
 
-server.start(() => Logger.info('Server started!'));
+server.start(() => info('Server started!'));
