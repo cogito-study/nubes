@@ -17,7 +17,7 @@ services:
       - AWS_REGION=${AWS_REGION}
       - S3_BUCKET=${S3_BUCKET}
   prisma:
-    image: prismagraphql/prisma:1.27
+    image: prismagraphql/prisma:1.29
     restart: always
     environment:
       PRISMA_CONFIG: |
