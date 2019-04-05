@@ -1,11 +1,11 @@
 import { S3 } from 'aws-sdk';
 import { compare, hash } from 'bcrypt';
 import { validate } from 'email-validator';
-import { Context } from '../types';
 import { error, info } from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
 import { MutationResolvers } from '../generated/graphqlgen';
+import { Context } from '../types';
 import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
