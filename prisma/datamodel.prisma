@@ -17,7 +17,7 @@ type Note {
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  author: User! @relation(name: "NotesByUser")
+  authors: [User]! @relation(name: "NotesByUsers")
   subject: Subject!
   comments: [Comment!]!
   type: NoteType!
