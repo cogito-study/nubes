@@ -1,14 +1,11 @@
 import { verify } from 'jsonwebtoken';
-import * as request from 'request';
+import { post, Options, UrlOptions } from 'request';
+import { Context } from './types';
 
 interface Token {
   userID: string;
   iat?: number;
   exp?: number;
-}
-
-interface Context {
-  request: any;
 }
 
 export function getUserID(context: Context): string {
@@ -32,7 +29,7 @@ export const sendEmail = (
   params: object,
   templateId: number,
 ) => {
-  const options = {
+  const options: UrlOptions & Options = {
     method: 'POST',
     url: 'https://api.sendinblue.com/v3/smtp/email',
     headers: {
@@ -50,7 +47,7 @@ export const sendEmail = (
     json: true,
   };
 
-  request(options, function(error, response, body) {
+  post(options, (error) => {
     if (error) {
       throw new Error(error);
     }

@@ -2,16 +2,11 @@
 // Please don't change this file manually but run `prisma generate` to update it.
 // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-import { DocumentNode } from "graphql";
-import {
-  makePrismaClientClass,
-  BaseClientOptions,
-  Model
-} from "prisma-client-lib";
-import { typeDefs } from "./prisma-schema";
+import { DocumentNode } from 'graphql';
+import { makePrismaClientClass, BaseClientOptions, Model } from 'prisma-client-lib';
+import { typeDefs } from './prisma-schema';
 
-export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
-  U[keyof U];
+export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
 export interface Exists {
   comment: (where?: CommentWhereInput) => Promise<boolean>;
@@ -33,178 +28,145 @@ export interface Fragmentable {
 
 export interface Prisma {
   $exists: Exists;
-  $graphql: <T = any>(
-    query: string,
-    variables?: { [key: string]: any }
-  ) => Promise<T>;
+  $graphql: <T = any>(query: string, variables?: { [key: string]: any }) => Promise<T>;
 
   /**
    * Queries
    */
 
   comment: (where: CommentWhereUniqueInput) => CommentPromise;
-  comments: (
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Comment>;
-  commentsConnection: (
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => CommentConnectionPromise;
+  comments: (args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Comment>;
+  commentsConnection: (args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => CommentConnectionPromise;
   institute: (where: InstituteWhereUniqueInput) => InstitutePromise;
-  institutes: (
-    args?: {
-      where?: InstituteWhereInput;
-      orderBy?: InstituteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Institute>;
-  institutesConnection: (
-    args?: {
-      where?: InstituteWhereInput;
-      orderBy?: InstituteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => InstituteConnectionPromise;
+  institutes: (args?: {
+    where?: InstituteWhereInput;
+    orderBy?: InstituteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Institute>;
+  institutesConnection: (args?: {
+    where?: InstituteWhereInput;
+    orderBy?: InstituteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => InstituteConnectionPromise;
   note: (where: NoteWhereUniqueInput) => NotePromise;
-  notes: (
-    args?: {
-      where?: NoteWhereInput;
-      orderBy?: NoteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Note>;
-  notesConnection: (
-    args?: {
-      where?: NoteWhereInput;
-      orderBy?: NoteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => NoteConnectionPromise;
-  passwordSetToken: (
-    where: PasswordSetTokenWhereUniqueInput
-  ) => PasswordSetTokenPromise;
-  passwordSetTokens: (
-    args?: {
-      where?: PasswordSetTokenWhereInput;
-      orderBy?: PasswordSetTokenOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<PasswordSetToken>;
-  passwordSetTokensConnection: (
-    args?: {
-      where?: PasswordSetTokenWhereInput;
-      orderBy?: PasswordSetTokenOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => PasswordSetTokenConnectionPromise;
+  notes: (args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Note>;
+  notesConnection: (args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => NoteConnectionPromise;
+  passwordSetToken: (where: PasswordSetTokenWhereUniqueInput) => PasswordSetTokenPromise;
+  passwordSetTokens: (args?: {
+    where?: PasswordSetTokenWhereInput;
+    orderBy?: PasswordSetTokenOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<PasswordSetToken>;
+  passwordSetTokensConnection: (args?: {
+    where?: PasswordSetTokenWhereInput;
+    orderBy?: PasswordSetTokenOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PasswordSetTokenConnectionPromise;
   subject: (where: SubjectWhereUniqueInput) => SubjectPromise;
-  subjects: (
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Subject>;
-  subjectsConnection: (
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => SubjectConnectionPromise;
+  subjects: (args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Subject>;
+  subjectsConnection: (args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SubjectConnectionPromise;
   subjectInfo: (where: SubjectInfoWhereUniqueInput) => SubjectInfoPromise;
-  subjectInfoes: (
-    args?: {
-      where?: SubjectInfoWhereInput;
-      orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<SubjectInfo>;
-  subjectInfoesConnection: (
-    args?: {
-      where?: SubjectInfoWhereInput;
-      orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => SubjectInfoConnectionPromise;
+  subjectInfoes: (args?: {
+    where?: SubjectInfoWhereInput;
+    orderBy?: SubjectInfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SubjectInfo>;
+  subjectInfoesConnection: (args?: {
+    where?: SubjectInfoWhereInput;
+    orderBy?: SubjectInfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SubjectInfoConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
-  users: (
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<User>;
-  usersConnection: (
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => UserConnectionPromise;
+  users: (args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<User>;
+  usersConnection: (args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => UserConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -212,135 +174,83 @@ export interface Prisma {
    */
 
   createComment: (data: CommentCreateInput) => CommentPromise;
-  updateComment: (
-    args: { data: CommentUpdateInput; where: CommentWhereUniqueInput }
-  ) => CommentPromise;
-  updateManyComments: (
-    args: { data: CommentUpdateManyMutationInput; where?: CommentWhereInput }
-  ) => BatchPayloadPromise;
-  upsertComment: (
-    args: {
-      where: CommentWhereUniqueInput;
-      create: CommentCreateInput;
-      update: CommentUpdateInput;
-    }
-  ) => CommentPromise;
+  updateComment: (args: { data: CommentUpdateInput; where: CommentWhereUniqueInput }) => CommentPromise;
+  updateManyComments: (args: {
+    data: CommentUpdateManyMutationInput;
+    where?: CommentWhereInput;
+  }) => BatchPayloadPromise;
+  upsertComment: (args: {
+    where: CommentWhereUniqueInput;
+    create: CommentCreateInput;
+    update: CommentUpdateInput;
+  }) => CommentPromise;
   deleteComment: (where: CommentWhereUniqueInput) => CommentPromise;
   deleteManyComments: (where?: CommentWhereInput) => BatchPayloadPromise;
   createInstitute: (data: InstituteCreateInput) => InstitutePromise;
-  updateInstitute: (
-    args: { data: InstituteUpdateInput; where: InstituteWhereUniqueInput }
-  ) => InstitutePromise;
-  updateManyInstitutes: (
-    args: {
-      data: InstituteUpdateManyMutationInput;
-      where?: InstituteWhereInput;
-    }
-  ) => BatchPayloadPromise;
-  upsertInstitute: (
-    args: {
-      where: InstituteWhereUniqueInput;
-      create: InstituteCreateInput;
-      update: InstituteUpdateInput;
-    }
-  ) => InstitutePromise;
+  updateInstitute: (args: { data: InstituteUpdateInput; where: InstituteWhereUniqueInput }) => InstitutePromise;
+  updateManyInstitutes: (args: {
+    data: InstituteUpdateManyMutationInput;
+    where?: InstituteWhereInput;
+  }) => BatchPayloadPromise;
+  upsertInstitute: (args: {
+    where: InstituteWhereUniqueInput;
+    create: InstituteCreateInput;
+    update: InstituteUpdateInput;
+  }) => InstitutePromise;
   deleteInstitute: (where: InstituteWhereUniqueInput) => InstitutePromise;
   deleteManyInstitutes: (where?: InstituteWhereInput) => BatchPayloadPromise;
   createNote: (data: NoteCreateInput) => NotePromise;
-  updateNote: (
-    args: { data: NoteUpdateInput; where: NoteWhereUniqueInput }
-  ) => NotePromise;
-  updateManyNotes: (
-    args: { data: NoteUpdateManyMutationInput; where?: NoteWhereInput }
-  ) => BatchPayloadPromise;
-  upsertNote: (
-    args: {
-      where: NoteWhereUniqueInput;
-      create: NoteCreateInput;
-      update: NoteUpdateInput;
-    }
-  ) => NotePromise;
+  updateNote: (args: { data: NoteUpdateInput; where: NoteWhereUniqueInput }) => NotePromise;
+  updateManyNotes: (args: { data: NoteUpdateManyMutationInput; where?: NoteWhereInput }) => BatchPayloadPromise;
+  upsertNote: (args: { where: NoteWhereUniqueInput; create: NoteCreateInput; update: NoteUpdateInput }) => NotePromise;
   deleteNote: (where: NoteWhereUniqueInput) => NotePromise;
   deleteManyNotes: (where?: NoteWhereInput) => BatchPayloadPromise;
-  createPasswordSetToken: (
-    data: PasswordSetTokenCreateInput
-  ) => PasswordSetTokenPromise;
-  updatePasswordSetToken: (
-    args: {
-      data: PasswordSetTokenUpdateInput;
-      where: PasswordSetTokenWhereUniqueInput;
-    }
-  ) => PasswordSetTokenPromise;
-  updateManyPasswordSetTokens: (
-    args: {
-      data: PasswordSetTokenUpdateManyMutationInput;
-      where?: PasswordSetTokenWhereInput;
-    }
-  ) => BatchPayloadPromise;
-  upsertPasswordSetToken: (
-    args: {
-      where: PasswordSetTokenWhereUniqueInput;
-      create: PasswordSetTokenCreateInput;
-      update: PasswordSetTokenUpdateInput;
-    }
-  ) => PasswordSetTokenPromise;
-  deletePasswordSetToken: (
-    where: PasswordSetTokenWhereUniqueInput
-  ) => PasswordSetTokenPromise;
-  deleteManyPasswordSetTokens: (
-    where?: PasswordSetTokenWhereInput
-  ) => BatchPayloadPromise;
+  createPasswordSetToken: (data: PasswordSetTokenCreateInput) => PasswordSetTokenPromise;
+  updatePasswordSetToken: (args: {
+    data: PasswordSetTokenUpdateInput;
+    where: PasswordSetTokenWhereUniqueInput;
+  }) => PasswordSetTokenPromise;
+  updateManyPasswordSetTokens: (args: {
+    data: PasswordSetTokenUpdateManyMutationInput;
+    where?: PasswordSetTokenWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPasswordSetToken: (args: {
+    where: PasswordSetTokenWhereUniqueInput;
+    create: PasswordSetTokenCreateInput;
+    update: PasswordSetTokenUpdateInput;
+  }) => PasswordSetTokenPromise;
+  deletePasswordSetToken: (where: PasswordSetTokenWhereUniqueInput) => PasswordSetTokenPromise;
+  deleteManyPasswordSetTokens: (where?: PasswordSetTokenWhereInput) => BatchPayloadPromise;
   createSubject: (data: SubjectCreateInput) => SubjectPromise;
-  updateSubject: (
-    args: { data: SubjectUpdateInput; where: SubjectWhereUniqueInput }
-  ) => SubjectPromise;
-  updateManySubjects: (
-    args: { data: SubjectUpdateManyMutationInput; where?: SubjectWhereInput }
-  ) => BatchPayloadPromise;
-  upsertSubject: (
-    args: {
-      where: SubjectWhereUniqueInput;
-      create: SubjectCreateInput;
-      update: SubjectUpdateInput;
-    }
-  ) => SubjectPromise;
+  updateSubject: (args: { data: SubjectUpdateInput; where: SubjectWhereUniqueInput }) => SubjectPromise;
+  updateManySubjects: (args: {
+    data: SubjectUpdateManyMutationInput;
+    where?: SubjectWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSubject: (args: {
+    where: SubjectWhereUniqueInput;
+    create: SubjectCreateInput;
+    update: SubjectUpdateInput;
+  }) => SubjectPromise;
   deleteSubject: (where: SubjectWhereUniqueInput) => SubjectPromise;
   deleteManySubjects: (where?: SubjectWhereInput) => BatchPayloadPromise;
   createSubjectInfo: (data: SubjectInfoCreateInput) => SubjectInfoPromise;
-  updateSubjectInfo: (
-    args: { data: SubjectInfoUpdateInput; where: SubjectInfoWhereUniqueInput }
-  ) => SubjectInfoPromise;
-  updateManySubjectInfoes: (
-    args: {
-      data: SubjectInfoUpdateManyMutationInput;
-      where?: SubjectInfoWhereInput;
-    }
-  ) => BatchPayloadPromise;
-  upsertSubjectInfo: (
-    args: {
-      where: SubjectInfoWhereUniqueInput;
-      create: SubjectInfoCreateInput;
-      update: SubjectInfoUpdateInput;
-    }
-  ) => SubjectInfoPromise;
+  updateSubjectInfo: (args: { data: SubjectInfoUpdateInput; where: SubjectInfoWhereUniqueInput }) => SubjectInfoPromise;
+  updateManySubjectInfoes: (args: {
+    data: SubjectInfoUpdateManyMutationInput;
+    where?: SubjectInfoWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSubjectInfo: (args: {
+    where: SubjectInfoWhereUniqueInput;
+    create: SubjectInfoCreateInput;
+    update: SubjectInfoUpdateInput;
+  }) => SubjectInfoPromise;
   deleteSubjectInfo: (where: SubjectInfoWhereUniqueInput) => SubjectInfoPromise;
-  deleteManySubjectInfoes: (
-    where?: SubjectInfoWhereInput
-  ) => BatchPayloadPromise;
+  deleteManySubjectInfoes: (where?: SubjectInfoWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
-  updateUser: (
-    args: { data: UserUpdateInput; where: UserWhereUniqueInput }
-  ) => UserPromise;
-  updateManyUsers: (
-    args: { data: UserUpdateManyMutationInput; where?: UserWhereInput }
-  ) => BatchPayloadPromise;
-  upsertUser: (
-    args: {
-      where: UserWhereUniqueInput;
-      create: UserCreateInput;
-      update: UserUpdateInput;
-    }
-  ) => UserPromise;
+  updateUser: (args: { data: UserUpdateInput; where: UserWhereUniqueInput }) => UserPromise;
+  updateManyUsers: (args: { data: UserUpdateManyMutationInput; where?: UserWhereInput }) => BatchPayloadPromise;
+  upsertUser: (args: { where: UserWhereUniqueInput; create: UserCreateInput; update: UserUpdateInput }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
 
@@ -352,27 +262,13 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  comment: (
-    where?: CommentSubscriptionWhereInput
-  ) => CommentSubscriptionPayloadSubscription;
-  institute: (
-    where?: InstituteSubscriptionWhereInput
-  ) => InstituteSubscriptionPayloadSubscription;
-  note: (
-    where?: NoteSubscriptionWhereInput
-  ) => NoteSubscriptionPayloadSubscription;
-  passwordSetToken: (
-    where?: PasswordSetTokenSubscriptionWhereInput
-  ) => PasswordSetTokenSubscriptionPayloadSubscription;
-  subject: (
-    where?: SubjectSubscriptionWhereInput
-  ) => SubjectSubscriptionPayloadSubscription;
-  subjectInfo: (
-    where?: SubjectInfoSubscriptionWhereInput
-  ) => SubjectInfoSubscriptionPayloadSubscription;
-  user: (
-    where?: UserSubscriptionWhereInput
-  ) => UserSubscriptionPayloadSubscription;
+  comment: (where?: CommentSubscriptionWhereInput) => CommentSubscriptionPayloadSubscription;
+  institute: (where?: InstituteSubscriptionWhereInput) => InstituteSubscriptionPayloadSubscription;
+  note: (where?: NoteSubscriptionWhereInput) => NoteSubscriptionPayloadSubscription;
+  passwordSetToken: (where?: PasswordSetTokenSubscriptionWhereInput) => PasswordSetTokenSubscriptionPayloadSubscription;
+  subject: (where?: SubjectSubscriptionWhereInput) => SubjectSubscriptionPayloadSubscription;
+  subjectInfo: (where?: SubjectInfoSubscriptionWhereInput) => SubjectInfoSubscriptionPayloadSubscription;
+  user: (where?: UserSubscriptionWhereInput) => UserSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -384,118 +280,118 @@ export interface ClientConstructor<T> {
  */
 
 export type NoteOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "text_ASC"
-  | "text_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "number_ASC"
-  | "number_DESC"
-  | "description_ASC"
-  | "description_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "type_ASC"
-  | "type_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'text_ASC'
+  | 'text_DESC'
+  | 'title_ASC'
+  | 'title_DESC'
+  | 'number_ASC'
+  | 'number_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
+  | 'type_ASC'
+  | 'type_DESC';
 
 export type UserOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "profilePicURL_ASC"
-  | "profilePicURL_DESC"
-  | "roleName_ASC"
-  | "roleName_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "neptun_ASC"
-  | "neptun_DESC"
-  | "isActive_ASC"
-  | "isActive_DESC"
-  | "password_ASC"
-  | "password_DESC"
-  | "firstName_ASC"
-  | "firstName_DESC"
-  | "lastName_ASC"
-  | "lastName_DESC"
-  | "phone_ASC"
-  | "phone_DESC"
-  | "role_ASC"
-  | "role_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'profilePicURL_ASC'
+  | 'profilePicURL_DESC'
+  | 'roleName_ASC'
+  | 'roleName_DESC'
+  | 'email_ASC'
+  | 'email_DESC'
+  | 'neptun_ASC'
+  | 'neptun_DESC'
+  | 'isActive_ASC'
+  | 'isActive_DESC'
+  | 'password_ASC'
+  | 'password_DESC'
+  | 'firstName_ASC'
+  | 'firstName_DESC'
+  | 'lastName_ASC'
+  | 'lastName_DESC'
+  | 'phone_ASC'
+  | 'phone_DESC'
+  | 'role_ASC'
+  | 'role_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
-export type UserRole = "USER" | "PROFESSOR" | "ADMIN";
+export type UserRole = 'USER' | 'PROFESSOR' | 'ADMIN';
 
-export type NoteType = "NOTE" | "CASE_STUDY";
+export type NoteType = 'NOTE' | 'CASE_STUDY';
 
 export type SubjectOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "code_ASC"
-  | "code_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "description_ASC"
-  | "description_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'code_ASC'
+  | 'code_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
 export type SubjectInfoOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "subtitle_ASC"
-  | "subtitle_DESC"
-  | "text_ASC"
-  | "text_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'title_ASC'
+  | 'title_DESC'
+  | 'subtitle_ASC'
+  | 'subtitle_DESC'
+  | 'text_ASC'
+  | 'text_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+export type MutationType = 'CREATED' | 'UPDATED' | 'DELETED';
 
 export type CommentOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "text_ASC"
-  | "text_DESC"
-  | "locationInText_ASC"
-  | "locationInText_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'text_ASC'
+  | 'text_DESC'
+  | 'locationInText_ASC'
+  | 'locationInText_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
 export type InstituteOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
 export type PasswordSetTokenOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "token_ASC"
-  | "token_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'token_ASC'
+  | 'token_DESC'
+  | 'email_ASC'
+  | 'email_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
 export interface InstituteUpdateOneWithoutSubjectsInput {
   create?: InstituteCreateWithoutSubjectsInput;
@@ -912,15 +808,9 @@ export interface PasswordSetTokenSubscriptionWhereInput {
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
   node?: PasswordSetTokenWhereInput;
-  AND?:
-    | PasswordSetTokenSubscriptionWhereInput[]
-    | PasswordSetTokenSubscriptionWhereInput;
-  OR?:
-    | PasswordSetTokenSubscriptionWhereInput[]
-    | PasswordSetTokenSubscriptionWhereInput;
-  NOT?:
-    | PasswordSetTokenSubscriptionWhereInput[]
-    | PasswordSetTokenSubscriptionWhereInput;
+  AND?: PasswordSetTokenSubscriptionWhereInput[] | PasswordSetTokenSubscriptionWhereInput;
+  OR?: PasswordSetTokenSubscriptionWhereInput[] | PasswordSetTokenSubscriptionWhereInput;
+  NOT?: PasswordSetTokenSubscriptionWhereInput[] | PasswordSetTokenSubscriptionWhereInput;
 }
 
 export interface NoteUpdateOneRequiredWithoutCommentsInput {
@@ -967,20 +857,14 @@ export interface UserUpdateManyMutationInput {
 
 export interface UserUpdateManyInput {
   create?: UserCreateInput[] | UserCreateInput;
-  update?:
-    | UserUpdateWithWhereUniqueNestedInput[]
-    | UserUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | UserUpsertWithWhereUniqueNestedInput[]
-    | UserUpsertWithWhereUniqueNestedInput;
+  update?: UserUpdateWithWhereUniqueNestedInput[] | UserUpdateWithWhereUniqueNestedInput;
+  upsert?: UserUpsertWithWhereUniqueNestedInput[] | UserUpsertWithWhereUniqueNestedInput;
   delete?: UserWhereUniqueInput[] | UserWhereUniqueInput;
   connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
   set?: UserWhereUniqueInput[] | UserWhereUniqueInput;
   disconnect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
   deleteMany?: UserScalarWhereInput[] | UserScalarWhereInput;
-  updateMany?:
-    | UserUpdateManyWithWhereNestedInput[]
-    | UserUpdateManyWithWhereNestedInput;
+  updateMany?: UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput;
 }
 
 export interface SubjectInfoUpdateManyMutationInput {
@@ -1325,23 +1209,15 @@ export interface InstituteUpdateManyMutationInput {
 }
 
 export interface SubjectInfoUpdateManyWithoutSubjectInput {
-  create?:
-    | SubjectInfoCreateWithoutSubjectInput[]
-    | SubjectInfoCreateWithoutSubjectInput;
+  create?: SubjectInfoCreateWithoutSubjectInput[] | SubjectInfoCreateWithoutSubjectInput;
   delete?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
   connect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
   set?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
   disconnect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
-  update?:
-    | SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput[]
-    | SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput;
-  upsert?:
-    | SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput[]
-    | SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput;
+  update?: SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput[] | SubjectInfoUpdateWithWhereUniqueWithoutSubjectInput;
+  upsert?: SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput[] | SubjectInfoUpsertWithWhereUniqueWithoutSubjectInput;
   deleteMany?: SubjectInfoScalarWhereInput[] | SubjectInfoScalarWhereInput;
-  updateMany?:
-    | SubjectInfoUpdateManyWithWhereNestedInput[]
-    | SubjectInfoUpdateManyWithWhereNestedInput;
+  updateMany?: SubjectInfoUpdateManyWithWhereNestedInput[] | SubjectInfoUpdateManyWithWhereNestedInput;
 }
 
 export interface SubjectUpdateWithoutInstituteDataInput {
@@ -1377,9 +1253,7 @@ export interface InstituteUpdateInput {
 }
 
 export interface SubjectCreateManyWithoutInstituteInput {
-  create?:
-    | SubjectCreateWithoutInstituteInput[]
-    | SubjectCreateWithoutInstituteInput;
+  create?: SubjectCreateWithoutInstituteInput[] | SubjectCreateWithoutInstituteInput;
   connect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
 }
 
@@ -1502,20 +1376,14 @@ export interface SubjectCreateWithoutNotesInput {
 
 export interface SubjectUpdateManyInput {
   create?: SubjectCreateInput[] | SubjectCreateInput;
-  update?:
-    | SubjectUpdateWithWhereUniqueNestedInput[]
-    | SubjectUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | SubjectUpsertWithWhereUniqueNestedInput[]
-    | SubjectUpsertWithWhereUniqueNestedInput;
+  update?: SubjectUpdateWithWhereUniqueNestedInput[] | SubjectUpdateWithWhereUniqueNestedInput;
+  upsert?: SubjectUpsertWithWhereUniqueNestedInput[] | SubjectUpsertWithWhereUniqueNestedInput;
   delete?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   connect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   set?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   disconnect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   deleteMany?: SubjectScalarWhereInput[] | SubjectScalarWhereInput;
-  updateMany?:
-    | SubjectUpdateManyWithWhereNestedInput[]
-    | SubjectUpdateManyWithWhereNestedInput;
+  updateMany?: SubjectUpdateManyWithWhereNestedInput[] | SubjectUpdateManyWithWhereNestedInput;
 }
 
 export interface InstituteCreateWithoutSubjectsInput {
@@ -1563,16 +1431,10 @@ export interface NoteUpdateManyWithoutSubjectInput {
   connect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
   set?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
   disconnect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
-  update?:
-    | NoteUpdateWithWhereUniqueWithoutSubjectInput[]
-    | NoteUpdateWithWhereUniqueWithoutSubjectInput;
-  upsert?:
-    | NoteUpsertWithWhereUniqueWithoutSubjectInput[]
-    | NoteUpsertWithWhereUniqueWithoutSubjectInput;
+  update?: NoteUpdateWithWhereUniqueWithoutSubjectInput[] | NoteUpdateWithWhereUniqueWithoutSubjectInput;
+  upsert?: NoteUpsertWithWhereUniqueWithoutSubjectInput[] | NoteUpsertWithWhereUniqueWithoutSubjectInput;
   deleteMany?: NoteScalarWhereInput[] | NoteScalarWhereInput;
-  updateMany?:
-    | NoteUpdateManyWithWhereNestedInput[]
-    | NoteUpdateManyWithWhereNestedInput;
+  updateMany?: NoteUpdateManyWithWhereNestedInput[] | NoteUpdateManyWithWhereNestedInput;
 }
 
 export interface InstituteWhereInput {
@@ -1656,16 +1518,10 @@ export interface CommentUpdateManyWithoutNoteInput {
   connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   set?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
-  update?:
-    | CommentUpdateWithWhereUniqueWithoutNoteInput[]
-    | CommentUpdateWithWhereUniqueWithoutNoteInput;
-  upsert?:
-    | CommentUpsertWithWhereUniqueWithoutNoteInput[]
-    | CommentUpsertWithWhereUniqueWithoutNoteInput;
+  update?: CommentUpdateWithWhereUniqueWithoutNoteInput[] | CommentUpdateWithWhereUniqueWithoutNoteInput;
+  upsert?: CommentUpsertWithWhereUniqueWithoutNoteInput[] | CommentUpsertWithWhereUniqueWithoutNoteInput;
   deleteMany?: CommentScalarWhereInput[] | CommentScalarWhereInput;
-  updateMany?:
-    | CommentUpdateManyWithWhereNestedInput[]
-    | CommentUpdateManyWithWhereNestedInput;
+  updateMany?: CommentUpdateManyWithWhereNestedInput[] | CommentUpdateManyWithWhereNestedInput;
 }
 
 export interface UserUpdateInput {
@@ -1741,20 +1597,14 @@ export interface PasswordSetTokenUpdateInput {
 
 export interface CommentUpdateManyInput {
   create?: CommentCreateInput[] | CommentCreateInput;
-  update?:
-    | CommentUpdateWithWhereUniqueNestedInput[]
-    | CommentUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CommentUpsertWithWhereUniqueNestedInput[]
-    | CommentUpsertWithWhereUniqueNestedInput;
+  update?: CommentUpdateWithWhereUniqueNestedInput[] | CommentUpdateWithWhereUniqueNestedInput;
+  upsert?: CommentUpsertWithWhereUniqueNestedInput[] | CommentUpsertWithWhereUniqueNestedInput;
   delete?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   set?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput;
   deleteMany?: CommentScalarWhereInput[] | CommentScalarWhereInput;
-  updateMany?:
-    | CommentUpdateManyWithWhereNestedInput[]
-    | CommentUpdateManyWithWhereNestedInput;
+  updateMany?: CommentUpdateManyWithWhereNestedInput[] | CommentUpdateManyWithWhereNestedInput;
 }
 
 export interface NoteUpdateInput {
@@ -1790,23 +1640,15 @@ export interface CommentUpdateDataInput {
 }
 
 export interface SubjectUpdateManyWithoutInstituteInput {
-  create?:
-    | SubjectCreateWithoutInstituteInput[]
-    | SubjectCreateWithoutInstituteInput;
+  create?: SubjectCreateWithoutInstituteInput[] | SubjectCreateWithoutInstituteInput;
   delete?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   connect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   set?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
   disconnect?: SubjectWhereUniqueInput[] | SubjectWhereUniqueInput;
-  update?:
-    | SubjectUpdateWithWhereUniqueWithoutInstituteInput[]
-    | SubjectUpdateWithWhereUniqueWithoutInstituteInput;
-  upsert?:
-    | SubjectUpsertWithWhereUniqueWithoutInstituteInput[]
-    | SubjectUpsertWithWhereUniqueWithoutInstituteInput;
+  update?: SubjectUpdateWithWhereUniqueWithoutInstituteInput[] | SubjectUpdateWithWhereUniqueWithoutInstituteInput;
+  upsert?: SubjectUpsertWithWhereUniqueWithoutInstituteInput[] | SubjectUpsertWithWhereUniqueWithoutInstituteInput;
   deleteMany?: SubjectScalarWhereInput[] | SubjectScalarWhereInput;
-  updateMany?:
-    | SubjectUpdateManyWithWhereNestedInput[]
-    | SubjectUpdateManyWithWhereNestedInput;
+  updateMany?: SubjectUpdateManyWithWhereNestedInput[] | SubjectUpdateManyWithWhereNestedInput;
 }
 
 export interface CommentUpsertWithWhereUniqueNestedInput {
@@ -1881,9 +1723,7 @@ export interface CommentUpdateManyWithWhereNestedInput {
 }
 
 export interface SubjectInfoCreateManyWithoutSubjectInput {
-  create?:
-    | SubjectInfoCreateWithoutSubjectInput[]
-    | SubjectInfoCreateWithoutSubjectInput;
+  create?: SubjectInfoCreateWithoutSubjectInput[] | SubjectInfoCreateWithoutSubjectInput;
   connect?: SubjectInfoWhereUniqueInput[] | SubjectInfoWhereUniqueInput;
 }
 
@@ -2283,9 +2123,7 @@ export interface UserPreviousValues {
   role: UserRole;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
+export interface UserPreviousValuesPromise extends Promise<UserPreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   profilePicURL: () => Promise<String>;
   roleName: () => Promise<String>;
@@ -2299,9 +2137,7 @@ export interface UserPreviousValuesPromise
   role: () => Promise<UserRole>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
+export interface UserPreviousValuesSubscription extends Promise<AsyncIterator<UserPreviousValues>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   profilePicURL: () => Promise<AsyncIterator<String>>;
   roleName: () => Promise<AsyncIterator<String>>;
@@ -2319,15 +2155,11 @@ export interface AggregateComment {
   count: Int;
 }
 
-export interface AggregateCommentPromise
-  extends Promise<AggregateComment>,
-    Fragmentable {
+export interface AggregateCommentPromise extends Promise<AggregateComment>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateCommentSubscription
-  extends Promise<AsyncIterator<AggregateComment>>,
-    Fragmentable {
+export interface AggregateCommentSubscription extends Promise<AsyncIterator<AggregateComment>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -2359,9 +2191,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   role: () => Promise<UserRole>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
+export interface UserSubscription extends Promise<AsyncIterator<User>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   profilePicURL: () => Promise<AsyncIterator<String>>;
   roleName: () => Promise<AsyncIterator<String>>;
@@ -2385,9 +2215,7 @@ export interface CommentEdgePromise extends Promise<CommentEdge>, Fragmentable {
   cursor: () => Promise<String>;
 }
 
-export interface CommentEdgeSubscription
-  extends Promise<AsyncIterator<CommentEdge>>,
-    Fragmentable {
+export interface CommentEdgeSubscription extends Promise<AsyncIterator<CommentEdge>>, Fragmentable {
   node: <T = CommentSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -2405,126 +2233,104 @@ export interface SubjectPromise extends Promise<Subject>, Fragmentable {
   name: () => Promise<String>;
   description: () => Promise<String>;
   institute: <T = InstitutePromise>() => T;
-  faculty: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  students: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  info: <T = FragmentableArray<SubjectInfo>>(
-    args?: {
-      where?: SubjectInfoWhereInput;
-      orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  notes: <T = FragmentableArray<Note>>(
-    args?: {
-      where?: NoteWhereInput;
-      orderBy?: NoteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  prerequisites: <T = FragmentableArray<Subject>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  faculty: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  students: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  info: <T = FragmentableArray<SubjectInfo>>(args?: {
+    where?: SubjectInfoWhereInput;
+    orderBy?: SubjectInfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  notes: <T = FragmentableArray<Note>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  prerequisites: <T = FragmentableArray<Subject>>(args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface SubjectSubscription
-  extends Promise<AsyncIterator<Subject>>,
-    Fragmentable {
+export interface SubjectSubscription extends Promise<AsyncIterator<Subject>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   code: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
   institute: <T = InstituteSubscription>() => T;
-  faculty: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  students: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  info: <T = Promise<AsyncIterator<SubjectInfoSubscription>>>(
-    args?: {
-      where?: SubjectInfoWhereInput;
-      orderBy?: SubjectInfoOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(
-    args?: {
-      where?: NoteWhereInput;
-      orderBy?: NoteOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  prerequisites: <T = Promise<AsyncIterator<SubjectSubscription>>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  faculty: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  students: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  info: <T = Promise<AsyncIterator<SubjectInfoSubscription>>>(args?: {
+    where?: SubjectInfoWhereInput;
+    orderBy?: SubjectInfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  prerequisites: <T = Promise<AsyncIterator<SubjectSubscription>>>(args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface PageInfo {
@@ -2541,9 +2347,7 @@ export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
   endCursor: () => Promise<String>;
 }
 
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
+export interface PageInfoSubscription extends Promise<AsyncIterator<PageInfo>>, Fragmentable {
   hasNextPage: () => Promise<AsyncIterator<Boolean>>;
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
@@ -2554,15 +2358,11 @@ export interface AggregateUser {
   count: Int;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
+export interface AggregateUserPromise extends Promise<AggregateUser>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
+export interface AggregateUserSubscription extends Promise<AsyncIterator<AggregateUser>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -2571,17 +2371,13 @@ export interface CommentConnection {
   edges: CommentEdge[];
 }
 
-export interface CommentConnectionPromise
-  extends Promise<CommentConnection>,
-    Fragmentable {
+export interface CommentConnectionPromise extends Promise<CommentConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<CommentEdge>>() => T;
   aggregate: <T = AggregateCommentPromise>() => T;
 }
 
-export interface CommentConnectionSubscription
-  extends Promise<AsyncIterator<CommentConnection>>,
-    Fragmentable {
+export interface CommentConnectionSubscription extends Promise<AsyncIterator<CommentConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<CommentEdgeSubscription>>>() => T;
   aggregate: <T = AggregateCommentSubscription>() => T;
@@ -2592,17 +2388,13 @@ export interface UserConnection {
   edges: UserEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
+export interface UserConnectionPromise extends Promise<UserConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<UserEdge>>() => T;
   aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
+export interface UserConnectionSubscription extends Promise<AsyncIterator<UserConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
   aggregate: <T = AggregateUserSubscription>() => T;
@@ -2624,33 +2416,27 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   updatedAt: () => Promise<DateTimeOutput>;
   note: <T = NotePromise>() => T;
   author: <T = UserPromise>() => T;
-  replies: <T = FragmentableArray<Comment>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  upvotes: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  replies: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  upvotes: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface CommentSubscription
-  extends Promise<AsyncIterator<Comment>>,
-    Fragmentable {
+export interface CommentSubscription extends Promise<AsyncIterator<Comment>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
   locationInText: () => Promise<AsyncIterator<Json>>;
@@ -2658,28 +2444,24 @@ export interface CommentSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   note: <T = NoteSubscription>() => T;
   author: <T = UserSubscription>() => T;
-  replies: <T = Promise<AsyncIterator<CommentSubscription>>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  replies: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface SubjectInfoEdge {
@@ -2687,16 +2469,12 @@ export interface SubjectInfoEdge {
   cursor: String;
 }
 
-export interface SubjectInfoEdgePromise
-  extends Promise<SubjectInfoEdge>,
-    Fragmentable {
+export interface SubjectInfoEdgePromise extends Promise<SubjectInfoEdge>, Fragmentable {
   node: <T = SubjectInfoPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface SubjectInfoEdgeSubscription
-  extends Promise<AsyncIterator<SubjectInfoEdge>>,
-    Fragmentable {
+export interface SubjectInfoEdgeSubscription extends Promise<AsyncIterator<SubjectInfoEdge>>, Fragmentable {
   node: <T = SubjectInfoSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -2708,9 +2486,7 @@ export interface CommentSubscriptionPayload {
   previousValues: CommentPreviousValues;
 }
 
-export interface CommentSubscriptionPayloadPromise
-  extends Promise<CommentSubscriptionPayload>,
-    Fragmentable {
+export interface CommentSubscriptionPayloadPromise extends Promise<CommentSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = CommentPromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -2730,15 +2506,11 @@ export interface AggregateSubject {
   count: Int;
 }
 
-export interface AggregateSubjectPromise
-  extends Promise<AggregateSubject>,
-    Fragmentable {
+export interface AggregateSubjectPromise extends Promise<AggregateSubject>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateSubjectSubscription
-  extends Promise<AsyncIterator<AggregateSubject>>,
-    Fragmentable {
+export interface AggregateSubjectSubscription extends Promise<AsyncIterator<AggregateSubject>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -2750,9 +2522,7 @@ export interface CommentPreviousValues {
   updatedAt: DateTimeOutput;
 }
 
-export interface CommentPreviousValuesPromise
-  extends Promise<CommentPreviousValues>,
-    Fragmentable {
+export interface CommentPreviousValuesPromise extends Promise<CommentPreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   locationInText: () => Promise<Json>;
@@ -2760,9 +2530,7 @@ export interface CommentPreviousValuesPromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface CommentPreviousValuesSubscription
-  extends Promise<AsyncIterator<CommentPreviousValues>>,
-    Fragmentable {
+export interface CommentPreviousValuesSubscription extends Promise<AsyncIterator<CommentPreviousValues>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
   locationInText: () => Promise<AsyncIterator<Json>>;
@@ -2775,17 +2543,13 @@ export interface SubjectConnection {
   edges: SubjectEdge[];
 }
 
-export interface SubjectConnectionPromise
-  extends Promise<SubjectConnection>,
-    Fragmentable {
+export interface SubjectConnectionPromise extends Promise<SubjectConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<SubjectEdge>>() => T;
   aggregate: <T = AggregateSubjectPromise>() => T;
 }
 
-export interface SubjectConnectionSubscription
-  extends Promise<AsyncIterator<SubjectConnection>>,
-    Fragmentable {
+export interface SubjectConnectionSubscription extends Promise<AsyncIterator<SubjectConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<SubjectEdgeSubscription>>>() => T;
   aggregate: <T = AggregateSubjectSubscription>() => T;
@@ -2796,17 +2560,13 @@ export interface SubjectInfoConnection {
   edges: SubjectInfoEdge[];
 }
 
-export interface SubjectInfoConnectionPromise
-  extends Promise<SubjectInfoConnection>,
-    Fragmentable {
+export interface SubjectInfoConnectionPromise extends Promise<SubjectInfoConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<SubjectInfoEdge>>() => T;
   aggregate: <T = AggregateSubjectInfoPromise>() => T;
 }
 
-export interface SubjectInfoConnectionSubscription
-  extends Promise<AsyncIterator<SubjectInfoConnection>>,
-    Fragmentable {
+export interface SubjectInfoConnectionSubscription extends Promise<AsyncIterator<SubjectInfoConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<SubjectInfoEdgeSubscription>>>() => T;
   aggregate: <T = AggregateSubjectInfoSubscription>() => T;
@@ -2819,18 +2579,14 @@ export interface SubjectPreviousValues {
   description: String;
 }
 
-export interface SubjectPreviousValuesPromise
-  extends Promise<SubjectPreviousValues>,
-    Fragmentable {
+export interface SubjectPreviousValuesPromise extends Promise<SubjectPreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   code: () => Promise<String>;
   name: () => Promise<String>;
   description: () => Promise<String>;
 }
 
-export interface SubjectPreviousValuesSubscription
-  extends Promise<AsyncIterator<SubjectPreviousValues>>,
-    Fragmentable {
+export interface SubjectPreviousValuesSubscription extends Promise<AsyncIterator<SubjectPreviousValues>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   code: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
@@ -2847,9 +2603,7 @@ export interface SubjectEdgePromise extends Promise<SubjectEdge>, Fragmentable {
   cursor: () => Promise<String>;
 }
 
-export interface SubjectEdgeSubscription
-  extends Promise<AsyncIterator<SubjectEdge>>,
-    Fragmentable {
+export interface SubjectEdgeSubscription extends Promise<AsyncIterator<SubjectEdge>>, Fragmentable {
   node: <T = SubjectSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -2859,16 +2613,12 @@ export interface PasswordSetTokenEdge {
   cursor: String;
 }
 
-export interface PasswordSetTokenEdgePromise
-  extends Promise<PasswordSetTokenEdge>,
-    Fragmentable {
+export interface PasswordSetTokenEdgePromise extends Promise<PasswordSetTokenEdge>, Fragmentable {
   node: <T = PasswordSetTokenPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PasswordSetTokenEdgeSubscription
-  extends Promise<AsyncIterator<PasswordSetTokenEdge>>,
-    Fragmentable {
+export interface PasswordSetTokenEdgeSubscription extends Promise<AsyncIterator<PasswordSetTokenEdge>>, Fragmentable {
   node: <T = PasswordSetTokenSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -2877,9 +2627,7 @@ export interface AggregatePasswordSetToken {
   count: Int;
 }
 
-export interface AggregatePasswordSetTokenPromise
-  extends Promise<AggregatePasswordSetToken>,
-    Fragmentable {
+export interface AggregatePasswordSetTokenPromise extends Promise<AggregatePasswordSetToken>, Fragmentable {
   count: () => Promise<Int>;
 }
 
@@ -2896,18 +2644,14 @@ export interface PasswordSetToken {
   createdAt: DateTimeOutput;
 }
 
-export interface PasswordSetTokenPromise
-  extends Promise<PasswordSetToken>,
-    Fragmentable {
+export interface PasswordSetTokenPromise extends Promise<PasswordSetToken>, Fragmentable {
   id: () => Promise<ID_Output>;
   token: () => Promise<String>;
   email: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface PasswordSetTokenSubscription
-  extends Promise<AsyncIterator<PasswordSetToken>>,
-    Fragmentable {
+export interface PasswordSetTokenSubscription extends Promise<AsyncIterator<PasswordSetToken>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   token: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -2919,9 +2663,7 @@ export interface PasswordSetTokenConnection {
   edges: PasswordSetTokenEdge[];
 }
 
-export interface PasswordSetTokenConnectionPromise
-  extends Promise<PasswordSetTokenConnection>,
-    Fragmentable {
+export interface PasswordSetTokenConnectionPromise extends Promise<PasswordSetTokenConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<PasswordSetTokenEdge>>() => T;
   aggregate: <T = AggregatePasswordSetTokenPromise>() => T;
@@ -2945,9 +2687,7 @@ export interface NoteEdgePromise extends Promise<NoteEdge>, Fragmentable {
   cursor: () => Promise<String>;
 }
 
-export interface NoteEdgeSubscription
-  extends Promise<AsyncIterator<NoteEdge>>,
-    Fragmentable {
+export interface NoteEdgeSubscription extends Promise<AsyncIterator<NoteEdge>>, Fragmentable {
   node: <T = NoteSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -2959,9 +2699,7 @@ export interface InstituteSubscriptionPayload {
   previousValues: InstitutePreviousValues;
 }
 
-export interface InstituteSubscriptionPayloadPromise
-  extends Promise<InstituteSubscriptionPayload>,
-    Fragmentable {
+export interface InstituteSubscriptionPayloadPromise extends Promise<InstituteSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = InstitutePromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -2981,15 +2719,11 @@ export interface AggregateInstitute {
   count: Int;
 }
 
-export interface AggregateInstitutePromise
-  extends Promise<AggregateInstitute>,
-    Fragmentable {
+export interface AggregateInstitutePromise extends Promise<AggregateInstitute>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateInstituteSubscription
-  extends Promise<AsyncIterator<AggregateInstitute>>,
-    Fragmentable {
+export interface AggregateInstituteSubscription extends Promise<AsyncIterator<AggregateInstitute>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -2998,9 +2732,7 @@ export interface InstitutePreviousValues {
   name: String;
 }
 
-export interface InstitutePreviousValuesPromise
-  extends Promise<InstitutePreviousValues>,
-    Fragmentable {
+export interface InstitutePreviousValuesPromise extends Promise<InstitutePreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
 }
@@ -3017,17 +2749,13 @@ export interface InstituteConnection {
   edges: InstituteEdge[];
 }
 
-export interface InstituteConnectionPromise
-  extends Promise<InstituteConnection>,
-    Fragmentable {
+export interface InstituteConnectionPromise extends Promise<InstituteConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<InstituteEdge>>() => T;
   aggregate: <T = AggregateInstitutePromise>() => T;
 }
 
-export interface InstituteConnectionSubscription
-  extends Promise<AsyncIterator<InstituteConnection>>,
-    Fragmentable {
+export interface InstituteConnectionSubscription extends Promise<AsyncIterator<InstituteConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<InstituteEdgeSubscription>>>() => T;
   aggregate: <T = AggregateInstituteSubscription>() => T;
@@ -3052,46 +2780,38 @@ export interface NotePromise extends Promise<Note>, Fragmentable {
   description: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  authors: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  authors: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   subject: <T = SubjectPromise>() => T;
-  comments: <T = FragmentableArray<Comment>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   type: () => Promise<NoteType>;
-  upvotes: <T = FragmentableArray<User>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  upvotes: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface NoteSubscription
-  extends Promise<AsyncIterator<Note>>,
-    Fragmentable {
+export interface NoteSubscription extends Promise<AsyncIterator<Note>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<Json>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -3099,56 +2819,46 @@ export interface NoteSubscription
   description: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  authors: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  authors: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   subject: <T = SubjectSubscription>() => T;
-  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(
-    args?: {
-      where?: CommentWhereInput;
-      orderBy?: CommentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   type: () => Promise<AsyncIterator<NoteType>>;
-  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(
-    args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  upvotes: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface BatchPayload {
   count: Long;
 }
 
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
+export interface BatchPayloadPromise extends Promise<BatchPayload>, Fragmentable {
   count: () => Promise<Long>;
 }
 
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
+export interface BatchPayloadSubscription extends Promise<AsyncIterator<BatchPayload>>, Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
 }
 
@@ -3159,9 +2869,7 @@ export interface NoteSubscriptionPayload {
   previousValues: NotePreviousValues;
 }
 
-export interface NoteSubscriptionPayloadPromise
-  extends Promise<NoteSubscriptionPayload>,
-    Fragmentable {
+export interface NoteSubscriptionPayloadPromise extends Promise<NoteSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = NotePromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -3187,9 +2895,7 @@ export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
+export interface UserEdgeSubscription extends Promise<AsyncIterator<UserEdge>>, Fragmentable {
   node: <T = UserSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -3205,9 +2911,7 @@ export interface NotePreviousValues {
   type: NoteType;
 }
 
-export interface NotePreviousValuesPromise
-  extends Promise<NotePreviousValues>,
-    Fragmentable {
+export interface NotePreviousValuesPromise extends Promise<NotePreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   text: () => Promise<Json>;
   title: () => Promise<String>;
@@ -3218,9 +2922,7 @@ export interface NotePreviousValuesPromise
   type: () => Promise<NoteType>;
 }
 
-export interface NotePreviousValuesSubscription
-  extends Promise<AsyncIterator<NotePreviousValues>>,
-    Fragmentable {
+export interface NotePreviousValuesSubscription extends Promise<AsyncIterator<NotePreviousValues>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<Json>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -3238,9 +2940,7 @@ export interface UserSubscriptionPayload {
   previousValues: UserPreviousValues;
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
+export interface UserSubscriptionPayloadPromise extends Promise<UserSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = UserPromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -3271,9 +2971,7 @@ export interface SubjectInfoPromise extends Promise<SubjectInfo>, Fragmentable {
   subject: <T = SubjectPromise>() => T;
 }
 
-export interface SubjectInfoSubscription
-  extends Promise<AsyncIterator<SubjectInfo>>,
-    Fragmentable {
+export interface SubjectInfoSubscription extends Promise<AsyncIterator<SubjectInfo>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   subtitle: () => Promise<AsyncIterator<String>>;
@@ -3286,17 +2984,13 @@ export interface NoteConnection {
   edges: NoteEdge[];
 }
 
-export interface NoteConnectionPromise
-  extends Promise<NoteConnection>,
-    Fragmentable {
+export interface NoteConnectionPromise extends Promise<NoteConnection>, Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
   edges: <T = FragmentableArray<NoteEdge>>() => T;
   aggregate: <T = AggregateNotePromise>() => T;
 }
 
-export interface NoteConnectionSubscription
-  extends Promise<AsyncIterator<NoteConnection>>,
-    Fragmentable {
+export interface NoteConnectionSubscription extends Promise<AsyncIterator<NoteConnection>>, Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
   aggregate: <T = AggregateNoteSubscription>() => T;
@@ -3310,35 +3004,29 @@ export interface Institute {
 export interface InstitutePromise extends Promise<Institute>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  subjects: <T = FragmentableArray<Subject>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  subjects: <T = FragmentableArray<Subject>>(args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface InstituteSubscription
-  extends Promise<AsyncIterator<Institute>>,
-    Fragmentable {
+export interface InstituteSubscription extends Promise<AsyncIterator<Institute>>, Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  subjects: <T = Promise<AsyncIterator<SubjectSubscription>>>(
-    args?: {
-      where?: SubjectWhereInput;
-      orderBy?: SubjectOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  subjects: <T = Promise<AsyncIterator<SubjectSubscription>>>(args?: {
+    where?: SubjectWhereInput;
+    orderBy?: SubjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface SubjectSubscriptionPayload {
@@ -3348,9 +3036,7 @@ export interface SubjectSubscriptionPayload {
   previousValues: SubjectPreviousValues;
 }
 
-export interface SubjectSubscriptionPayloadPromise
-  extends Promise<SubjectSubscriptionPayload>,
-    Fragmentable {
+export interface SubjectSubscriptionPayloadPromise extends Promise<SubjectSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = SubjectPromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -3373,9 +3059,7 @@ export interface SubjectInfoSubscriptionPayload {
   previousValues: SubjectInfoPreviousValues;
 }
 
-export interface SubjectInfoSubscriptionPayloadPromise
-  extends Promise<SubjectInfoSubscriptionPayload>,
-    Fragmentable {
+export interface SubjectInfoSubscriptionPayloadPromise extends Promise<SubjectInfoSubscriptionPayload>, Fragmentable {
   mutation: () => Promise<MutationType>;
   node: <T = SubjectInfoPromise>() => T;
   updatedFields: () => Promise<String[]>;
@@ -3398,9 +3082,7 @@ export interface PasswordSetTokenPreviousValues {
   createdAt: DateTimeOutput;
 }
 
-export interface PasswordSetTokenPreviousValuesPromise
-  extends Promise<PasswordSetTokenPreviousValues>,
-    Fragmentable {
+export interface PasswordSetTokenPreviousValuesPromise extends Promise<PasswordSetTokenPreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   token: () => Promise<String>;
   email: () => Promise<String>;
@@ -3448,9 +3130,7 @@ export interface SubjectInfoPreviousValues {
   text: String;
 }
 
-export interface SubjectInfoPreviousValuesPromise
-  extends Promise<SubjectInfoPreviousValues>,
-    Fragmentable {
+export interface SubjectInfoPreviousValuesPromise extends Promise<SubjectInfoPreviousValues>, Fragmentable {
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   subtitle: () => Promise<String>;
@@ -3471,16 +3151,12 @@ export interface InstituteEdge {
   cursor: String;
 }
 
-export interface InstituteEdgePromise
-  extends Promise<InstituteEdge>,
-    Fragmentable {
+export interface InstituteEdgePromise extends Promise<InstituteEdge>, Fragmentable {
   node: <T = InstitutePromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface InstituteEdgeSubscription
-  extends Promise<AsyncIterator<InstituteEdge>>,
-    Fragmentable {
+export interface InstituteEdgeSubscription extends Promise<AsyncIterator<InstituteEdge>>, Fragmentable {
   node: <T = InstituteSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
@@ -3489,15 +3165,11 @@ export interface AggregateNote {
   count: Int;
 }
 
-export interface AggregateNotePromise
-  extends Promise<AggregateNote>,
-    Fragmentable {
+export interface AggregateNotePromise extends Promise<AggregateNote>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateNoteSubscription
-  extends Promise<AsyncIterator<AggregateNote>>,
-    Fragmentable {
+export interface AggregateNoteSubscription extends Promise<AsyncIterator<AggregateNote>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -3505,15 +3177,11 @@ export interface AggregateSubjectInfo {
   count: Int;
 }
 
-export interface AggregateSubjectInfoPromise
-  extends Promise<AggregateSubjectInfo>,
-    Fragmentable {
+export interface AggregateSubjectInfoPromise extends Promise<AggregateSubjectInfo>, Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateSubjectInfoSubscription
-  extends Promise<AsyncIterator<AggregateSubjectInfo>>,
-    Fragmentable {
+export interface AggregateSubjectInfoSubscription extends Promise<AsyncIterator<AggregateSubjectInfo>>, Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -3558,41 +3226,41 @@ export type Boolean = boolean;
 
 export const models: Model[] = [
   {
-    name: "NoteType",
-    embedded: false
+    name: 'NoteType',
+    embedded: false,
   },
   {
-    name: "UserRole",
-    embedded: false
+    name: 'UserRole',
+    embedded: false,
   },
   {
-    name: "Note",
-    embedded: false
+    name: 'Note',
+    embedded: false,
   },
   {
-    name: "Comment",
-    embedded: false
+    name: 'Comment',
+    embedded: false,
   },
   {
-    name: "Institute",
-    embedded: false
+    name: 'Institute',
+    embedded: false,
   },
   {
-    name: "Subject",
-    embedded: false
+    name: 'Subject',
+    embedded: false,
   },
   {
-    name: "SubjectInfo",
-    embedded: false
+    name: 'SubjectInfo',
+    embedded: false,
   },
   {
-    name: "User",
-    embedded: false
+    name: 'User',
+    embedded: false,
   },
   {
-    name: "PasswordSetToken",
-    embedded: false
-  }
+    name: 'PasswordSetToken',
+    embedded: false,
+  },
 ];
 
 /**
@@ -3602,7 +3270,7 @@ export const models: Model[] = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `${process.env["PRISMA_ENDPOINT"]}`,
-  secret: `${process.env["PRISMA_SECRET"]}`
+  endpoint: `${process.env['PRISMA_ENDPOINT']}`,
+  secret: `${process.env['PRISMA_SECRET']}`,
 });
 export const prisma = new Prisma();
