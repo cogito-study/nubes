@@ -5,13 +5,13 @@ import { error, info } from 'heroku-logger';
 import { sign, verify } from 'jsonwebtoken';
 import { Editor, Range, Value } from 'slate';
 import { MutationResolvers } from '../generated/graphqlgen';
-import { Context } from '../types';
+import { Context, EmailTemplateType } from '../types';
 import { getUserID, sendEmail } from '../utils';
 
 const hashPassword = (password: string) => hash(password, 10);
 const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
 
-const randomFounder = () => ['Máté', 'Matesz', 'Ádám', 'Bence', 'Kristóf', 'Berci'][Math.floor(Math.random() * 6)];
+const randomFounder = () => ['Máté', 'Ádám', 'Bence', 'Kristóf'][Math.floor(Math.random() * 4)];
 
 const validateEmail = (email: string) => {
   if (!validate(email)) {
@@ -205,7 +205,8 @@ export const Mutation: MutationResolvers.Type = {
       const { firstName, email } = user;
       const token = generateToken(email, { expiresIn: '1y' });
       await context.prisma.createPasswordSetToken({ token, email });
-      const templateID = user.role === 'PROFESSOR' ? 9 : 5;
+      const templateID =
+        user.role !== 'USER' ? EmailTemplateType.ProfessorRegistration : EmailTemplateType.StudentRegistration;
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
@@ -249,6 +250,7 @@ export const Mutation: MutationResolvers.Type = {
   sendResetPasswordEmail: async (_, { email }, context) => {
     validateEmail(email);
     const entries = await context.prisma.passwordSetTokens({ where: { email } });
+
     if (entries.length > 0) {
       if (entries.length > 1) {
         error('More than 1 password reset token in db!', { entries });
@@ -258,9 +260,9 @@ export const Mutation: MutationResolvers.Type = {
       const entryCreated = new Date(entries[0].createdAt);
       const diffMs = now.getTime() - entryCreated.getTime();
       const diffMins = diffMs / 1000 / 60; // millisecs / secs
-      if (diffMins < 12) {
+      if (diffMins < 2) {
         error('Repeated password reset attempt!', { email });
-        throw new Error(`Kérlek várj még ${12 - Math.floor(diffMins)} percet`);
+        throw new Error(`Kérlek várj még ${2 - Math.floor(diffMins)} percet`);
       }
       await context.prisma.deletePasswordSetToken({ email });
     }
@@ -269,6 +271,8 @@ export const Mutation: MutationResolvers.Type = {
     await context.prisma.createPasswordSetToken({ token, email });
 
     const user = await context.prisma.user({ email });
+    const templateID =
+      user.role !== 'USER' ? EmailTemplateType.ProfessorForgotPassword : EmailTemplateType.StudentForgotPassword;
     if (user) {
       try {
         sendEmail(
@@ -276,7 +280,7 @@ export const Mutation: MutationResolvers.Type = {
           [{ email }],
           ['Welcome'],
           { link: `https://cogito.study/reset?token=${token}` },
-          3,
+          templateID,
         );
         info('Password reset email sent!', { email });
         return true;
