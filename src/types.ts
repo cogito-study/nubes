@@ -14,3 +14,10 @@ export interface AuthPayload {
 export interface FileUploadPayload {
   url: string;
 }
+
+export enum EmailTemplateType {
+  ProfessorRegistration = 9,
+  StudentRegistration = 5,
+  ProfessorForgotPassword = 10,
+  StudentForgotPassword = 3,
+}
