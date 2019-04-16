@@ -567,7 +567,19 @@ export const typeDefs = /* GraphQL */ `
     description: String
     createdAt: DateTime!
     updatedAt: DateTime!
+<<<<<<< HEAD
     author: User!
+=======
+    authors(
+      where: UserWhereInput
+      orderBy: UserOrderByInput
+      skip: Int
+      after: String
+      before: String
+      first: Int
+      last: Int
+    ): [User!]
+>>>>>>> master
     subject: Subject!
     comments(
       where: CommentWhereInput
@@ -601,7 +613,11 @@ export const typeDefs = /* GraphQL */ `
     title: String!
     number: Int!
     description: String
+<<<<<<< HEAD
     author: UserCreateOneInput!
+=======
+    authors: UserCreateManyInput
+>>>>>>> master
     subject: SubjectCreateOneWithoutNotesInput!
     comments: CommentCreateManyWithoutNoteInput
     type: NoteType!
@@ -623,7 +639,11 @@ export const typeDefs = /* GraphQL */ `
     title: String!
     number: Int!
     description: String
+<<<<<<< HEAD
     author: UserCreateOneInput!
+=======
+    authors: UserCreateManyInput
+>>>>>>> master
     subject: SubjectCreateOneWithoutNotesInput!
     type: NoteType!
     upvotes: UserCreateManyInput
@@ -634,7 +654,11 @@ export const typeDefs = /* GraphQL */ `
     title: String!
     number: Int!
     description: String
+<<<<<<< HEAD
     author: UserCreateOneInput!
+=======
+    authors: UserCreateManyInput
+>>>>>>> master
     comments: CommentCreateManyWithoutNoteInput
     type: NoteType!
     upvotes: UserCreateManyInput
@@ -779,7 +803,11 @@ export const typeDefs = /* GraphQL */ `
     title: String
     number: Int
     description: String
+<<<<<<< HEAD
     author: UserUpdateOneRequiredInput
+=======
+    authors: UserUpdateManyInput
+>>>>>>> master
     subject: SubjectUpdateOneRequiredWithoutNotesInput
     comments: CommentUpdateManyWithoutNoteInput
     type: NoteType
@@ -831,7 +859,11 @@ export const typeDefs = /* GraphQL */ `
     title: String
     number: Int
     description: String
+<<<<<<< HEAD
     author: UserUpdateOneRequiredInput
+=======
+    authors: UserUpdateManyInput
+>>>>>>> master
     subject: SubjectUpdateOneRequiredWithoutNotesInput
     type: NoteType
     upvotes: UserUpdateManyInput
@@ -842,7 +874,11 @@ export const typeDefs = /* GraphQL */ `
     title: String
     number: Int
     description: String
+<<<<<<< HEAD
     author: UserUpdateOneRequiredInput
+=======
+    authors: UserUpdateManyInput
+>>>>>>> master
     comments: CommentUpdateManyWithoutNoteInput
     type: NoteType
     upvotes: UserUpdateManyInput
@@ -931,7 +967,13 @@ export const typeDefs = /* GraphQL */ `
     updatedAt_lte: DateTime
     updatedAt_gt: DateTime
     updatedAt_gte: DateTime
+<<<<<<< HEAD
     author: UserWhereInput
+=======
+    authors_every: UserWhereInput
+    authors_some: UserWhereInput
+    authors_none: UserWhereInput
+>>>>>>> master
     subject: SubjectWhereInput
     comments_every: CommentWhereInput
     comments_some: CommentWhereInput

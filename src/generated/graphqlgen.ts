@@ -6,20 +6,6 @@ import { AuthPayload, FileUploadPayload } from '../types';
 import { Context } from '../types';
 
 type UserRole = 'USER' | 'PROFESSOR' | 'ADMIN';
-type NoteType = 'NOTE' | 'CASE_STUDY';
-type SubjectOrderByInput =
-  | 'id_ASC'
-  | 'id_DESC'
-  | 'code_ASC'
-  | 'code_DESC'
-  | 'name_ASC'
-  | 'name_DESC'
-  | 'description_ASC'
-  | 'description_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
-  | 'updatedAt_ASC'
-  | 'updatedAt_DESC';
 type UserOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
@@ -43,6 +29,20 @@ type UserOrderByInput =
   | 'phone_DESC'
   | 'role_ASC'
   | 'role_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
+type NoteType = 'NOTE' | 'CASE_STUDY';
+type SubjectOrderByInput =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'code_ASC'
+  | 'code_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'
@@ -348,6 +348,143 @@ export namespace NoteResolvers {
     type: (parent: Note) => parent.type,
   };
 
+  export interface UserWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    profilePicURL: string | null;
+    profilePicURL_not: string | null;
+    profilePicURL_in: string[];
+    profilePicURL_not_in: string[];
+    profilePicURL_lt: string | null;
+    profilePicURL_lte: string | null;
+    profilePicURL_gt: string | null;
+    profilePicURL_gte: string | null;
+    profilePicURL_contains: string | null;
+    profilePicURL_not_contains: string | null;
+    profilePicURL_starts_with: string | null;
+    profilePicURL_not_starts_with: string | null;
+    profilePicURL_ends_with: string | null;
+    profilePicURL_not_ends_with: string | null;
+    roleName: string | null;
+    roleName_not: string | null;
+    roleName_in: string[];
+    roleName_not_in: string[];
+    roleName_lt: string | null;
+    roleName_lte: string | null;
+    roleName_gt: string | null;
+    roleName_gte: string | null;
+    roleName_contains: string | null;
+    roleName_not_contains: string | null;
+    roleName_starts_with: string | null;
+    roleName_not_starts_with: string | null;
+    roleName_ends_with: string | null;
+    roleName_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    neptun: string | null;
+    neptun_not: string | null;
+    neptun_in: string[];
+    neptun_not_in: string[];
+    neptun_lt: string | null;
+    neptun_lte: string | null;
+    neptun_gt: string | null;
+    neptun_gte: string | null;
+    neptun_contains: string | null;
+    neptun_not_contains: string | null;
+    neptun_starts_with: string | null;
+    neptun_not_starts_with: string | null;
+    neptun_ends_with: string | null;
+    neptun_not_ends_with: string | null;
+    isActive: boolean | null;
+    isActive_not: boolean | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    firstName: string | null;
+    firstName_not: string | null;
+    firstName_in: string[];
+    firstName_not_in: string[];
+    firstName_lt: string | null;
+    firstName_lte: string | null;
+    firstName_gt: string | null;
+    firstName_gte: string | null;
+    firstName_contains: string | null;
+    firstName_not_contains: string | null;
+    firstName_starts_with: string | null;
+    firstName_not_starts_with: string | null;
+    firstName_ends_with: string | null;
+    firstName_not_ends_with: string | null;
+    lastName: string | null;
+    lastName_not: string | null;
+    lastName_in: string[];
+    lastName_not_in: string[];
+    lastName_lt: string | null;
+    lastName_lte: string | null;
+    lastName_gt: string | null;
+    lastName_gte: string | null;
+    lastName_contains: string | null;
+    lastName_not_contains: string | null;
+    lastName_starts_with: string | null;
+    lastName_not_starts_with: string | null;
+    lastName_ends_with: string | null;
+    lastName_not_ends_with: string | null;
+    phone: string | null;
+    phone_not: string | null;
+    phone_in: string[];
+    phone_not_in: string[];
+    phone_lt: string | null;
+    phone_lte: string | null;
+    phone_gt: string | null;
+    phone_gte: string | null;
+    phone_contains: string | null;
+    phone_not_contains: string | null;
+    phone_starts_with: string | null;
+    phone_not_starts_with: string | null;
+    phone_ends_with: string | null;
+    phone_not_ends_with: string | null;
+    role: UserRole | null;
+    role_not: UserRole | null;
+    role_in: UserRole[];
+    role_not_in: UserRole[];
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+  }
   export interface CommentWhereInput {
     id: string | null;
     id_not: string | null;
@@ -472,7 +609,9 @@ export namespace NoteResolvers {
     updatedAt_lte: string | null;
     updatedAt_gt: string | null;
     updatedAt_gte: string | null;
-    author: UserWhereInput | null;
+    authors_every: UserWhereInput | null;
+    authors_some: UserWhereInput | null;
+    authors_none: UserWhereInput | null;
     subject: SubjectWhereInput | null;
     comments_every: CommentWhereInput | null;
     comments_some: CommentWhereInput | null;
@@ -801,6 +940,16 @@ export namespace NoteResolvers {
     NOT: SubjectInfoWhereInput[];
   }
 
+  export interface ArgsAuthors {
+    where: UserWhereInput | null;
+    orderBy: UserOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
   export interface ArgsComments {
     where: CommentWhereInput | null;
     orderBy: CommentOrderByInput | null;
@@ -865,7 +1014,12 @@ export namespace NoteResolvers {
     info: GraphQLResolveInfo,
   ) => string | Promise<string>;
 
-  export type AuthorResolver = (parent: Note, args: {}, ctx: Context, info: GraphQLResolveInfo) => User | Promise<User>;
+  export type AuthorsResolver = (
+    parent: Note,
+    args: ArgsAuthors,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => User[] | Promise<User[]>;
 
   export type SubjectResolver = (
     parent: Note,
@@ -915,7 +1069,7 @@ export namespace NoteResolvers {
 
     updatedAt: (parent: Note, args: {}, ctx: Context, info: GraphQLResolveInfo) => string | Promise<string>;
 
-    author: (parent: Note, args: {}, ctx: Context, info: GraphQLResolveInfo) => User | Promise<User>;
+    authors: (parent: Note, args: ArgsAuthors, ctx: Context, info: GraphQLResolveInfo) => User[] | Promise<User[]>;
 
     subject: (parent: Note, args: {}, ctx: Context, info: GraphQLResolveInfo) => Subject | Promise<Subject>;
 
@@ -1319,7 +1473,9 @@ export namespace SubjectResolvers {
     updatedAt_lte: string | null;
     updatedAt_gt: string | null;
     updatedAt_gte: string | null;
-    author: UserWhereInput | null;
+    authors_every: UserWhereInput | null;
+    authors_some: UserWhereInput | null;
+    authors_none: UserWhereInput | null;
     subject: SubjectWhereInput | null;
     comments_every: CommentWhereInput | null;
     comments_some: CommentWhereInput | null;
@@ -1936,7 +2092,9 @@ export namespace InstituteResolvers {
     updatedAt_lte: string | null;
     updatedAt_gt: string | null;
     updatedAt_gte: string | null;
-    author: UserWhereInput | null;
+    authors_every: UserWhereInput | null;
+    authors_some: UserWhereInput | null;
+    authors_none: UserWhereInput | null;
     subject: SubjectWhereInput | null;
     comments_every: CommentWhereInput | null;
     comments_some: CommentWhereInput | null;
@@ -2249,7 +2407,9 @@ export namespace CommentResolvers {
     updatedAt_lte: string | null;
     updatedAt_gt: string | null;
     updatedAt_gte: string | null;
-    author: UserWhereInput | null;
+    authors_every: UserWhereInput | null;
+    authors_some: UserWhereInput | null;
+    authors_none: UserWhereInput | null;
     subject: SubjectWhereInput | null;
     comments_every: CommentWhereInput | null;
     comments_some: CommentWhereInput | null;
