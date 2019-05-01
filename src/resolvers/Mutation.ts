@@ -271,9 +271,9 @@ export const Mutation: MutationResolvers.Type = {
     await context.prisma.createPasswordSetToken({ token, email });
 
     const user = await context.prisma.user({ email });
-    const templateID =
-      user.role !== 'USER' ? EmailTemplateType.ProfessorForgotPassword : EmailTemplateType.StudentForgotPassword;
     if (user) {
+      const templateID =
+        user.role !== 'USER' ? EmailTemplateType.ProfessorForgotPassword : EmailTemplateType.StudentForgotPassword;
       try {
         sendEmail(
           { email: 'welcome@cogito.study', name: `${randomFounder()} a Cogito-tól` },
