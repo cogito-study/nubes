@@ -1,4 +1,6 @@
-import { S3 } from 'aws-sdk';
+import { Storage } from '@google-cloud/storage';
+import { Stream } from 'stream';
+import { v4 as uuid } from 'uuid';
 import { compare, hash } from 'bcrypt';
 import { validate } from 'email-validator';
 import { error, info } from 'heroku-logger';
@@ -157,20 +159,30 @@ export const Mutation: MutationResolvers.Type = {
     return note;
   },
 
-  uploadImage: async (_, { fileName, fileType }) => {
-    const s3 = new S3();
-    const s3Params = {
-      Bucket: process.env.S3_BUCKET,
-      Key: fileName,
-      Expires: 60,
-      ContentType: fileType,
-      ACL: 'public-read',
-    };
+  uploadImage: async (_, { file, extension }) => {
+    let base64EncodedImageString = file.replace(/^data:image\/\w+;base64,/, '');
 
-    const url = await s3.getSignedUrl('putObject', s3Params);
-    return {
-      url,
-    };
+    var bufferStream = new Stream.PassThrough();
+    bufferStream.end(Buffer.from(base64EncodedImageString, 'base64'));
+
+    const storage = new Storage({
+      projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+    });
+
+    let googleCloudBucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
+    let fileName = `${uuid()}.${extension}`;
+    let uploadedFile = googleCloudBucket.file(fileName);
+
+    return new Promise<string>((resolve, reject) => {
+      bufferStream
+        .pipe(uploadedFile.createWriteStream())
+        .on('error', (err) => {
+          reject(err); // TODO: Error handling
+        })
+        .on('finish', () =>
+          resolve(`https://storage.googleapis.com/${process.env.GOOGLE_CLOUD_BUCKET_NAME}/${fileName}`),
+        );
+    });
   },
 
   bulkCreateUser: async (_, { userDataList }, context) => {
