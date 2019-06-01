@@ -22,7 +22,7 @@ type Mutation {
   submitComment(noteID: ID!, input: CommentInput!): Comment!
   deleteComment(noteID: ID!, id: ID!): Boolean!
   updateNote(id: ID!, text: Json!): Note!
-  uploadImage(fileName: String, fileType: String): FileUploadPayload!
+  uploadImage(file: String!, extension: String!): String!
   bulkCreateUser(userDataList: [BulkCreateUserData!]!): Boolean!
   sendInvites: Boolean!
   sendResetPasswordEmail(email: String!): Boolean!

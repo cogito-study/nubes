@@ -16,5 +16,8 @@ const server = new GraphQLServer({
     };
   },
 });
+const options = {
+  bodyParserOptions: { limit: '10mb', type: 'application/json' },
+};
 
-server.start(() => info('Server started!'));
+server.start(options, () => info('Server started!'));
