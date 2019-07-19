@@ -1,35 +1,38 @@
 image: node:lts
 
 stages:
+  - install-dependencies
+  - lint
   - test
   - build
+  - prisma-deploy
   - deploy
   - apollo
-
-variables:
-  ENGINE_API_KEY: service:cogito-backend-staging:uB1g_aecUZVvRppG_ijE4w
-  HEROKU_API_KEY: 58e574d7-1f07-49bb-8087-b0c14661fc58
-  PRISMA_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanFqbXJhZngzcjc4MDg2MWJhMDdqeXNiIiwiaWF0IjoxNTUwMTYwNDkyLCJleHAiOjE1NTI3NTI0OTJ9.x54QZ95novmg2g40v5Mf8kZbn_pqDJ1ENDBNEkcaOSA
 
 cache:
   paths:
     - node_modules/
 
-testing:
-  stage: test
-  script:
-    - echo "to be implemented"
-
 install-dependencies:
-  stage: build
+  stage: install-dependencies
   script:
     - npm install
   artifacts:
     paths:
       - node_modules/
 
+lint:
+  stage: lint
+  script:
+    - npm run lint
+
+testing:
+  stage: test
+  script:
+    - echo "to be implemented"
+
 prisma-deploy-staging:
-  stage: deploy
+  stage: prisma-deploy
   script:
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
@@ -37,29 +40,8 @@ prisma-deploy-staging:
   only:
     - development
 
-deploy-staging:
-  stage: deploy
-  script:
-    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
-    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
-    - apt-get update -qy
-    - apt-get install -y heroku-toolbelt
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=cogito-graphql-staging --api-key=$HEROKU_API_KEY
-  only:
-    - development
-
-apollo-service-push-staging:
-  stage: apollo
-  script:
-    - npm i -g apollo
-    - npm run apollo-service-push:staging
-  only:
-    - development
-
-prisma-deploy-prod:
-  stage: deploy
+prisma-deploy-production:
+  stage: prisma-deploy
   script:
     - npm install -g prisma
     - prisma login --key $PRISMA_API_KEY
@@ -67,23 +49,70 @@ prisma-deploy-prod:
   only:
     - master
 
-deploy-prod:
+deploy-staging:
+  image: alpine
   stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$STAGING_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
   script:
-    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
-    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
-    - apt-get update -qy
-    - apt-get install -y heroku-toolbelt
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=cogito-graphql-prod --api-key=$HEROKU_API_KEY
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $STAGING_USERNAME@$STAGING_HOST "cd $STAGING_DIRECTORY && git pull && cp .env.staging .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Staging deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - development
+
+deploy-production:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $PROD_USERNAME@$PROD_HOST "cd $PROD_DIRECTORY && git pull && cp .env.prod .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Production deploy done [ $(date "+%F %H:$M:$S") ]'
   only:
     - master
 
-apollo-service-push-prod:
+deploy-demo:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$DEMO_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $DEMO_USERNAME@$DEMO_HOST "cd $DEMO_DIRECTORY && git pull && cp .env.demo .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Demo deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+apollo-service-push-staging:
   stage: apollo
   script:
-    - npm i -g apollo
-    - npm run apollo-service-push:prod
+    - npx apollo service:push --tag=staging --endpoint=https://graphql.staging.cogito.study/ --key=$ENGINE_API_KEY
+  only:
+    - development
+
+apollo-service-push-production:
+  stage: apollo
+  script:
+    - npx apollo service:push --tag=production --endpoint=https://graphql.cogito.study/ --key=$ENGINE_API_KEY
   only:
     - master

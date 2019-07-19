@@ -2,8 +2,6 @@
   "name": "cogito-backend",
   "version": "0.1.4",
   "scripts": {
-    "apollo-service-push:prod": "apollo service:push --endpoint=https://cogito-graphql-prod.herokuapp.com/  --key=service:cogito-backend-prod:7DzU4ECQnW5sGiDbMM2fEw",
-    "apollo-service-push:staging": "apollo service:push --endpoint=https://cogito-graphql-staging.herokuapp.com/  --key=service:cogito-backend-staging:uB1g_aecUZVvRppG_ijE4w",
     "deploy:prod": "env-cmd .env.prod dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY",
     "deploy:staging": "env-cmd .env.staging dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY",
     "generate": "graphqlgen",
