@@ -24,7 +24,7 @@ install-dependencies:
 lint:
   stage: lint
   script:
-    - npm run lint
+    - npx eslint
 
 testing:
   stage: test
@@ -106,13 +106,13 @@ deploy-demo:
 apollo-service-push-staging:
   stage: apollo
   script:
-    - npx apollo service:push --tag=staging --endpoint=https://graphql.staging.cogito.study/ --key=$ENGINE_API_KEY
+    - npx apollo service:push --tag=staging --endpoint=https://staging-api.cogito.study/ --key=$ENGINE_API_KEY
   only:
     - development
 
 apollo-service-push-production:
   stage: apollo
   script:
-    - npx apollo service:push --tag=production --endpoint=https://graphql.cogito.study/ --key=$ENGINE_API_KEY
+    - npx apollo service:push --tag=production --endpoint=https://api.cogito.study/ --key=$ENGINE_API_KEY
   only:
     - master
