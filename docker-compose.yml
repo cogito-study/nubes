@@ -12,13 +12,11 @@ services:
       - REACT_APP_URL=${REACT_APP_URL}
       - HEROKU_APP=${HEROKU_APP}
       - SIB_API_KEY=${SIB_API_KEY}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_REGION=${AWS_REGION}
-      - S3_BUCKET=${S3_BUCKET}
   prisma:
     image: prismagraphql/prisma:1.29
     restart: always
+    ports:
+      - '${PRISMA_PORT}:4466'
     environment:
       PRISMA_CONFIG: |
         port:
