@@ -1,15 +1,65 @@
-import { QueryResolvers } from '../generated/graphqlgen';
-import { getUserID } from '../utils';
+import { idArg, queryType, stringArg } from 'nexus'
+import { getUserId } from '../utils'
 
-export const Query: QueryResolvers.Type = {
-  ...QueryResolvers.defaultResolvers,
+export const Query = queryType({
+  definition(t) {
+    t.field('me', {
+      type: 'User',
+      resolve: (parent, args, ctx) => {
+        const userId = getUserId(ctx)
+        return ctx.photon.users.findOne({
+          where: {
+            id: userId,
+          },
+        })
+      },
+    })
 
-  me: (_, _args, context) => context.prisma.user({ id: getUserID(context) }),
-  notes: (_, _args, context) => context.prisma.notes(),
-  subjects: (_, _args, context) => context.prisma.subjects(),
-  users: (_, _args, context) => context.prisma.users(),
-  note: (_, { id }, context) => context.prisma.note({ id }),
-  subject: (_, { code }, context) => context.prisma.subject({ code }),
-  user: (_, { id }, context) => context.prisma.user({ id }),
-  comment: (_, { id }, context) => context.prisma.comment({ id }),
-};
+    t.list.field('feed', {
+      type: 'Post',
+      resolve: (parent, args, ctx) => {
+        return ctx.photon.posts.findMany({
+          where: { published: true },
+        })
+      },
+    })
+
+    t.list.field('filterPosts', {
+      type: 'Post',
+      args: {
+        searchString: stringArg({ nullable: true }),
+      },
+      resolve: (parent, { searchString }, ctx) => {
+        return ctx.photon.posts.findMany({
+          where: {
+            OR: [
+              {
+                title: {
+                  contains: searchString,
+                },
+              },
+              {
+                content: {
+                  contains: searchString,
+                },
+              },
+            ],
+          },
+        })
+      },
+    })
+
+    t.field('post', {
+      type: 'Post',
+      nullable: true,
+      args: { id: idArg() },
+      resolve: (parent, { id }, ctx) => {
+        return ctx.photon.posts.findOne({
+          where: {
+            id,
+          },
+        })
+      },
+    })
+  },
+})

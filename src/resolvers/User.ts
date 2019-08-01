@@ -1,5 +1,11 @@
-import { UserResolvers } from '../generated/graphqlgen';
+import { objectType } from '@prisma/nexus'
 
-export const User: UserResolvers.Type = {
-  ...UserResolvers.defaultResolvers,
-};
+export const User = objectType({
+  name: 'User',
+  definition(t) {
+    t.model.id()
+    t.model.name()
+    t.model.email()
+    t.model.posts({ pagination: false })
+  },
+})

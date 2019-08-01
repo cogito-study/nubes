@@ -2,14 +2,13 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    // `strict` will be enabled once this is fixed: https://github.com/prisma/graphqlgen/issues/319 ...
-    // "strict": true,
-    // ... until then we include the options from `strict` that are not concerned by this bug
-    "strictFunctionTypes": true,
-    "noImplicitAny": false,
+    "lib": ["esnext", "dom"],
+    // "strict": true, // `strict` is commented because of this issue: https://github.com/prisma/prisma/issues/3774; all its options except `strictNullChecks` & `strictPropertyInitialization` are explicitly set below.
+    "noImplicitAny": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "typeRoots": ["./@types"],
-    "lib": ["esnext", "dom"]
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "skipLibCheck": true // `skipLibCheck` is enabled until this is issue is fixed: https://github.com/prisma/nexus-prisma/issues/82
   }
 }

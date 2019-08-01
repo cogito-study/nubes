@@ -1,55 +1,17 @@
-import { verify } from 'jsonwebtoken';
-import { post, Options, UrlOptions } from 'request';
-import { Context } from './types';
+import { verify } from 'jsonwebtoken'
+import { Context } from './types'
+
+export const APP_SECRET = 'appsecret321'
 
 interface Token {
-  userID: string;
-  iat?: number;
-  exp?: number;
+  userId: string
 }
 
-export function getUserID(context: Context): string {
-  const Authorization = context.request.get('Authorization');
+export function getUserId(context: Context) {
+  const Authorization = context.request.get('Authorization')
   if (Authorization) {
-    const token = Authorization.replace('Bearer ', '');
-    const verifiedToken = verify(token, process.env.APP_SECRET) as Token;
-    return verifiedToken && verifiedToken.userID;
+    const token = Authorization.replace('Bearer ', '')
+    const verifiedToken = verify(token, APP_SECRET) as Token
+    return verifiedToken && verifiedToken.userId
   }
 }
-
-interface EmailWithName {
-  email: string;
-  name?: string;
-}
-
-export const sendEmail = (
-  sender: EmailWithName,
-  to: EmailWithName[],
-  tags: string[],
-  params: object,
-  templateId: number,
-) => {
-  const options: UrlOptions & Options = {
-    method: 'POST',
-    url: 'https://api.sendinblue.com/v3/smtp/email',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': process.env.SIB_API_KEY,
-    },
-    body: {
-      tags,
-      sender,
-      to,
-      replyTo: { email: 'support@cogito.study' },
-      params,
-      templateId,
-    },
-    json: true,
-  };
-
-  post(options, (error) => {
-    if (error) {
-      throw new Error(error);
-    }
-  });
-};
