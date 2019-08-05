@@ -10,32 +10,175 @@ type AuthPayload {
 """DateTime"""
 scalar DateTime
 
-type Mutation {
-  createDraft(content: String, title: String): Post!
-  deletePost(id: ID): Post
-  login(email: String, password: String): AuthPayload!
-  publish(id: ID): Post
-  signup(email: String, name: String, password: String): AuthPayload!
+type Department {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  description: String!
+  id: ID!
+  institute: Institute!
+  leader: User!
+  name: String!
+  subjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  updatedAt: DateTime!
 }
 
-type Post {
-  author: User
-  content: String
+type Institute {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
   id: ID!
-  published: Boolean!
+  name: String!
+  updatedAt: DateTime!
+  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+}
+
+type Mutation {
+  login(email: String, password: String): AuthPayload!
+}
+
+type Note {
+  authors(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  commentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
+  conent: String!
+  contentHTML: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  description: String
+  highlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
+  id: ID!
+  likes(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  number: Int!
+  subject(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  suggestions: Suggestion!
   title: String!
+  topHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [TopNoteHighlight!]
+  updatedAt: DateTime!
+}
+
+type NoteComment {
+  author: User!
+  content: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  likes(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  position: String!
+  thread: NoteCommentThread
+  threadReply: NoteCommentThread
+  updatedAt: DateTime!
+}
+
+type NoteCommentThread {
+  comment: NoteComment!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  note: Note!
+  replies(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  updatedAt: DateTime!
+}
+
+type NoteHighlight {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  note: Note!
+  position: String!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type PasswordToken {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  token: String!
+  updatedAt: DateTime!
+  user: User!
 }
 
 type Query {
-  feed: [Post!]!
-  filterPosts(searchString: String): [Post!]!
   me: User!
-  post(id: ID): Post
+}
+
+type Subject {
+  code: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  department: Department!
+  description: String!
+  id: ID!
+  informations(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
+  name: String!
+  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  students(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  teachers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  updatedAt: DateTime!
+}
+
+type SubjectInformation {
+  content: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  subject: Subject!
+  subtitle: String
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Suggestion {
+  approvedAt: DateTime
+  approvedBy: User
+  author: User!
+  deletedAt: DateTime
+  delta: String!
+  id: ID!
+  note: Note!
+  updatedAt: DateTime!
+}
+
+type TopNoteHighlight {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  note: Note!
+  position: String!
+  updatedAt: DateTime!
 }
 
 type User {
+  approvedSuggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  commentLikes(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  comments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
   email: String!
+  firstName: String!
   id: ID!
-  name: String
-  posts(after: String, before: String, first: Int, last: Int, skip: Int): [Post!]
+  identifier: String!
+  institute(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  lastName: String!
+  noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
+  noteLikes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  password: String!
+  passwordToken: PasswordToken!
+  phoneNumber: String!
+  profilePictureURL: String!
+  role: UserRole!
+  study(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  teach(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  updatedAt: DateTime!
+}
+
+type UserRole {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  users: User!
 }
