@@ -1,19 +1,18 @@
-import { nexusPrismaPlugin } from '@generated/nexus-prisma'
-import Photon from '@generated/photon'
-import { makeSchema } from '@prisma/nexus'
-import { GraphQLServer } from 'graphql-yoga'
-import { join } from 'path'
-import { permissions } from './permissions'
-import * as allTypes from './resolvers'
-import { Context } from './types'
+import { nexusPrismaPlugin } from '@generated/nexus-prisma';
+import Photon from '@generated/photon';
+import { makeSchema } from '@prisma/nexus';
+import { ApolloServer } from 'apollo-server';
+import { join } from 'path';
+import * as allTypes from './resolvers';
+import { Context } from './types';
 
 const photon = new Photon({
   debug: true,
-})
+});
 
 const nexusPrisma = nexusPrismaPlugin({
   photon: (ctx: Context) => ctx.photon,
-})
+});
 
 const schema = makeSchema({
   types: [allTypes, nexusPrisma],
@@ -34,17 +33,20 @@ const schema = makeSchema({
     ],
     contextType: 'ctx.Context',
   },
-})
+});
 
-const server = new GraphQLServer({
+const server = new ApolloServer({
   schema,
-  // middlewares: [permissions], // TODO: Fix after https://github.com/maticzav/graphql-shield/issues/361
-  context: request => {
+  context: (request) => {
     return {
       ...request,
       photon,
-    }
+    };
   },
-})
+  playground: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === 'development',
+});
 
-server.start(() => console.log(`🚀 Server ready at http://localhost:4000`))
+server.listen().then(({ url, server }) => {
+  console.log(`🚀 Server is running on ${url}`);
+});
