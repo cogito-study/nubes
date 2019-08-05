@@ -22,6 +22,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  UserRoleTypeEnum: "ADMIN" | "PROFESSOR" | "USER"
 }
 
 export interface NexusGenRootTypes {
@@ -53,6 +54,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  UserRoleTypeEnum: NexusGenEnums['UserRoleTypeEnum'];
 }
 
 export interface NexusGenFieldTypes {
@@ -203,7 +205,7 @@ export interface NexusGenFieldTypes {
     password: string; // String!
     passwordToken: NexusGenRootTypes['PasswordToken']; // PasswordToken!
     phoneNumber: string; // String!
-    profilePictureURL: string; // String!
+    profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole']; // UserRole!
     study: NexusGenRootTypes['Subject'][] | null; // [Subject!]
     suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
@@ -215,8 +217,9 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     id: string; // ID!
     name: string; // String!
+    type: NexusGenEnums['UserRoleTypeEnum']; // UserRoleTypeEnum!
     updatedAt: any; // DateTime!
-    users: NexusGenRootTypes['User']; // User!
+    users: NexusGenRootTypes['User'][] | null; // [User!]
   }
 }
 
@@ -423,6 +426,15 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     }
   }
+  UserRole: {
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -434,7 +446,7 @@ export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "UserRoleTypeEnum";
 
 export type NexusGenInterfaceNames = never;
 

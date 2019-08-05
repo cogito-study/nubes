@@ -166,7 +166,7 @@ type User {
   password: String!
   passwordToken: PasswordToken!
   phoneNumber: String!
-  profilePictureURL: String!
+  profilePictureURL: String
   role: UserRole!
   study(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
   suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
@@ -179,6 +179,13 @@ type UserRole {
   deletedAt: DateTime
   id: ID!
   name: String!
+  type: UserRoleTypeEnum!
   updatedAt: DateTime!
-  users: User!
+  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+}
+
+enum UserRoleTypeEnum {
+  ADMIN
+  PROFESSOR
+  USER
 }

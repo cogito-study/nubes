@@ -1,15 +1,23 @@
-import { objectType } from '@prisma/nexus';
+import { objectType, enumType } from '@prisma/nexus';
+import { NoteCategory } from '@generated/photon';
 
 export const Note = objectType({
   name: 'Note',
   definition(t) {
     t.model.id();
-    t.model.conent();
+    t.model.content();
     t.model.contentHTML();
     t.model.title();
     t.model.number();
     t.model.description();
-    t.model.noteCategory;
+    // TODO: Fix when prisma2 supports enums
+    t.field('noteCategory', {
+      type: enumType({
+        name: 'NoteCategoryEnum',
+        members: NoteCategory,
+      }),
+      resolve: ({ noteCategory }) => noteCategory,
+    });
 
     t.model.suggestions({ type: 'Suggestion' });
     t.model.commentThreads({ type: 'NoteCommentThread' });
