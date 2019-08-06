@@ -52,12 +52,13 @@ model Note {
   number         Int
   description    String?
   noteCategory   NoteCategory
-  suggestions    Suggestion[]        @relation(name: "NoteSuggestions")
+  suggestions    Suggestion          @relation(name: "NoteSuggestions")
   commentThreads NoteCommentThread[] @relation(name: "NoteCommentThreads")
   authors        User[]              @relation(name: "NoteAuthors")
-  likers         User[]              @relation(name: "NoteLikers")
+  likes          User[]              @relation(name: "NoteLikes")
   highlights     NoteHighlight[]     @relation(name: "NoteHighlights")
-  subject        Subject             @relation(name: "SubjectNotes")
+  topHighlights  TopNoteHighlight[]  @relation(name: "NoteTopHighlights")
+  subject        Subject[]           @relation(name: "SubjectNotes")
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
   deletedAt      DateTime?
@@ -66,8 +67,9 @@ model Note {
 model NoteComment {
   id          String             @default(cuid()) @id @unique
   content     String
+  position    String
   author      User               @relation(name: "CommentAuthor")
-  likers      User[]             @relation(name: "CommentLikers")
+  likes       User[]             @relation(name: "CommentLikes")
   thread      NoteCommentThread? @relation(name: "NoteCommentThreadComment")
   threadReply NoteCommentThread? @relation(name: "NoteCommentThreadReplies")
   createdAt   DateTime           @default(now())
@@ -77,7 +79,6 @@ model NoteComment {
 
 model NoteCommentThread {
   id        String        @default(cuid()) @id @unique
-  position  String
   comment   NoteComment   @relation(name: "NoteCommentThreadComment")
   replies   NoteComment[] @relation(name: "NoteCommentThreadReplies")
   note      Note          @relation(name: "NoteCommentThreads")
@@ -135,13 +136,21 @@ model Suggestion {
   id         String    @default(cuid()) @id @unique
   delta      String
   approvedAt DateTime?
-  likers     User[]    @relation(name: "SuggestionLikers")
   approvedBy User?     @relation(name: "SuggestionApprovedBy")
   note       Note      @relation(name: "NoteSuggestions")
   author     User      @relation(name: "SuggestionAuthor")
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
+}
+
+model TopNoteHighlight {
+  id        String    @default(cuid()) @id @unique
+  position  String
+  note      Note      @relation(name: "NoteTopHighlights")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model User {
@@ -151,22 +160,21 @@ model User {
   profilePictureURL   String?
   firstName           String
   lastName            String
-  phoneNumber         String?
+  phoneNumber         String
   identifier          String
   role                UserRole        @relation(name: "UserRole")
   notes               Note[]          @relation(name: "NoteAuthors")
   noteHighlights      NoteHighlight[] @relation(name: "UserNoteHighlights")
   suggestions         Suggestion[]    @relation(name: "SuggestionAuthor")
   approvedSuggestions Suggestion[]    @relation(name: "SuggestionApprovedBy")
-  teachedSubjects     Subject[]       @relation(name: "SubjectTeachers")
-  studiedSubjects     Subject[]       @relation(name: "SubjectStudents")
-  likedNotes          Note[]          @relation(name: "NoteLikers")
+  teach               Subject[]       @relation(name: "SubjectTeachers")
+  study               Subject[]       @relation(name: "SubjectStudents")
+  noteLikes           Note[]          @relation(name: "NoteLikes")
   comments            NoteComment[]   @relation(name: "CommentAuthor")
-  likedComments       NoteComment[]   @relation(name: "CommentLikers")
-  likedSuggestions    Suggestion[]    @relation(name: "SuggestionLikers")
+  commentLikes        NoteComment[]   @relation(name: "CommentLikes")
   passwordToken       PasswordToken   @relation(name: "PasswordTokenUser")
   departments         Department[]    @relation(name: "DepartmentLeader")
-  institutes          Institute[]     @relation(name: "InstituteUsers")
+  institute           Institute[]     @relation(name: "InstituteUsers")
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
   deletedAt           DateTime?

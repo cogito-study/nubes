@@ -55,7 +55,7 @@ model Note {
   suggestions    Suggestion[]        @relation(name: "NoteSuggestions")
   commentThreads NoteCommentThread[] @relation(name: "NoteCommentThreads")
   authors        User[]              @relation(name: "NoteAuthors")
-  likers         User[]              @relation(name: "NoteLikers")
+  likes          User[]              @relation(name: "NoteLikes")
   highlights     NoteHighlight[]     @relation(name: "NoteHighlights")
   subject        Subject             @relation(name: "SubjectNotes")
   createdAt      DateTime            @default(now())
@@ -66,8 +66,9 @@ model Note {
 model NoteComment {
   id          String             @default(cuid()) @id @unique
   content     String
+  position    String
   author      User               @relation(name: "CommentAuthor")
-  likers      User[]             @relation(name: "CommentLikers")
+  likes       User[]             @relation(name: "CommentLikes")
   thread      NoteCommentThread? @relation(name: "NoteCommentThreadComment")
   threadReply NoteCommentThread? @relation(name: "NoteCommentThreadReplies")
   createdAt   DateTime           @default(now())
@@ -77,7 +78,6 @@ model NoteComment {
 
 model NoteCommentThread {
   id        String        @default(cuid()) @id @unique
-  position  String
   comment   NoteComment   @relation(name: "NoteCommentThreadComment")
   replies   NoteComment[] @relation(name: "NoteCommentThreadReplies")
   note      Note          @relation(name: "NoteCommentThreads")
@@ -135,7 +135,7 @@ model Suggestion {
   id         String    @default(cuid()) @id @unique
   delta      String
   approvedAt DateTime?
-  likers     User[]    @relation(name: "SuggestionLikers")
+  likes      User[]    @relation(name: "SuggestionLikes")
   approvedBy User?     @relation(name: "SuggestionApprovedBy")
   note       Note      @relation(name: "NoteSuggestions")
   author     User      @relation(name: "SuggestionAuthor")
@@ -151,7 +151,7 @@ model User {
   profilePictureURL   String?
   firstName           String
   lastName            String
-  phoneNumber         String?
+  phoneNumber         String
   identifier          String
   role                UserRole        @relation(name: "UserRole")
   notes               Note[]          @relation(name: "NoteAuthors")
@@ -160,10 +160,10 @@ model User {
   approvedSuggestions Suggestion[]    @relation(name: "SuggestionApprovedBy")
   teachedSubjects     Subject[]       @relation(name: "SubjectTeachers")
   studiedSubjects     Subject[]       @relation(name: "SubjectStudents")
-  likedNotes          Note[]          @relation(name: "NoteLikers")
+  noteLikes           Note[]          @relation(name: "NoteLikes")
   comments            NoteComment[]   @relation(name: "CommentAuthor")
-  likedComments       NoteComment[]   @relation(name: "CommentLikers")
-  likedSuggestions    Suggestion[]    @relation(name: "SuggestionLikers")
+  commentLikes        NoteComment[]   @relation(name: "CommentLikes")
+  suggestionLikes     Suggestion[]    @relation(name: "SuggestionLikes")
   passwordToken       PasswordToken   @relation(name: "PasswordTokenUser")
   departments         Department[]    @relation(name: "DepartmentLeader")
   institutes          Institute[]     @relation(name: "InstituteUsers")

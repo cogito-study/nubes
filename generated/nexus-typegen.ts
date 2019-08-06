@@ -22,6 +22,8 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  NoteCategoryEnum: "CASE_STUDY" | "NOTE"
+  UserRoleTypeEnum: "ADMIN" | "PROFESSOR" | "USER"
 }
 
 export interface NexusGenRootTypes {
@@ -29,10 +31,20 @@ export interface NexusGenRootTypes {
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Department: photon.Department;
+  Institute: photon.Institute;
   Mutation: {};
-  Post: photon.Post;
+  Note: photon.Note;
+  NoteComment: photon.NoteComment;
+  NoteCommentThread: photon.NoteCommentThread;
+  NoteHighlight: photon.NoteHighlight;
+  PasswordToken: photon.PasswordToken;
   Query: {};
+  Subject: photon.Subject;
+  SubjectInformation: photon.SubjectInformation;
+  Suggestion: photon.Suggestion;
   User: photon.User;
+  UserRole: photon.UserRole;
   String: string;
   Int: number;
   Float: number;
@@ -42,6 +54,8 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  NoteCategoryEnum: NexusGenEnums['NoteCategoryEnum'];
+  UserRoleTypeEnum: NexusGenEnums['UserRoleTypeEnum'];
 }
 
 export interface NexusGenFieldTypes {
@@ -49,66 +63,368 @@ export interface NexusGenFieldTypes {
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
-  Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post']; // Post!
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
+  Department: { // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    description: string; // String!
     id: string; // ID!
-    published: boolean; // Boolean!
+    institute: NexusGenRootTypes['Institute']; // Institute!
+    leader: NexusGenRootTypes['User']; // User!
+    name: string; // String!
+    subjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    updatedAt: any; // DateTime!
+  }
+  Institute: { // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    departments: NexusGenRootTypes['Department'][] | null; // [Department!]
+    id: string; // ID!
+    name: string; // String!
+    updatedAt: any; // DateTime!
+    users: NexusGenRootTypes['User'][] | null; // [User!]
+  }
+  Mutation: { // field return type
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+  }
+  Note: { // field return type
+    authors: NexusGenRootTypes['User'][] | null; // [User!]
+    commentThreads: NexusGenRootTypes['NoteCommentThread'][] | null; // [NoteCommentThread!]
+    content: string; // String!
+    contentHTML: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    description: string | null; // String
+    highlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
+    id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
+    noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
+    number: number; // Int!
+    subject: NexusGenRootTypes['Subject']; // Subject!
+    suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
     title: string; // String!
+    updatedAt: any; // DateTime!
+  }
+  NoteComment: { // field return type
+    author: NexusGenRootTypes['User']; // User!
+    content: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    thread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    threadReply: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    updatedAt: any; // DateTime!
+  }
+  NoteCommentThread: { // field return type
+    comment: NexusGenRootTypes['NoteComment']; // NoteComment!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    note: NexusGenRootTypes['Note']; // Note!
+    position: string; // String!
+    replies: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
+    updatedAt: any; // DateTime!
+  }
+  NoteHighlight: { // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    note: NexusGenRootTypes['Note']; // Note!
+    position: string; // String!
+    updatedAt: any; // DateTime!
+    user: NexusGenRootTypes['User']; // User!
+  }
+  PasswordToken: { // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    token: string; // String!
+    updatedAt: any; // DateTime!
+    user: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
-    feed: NexusGenRootTypes['Post'][]; // [Post!]!
-    filterPosts: NexusGenRootTypes['Post'][]; // [Post!]!
     me: NexusGenRootTypes['User']; // User!
-    post: NexusGenRootTypes['Post'] | null; // Post
+  }
+  Subject: { // field return type
+    code: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    department: NexusGenRootTypes['Department']; // Department!
+    description: string; // String!
+    id: string; // ID!
+    informations: NexusGenRootTypes['SubjectInformation'][] | null; // [SubjectInformation!]
+    name: string; // String!
+    notes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    students: NexusGenRootTypes['User'][] | null; // [User!]
+    teachers: NexusGenRootTypes['User'][] | null; // [User!]
+    updatedAt: any; // DateTime!
+  }
+  SubjectInformation: { // field return type
+    content: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    subject: NexusGenRootTypes['Subject']; // Subject!
+    subtitle: string | null; // String
+    title: string; // String!
+    updatedAt: any; // DateTime!
+  }
+  Suggestion: { // field return type
+    approvedAt: any | null; // DateTime
+    approvedBy: NexusGenRootTypes['User'] | null; // User
+    author: NexusGenRootTypes['User']; // User!
+    deletedAt: any | null; // DateTime
+    delta: string; // String!
+    id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    note: NexusGenRootTypes['Note']; // Note!
+    updatedAt: any; // DateTime!
   }
   User: { // field return type
+    approvedSuggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
+    comments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    departments: NexusGenRootTypes['Department'][] | null; // [Department!]
     email: string; // String!
+    firstName: string; // String!
     id: string; // ID!
-    name: string | null; // String
-    posts: NexusGenRootTypes['Post'][] | null; // [Post!]
+    identifier: string; // String!
+    institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
+    lastName: string; // String!
+    likedComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
+    likedNotes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
+    notes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    password: string; // String!
+    passwordToken: NexusGenRootTypes['PasswordToken']; // PasswordToken!
+    phoneNumber: string | null; // String
+    profilePictureURL: string | null; // String
+    role: NexusGenRootTypes['UserRole']; // UserRole!
+    studiedSubjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
+    teachedSubjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    updatedAt: any; // DateTime!
+  }
+  UserRole: { // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    name: string; // String!
+    type: NexusGenEnums['UserRoleTypeEnum']; // UserRoleTypeEnum!
+    updatedAt: any; // DateTime!
+    users: NexusGenRootTypes['User'][] | null; // [User!]
   }
 }
 
 export interface NexusGenArgTypes {
+  Department: {
+    subjects: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
+  Institute: {
+    departments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
   Mutation: {
-    createDraft: { // args
-      content?: string | null; // String
-      title?: string | null; // String
-    }
-    deletePost: { // args
-      id?: string | null; // ID
-    }
     login: { // args
       email?: string | null; // String
       password?: string | null; // String
     }
-    publish: { // args
-      id?: string | null; // ID
+  }
+  Note: {
+    authors: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
-    signup: { // args
-      email?: string | null; // String
-      name?: string | null; // String
-      password?: string | null; // String
+    commentThreads: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    highlights: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    likers: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    suggestions: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
   }
-  Query: {
-    filterPosts: { // args
-      searchString?: string | null; // String
+  NoteComment: {
+    likers: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
-    post: { // args
-      id?: string | null; // ID
+  }
+  NoteCommentThread: {
+    replies: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
+  Subject: {
+    informations: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    notes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    students: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    teachers: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
+  Suggestion: {
+    likers: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
   }
   User: {
-    posts: { // args
+    approvedSuggestions: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    comments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    departments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    institutes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    likedComments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    likedNotes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    noteHighlights: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    notes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    studiedSubjects: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    suggestions: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    teachedSubjects: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
+  UserRole: {
+    users: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -123,11 +439,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Post" | "Query" | "User";
+export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "Mutation" | "Note" | "NoteComment" | "NoteCommentThread" | "NoteHighlight" | "PasswordToken" | "Query" | "Subject" | "SubjectInformation" | "Suggestion" | "User" | "UserRole";
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "NoteCategoryEnum" | "UserRoleTypeEnum";
 
 export type NexusGenInterfaceNames = never;
 

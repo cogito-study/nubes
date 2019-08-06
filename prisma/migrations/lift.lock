@@ -4,3 +4,6 @@
 # Read more about conflict resolution here: TODO
 
 20190801135018-init
+20190805165933-init-schema
+20190806132643-fix-relations
+20190806152911-schema-revision
