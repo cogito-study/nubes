@@ -22,6 +22,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  NoteCategoryEnum: "CASE_STUDY" | "NOTE"
   UserRoleTypeEnum: "ADMIN" | "PROFESSOR" | "USER"
 }
 
@@ -42,7 +43,6 @@ export interface NexusGenRootTypes {
   Subject: photon.Subject;
   SubjectInformation: photon.SubjectInformation;
   Suggestion: photon.Suggestion;
-  TopNoteHighlight: photon.TopNoteHighlight;
   User: photon.User;
   UserRole: photon.UserRole;
   String: string;
@@ -54,6 +54,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  NoteCategoryEnum: NexusGenEnums['NoteCategoryEnum'];
   UserRoleTypeEnum: NexusGenEnums['UserRoleTypeEnum'];
 }
 
@@ -88,19 +89,20 @@ export interface NexusGenFieldTypes {
   Note: { // field return type
     authors: NexusGenRootTypes['User'][] | null; // [User!]
     commentThreads: NexusGenRootTypes['NoteCommentThread'][] | null; // [NoteCommentThread!]
-    conent: string; // String!
+    content: string; // String!
     contentHTML: string; // String!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     description: string | null; // String
     highlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     id: string; // ID!
-    likes: NexusGenRootTypes['User'][] | null; // [User!]
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
+    noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
     number: number; // Int!
-    subject: NexusGenRootTypes['Subject'][] | null; // [Subject!]
-    suggestions: NexusGenRootTypes['Suggestion']; // Suggestion!
+    subject: NexusGenRootTypes['Subject']; // Subject!
+    suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
     title: string; // String!
-    topHighlights: NexusGenRootTypes['TopNoteHighlight'][] | null; // [TopNoteHighlight!]
     updatedAt: any; // DateTime!
   }
   NoteComment: { // field return type
@@ -109,8 +111,7 @@ export interface NexusGenFieldTypes {
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
-    likes: NexusGenRootTypes['User'][] | null; // [User!]
-    position: string; // String!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
     thread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     threadReply: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     updatedAt: any; // DateTime!
@@ -121,6 +122,7 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     id: string; // ID!
     note: NexusGenRootTypes['Note']; // Note!
+    position: string; // String!
     replies: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     updatedAt: any; // DateTime!
   }
@@ -175,20 +177,12 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     delta: string; // String!
     id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
     note: NexusGenRootTypes['Note']; // Note!
-    updatedAt: any; // DateTime!
-  }
-  TopNoteHighlight: { // field return type
-    createdAt: any; // DateTime!
-    deletedAt: any | null; // DateTime
-    id: string; // ID!
-    note: NexusGenRootTypes['Note']; // Note!
-    position: string; // String!
     updatedAt: any; // DateTime!
   }
   User: { // field return type
     approvedSuggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
-    commentLikes: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     comments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
@@ -197,19 +191,20 @@ export interface NexusGenFieldTypes {
     firstName: string; // String!
     id: string; // ID!
     identifier: string; // String!
-    institute: NexusGenRootTypes['Institute'][] | null; // [Institute!]
+    institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
     lastName: string; // String!
+    likedComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
+    likedNotes: NexusGenRootTypes['Note'][] | null; // [Note!]
     noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
-    noteLikes: NexusGenRootTypes['Note'][] | null; // [Note!]
     notes: NexusGenRootTypes['Note'][] | null; // [Note!]
     password: string; // String!
     passwordToken: NexusGenRootTypes['PasswordToken']; // PasswordToken!
-    phoneNumber: string; // String!
+    phoneNumber: string | null; // String
     profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole']; // UserRole!
-    study: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    studiedSubjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
     suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
-    teach: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    teachedSubjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
     updatedAt: any; // DateTime!
   }
   UserRole: { // field return type
@@ -277,21 +272,14 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    likes: { // args
+    likers: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    subject: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    topHighlights: { // args
+    suggestions: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -300,7 +288,7 @@ export interface NexusGenArgTypes {
     }
   }
   NoteComment: {
-    likes: { // args
+    likers: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -347,15 +335,17 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     }
   }
-  User: {
-    approvedSuggestions: { // args
+  Suggestion: {
+    likers: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    commentLikes: { // args
+  }
+  User: {
+    approvedSuggestions: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -376,7 +366,21 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    institute: { // args
+    institutes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    likedComments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    likedNotes: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -390,13 +394,6 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    noteLikes: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
     notes: { // args
       after?: string | null; // String
       before?: string | null; // String
@@ -404,7 +401,7 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    study: { // args
+    studiedSubjects: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -418,7 +415,7 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
-    teach: { // args
+    teachedSubjects: { // args
       after?: string | null; // String
       before?: string | null; // String
       first?: number | null; // Int
@@ -442,11 +439,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "Mutation" | "Note" | "NoteComment" | "NoteCommentThread" | "NoteHighlight" | "PasswordToken" | "Query" | "Subject" | "SubjectInformation" | "Suggestion" | "TopNoteHighlight" | "User" | "UserRole";
+export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "Mutation" | "Note" | "NoteComment" | "NoteCommentThread" | "NoteHighlight" | "PasswordToken" | "Query" | "Subject" | "SubjectInformation" | "Suggestion" | "User" | "UserRole";
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = "UserRoleTypeEnum";
+export type NexusGenEnumNames = "NoteCategoryEnum" | "UserRoleTypeEnum";
 
 export type NexusGenInterfaceNames = never;
 

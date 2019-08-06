@@ -17,14 +17,14 @@ export const User = objectType({
     t.model.noteHighlights({ type: 'NoteHighlight' });
     t.model.suggestions({ type: 'Suggestion' });
     t.model.approvedSuggestions({ type: 'Suggestion' });
-    t.model.teach({ type: 'Subject' });
-    t.model.study({ type: 'Subject' });
-    t.model.noteLikes({ type: 'Note' });
+    t.model.teachedSubjects({ type: 'Subject' });
+    t.model.studiedSubjects({ type: 'Subject' });
+    t.model.likedNotes({ type: 'Note' });
     t.model.comments({ type: 'NoteComment' });
-    t.model.commentLikes({ type: 'NoteComment' });
+    t.model.likedComments({ type: 'NoteComment' });
     t.model.passwordToken({ type: 'PasswordToken' });
     t.model.departments({ type: 'Department' });
-    t.model.institute({ type: 'Institute' });
+    t.model.institutes({ type: 'Institute' });
 
     t.model.createdAt();
     t.model.updatedAt();

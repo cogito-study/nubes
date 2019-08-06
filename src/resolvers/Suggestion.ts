@@ -7,6 +7,7 @@ export const Suggestion = objectType({
     t.model.approvedAt();
     t.model.delta();
 
+    t.model.likers({ type: 'User' });
     t.model.note({ type: 'Note' });
     t.model.author({ type: 'User' });
     t.model.approvedBy({ type: 'User' });

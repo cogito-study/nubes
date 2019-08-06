@@ -22,9 +22,8 @@ export const Note = objectType({
     t.model.suggestions({ type: 'Suggestion' });
     t.model.commentThreads({ type: 'NoteCommentThread' });
     t.model.authors({ type: 'User' });
-    t.model.likes({ type: 'User' });
+    t.model.likers({ type: 'User' });
     t.model.highlights({ type: 'NoteHighlight' });
-    t.model.topHighlights({ type: 'TopNoteHighlight' });
     t.model.subject({ type: 'Subject' });
 
     t.model.createdAt();

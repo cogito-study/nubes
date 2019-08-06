@@ -39,20 +39,28 @@ type Mutation {
 type Note {
   authors(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   commentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
-  conent: String!
+  content: String!
   contentHTML: String!
   createdAt: DateTime!
   deletedAt: DateTime
   description: String
   highlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
   id: ID!
-  likes(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the note"""
+  likesCount: Int!
+  noteCategory: NoteCategoryEnum!
   number: Int!
-  subject(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
-  suggestions: Suggestion!
+  subject: Subject!
+  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
   title: String!
-  topHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [TopNoteHighlight!]
   updatedAt: DateTime!
+}
+
+enum NoteCategoryEnum {
+  CASE_STUDY
+  NOTE
 }
 
 type NoteComment {
@@ -61,8 +69,7 @@ type NoteComment {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  likes(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  position: String!
+  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   thread: NoteCommentThread
   threadReply: NoteCommentThread
   updatedAt: DateTime!
@@ -74,6 +81,7 @@ type NoteCommentThread {
   deletedAt: DateTime
   id: ID!
   note: Note!
+  position: String!
   replies(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   updatedAt: DateTime!
 }
@@ -134,22 +142,13 @@ type Suggestion {
   deletedAt: DateTime
   delta: String!
   id: ID!
+  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   note: Note!
-  updatedAt: DateTime!
-}
-
-type TopNoteHighlight {
-  createdAt: DateTime!
-  deletedAt: DateTime
-  id: ID!
-  note: Note!
-  position: String!
   updatedAt: DateTime!
 }
 
 type User {
   approvedSuggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  commentLikes(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   comments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   createdAt: DateTime!
   deletedAt: DateTime
@@ -158,19 +157,20 @@ type User {
   firstName: String!
   id: ID!
   identifier: String!
-  institute(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
   lastName: String!
+  likedComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  likedNotes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  noteLikes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   password: String!
   passwordToken: PasswordToken!
-  phoneNumber: String!
+  phoneNumber: String
   profilePictureURL: String
   role: UserRole!
-  study(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  studiedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
   suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  teach(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  teachedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
   updatedAt: DateTime!
 }
 

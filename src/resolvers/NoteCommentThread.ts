@@ -4,6 +4,7 @@ export const NoteCommentThread = objectType({
   name: 'NoteCommentThread',
   definition(t) {
     t.model.id();
+    t.model.position();
 
     t.model.comment({ type: 'NoteComment' });
     t.model.replies({ type: 'NoteComment' });

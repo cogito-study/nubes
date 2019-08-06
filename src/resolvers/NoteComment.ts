@@ -5,10 +5,9 @@ export const NoteComment = objectType({
   definition(t) {
     t.model.id();
     t.model.content();
-    t.model.position();
 
     t.model.author({ type: 'User' });
-    t.model.likes({ type: 'User' });
+    t.model.likers({ type: 'User' });
     t.model.thread({ type: 'NoteCommentThread' });
     t.model.threadReply({ type: 'NoteCommentThread' });
 
