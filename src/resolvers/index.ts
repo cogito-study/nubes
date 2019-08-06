@@ -1,14 +1,12 @@
 import { AuthPayload } from './AuthPayload';
 import { Mutation } from './Mutation';
 import { Query } from './Query';
-
 import { Department } from './Department';
 import { Institute } from './Institute';
 import { Note } from './Note';
 import { NoteComment } from './NoteComment';
 import { NoteCommentThread } from './NoteCommentThread';
 import { NoteHighlight } from './NoteHighlight';
-import { TopNoteHighlight } from './TopNoteHighlight';
 import { PasswordToken } from './PasswordToken';
 import { Subject } from './Subject';
 import { SubjectInformation } from './SubjectInformation';
@@ -26,7 +24,6 @@ export const resolvers = {
   NoteComment,
   NoteCommentThread,
   NoteHighlight,
-  TopNoteHighlight,
   PasswordToken,
   Subject,
   SubjectInformation,
