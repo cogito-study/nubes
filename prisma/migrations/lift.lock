@@ -7,3 +7,4 @@
 20190805165933-init-schema
 20190806132643-fix-relations
 20190806152911-schema-revision
+20190806175216-password-token-optional

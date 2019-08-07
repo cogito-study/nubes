@@ -1,6 +1,6 @@
-import { AuthPayload } from './AuthPayload';
 import { Mutation } from './Mutation';
 import { Query } from './Query';
+import { AuthPayload } from './auth-payload';
 import { Department } from './Department';
 import { Institute } from './Institute';
 import { Note } from './Note';

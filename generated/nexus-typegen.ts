@@ -97,7 +97,6 @@ export interface NexusGenFieldTypes {
     highlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     id: string; // ID!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
-    likesCount: number; // Int!
     noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
     number: number; // Int!
     subject: NexusGenRootTypes['Subject']; // Subject!

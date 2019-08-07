@@ -47,9 +47,6 @@ type Note {
   highlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
   id: ID!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-
-  """Number of likes on the note"""
-  likesCount: Int!
   noteCategory: NoteCategoryEnum!
   number: Int!
   subject: Subject!
