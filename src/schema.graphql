@@ -22,6 +22,182 @@ type Department {
   updatedAt: DateTime!
 }
 
+input DepartmentCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  id: ID
+  institute: InstituteCreateOneWithoutInstituteInput!
+  leader: UserCreateOneWithoutLeaderInput!
+  name: String!
+  subjects: SubjectCreateManyWithoutSubjectsInput
+  updatedAt: DateTime
+}
+
+input DepartmentCreateManyWithoutDepartmentsInput {
+  connect: [DepartmentWhereUniqueInput!]
+  create: [DepartmentCreateWithoutLeaderInput!]
+}
+
+input DepartmentCreateOneWithoutDepartmentInput {
+  connect: DepartmentWhereUniqueInput
+  create: DepartmentCreateWithoutSubjectsInput
+}
+
+input DepartmentCreateWithoutInstituteInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  id: ID
+  leader: UserCreateOneWithoutLeaderInput!
+  name: String!
+  subjects: SubjectCreateManyWithoutSubjectsInput
+  updatedAt: DateTime
+}
+
+input DepartmentCreateWithoutLeaderInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  id: ID
+  institute: InstituteCreateOneWithoutInstituteInput!
+  name: String!
+  subjects: SubjectCreateManyWithoutSubjectsInput
+  updatedAt: DateTime
+}
+
+input DepartmentCreateWithoutSubjectsInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  id: ID
+  institute: InstituteCreateOneWithoutInstituteInput!
+  leader: UserCreateOneWithoutLeaderInput!
+  name: String!
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  institute: InstituteUpdateOneRequiredWithoutDepartmentsInput
+  leader: UserUpdateOneRequiredWithoutDepartmentsInput
+  name: String
+  subjects: SubjectUpdateManyWithoutDepartmentInput
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateManyDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateManyWithoutInstituteInput {
+  connect: [DepartmentWhereUniqueInput!]
+  create: [DepartmentCreateWithoutInstituteInput!]
+  delete: [DepartmentWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneInstituteWhereInput!]
+  disconnect: [DepartmentWhereUniqueInput!]
+  set: [DepartmentWhereUniqueInput!]
+  update: [DepartmentUpdateWithWhereUniqueWithoutInstituteInput!]
+  updateMany: [DepartmentUpdateManyWithWhereNestedInput!]
+  upsert: [DepartmentUpsertWithWhereUniqueWithoutInstituteInput!]
+}
+
+input DepartmentUpdateManyWithoutLeaderInput {
+  connect: [DepartmentWhereUniqueInput!]
+  create: [DepartmentCreateWithoutLeaderInput!]
+  delete: [DepartmentWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteCommentWhereInput!]
+  disconnect: [DepartmentWhereUniqueInput!]
+  set: [DepartmentWhereUniqueInput!]
+  update: [DepartmentUpdateWithWhereUniqueWithoutLeaderInput!]
+  updateMany: [DepartmentUpdateManyWithWhereNestedInput!]
+  upsert: [DepartmentUpsertWithWhereUniqueWithoutLeaderInput!]
+}
+
+input DepartmentUpdateManyWithWhereNestedInput {
+  data: DepartmentUpdateManyDataInput!
+  where: MutationUpdateOneInstituteWhereInput!
+}
+
+input DepartmentUpdateOneRequiredWithoutSubjectsInput {
+  connect: DepartmentWhereUniqueInput
+  create: DepartmentCreateWithoutSubjectsInput
+  update: DepartmentUpdateWithoutSubjectsDataInput
+  upsert: DepartmentUpsertWithoutSubjectsInput
+}
+
+input DepartmentUpdateWithoutInstituteDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  leader: UserUpdateOneRequiredWithoutDepartmentsInput
+  name: String
+  subjects: SubjectUpdateManyWithoutDepartmentInput
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateWithoutLeaderDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  institute: InstituteUpdateOneRequiredWithoutDepartmentsInput
+  name: String
+  subjects: SubjectUpdateManyWithoutDepartmentInput
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateWithoutSubjectsDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  institute: InstituteUpdateOneRequiredWithoutDepartmentsInput
+  leader: UserUpdateOneRequiredWithoutDepartmentsInput
+  name: String
+  updatedAt: DateTime
+}
+
+input DepartmentUpdateWithWhereUniqueWithoutInstituteInput {
+  data: DepartmentUpdateWithoutInstituteDataInput!
+  where: DepartmentWhereUniqueInput!
+}
+
+input DepartmentUpdateWithWhereUniqueWithoutLeaderInput {
+  data: DepartmentUpdateWithoutLeaderDataInput!
+  where: DepartmentWhereUniqueInput!
+}
+
+input DepartmentUpsertWithoutSubjectsInput {
+  create: DepartmentCreateWithoutSubjectsInput!
+  update: DepartmentUpdateWithoutSubjectsDataInput!
+}
+
+input DepartmentUpsertWithWhereUniqueWithoutInstituteInput {
+  create: DepartmentCreateWithoutInstituteInput!
+  update: DepartmentUpdateWithoutInstituteDataInput!
+  where: DepartmentWhereUniqueInput!
+}
+
+input DepartmentUpsertWithWhereUniqueWithoutLeaderInput {
+  create: DepartmentCreateWithoutLeaderInput!
+  update: DepartmentUpdateWithoutLeaderDataInput!
+  where: DepartmentWhereUniqueInput!
+}
+
+input DepartmentWhereUniqueInput {
+  id: ID
+}
+
 type Institute {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -32,8 +208,381 @@ type Institute {
   users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
 }
 
+input InstituteCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  id: ID
+  name: String!
+  updatedAt: DateTime
+  users: UserCreateManyWithoutUsersInput
+}
+
+input InstituteCreateManyWithoutInstitutesInput {
+  connect: [InstituteWhereUniqueInput!]
+  create: [InstituteCreateWithoutUsersInput!]
+}
+
+input InstituteCreateOneWithoutInstituteInput {
+  connect: InstituteWhereUniqueInput
+  create: InstituteCreateWithoutDepartmentsInput
+}
+
+input InstituteCreateWithoutDepartmentsInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String!
+  updatedAt: DateTime
+  users: UserCreateManyWithoutUsersInput
+}
+
+input InstituteCreateWithoutUsersInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  id: ID
+  name: String!
+  updatedAt: DateTime
+}
+
+input InstituteUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutInstituteInput
+  id: ID
+  name: String
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutInstitutesInput
+}
+
+input InstituteUpdateManyDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input InstituteUpdateManyWithoutUsersInput {
+  connect: [InstituteWhereUniqueInput!]
+  create: [InstituteCreateWithoutUsersInput!]
+  delete: [InstituteWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [InstituteWhereUniqueInput!]
+  set: [InstituteWhereUniqueInput!]
+  update: [InstituteUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [InstituteUpdateManyWithWhereNestedInput!]
+  upsert: [InstituteUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input InstituteUpdateManyWithWhereNestedInput {
+  data: InstituteUpdateManyDataInput!
+  where: MutationUpdateOneDepartmentWhereInput!
+}
+
+input InstituteUpdateOneRequiredWithoutDepartmentsInput {
+  connect: InstituteWhereUniqueInput
+  create: InstituteCreateWithoutDepartmentsInput
+  update: InstituteUpdateWithoutDepartmentsDataInput
+  upsert: InstituteUpsertWithoutDepartmentsInput
+}
+
+input InstituteUpdateWithoutDepartmentsDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutInstitutesInput
+}
+
+input InstituteUpdateWithoutUsersDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutInstituteInput
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input InstituteUpdateWithWhereUniqueWithoutUsersInput {
+  data: InstituteUpdateWithoutUsersDataInput!
+  where: InstituteWhereUniqueInput!
+}
+
+input InstituteUpsertWithoutDepartmentsInput {
+  create: InstituteCreateWithoutDepartmentsInput!
+  update: InstituteUpdateWithoutDepartmentsDataInput!
+}
+
+input InstituteUpsertWithWhereUniqueWithoutUsersInput {
+  create: InstituteCreateWithoutUsersInput!
+  update: InstituteUpdateWithoutUsersDataInput!
+  where: InstituteWhereUniqueInput!
+}
+
+input InstituteWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
-  login(email: String, password: String): AuthPayload!
+  createOneDepartment(data: DepartmentCreateInput!): Department!
+  createOneInstitute(data: InstituteCreateInput!): Institute!
+  createOneNote(data: NoteCreateInput!): Note!
+  createOneNoteComment(data: NoteCommentCreateInput!): NoteComment!
+  createOneNoteCommentThread(data: NoteCommentThreadCreateInput!): NoteCommentThread!
+  createOnePasswordToken(data: PasswordTokenCreateInput!): PasswordToken!
+  createOneSubject(data: SubjectCreateInput!): Subject!
+  createOneSubjectInformation(data: SubjectInformationCreateInput!): SubjectInformation!
+  createOneSuggestion(data: SuggestionCreateInput!): Suggestion!
+  createOneUser(data: UserCreateInput!): User!
+  createOneUserRole(data: UserRoleCreateInput!): UserRole!
+  deleteOneDepartment(where: DepartmentWhereUniqueInput!): Department
+  deleteOneInstitute(where: InstituteWhereUniqueInput!): Institute
+  deleteOneNote(where: NoteWhereUniqueInput!): Note
+  deleteOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
+  deleteOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  deleteOnePasswordToken(where: PasswordTokenWhereUniqueInput!): PasswordToken
+  deleteOneSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  deleteOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
+  deleteOneUser(where: UserWhereUniqueInput!): User
+  deleteOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+  updateOneDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
+  updateOneInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
+  updateOneNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
+  updateOneNoteComment(data: NoteCommentUpdateInput!, where: NoteCommentWhereUniqueInput!): NoteComment
+  updateOneNoteCommentThread(data: NoteCommentThreadUpdateInput!, where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  updateOnePasswordToken(data: PasswordTokenUpdateInput!, where: PasswordTokenWhereUniqueInput!): PasswordToken
+  updateOneSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateOneSubjectInformation(data: SubjectInformationUpdateInput!, where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  updateOneSuggestion(data: SuggestionUpdateInput!, where: SuggestionWhereUniqueInput!): Suggestion
+  updateOneUserRole(data: UserRoleUpdateInput!, where: UserRoleWhereUniqueInput!): UserRole
+}
+
+input MutationUpdateOneDepartmentFilter {
+  every: MutationUpdateOneDepartmentWhereInput
+  none: MutationUpdateOneDepartmentWhereInput
+  some: MutationUpdateOneDepartmentWhereInput
+}
+
+input MutationUpdateOneDepartmentWhereInput {
+  AND: [MutationUpdateOneDepartmentWhereInput!]
+  code: StringFilter
+  createdAt: MutationUpdateOneDepartmentFilter
+  deletedAt: MutationUpdateOneDepartmentFilter
+  description: StringFilter
+  id: StringFilter
+  informations: MutationUpdateOneDepartmentFilter
+  name: StringFilter
+  NOT: [MutationUpdateOneDepartmentWhereInput!]
+  notes: MutationUpdateOneDepartmentFilter
+  OR: [MutationUpdateOneDepartmentWhereInput!]
+  students: MutationUpdateOneDepartmentFilter
+  teachers: MutationUpdateOneDepartmentFilter
+  updatedAt: MutationUpdateOneDepartmentFilter
+}
+
+input MutationUpdateOneInstituteFilter {
+  every: MutationUpdateOneInstituteWhereInput
+  none: MutationUpdateOneInstituteWhereInput
+  some: MutationUpdateOneInstituteWhereInput
+}
+
+input MutationUpdateOneInstituteWhereInput {
+  AND: [MutationUpdateOneInstituteWhereInput!]
+  createdAt: MutationUpdateOneInstituteFilter
+  deletedAt: MutationUpdateOneInstituteFilter
+  description: StringFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [MutationUpdateOneInstituteWhereInput!]
+  OR: [MutationUpdateOneInstituteWhereInput!]
+  subjects: MutationUpdateOneInstituteFilter
+  updatedAt: MutationUpdateOneInstituteFilter
+}
+
+input MutationUpdateOneNoteCommentFilter {
+  every: MutationUpdateOneNoteCommentWhereInput
+  none: MutationUpdateOneNoteCommentWhereInput
+  some: MutationUpdateOneNoteCommentWhereInput
+}
+
+input MutationUpdateOneNoteCommentThreadFilter {
+  every: MutationUpdateOneNoteCommentThreadWhereInput
+  none: MutationUpdateOneNoteCommentThreadWhereInput
+  some: MutationUpdateOneNoteCommentThreadWhereInput
+}
+
+input MutationUpdateOneNoteCommentThreadWhereInput {
+  AND: [MutationUpdateOneNoteCommentThreadWhereInput!]
+  content: StringFilter
+  createdAt: MutationUpdateOneNoteCommentThreadFilter
+  deletedAt: MutationUpdateOneNoteCommentThreadFilter
+  id: StringFilter
+  likers: MutationUpdateOneNoteCommentThreadFilter
+  NOT: [MutationUpdateOneNoteCommentThreadWhereInput!]
+  OR: [MutationUpdateOneNoteCommentThreadWhereInput!]
+  updatedAt: MutationUpdateOneNoteCommentThreadFilter
+}
+
+input MutationUpdateOneNoteCommentWhereInput {
+  AND: [MutationUpdateOneNoteCommentWhereInput!]
+  approvedSuggestions: MutationUpdateOneNoteCommentFilter
+  comments: MutationUpdateOneNoteCommentFilter
+  createdAt: MutationUpdateOneNoteCommentFilter
+  deletedAt: MutationUpdateOneNoteCommentFilter
+  departments: MutationUpdateOneNoteCommentFilter
+  email: StringFilter
+  firstName: StringFilter
+  id: StringFilter
+  identifier: StringFilter
+  institutes: MutationUpdateOneNoteCommentFilter
+  lastName: StringFilter
+  likedComments: MutationUpdateOneNoteCommentFilter
+  likedNotes: MutationUpdateOneNoteCommentFilter
+  likedSuggestions: MutationUpdateOneNoteCommentFilter
+  NOT: [MutationUpdateOneNoteCommentWhereInput!]
+  noteHighlights: MutationUpdateOneNoteCommentFilter
+  notes: MutationUpdateOneNoteCommentFilter
+  OR: [MutationUpdateOneNoteCommentWhereInput!]
+  password: StringFilter
+  phoneNumber: NullableStringFilter
+  profilePictureURL: NullableStringFilter
+  studiedSubjects: MutationUpdateOneNoteCommentFilter
+  suggestions: MutationUpdateOneNoteCommentFilter
+  teachedSubjects: MutationUpdateOneNoteCommentFilter
+  updatedAt: MutationUpdateOneNoteCommentFilter
+}
+
+input MutationUpdateOneNoteFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
+input MutationUpdateOneNoteWhereInput {
+  AND: [MutationUpdateOneNoteWhereInput!]
+  approvedAt: MutationUpdateOneNoteFilter
+  createdAt: MutationUpdateOneNoteFilter
+  deletedAt: MutationUpdateOneNoteFilter
+  delta: StringFilter
+  id: StringFilter
+  likers: MutationUpdateOneNoteFilter
+  NOT: [MutationUpdateOneNoteWhereInput!]
+  OR: [MutationUpdateOneNoteWhereInput!]
+  updatedAt: MutationUpdateOneNoteFilter
+}
+
+input MutationUpdateOneSubjectFilter {
+  every: MutationUpdateOneSubjectWhereInput
+  none: MutationUpdateOneSubjectWhereInput
+  some: MutationUpdateOneSubjectWhereInput
+}
+
+input MutationUpdateOneSubjectWhereInput {
+  AND: [MutationUpdateOneSubjectWhereInput!]
+  approvedSuggestions: MutationUpdateOneSubjectFilter
+  comments: MutationUpdateOneSubjectFilter
+  createdAt: MutationUpdateOneSubjectFilter
+  deletedAt: MutationUpdateOneSubjectFilter
+  departments: MutationUpdateOneSubjectFilter
+  email: StringFilter
+  firstName: StringFilter
+  id: StringFilter
+  identifier: StringFilter
+  institutes: MutationUpdateOneSubjectFilter
+  lastName: StringFilter
+  likedComments: MutationUpdateOneSubjectFilter
+  likedNotes: MutationUpdateOneSubjectFilter
+  likedSuggestions: MutationUpdateOneSubjectFilter
+  NOT: [MutationUpdateOneSubjectWhereInput!]
+  noteHighlights: MutationUpdateOneSubjectFilter
+  notes: MutationUpdateOneSubjectFilter
+  OR: [MutationUpdateOneSubjectWhereInput!]
+  password: StringFilter
+  phoneNumber: NullableStringFilter
+  profilePictureURL: NullableStringFilter
+  studiedSubjects: MutationUpdateOneSubjectFilter
+  suggestions: MutationUpdateOneSubjectFilter
+  teachedSubjects: MutationUpdateOneSubjectFilter
+  updatedAt: MutationUpdateOneSubjectFilter
+}
+
+input MutationUpdateOneSuggestionFilter {
+  every: MutationUpdateOneSuggestionWhereInput
+  none: MutationUpdateOneSuggestionWhereInput
+  some: MutationUpdateOneSuggestionWhereInput
+}
+
+input MutationUpdateOneSuggestionWhereInput {
+  AND: [MutationUpdateOneSuggestionWhereInput!]
+  approvedSuggestions: MutationUpdateOneSuggestionFilter
+  comments: MutationUpdateOneSuggestionFilter
+  createdAt: MutationUpdateOneSuggestionFilter
+  deletedAt: MutationUpdateOneSuggestionFilter
+  departments: MutationUpdateOneSuggestionFilter
+  email: StringFilter
+  firstName: StringFilter
+  id: StringFilter
+  identifier: StringFilter
+  institutes: MutationUpdateOneSuggestionFilter
+  lastName: StringFilter
+  likedComments: MutationUpdateOneSuggestionFilter
+  likedNotes: MutationUpdateOneSuggestionFilter
+  likedSuggestions: MutationUpdateOneSuggestionFilter
+  NOT: [MutationUpdateOneSuggestionWhereInput!]
+  noteHighlights: MutationUpdateOneSuggestionFilter
+  notes: MutationUpdateOneSuggestionFilter
+  OR: [MutationUpdateOneSuggestionWhereInput!]
+  password: StringFilter
+  phoneNumber: NullableStringFilter
+  profilePictureURL: NullableStringFilter
+  studiedSubjects: MutationUpdateOneSuggestionFilter
+  suggestions: MutationUpdateOneSuggestionFilter
+  teachedSubjects: MutationUpdateOneSuggestionFilter
+  updatedAt: MutationUpdateOneSuggestionFilter
+}
+
+input MutationUpdateOneUserRoleFilter {
+  every: MutationUpdateOneUserRoleWhereInput
+  none: MutationUpdateOneUserRoleWhereInput
+  some: MutationUpdateOneUserRoleWhereInput
+}
+
+input MutationUpdateOneUserRoleWhereInput {
+  AND: [MutationUpdateOneUserRoleWhereInput!]
+  approvedSuggestions: MutationUpdateOneUserRoleFilter
+  comments: MutationUpdateOneUserRoleFilter
+  createdAt: MutationUpdateOneUserRoleFilter
+  deletedAt: MutationUpdateOneUserRoleFilter
+  departments: MutationUpdateOneUserRoleFilter
+  email: StringFilter
+  firstName: StringFilter
+  id: StringFilter
+  identifier: StringFilter
+  institutes: MutationUpdateOneUserRoleFilter
+  lastName: StringFilter
+  likedComments: MutationUpdateOneUserRoleFilter
+  likedNotes: MutationUpdateOneUserRoleFilter
+  likedSuggestions: MutationUpdateOneUserRoleFilter
+  NOT: [MutationUpdateOneUserRoleWhereInput!]
+  noteHighlights: MutationUpdateOneUserRoleFilter
+  notes: MutationUpdateOneUserRoleFilter
+  OR: [MutationUpdateOneUserRoleWhereInput!]
+  password: StringFilter
+  phoneNumber: NullableStringFilter
+  profilePictureURL: NullableStringFilter
+  studiedSubjects: MutationUpdateOneUserRoleFilter
+  suggestions: MutationUpdateOneUserRoleFilter
+  teachedSubjects: MutationUpdateOneUserRoleFilter
+  updatedAt: MutationUpdateOneUserRoleFilter
 }
 
 type Note {
@@ -55,6 +604,11 @@ type Note {
   updatedAt: DateTime!
 }
 
+enum NoteCategory {
+  CASE_STUDY
+  NOTE
+}
+
 enum NoteCategoryEnum {
   CASE_STUDY
   NOTE
@@ -72,6 +626,82 @@ type NoteComment {
   updatedAt: DateTime!
 }
 
+input NoteCommentCreateInput {
+  author: UserCreateOneWithoutAuthorInput!
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  thread: NoteCommentThreadCreateOneWithoutThreadInput
+  threadReply: NoteCommentThreadCreateOneWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentCreateManyWithoutCommentsInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutAuthorInput!]
+}
+
+input NoteCommentCreateManyWithoutLikedCommentsInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutLikersInput!]
+}
+
+input NoteCommentCreateManyWithoutRepliesInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutThreadReplyInput!]
+}
+
+input NoteCommentCreateOneWithoutCommentInput {
+  connect: NoteCommentWhereUniqueInput
+  create: NoteCommentCreateWithoutThreadInput
+}
+
+input NoteCommentCreateWithoutAuthorInput {
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  thread: NoteCommentThreadCreateOneWithoutThreadInput
+  threadReply: NoteCommentThreadCreateOneWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentCreateWithoutLikersInput {
+  author: UserCreateOneWithoutAuthorInput!
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  thread: NoteCommentThreadCreateOneWithoutThreadInput
+  threadReply: NoteCommentThreadCreateOneWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentCreateWithoutThreadInput {
+  author: UserCreateOneWithoutAuthorInput!
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  threadReply: NoteCommentThreadCreateOneWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentCreateWithoutThreadReplyInput {
+  author: UserCreateOneWithoutAuthorInput!
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  thread: NoteCommentThreadCreateOneWithoutThreadInput
+  updatedAt: DateTime
+}
+
 type NoteCommentThread {
   comment: NoteComment!
   createdAt: DateTime!
@@ -81,6 +711,467 @@ type NoteCommentThread {
   position: String!
   replies(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   updatedAt: DateTime!
+}
+
+input NoteCommentThreadCreateInput {
+  comment: NoteCommentCreateOneWithoutCommentInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  position: String!
+  replies: NoteCommentCreateManyWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadCreateManyWithoutCommentThreadsInput {
+  connect: [NoteCommentThreadWhereUniqueInput!]
+  create: [NoteCommentThreadCreateWithoutNoteInput!]
+}
+
+input NoteCommentThreadCreateOneWithoutThreadInput {
+  connect: NoteCommentThreadWhereUniqueInput
+  create: NoteCommentThreadCreateWithoutCommentInput
+}
+
+input NoteCommentThreadCreateOneWithoutThreadReplyInput {
+  connect: NoteCommentThreadWhereUniqueInput
+  create: NoteCommentThreadCreateWithoutRepliesInput
+}
+
+input NoteCommentThreadCreateWithoutCommentInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  position: String!
+  replies: NoteCommentCreateManyWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadCreateWithoutNoteInput {
+  comment: NoteCommentCreateOneWithoutCommentInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String!
+  replies: NoteCommentCreateManyWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadCreateWithoutRepliesInput {
+  comment: NoteCommentCreateOneWithoutCommentInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  position: String!
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateInput {
+  comment: NoteCommentUpdateOneRequiredWithoutThreadInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteUpdateOneRequiredWithoutCommentThreadsInput
+  position: String
+  replies: NoteCommentUpdateManyWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateManyDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateManyWithoutNoteInput {
+  connect: [NoteCommentThreadWhereUniqueInput!]
+  create: [NoteCommentThreadCreateWithoutNoteInput!]
+  delete: [NoteCommentThreadWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteWhereInput!]
+  disconnect: [NoteCommentThreadWhereUniqueInput!]
+  set: [NoteCommentThreadWhereUniqueInput!]
+  update: [NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput!]
+  updateMany: [NoteCommentThreadUpdateManyWithWhereNestedInput!]
+  upsert: [NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput!]
+}
+
+input NoteCommentThreadUpdateManyWithWhereNestedInput {
+  data: NoteCommentThreadUpdateManyDataInput!
+  where: MutationUpdateOneNoteWhereInput!
+}
+
+input NoteCommentThreadUpdateOneWithoutCommentInput {
+  connect: NoteCommentThreadWhereUniqueInput
+  create: NoteCommentThreadCreateWithoutCommentInput
+  delete: Boolean
+  disconnect: Boolean
+  update: NoteCommentThreadUpdateWithoutCommentDataInput
+  upsert: NoteCommentThreadUpsertWithoutCommentInput
+}
+
+input NoteCommentThreadUpdateOneWithoutRepliesInput {
+  connect: NoteCommentThreadWhereUniqueInput
+  create: NoteCommentThreadCreateWithoutRepliesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: NoteCommentThreadUpdateWithoutRepliesDataInput
+  upsert: NoteCommentThreadUpsertWithoutRepliesInput
+}
+
+input NoteCommentThreadUpdateWithoutCommentDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteUpdateOneRequiredWithoutCommentThreadsInput
+  position: String
+  replies: NoteCommentUpdateManyWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateWithoutNoteDataInput {
+  comment: NoteCommentUpdateOneRequiredWithoutThreadInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String
+  replies: NoteCommentUpdateManyWithoutThreadReplyInput
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateWithoutRepliesDataInput {
+  comment: NoteCommentUpdateOneRequiredWithoutThreadInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteUpdateOneRequiredWithoutCommentThreadsInput
+  position: String
+  updatedAt: DateTime
+}
+
+input NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput {
+  data: NoteCommentThreadUpdateWithoutNoteDataInput!
+  where: NoteCommentThreadWhereUniqueInput!
+}
+
+input NoteCommentThreadUpsertWithoutCommentInput {
+  create: NoteCommentThreadCreateWithoutCommentInput!
+  update: NoteCommentThreadUpdateWithoutCommentDataInput!
+}
+
+input NoteCommentThreadUpsertWithoutRepliesInput {
+  create: NoteCommentThreadCreateWithoutRepliesInput!
+  update: NoteCommentThreadUpdateWithoutRepliesDataInput!
+}
+
+input NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput {
+  create: NoteCommentThreadCreateWithoutNoteInput!
+  update: NoteCommentThreadUpdateWithoutNoteDataInput!
+  where: NoteCommentThreadWhereUniqueInput!
+}
+
+input NoteCommentThreadWhereUniqueInput {
+  id: ID
+}
+
+input NoteCommentUpdateInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserUpdateManyWithoutLikedCommentsInput
+  thread: NoteCommentThreadUpdateOneWithoutCommentInput
+  threadReply: NoteCommentThreadUpdateOneWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateManyDataInput {
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateManyWithoutAuthorInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutAuthorInput!]
+  delete: [NoteCommentWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [NoteCommentWhereUniqueInput!]
+  set: [NoteCommentWhereUniqueInput!]
+  update: [NoteCommentUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [NoteCommentUpdateManyWithWhereNestedInput!]
+  upsert: [NoteCommentUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input NoteCommentUpdateManyWithoutLikersInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutLikersInput!]
+  delete: [NoteCommentWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [NoteCommentWhereUniqueInput!]
+  set: [NoteCommentWhereUniqueInput!]
+  update: [NoteCommentUpdateWithWhereUniqueWithoutLikersInput!]
+  updateMany: [NoteCommentUpdateManyWithWhereNestedInput!]
+  upsert: [NoteCommentUpsertWithWhereUniqueWithoutLikersInput!]
+}
+
+input NoteCommentUpdateManyWithoutThreadReplyInput {
+  connect: [NoteCommentWhereUniqueInput!]
+  create: [NoteCommentCreateWithoutThreadReplyInput!]
+  delete: [NoteCommentWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteCommentThreadWhereInput!]
+  disconnect: [NoteCommentWhereUniqueInput!]
+  set: [NoteCommentWhereUniqueInput!]
+  update: [NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput!]
+  updateMany: [NoteCommentUpdateManyWithWhereNestedInput!]
+  upsert: [NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput!]
+}
+
+input NoteCommentUpdateManyWithWhereNestedInput {
+  data: NoteCommentUpdateManyDataInput!
+  where: MutationUpdateOneNoteCommentThreadWhereInput!
+}
+
+input NoteCommentUpdateOneRequiredWithoutThreadInput {
+  connect: NoteCommentWhereUniqueInput
+  create: NoteCommentCreateWithoutThreadInput
+  update: NoteCommentUpdateWithoutThreadDataInput
+  upsert: NoteCommentUpsertWithoutThreadInput
+}
+
+input NoteCommentUpdateWithoutAuthorDataInput {
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserUpdateManyWithoutLikedCommentsInput
+  thread: NoteCommentThreadUpdateOneWithoutCommentInput
+  threadReply: NoteCommentThreadUpdateOneWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateWithoutLikersDataInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  thread: NoteCommentThreadUpdateOneWithoutCommentInput
+  threadReply: NoteCommentThreadUpdateOneWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateWithoutThreadDataInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserUpdateManyWithoutLikedCommentsInput
+  threadReply: NoteCommentThreadUpdateOneWithoutRepliesInput
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateWithoutThreadReplyDataInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  likers: UserUpdateManyWithoutLikedCommentsInput
+  thread: NoteCommentThreadUpdateOneWithoutCommentInput
+  updatedAt: DateTime
+}
+
+input NoteCommentUpdateWithWhereUniqueWithoutAuthorInput {
+  data: NoteCommentUpdateWithoutAuthorDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentUpdateWithWhereUniqueWithoutLikersInput {
+  data: NoteCommentUpdateWithoutLikersDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput {
+  data: NoteCommentUpdateWithoutThreadReplyDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentUpsertWithoutThreadInput {
+  create: NoteCommentCreateWithoutThreadInput!
+  update: NoteCommentUpdateWithoutThreadDataInput!
+}
+
+input NoteCommentUpsertWithWhereUniqueWithoutAuthorInput {
+  create: NoteCommentCreateWithoutAuthorInput!
+  update: NoteCommentUpdateWithoutAuthorDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentUpsertWithWhereUniqueWithoutLikersInput {
+  create: NoteCommentCreateWithoutLikersInput!
+  update: NoteCommentUpdateWithoutLikersDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput {
+  create: NoteCommentCreateWithoutThreadReplyInput!
+  update: NoteCommentUpdateWithoutThreadReplyDataInput!
+  where: NoteCommentWhereUniqueInput!
+}
+
+input NoteCommentWhereUniqueInput {
+  id: ID
+}
+
+input NoteCreateInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateManyWithoutLikedNotesInput {
+  connect: [NoteWhereUniqueInput!]
+  create: [NoteCreateWithoutLikersInput!]
+}
+
+input NoteCreateManyWithoutNotesInput {
+  connect: [NoteWhereUniqueInput!]
+  create: [NoteCreateWithoutAuthorsInput!]
+}
+
+input NoteCreateOneWithoutNoteInput {
+  connect: NoteWhereUniqueInput
+  create: NoteCreateWithoutHighlightsInput
+}
+
+input NoteCreateWithoutAuthorsInput {
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateWithoutCommentThreadsInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateWithoutHighlightsInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateWithoutLikersInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateWithoutSubjectInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input NoteCreateWithoutSuggestionsInput {
+  authors: UserCreateManyWithoutAuthorsInput
+  commentThreads: NoteCommentThreadCreateManyWithoutCommentThreadsInput
+  content: String!
+  contentHTML: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightCreateManyWithoutHighlightsInput
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  noteCategory: NoteCategory!
+  number: Int!
+  subject: SubjectCreateOneWithoutSubjectInput!
+  title: String!
+  updatedAt: DateTime
 }
 
 type NoteHighlight {
@@ -93,6 +1184,383 @@ type NoteHighlight {
   user: User!
 }
 
+input NoteHighlightCreateManyWithoutHighlightsInput {
+  connect: [NoteHighlightWhereUniqueInput!]
+  create: [NoteHighlightCreateWithoutNoteInput!]
+}
+
+input NoteHighlightCreateManyWithoutNoteHighlightsInput {
+  connect: [NoteHighlightWhereUniqueInput!]
+  create: [NoteHighlightCreateWithoutUserInput!]
+}
+
+input NoteHighlightCreateWithoutNoteInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String!
+  updatedAt: DateTime
+  user: UserCreateOneWithoutUserInput!
+}
+
+input NoteHighlightCreateWithoutUserInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  position: String!
+  updatedAt: DateTime
+}
+
+input NoteHighlightUpdateManyDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String
+  updatedAt: DateTime
+}
+
+input NoteHighlightUpdateManyWithoutNoteInput {
+  connect: [NoteHighlightWhereUniqueInput!]
+  create: [NoteHighlightCreateWithoutNoteInput!]
+  delete: [NoteHighlightWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteWhereInput!]
+  disconnect: [NoteHighlightWhereUniqueInput!]
+  set: [NoteHighlightWhereUniqueInput!]
+  update: [NoteHighlightUpdateWithWhereUniqueWithoutNoteInput!]
+  updateMany: [NoteHighlightUpdateManyWithWhereNestedInput!]
+  upsert: [NoteHighlightUpsertWithWhereUniqueWithoutNoteInput!]
+}
+
+input NoteHighlightUpdateManyWithoutUserInput {
+  connect: [NoteHighlightWhereUniqueInput!]
+  create: [NoteHighlightCreateWithoutUserInput!]
+  delete: [NoteHighlightWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [NoteHighlightWhereUniqueInput!]
+  set: [NoteHighlightWhereUniqueInput!]
+  update: [NoteHighlightUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [NoteHighlightUpdateManyWithWhereNestedInput!]
+  upsert: [NoteHighlightUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input NoteHighlightUpdateManyWithWhereNestedInput {
+  data: NoteHighlightUpdateManyDataInput!
+  where: MutationUpdateOneNoteWhereInput!
+}
+
+input NoteHighlightUpdateWithoutNoteDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  position: String
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutNoteHighlightsInput
+}
+
+input NoteHighlightUpdateWithoutUserDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteUpdateOneRequiredWithoutHighlightsInput
+  position: String
+  updatedAt: DateTime
+}
+
+input NoteHighlightUpdateWithWhereUniqueWithoutNoteInput {
+  data: NoteHighlightUpdateWithoutNoteDataInput!
+  where: NoteHighlightWhereUniqueInput!
+}
+
+input NoteHighlightUpdateWithWhereUniqueWithoutUserInput {
+  data: NoteHighlightUpdateWithoutUserDataInput!
+  where: NoteHighlightWhereUniqueInput!
+}
+
+input NoteHighlightUpsertWithWhereUniqueWithoutNoteInput {
+  create: NoteHighlightCreateWithoutNoteInput!
+  update: NoteHighlightUpdateWithoutNoteDataInput!
+  where: NoteHighlightWhereUniqueInput!
+}
+
+input NoteHighlightUpsertWithWhereUniqueWithoutUserInput {
+  create: NoteHighlightCreateWithoutUserInput!
+  update: NoteHighlightUpdateWithoutUserDataInput!
+  where: NoteHighlightWhereUniqueInput!
+}
+
+input NoteHighlightWhereUniqueInput {
+  id: ID
+}
+
+input NoteUpdateInput {
+  authors: UserUpdateManyWithoutNotesInput
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateManyDataInput {
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  noteCategory: NoteCategory
+  number: Int
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateManyWithoutAuthorsInput {
+  connect: [NoteWhereUniqueInput!]
+  create: [NoteCreateWithoutAuthorsInput!]
+  delete: [NoteWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutAuthorsInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutAuthorsInput!]
+}
+
+input NoteUpdateManyWithoutLikersInput {
+  connect: [NoteWhereUniqueInput!]
+  create: [NoteCreateWithoutLikersInput!]
+  delete: [NoteWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutLikersInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutLikersInput!]
+}
+
+input NoteUpdateManyWithoutSubjectInput {
+  connect: [NoteWhereUniqueInput!]
+  create: [NoteCreateWithoutSubjectInput!]
+  delete: [NoteWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutSubjectInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutSubjectInput!]
+}
+
+input NoteUpdateManyWithWhereNestedInput {
+  data: NoteUpdateManyDataInput!
+  where: MutationUpdateOneSubjectWhereInput!
+}
+
+input NoteUpdateOneRequiredWithoutCommentThreadsInput {
+  connect: NoteWhereUniqueInput
+  create: NoteCreateWithoutCommentThreadsInput
+  update: NoteUpdateWithoutCommentThreadsDataInput
+  upsert: NoteUpsertWithoutCommentThreadsInput
+}
+
+input NoteUpdateOneRequiredWithoutHighlightsInput {
+  connect: NoteWhereUniqueInput
+  create: NoteCreateWithoutHighlightsInput
+  update: NoteUpdateWithoutHighlightsDataInput
+  upsert: NoteUpsertWithoutHighlightsInput
+}
+
+input NoteUpdateOneRequiredWithoutSuggestionsInput {
+  connect: NoteWhereUniqueInput
+  create: NoteCreateWithoutSuggestionsInput
+  update: NoteUpdateWithoutSuggestionsDataInput
+  upsert: NoteUpsertWithoutSuggestionsInput
+}
+
+input NoteUpdateWithoutAuthorsDataInput {
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithoutCommentThreadsDataInput {
+  authors: UserUpdateManyWithoutNotesInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithoutHighlightsDataInput {
+  authors: UserUpdateManyWithoutNotesInput
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithoutLikersDataInput {
+  authors: UserUpdateManyWithoutNotesInput
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithoutSubjectDataInput {
+  authors: UserUpdateManyWithoutNotesInput
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  suggestions: SuggestionUpdateManyWithoutNoteInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithoutSuggestionsDataInput {
+  authors: UserUpdateManyWithoutNotesInput
+  commentThreads: NoteCommentThreadUpdateManyWithoutNoteInput
+  content: String
+  contentHTML: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  highlights: NoteHighlightUpdateManyWithoutNoteInput
+  id: ID
+  likers: UserUpdateManyWithoutLikedNotesInput
+  noteCategory: NoteCategory
+  number: Int
+  subject: SubjectUpdateOneRequiredWithoutNotesInput
+  title: String
+  updatedAt: DateTime
+}
+
+input NoteUpdateWithWhereUniqueWithoutAuthorsInput {
+  data: NoteUpdateWithoutAuthorsDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteUpdateWithWhereUniqueWithoutLikersInput {
+  data: NoteUpdateWithoutLikersDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteUpdateWithWhereUniqueWithoutSubjectInput {
+  data: NoteUpdateWithoutSubjectDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteUpsertWithoutCommentThreadsInput {
+  create: NoteCreateWithoutCommentThreadsInput!
+  update: NoteUpdateWithoutCommentThreadsDataInput!
+}
+
+input NoteUpsertWithoutHighlightsInput {
+  create: NoteCreateWithoutHighlightsInput!
+  update: NoteUpdateWithoutHighlightsDataInput!
+}
+
+input NoteUpsertWithoutSuggestionsInput {
+  create: NoteCreateWithoutSuggestionsInput!
+  update: NoteUpdateWithoutSuggestionsDataInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutAuthorsInput {
+  create: NoteCreateWithoutAuthorsInput!
+  update: NoteUpdateWithoutAuthorsDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutLikersInput {
+  create: NoteCreateWithoutLikersInput!
+  update: NoteUpdateWithoutLikersDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutSubjectInput {
+  create: NoteCreateWithoutSubjectInput!
+  update: NoteUpdateWithoutSubjectDataInput!
+  where: NoteWhereUniqueInput!
+}
+
+input NoteWhereUniqueInput {
+  id: ID
+}
+
+input NullableStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
 type PasswordToken {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -102,8 +1570,99 @@ type PasswordToken {
   user: User!
 }
 
+input PasswordTokenCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  token: String!
+  updatedAt: DateTime
+  user: UserCreateOneWithoutUserInput!
+}
+
+input PasswordTokenCreateOneWithoutPasswordTokenInput {
+  connect: PasswordTokenWhereUniqueInput
+  create: PasswordTokenCreateWithoutUserInput
+}
+
+input PasswordTokenCreateWithoutUserInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  token: String!
+  updatedAt: DateTime
+}
+
+input PasswordTokenUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  token: String
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutPasswordTokenInput
+}
+
+input PasswordTokenUpdateOneRequiredWithoutUserInput {
+  connect: PasswordTokenWhereUniqueInput
+  create: PasswordTokenCreateWithoutUserInput
+  update: PasswordTokenUpdateWithoutUserDataInput
+  upsert: PasswordTokenUpsertWithoutUserInput
+}
+
+input PasswordTokenUpdateWithoutUserDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  token: String
+  updatedAt: DateTime
+}
+
+input PasswordTokenUpsertWithoutUserInput {
+  create: PasswordTokenCreateWithoutUserInput!
+  update: PasswordTokenUpdateWithoutUserDataInput!
+}
+
+input PasswordTokenWhereUniqueInput {
+  id: ID
+  token: String
+}
+
 type Query {
-  me: User!
+  findManyDepartment(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
+  findManyInstitute(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  findManyNote(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  findManyNoteComment(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  findManyNoteCommentThread(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
+  findManyPasswordToken(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
+  findManySubject(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  findManySubjectInformation(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
+  findManySuggestion(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  findManyUser(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  findManyUserRole(after: String, before: String, first: Int, last: Int, skip: Int): [UserRole!]
+  findOneDepartment(where: DepartmentWhereUniqueInput!): Department
+  findOneInstitute(where: InstituteWhereUniqueInput!): Institute
+  findOneNote(where: NoteWhereUniqueInput!): Note
+  findOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
+  findOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  findOnePasswordToken(where: PasswordTokenWhereUniqueInput!): PasswordToken
+  findOneSubject(where: SubjectWhereUniqueInput!): Subject
+  findOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  findOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
+  findOneUser(where: UserWhereUniqueInput!): User
+  findOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
 }
 
 type Subject {
@@ -121,6 +1680,111 @@ type Subject {
   updatedAt: DateTime!
 }
 
+input SubjectCreateInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  students: UserCreateManyWithoutStudentsInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateManyWithoutStudiedSubjectsInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutStudentsInput!]
+}
+
+input SubjectCreateManyWithoutSubjectsInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutDepartmentInput!]
+}
+
+input SubjectCreateManyWithoutTeachedSubjectsInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutTeachersInput!]
+}
+
+input SubjectCreateOneWithoutSubjectInput {
+  connect: SubjectWhereUniqueInput
+  create: SubjectCreateWithoutNotesInput
+}
+
+input SubjectCreateWithoutDepartmentInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  students: UserCreateManyWithoutStudentsInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateWithoutInformationsInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  students: UserCreateManyWithoutStudentsInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateWithoutNotesInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
+  name: String!
+  students: UserCreateManyWithoutStudentsInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateWithoutStudentsInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateWithoutTeachersInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  students: UserCreateManyWithoutStudentsInput
+  updatedAt: DateTime
+}
+
 type SubjectInformation {
   content: String!
   createdAt: DateTime!
@@ -130,6 +1794,293 @@ type SubjectInformation {
   subtitle: String
   title: String!
   updatedAt: DateTime!
+}
+
+input SubjectInformationCreateInput {
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  subject: SubjectCreateOneWithoutSubjectInput!
+  subtitle: String
+  title: String!
+  updatedAt: DateTime
+}
+
+input SubjectInformationCreateManyWithoutInformationsInput {
+  connect: [SubjectInformationWhereUniqueInput!]
+  create: [SubjectInformationCreateWithoutSubjectInput!]
+}
+
+input SubjectInformationCreateWithoutSubjectInput {
+  content: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  subtitle: String
+  title: String!
+  updatedAt: DateTime
+}
+
+input SubjectInformationUpdateInput {
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  subject: SubjectUpdateOneRequiredWithoutInformationsInput
+  subtitle: String
+  title: String
+  updatedAt: DateTime
+}
+
+input SubjectInformationUpdateManyDataInput {
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  subtitle: String
+  title: String
+  updatedAt: DateTime
+}
+
+input SubjectInformationUpdateManyWithoutSubjectInput {
+  connect: [SubjectInformationWhereUniqueInput!]
+  create: [SubjectInformationCreateWithoutSubjectInput!]
+  delete: [SubjectInformationWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [SubjectInformationWhereUniqueInput!]
+  set: [SubjectInformationWhereUniqueInput!]
+  update: [SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput!]
+  updateMany: [SubjectInformationUpdateManyWithWhereNestedInput!]
+  upsert: [SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput!]
+}
+
+input SubjectInformationUpdateManyWithWhereNestedInput {
+  data: SubjectInformationUpdateManyDataInput!
+  where: MutationUpdateOneSubjectWhereInput!
+}
+
+input SubjectInformationUpdateWithoutSubjectDataInput {
+  content: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  subtitle: String
+  title: String
+  updatedAt: DateTime
+}
+
+input SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput {
+  data: SubjectInformationUpdateWithoutSubjectDataInput!
+  where: SubjectInformationWhereUniqueInput!
+}
+
+input SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput {
+  create: SubjectInformationCreateWithoutSubjectInput!
+  update: SubjectInformationUpdateWithoutSubjectDataInput!
+  where: SubjectInformationWhereUniqueInput!
+}
+
+input SubjectInformationWhereUniqueInput {
+  id: ID
+}
+
+input SubjectUpdateInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateManyDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input SubjectUpdateManyWithoutDepartmentInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutDepartmentInput!]
+  delete: [SubjectWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutDepartmentInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutDepartmentInput!]
+}
+
+input SubjectUpdateManyWithoutStudentsInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutStudentsInput!]
+  delete: [SubjectWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutStudentsInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutStudentsInput!]
+}
+
+input SubjectUpdateManyWithoutTeachersInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutTeachersInput!]
+  delete: [SubjectWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutTeachersInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutTeachersInput!]
+}
+
+input SubjectUpdateManyWithWhereNestedInput {
+  data: SubjectUpdateManyDataInput!
+  where: MutationUpdateOneDepartmentWhereInput!
+}
+
+input SubjectUpdateOneRequiredWithoutInformationsInput {
+  connect: SubjectWhereUniqueInput
+  create: SubjectCreateWithoutInformationsInput
+  update: SubjectUpdateWithoutInformationsDataInput
+  upsert: SubjectUpsertWithoutInformationsInput
+}
+
+input SubjectUpdateOneRequiredWithoutNotesInput {
+  connect: SubjectWhereUniqueInput
+  create: SubjectCreateWithoutNotesInput
+  update: SubjectUpdateWithoutNotesDataInput
+  upsert: SubjectUpsertWithoutNotesInput
+}
+
+input SubjectUpdateWithoutDepartmentDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithoutInformationsDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithoutNotesDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
+  name: String
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithoutStudentsDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithoutTeachersDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithWhereUniqueWithoutDepartmentInput {
+  data: SubjectUpdateWithoutDepartmentDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpdateWithWhereUniqueWithoutStudentsInput {
+  data: SubjectUpdateWithoutStudentsDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpdateWithWhereUniqueWithoutTeachersInput {
+  data: SubjectUpdateWithoutTeachersDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpsertWithoutInformationsInput {
+  create: SubjectCreateWithoutInformationsInput!
+  update: SubjectUpdateWithoutInformationsDataInput!
+}
+
+input SubjectUpsertWithoutNotesInput {
+  create: SubjectCreateWithoutNotesInput!
+  update: SubjectUpdateWithoutNotesDataInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutDepartmentInput {
+  create: SubjectCreateWithoutDepartmentInput!
+  update: SubjectUpdateWithoutDepartmentDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutStudentsInput {
+  create: SubjectCreateWithoutStudentsInput!
+  update: SubjectUpdateWithoutStudentsDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutTeachersInput {
+  create: SubjectCreateWithoutTeachersInput!
+  update: SubjectUpdateWithoutTeachersDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectWhereUniqueInput {
+  code: String
+  id: ID
 }
 
 type Suggestion {
@@ -142,6 +2093,253 @@ type Suggestion {
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   note: Note!
   updatedAt: DateTime!
+}
+
+input SuggestionCreateInput {
+  approvedAt: DateTime
+  approvedBy: UserCreateOneWithoutApprovedByInput
+  author: UserCreateOneWithoutAuthorInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String!
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  note: NoteCreateOneWithoutNoteInput!
+  updatedAt: DateTime
+}
+
+input SuggestionCreateManyWithoutApprovedSuggestionsInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutApprovedByInput!]
+}
+
+input SuggestionCreateManyWithoutLikedSuggestionsInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutLikersInput!]
+}
+
+input SuggestionCreateManyWithoutSuggestionsInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutNoteInput!]
+}
+
+input SuggestionCreateWithoutApprovedByInput {
+  approvedAt: DateTime
+  author: UserCreateOneWithoutAuthorInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String!
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  note: NoteCreateOneWithoutNoteInput!
+  updatedAt: DateTime
+}
+
+input SuggestionCreateWithoutAuthorInput {
+  approvedAt: DateTime
+  approvedBy: UserCreateOneWithoutApprovedByInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String!
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  note: NoteCreateOneWithoutNoteInput!
+  updatedAt: DateTime
+}
+
+input SuggestionCreateWithoutLikersInput {
+  approvedAt: DateTime
+  approvedBy: UserCreateOneWithoutApprovedByInput
+  author: UserCreateOneWithoutAuthorInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String!
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  updatedAt: DateTime
+}
+
+input SuggestionCreateWithoutNoteInput {
+  approvedAt: DateTime
+  approvedBy: UserCreateOneWithoutApprovedByInput
+  author: UserCreateOneWithoutAuthorInput!
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String!
+  id: ID
+  likers: UserCreateManyWithoutLikersInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateInput {
+  approvedAt: DateTime
+  approvedBy: UserUpdateOneWithoutApprovedSuggestionsInput
+  author: UserUpdateOneRequiredWithoutSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  likers: UserUpdateManyWithoutLikedSuggestionsInput
+  note: NoteUpdateOneRequiredWithoutSuggestionsInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateManyDataInput {
+  approvedAt: DateTime
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateManyWithoutApprovedByInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutApprovedByInput!]
+  delete: [SuggestionWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SuggestionWhereUniqueInput!]
+  set: [SuggestionWhereUniqueInput!]
+  update: [SuggestionUpdateWithWhereUniqueWithoutApprovedByInput!]
+  updateMany: [SuggestionUpdateManyWithWhereNestedInput!]
+  upsert: [SuggestionUpsertWithWhereUniqueWithoutApprovedByInput!]
+}
+
+input SuggestionUpdateManyWithoutAuthorInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutAuthorInput!]
+  delete: [SuggestionWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SuggestionWhereUniqueInput!]
+  set: [SuggestionWhereUniqueInput!]
+  update: [SuggestionUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [SuggestionUpdateManyWithWhereNestedInput!]
+  upsert: [SuggestionUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input SuggestionUpdateManyWithoutLikersInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutLikersInput!]
+  delete: [SuggestionWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SuggestionWhereUniqueInput!]
+  set: [SuggestionWhereUniqueInput!]
+  update: [SuggestionUpdateWithWhereUniqueWithoutLikersInput!]
+  updateMany: [SuggestionUpdateManyWithWhereNestedInput!]
+  upsert: [SuggestionUpsertWithWhereUniqueWithoutLikersInput!]
+}
+
+input SuggestionUpdateManyWithoutNoteInput {
+  connect: [SuggestionWhereUniqueInput!]
+  create: [SuggestionCreateWithoutNoteInput!]
+  delete: [SuggestionWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteWhereInput!]
+  disconnect: [SuggestionWhereUniqueInput!]
+  set: [SuggestionWhereUniqueInput!]
+  update: [SuggestionUpdateWithWhereUniqueWithoutNoteInput!]
+  updateMany: [SuggestionUpdateManyWithWhereNestedInput!]
+  upsert: [SuggestionUpsertWithWhereUniqueWithoutNoteInput!]
+}
+
+input SuggestionUpdateManyWithWhereNestedInput {
+  data: SuggestionUpdateManyDataInput!
+  where: MutationUpdateOneNoteWhereInput!
+}
+
+input SuggestionUpdateWithoutApprovedByDataInput {
+  approvedAt: DateTime
+  author: UserUpdateOneRequiredWithoutSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  likers: UserUpdateManyWithoutLikedSuggestionsInput
+  note: NoteUpdateOneRequiredWithoutSuggestionsInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateWithoutAuthorDataInput {
+  approvedAt: DateTime
+  approvedBy: UserUpdateOneWithoutApprovedSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  likers: UserUpdateManyWithoutLikedSuggestionsInput
+  note: NoteUpdateOneRequiredWithoutSuggestionsInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateWithoutLikersDataInput {
+  approvedAt: DateTime
+  approvedBy: UserUpdateOneWithoutApprovedSuggestionsInput
+  author: UserUpdateOneRequiredWithoutSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  note: NoteUpdateOneRequiredWithoutSuggestionsInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateWithoutNoteDataInput {
+  approvedAt: DateTime
+  approvedBy: UserUpdateOneWithoutApprovedSuggestionsInput
+  author: UserUpdateOneRequiredWithoutSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  delta: String
+  id: ID
+  likers: UserUpdateManyWithoutLikedSuggestionsInput
+  updatedAt: DateTime
+}
+
+input SuggestionUpdateWithWhereUniqueWithoutApprovedByInput {
+  data: SuggestionUpdateWithoutApprovedByDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpdateWithWhereUniqueWithoutAuthorInput {
+  data: SuggestionUpdateWithoutAuthorDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpdateWithWhereUniqueWithoutLikersInput {
+  data: SuggestionUpdateWithoutLikersDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpdateWithWhereUniqueWithoutNoteInput {
+  data: SuggestionUpdateWithoutNoteDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpsertWithWhereUniqueWithoutApprovedByInput {
+  create: SuggestionCreateWithoutApprovedByInput!
+  update: SuggestionUpdateWithoutApprovedByDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpsertWithWhereUniqueWithoutAuthorInput {
+  create: SuggestionCreateWithoutAuthorInput!
+  update: SuggestionUpdateWithoutAuthorDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpsertWithWhereUniqueWithoutLikersInput {
+  create: SuggestionCreateWithoutLikersInput!
+  update: SuggestionUpdateWithoutLikersDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionUpsertWithWhereUniqueWithoutNoteInput {
+  create: SuggestionCreateWithoutNoteInput!
+  update: SuggestionUpdateWithoutNoteDataInput!
+  where: SuggestionWhereUniqueInput!
+}
+
+input SuggestionWhereUniqueInput {
+  id: ID
 }
 
 type User {
@@ -171,6 +2369,457 @@ type User {
   updatedAt: DateTime!
 }
 
+input UserCreateInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateManyWithoutAuthorsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutNotesInput!]
+}
+
+input UserCreateManyWithoutLikersInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutLikedSuggestionsInput!]
+}
+
+input UserCreateManyWithoutStudentsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutStudiedSubjectsInput!]
+}
+
+input UserCreateManyWithoutTeachersInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutTeachedSubjectsInput!]
+}
+
+input UserCreateManyWithoutUsersInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutInstitutesInput!]
+}
+
+input UserCreateOneWithoutApprovedByInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutApprovedSuggestionsInput
+}
+
+input UserCreateOneWithoutAuthorInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCommentsInput
+}
+
+input UserCreateOneWithoutLeaderInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutDepartmentsInput
+}
+
+input UserCreateOneWithoutUserInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutNoteHighlightsInput
+}
+
+input UserCreateWithoutApprovedSuggestionsInput {
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutCommentsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutDepartmentsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutInstitutesInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutLikedCommentsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutLikedNotesInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutLikedSuggestionsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutNoteHighlightsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutNotesInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutPasswordTokenInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutRoleInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutStudiedSubjectsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutSuggestionsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutTeachedSubjectsInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput!
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  updatedAt: DateTime
+}
+
 type UserRole {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -181,8 +2830,733 @@ type UserRole {
   users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
 }
 
+input UserRoleCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String!
+  type: UserRoleType!
+  updatedAt: DateTime
+  users: UserCreateManyWithoutUsersInput
+}
+
+input UserRoleCreateOneWithoutRoleInput {
+  connect: UserRoleWhereUniqueInput
+  create: UserRoleCreateWithoutUsersInput
+}
+
+input UserRoleCreateWithoutUsersInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String!
+  type: UserRoleType!
+  updatedAt: DateTime
+}
+
+enum UserRoleType {
+  ADMIN
+  PROFESSOR
+  USER
+}
+
 enum UserRoleTypeEnum {
   ADMIN
   PROFESSOR
   USER
+}
+
+input UserRoleUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  type: UserRoleType
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutRoleInput
+}
+
+input UserRoleUpdateOneRequiredWithoutUsersInput {
+  connect: UserRoleWhereUniqueInput
+  create: UserRoleCreateWithoutUsersInput
+  update: UserRoleUpdateWithoutUsersDataInput
+  upsert: UserRoleUpsertWithoutUsersInput
+}
+
+input UserRoleUpdateWithoutUsersDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  type: UserRoleType
+  updatedAt: DateTime
+}
+
+input UserRoleUpsertWithoutUsersInput {
+  create: UserRoleCreateWithoutUsersInput!
+  update: UserRoleUpdateWithoutUsersDataInput!
+}
+
+input UserRoleWhereUniqueInput {
+  id: ID
+}
+
+input UserUpdateManyDataInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  lastName: String
+  password: String
+  phoneNumber: String
+  profilePictureURL: String
+  updatedAt: DateTime
+}
+
+input UserUpdateManyWithoutInstitutesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutInstitutesInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneInstituteWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutInstitutesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutInstitutesInput!]
+}
+
+input UserUpdateManyWithoutLikedCommentsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutLikedCommentsInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteCommentWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutLikedCommentsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutLikedCommentsInput!]
+}
+
+input UserUpdateManyWithoutLikedNotesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutLikedNotesInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutLikedNotesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutLikedNotesInput!]
+}
+
+input UserUpdateManyWithoutLikedSuggestionsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutLikedSuggestionsInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSuggestionWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput!]
+}
+
+input UserUpdateManyWithoutNotesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutNotesInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneNoteWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutNotesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutNotesInput!]
+}
+
+input UserUpdateManyWithoutRoleInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutRoleInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneUserRoleWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutRoleInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutRoleInput!]
+}
+
+input UserUpdateManyWithoutStudiedSubjectsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutStudiedSubjectsInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput!]
+}
+
+input UserUpdateManyWithoutTeachedSubjectsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutTeachedSubjectsInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  data: UserUpdateManyDataInput!
+  where: MutationUpdateOneInstituteWhereInput!
+}
+
+input UserUpdateOneRequiredWithoutCommentsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCommentsInput
+  update: UserUpdateWithoutCommentsDataInput
+  upsert: UserUpsertWithoutCommentsInput
+}
+
+input UserUpdateOneRequiredWithoutDepartmentsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutDepartmentsInput
+  update: UserUpdateWithoutDepartmentsDataInput
+  upsert: UserUpsertWithoutDepartmentsInput
+}
+
+input UserUpdateOneRequiredWithoutNoteHighlightsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutNoteHighlightsInput
+  update: UserUpdateWithoutNoteHighlightsDataInput
+  upsert: UserUpsertWithoutNoteHighlightsInput
+}
+
+input UserUpdateOneRequiredWithoutPasswordTokenInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutPasswordTokenInput
+  update: UserUpdateWithoutPasswordTokenDataInput
+  upsert: UserUpsertWithoutPasswordTokenInput
+}
+
+input UserUpdateOneRequiredWithoutSuggestionsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutSuggestionsInput
+  update: UserUpdateWithoutSuggestionsDataInput
+  upsert: UserUpsertWithoutSuggestionsInput
+}
+
+input UserUpdateOneWithoutApprovedSuggestionsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutApprovedSuggestionsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutApprovedSuggestionsDataInput
+  upsert: UserUpsertWithoutApprovedSuggestionsInput
+}
+
+input UserUpdateWithoutApprovedSuggestionsDataInput {
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutCommentsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutDepartmentsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutInstitutesDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutLikedCommentsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutLikedNotesDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutLikedSuggestionsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutNoteHighlightsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutNotesDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutPasswordTokenDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutRoleDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutStudiedSubjectsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutSuggestionsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutTeachedSubjectsDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneRequiredWithoutUserInput
+  phoneNumber: String
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithWhereUniqueWithoutInstitutesInput {
+  data: UserUpdateWithoutInstitutesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutLikedCommentsInput {
+  data: UserUpdateWithoutLikedCommentsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutLikedNotesInput {
+  data: UserUpdateWithoutLikedNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput {
+  data: UserUpdateWithoutLikedSuggestionsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutNotesInput {
+  data: UserUpdateWithoutNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutRoleInput {
+  data: UserUpdateWithoutRoleDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput {
+  data: UserUpdateWithoutStudiedSubjectsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput {
+  data: UserUpdateWithoutTeachedSubjectsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutApprovedSuggestionsInput {
+  create: UserCreateWithoutApprovedSuggestionsInput!
+  update: UserUpdateWithoutApprovedSuggestionsDataInput!
+}
+
+input UserUpsertWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput!
+  update: UserUpdateWithoutCommentsDataInput!
+}
+
+input UserUpsertWithoutDepartmentsInput {
+  create: UserCreateWithoutDepartmentsInput!
+  update: UserUpdateWithoutDepartmentsDataInput!
+}
+
+input UserUpsertWithoutNoteHighlightsInput {
+  create: UserCreateWithoutNoteHighlightsInput!
+  update: UserUpdateWithoutNoteHighlightsDataInput!
+}
+
+input UserUpsertWithoutPasswordTokenInput {
+  create: UserCreateWithoutPasswordTokenInput!
+  update: UserUpdateWithoutPasswordTokenDataInput!
+}
+
+input UserUpsertWithoutSuggestionsInput {
+  create: UserCreateWithoutSuggestionsInput!
+  update: UserUpdateWithoutSuggestionsDataInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutInstitutesInput {
+  create: UserCreateWithoutInstitutesInput!
+  update: UserUpdateWithoutInstitutesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutLikedCommentsInput {
+  create: UserCreateWithoutLikedCommentsInput!
+  update: UserUpdateWithoutLikedCommentsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutLikedNotesInput {
+  create: UserCreateWithoutLikedNotesInput!
+  update: UserUpdateWithoutLikedNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput {
+  create: UserCreateWithoutLikedSuggestionsInput!
+  update: UserUpdateWithoutLikedSuggestionsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutNotesInput {
+  create: UserCreateWithoutNotesInput!
+  update: UserUpdateWithoutNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutRoleInput {
+  create: UserCreateWithoutRoleInput!
+  update: UserUpdateWithoutRoleDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput {
+  create: UserCreateWithoutStudiedSubjectsInput!
+  update: UserUpdateWithoutStudiedSubjectsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput {
+  create: UserCreateWithoutTeachedSubjectsInput!
+  update: UserUpdateWithoutTeachedSubjectsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserWhereUniqueInput {
+  email: String
+  id: ID
 }

@@ -3,7 +3,7 @@ import Photon from '@generated/photon';
 import { makeSchema } from '@prisma/nexus';
 import { ApolloServer } from 'apollo-server';
 import { join } from 'path';
-import * as allTypes from './resolvers';
+import * as allTypes from './resolvers/';
 import { Context } from './types';
 
 const photon = new Photon({
