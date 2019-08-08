@@ -164,7 +164,7 @@ model User {
   comments            NoteComment[]   @relation(name: "CommentAuthor")
   likedComments       NoteComment[]   @relation(name: "CommentLikers")
   likedSuggestions    Suggestion[]    @relation(name: "SuggestionLikers")
-  passwordToken       PasswordToken   @relation(name: "PasswordTokenUser")
+  passwordToken       PasswordToken?  @relation(name: "PasswordTokenUser")
   departments         Department[]    @relation(name: "DepartmentLeader")
   institutes          Institute[]     @relation(name: "InstituteUsers")
   createdAt           DateTime        @default(now())

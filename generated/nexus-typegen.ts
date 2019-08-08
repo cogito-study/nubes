@@ -1325,9 +1325,11 @@ export interface NexusGenInputs {
     updatedAt?: any | null; // DateTime
     user?: NexusGenInputs['UserUpdateOneRequiredWithoutPasswordTokenInput'] | null; // UserUpdateOneRequiredWithoutPasswordTokenInput
   }
-  PasswordTokenUpdateOneRequiredWithoutUserInput: { // input type
+  PasswordTokenUpdateOneWithoutUserInput: { // input type
     connect?: NexusGenInputs['PasswordTokenWhereUniqueInput'] | null; // PasswordTokenWhereUniqueInput
     create?: NexusGenInputs['PasswordTokenCreateWithoutUserInput'] | null; // PasswordTokenCreateWithoutUserInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
     update?: NexusGenInputs['PasswordTokenUpdateWithoutUserDataInput'] | null; // PasswordTokenUpdateWithoutUserDataInput
     upsert?: NexusGenInputs['PasswordTokenUpsertWithoutUserInput'] | null; // PasswordTokenUpsertWithoutUserInput
   }
@@ -1945,7 +1947,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2007,7 +2009,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2033,7 +2035,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2059,7 +2061,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2085,7 +2087,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2111,7 +2113,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2137,7 +2139,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2163,7 +2165,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2189,7 +2191,7 @@ export interface NexusGenInputs {
     likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2215,7 +2217,7 @@ export interface NexusGenInputs {
     likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2268,7 +2270,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2294,7 +2296,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2320,7 +2322,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2346,7 +2348,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
-    passwordToken: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput']; // PasswordTokenCreateOneWithoutPasswordTokenInput!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2597,7 +2599,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2623,7 +2625,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2649,7 +2651,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2675,7 +2677,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2701,7 +2703,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2727,7 +2729,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2753,7 +2755,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2779,7 +2781,7 @@ export interface NexusGenInputs {
     likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2805,7 +2807,7 @@ export interface NexusGenInputs {
     likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2858,7 +2860,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -2884,7 +2886,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2910,7 +2912,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2936,7 +2938,7 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
-    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'] | null; // PasswordTokenUpdateOneRequiredWithoutUserInput
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -3206,7 +3208,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   PasswordTokenCreateOneWithoutPasswordTokenInput: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'];
   PasswordTokenCreateWithoutUserInput: NexusGenInputs['PasswordTokenCreateWithoutUserInput'];
   PasswordTokenUpdateInput: NexusGenInputs['PasswordTokenUpdateInput'];
-  PasswordTokenUpdateOneRequiredWithoutUserInput: NexusGenInputs['PasswordTokenUpdateOneRequiredWithoutUserInput'];
+  PasswordTokenUpdateOneWithoutUserInput: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'];
   PasswordTokenUpdateWithoutUserDataInput: NexusGenInputs['PasswordTokenUpdateWithoutUserDataInput'];
   PasswordTokenUpsertWithoutUserInput: NexusGenInputs['PasswordTokenUpsertWithoutUserInput'];
   PasswordTokenWhereUniqueInput: NexusGenInputs['PasswordTokenWhereUniqueInput'];
@@ -3564,7 +3566,7 @@ export interface NexusGenFieldTypes {
     noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     notes: NexusGenRootTypes['Note'][] | null; // [Note!]
     password: string; // String!
-    passwordToken: NexusGenRootTypes['PasswordToken']; // PasswordToken!
+    passwordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
     phoneNumber: string | null; // String
     profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole']; // UserRole!
@@ -4021,7 +4023,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "Mutation" | "Note" | "NoteComment" | "NoteCommentThread" | "NoteHighlight" | "PasswordToken" | "Query" | "Subject" | "SubjectInformation" | "Suggestion" | "User" | "UserRole";
 
-export type NexusGenInputNames = "DepartmentCreateInput" | "DepartmentCreateManyWithoutDepartmentsInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutInstituteInput" | "DepartmentCreateWithoutLeaderInput" | "DepartmentCreateWithoutSubjectsInput" | "DepartmentUpdateInput" | "DepartmentUpdateManyDataInput" | "DepartmentUpdateManyWithWhereNestedInput" | "DepartmentUpdateManyWithoutInstituteInput" | "DepartmentUpdateManyWithoutLeaderInput" | "DepartmentUpdateOneRequiredWithoutSubjectsInput" | "DepartmentUpdateWithWhereUniqueWithoutInstituteInput" | "DepartmentUpdateWithWhereUniqueWithoutLeaderInput" | "DepartmentUpdateWithoutInstituteDataInput" | "DepartmentUpdateWithoutLeaderDataInput" | "DepartmentUpdateWithoutSubjectsDataInput" | "DepartmentUpsertWithWhereUniqueWithoutInstituteInput" | "DepartmentUpsertWithWhereUniqueWithoutLeaderInput" | "DepartmentUpsertWithoutSubjectsInput" | "DepartmentWhereUniqueInput" | "InstituteCreateInput" | "InstituteCreateManyWithoutInstitutesInput" | "InstituteCreateOneWithoutInstituteInput" | "InstituteCreateWithoutDepartmentsInput" | "InstituteCreateWithoutUsersInput" | "InstituteUpdateInput" | "InstituteUpdateManyDataInput" | "InstituteUpdateManyWithWhereNestedInput" | "InstituteUpdateManyWithoutUsersInput" | "InstituteUpdateOneRequiredWithoutDepartmentsInput" | "InstituteUpdateWithWhereUniqueWithoutUsersInput" | "InstituteUpdateWithoutDepartmentsDataInput" | "InstituteUpdateWithoutUsersDataInput" | "InstituteUpsertWithWhereUniqueWithoutUsersInput" | "InstituteUpsertWithoutDepartmentsInput" | "InstituteWhereUniqueInput" | "MutationUpdateOneDepartmentFilter" | "MutationUpdateOneDepartmentWhereInput" | "MutationUpdateOneInstituteFilter" | "MutationUpdateOneInstituteWhereInput" | "MutationUpdateOneNoteCommentFilter" | "MutationUpdateOneNoteCommentThreadFilter" | "MutationUpdateOneNoteCommentThreadWhereInput" | "MutationUpdateOneNoteCommentWhereInput" | "MutationUpdateOneNoteFilter" | "MutationUpdateOneNoteWhereInput" | "MutationUpdateOneSubjectFilter" | "MutationUpdateOneSubjectWhereInput" | "MutationUpdateOneSuggestionFilter" | "MutationUpdateOneSuggestionWhereInput" | "MutationUpdateOneUserRoleFilter" | "MutationUpdateOneUserRoleWhereInput" | "NoteCommentCreateInput" | "NoteCommentCreateManyWithoutCommentsInput" | "NoteCommentCreateManyWithoutLikedCommentsInput" | "NoteCommentCreateManyWithoutRepliesInput" | "NoteCommentCreateOneWithoutCommentInput" | "NoteCommentCreateWithoutAuthorInput" | "NoteCommentCreateWithoutLikersInput" | "NoteCommentCreateWithoutThreadInput" | "NoteCommentCreateWithoutThreadReplyInput" | "NoteCommentThreadCreateInput" | "NoteCommentThreadCreateManyWithoutCommentThreadsInput" | "NoteCommentThreadCreateOneWithoutThreadInput" | "NoteCommentThreadCreateOneWithoutThreadReplyInput" | "NoteCommentThreadCreateWithoutCommentInput" | "NoteCommentThreadCreateWithoutNoteInput" | "NoteCommentThreadCreateWithoutRepliesInput" | "NoteCommentThreadUpdateInput" | "NoteCommentThreadUpdateManyDataInput" | "NoteCommentThreadUpdateManyWithWhereNestedInput" | "NoteCommentThreadUpdateManyWithoutNoteInput" | "NoteCommentThreadUpdateOneWithoutCommentInput" | "NoteCommentThreadUpdateOneWithoutRepliesInput" | "NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpdateWithoutCommentDataInput" | "NoteCommentThreadUpdateWithoutNoteDataInput" | "NoteCommentThreadUpdateWithoutRepliesDataInput" | "NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpsertWithoutCommentInput" | "NoteCommentThreadUpsertWithoutRepliesInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentUpdateInput" | "NoteCommentUpdateManyDataInput" | "NoteCommentUpdateManyWithWhereNestedInput" | "NoteCommentUpdateManyWithoutAuthorInput" | "NoteCommentUpdateManyWithoutLikersInput" | "NoteCommentUpdateManyWithoutThreadReplyInput" | "NoteCommentUpdateOneRequiredWithoutThreadInput" | "NoteCommentUpdateWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpdateWithWhereUniqueWithoutLikersInput" | "NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpdateWithoutAuthorDataInput" | "NoteCommentUpdateWithoutLikersDataInput" | "NoteCommentUpdateWithoutThreadDataInput" | "NoteCommentUpdateWithoutThreadReplyDataInput" | "NoteCommentUpsertWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpsertWithWhereUniqueWithoutLikersInput" | "NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpsertWithoutThreadInput" | "NoteCommentWhereUniqueInput" | "NoteCreateInput" | "NoteCreateManyWithoutLikedNotesInput" | "NoteCreateManyWithoutNotesInput" | "NoteCreateOneWithoutNoteInput" | "NoteCreateWithoutAuthorsInput" | "NoteCreateWithoutCommentThreadsInput" | "NoteCreateWithoutHighlightsInput" | "NoteCreateWithoutLikersInput" | "NoteCreateWithoutSubjectInput" | "NoteCreateWithoutSuggestionsInput" | "NoteHighlightCreateManyWithoutHighlightsInput" | "NoteHighlightCreateManyWithoutNoteHighlightsInput" | "NoteHighlightCreateWithoutNoteInput" | "NoteHighlightCreateWithoutUserInput" | "NoteHighlightUpdateManyDataInput" | "NoteHighlightUpdateManyWithWhereNestedInput" | "NoteHighlightUpdateManyWithoutNoteInput" | "NoteHighlightUpdateManyWithoutUserInput" | "NoteHighlightUpdateWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpdateWithWhereUniqueWithoutUserInput" | "NoteHighlightUpdateWithoutNoteDataInput" | "NoteHighlightUpdateWithoutUserDataInput" | "NoteHighlightUpsertWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpsertWithWhereUniqueWithoutUserInput" | "NoteHighlightWhereUniqueInput" | "NoteUpdateInput" | "NoteUpdateManyDataInput" | "NoteUpdateManyWithWhereNestedInput" | "NoteUpdateManyWithoutAuthorsInput" | "NoteUpdateManyWithoutLikersInput" | "NoteUpdateManyWithoutSubjectInput" | "NoteUpdateOneRequiredWithoutCommentThreadsInput" | "NoteUpdateOneRequiredWithoutHighlightsInput" | "NoteUpdateOneRequiredWithoutSuggestionsInput" | "NoteUpdateWithWhereUniqueWithoutAuthorsInput" | "NoteUpdateWithWhereUniqueWithoutLikersInput" | "NoteUpdateWithWhereUniqueWithoutSubjectInput" | "NoteUpdateWithoutAuthorsDataInput" | "NoteUpdateWithoutCommentThreadsDataInput" | "NoteUpdateWithoutHighlightsDataInput" | "NoteUpdateWithoutLikersDataInput" | "NoteUpdateWithoutSubjectDataInput" | "NoteUpdateWithoutSuggestionsDataInput" | "NoteUpsertWithWhereUniqueWithoutAuthorsInput" | "NoteUpsertWithWhereUniqueWithoutLikersInput" | "NoteUpsertWithWhereUniqueWithoutSubjectInput" | "NoteUpsertWithoutCommentThreadsInput" | "NoteUpsertWithoutHighlightsInput" | "NoteUpsertWithoutSuggestionsInput" | "NoteWhereUniqueInput" | "NullableStringFilter" | "PasswordTokenCreateInput" | "PasswordTokenCreateOneWithoutPasswordTokenInput" | "PasswordTokenCreateWithoutUserInput" | "PasswordTokenUpdateInput" | "PasswordTokenUpdateOneRequiredWithoutUserInput" | "PasswordTokenUpdateWithoutUserDataInput" | "PasswordTokenUpsertWithoutUserInput" | "PasswordTokenWhereUniqueInput" | "StringFilter" | "SubjectCreateInput" | "SubjectCreateManyWithoutStudiedSubjectsInput" | "SubjectCreateManyWithoutSubjectsInput" | "SubjectCreateManyWithoutTeachedSubjectsInput" | "SubjectCreateOneWithoutSubjectInput" | "SubjectCreateWithoutDepartmentInput" | "SubjectCreateWithoutInformationsInput" | "SubjectCreateWithoutNotesInput" | "SubjectCreateWithoutStudentsInput" | "SubjectCreateWithoutTeachersInput" | "SubjectInformationCreateInput" | "SubjectInformationCreateManyWithoutInformationsInput" | "SubjectInformationCreateWithoutSubjectInput" | "SubjectInformationUpdateInput" | "SubjectInformationUpdateManyDataInput" | "SubjectInformationUpdateManyWithWhereNestedInput" | "SubjectInformationUpdateManyWithoutSubjectInput" | "SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput" | "SubjectInformationUpdateWithoutSubjectDataInput" | "SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput" | "SubjectInformationWhereUniqueInput" | "SubjectUpdateInput" | "SubjectUpdateManyDataInput" | "SubjectUpdateManyWithWhereNestedInput" | "SubjectUpdateManyWithoutDepartmentInput" | "SubjectUpdateManyWithoutStudentsInput" | "SubjectUpdateManyWithoutTeachersInput" | "SubjectUpdateOneRequiredWithoutInformationsInput" | "SubjectUpdateOneRequiredWithoutNotesInput" | "SubjectUpdateWithWhereUniqueWithoutDepartmentInput" | "SubjectUpdateWithWhereUniqueWithoutStudentsInput" | "SubjectUpdateWithWhereUniqueWithoutTeachersInput" | "SubjectUpdateWithoutDepartmentDataInput" | "SubjectUpdateWithoutInformationsDataInput" | "SubjectUpdateWithoutNotesDataInput" | "SubjectUpdateWithoutStudentsDataInput" | "SubjectUpdateWithoutTeachersDataInput" | "SubjectUpsertWithWhereUniqueWithoutDepartmentInput" | "SubjectUpsertWithWhereUniqueWithoutStudentsInput" | "SubjectUpsertWithWhereUniqueWithoutTeachersInput" | "SubjectUpsertWithoutInformationsInput" | "SubjectUpsertWithoutNotesInput" | "SubjectWhereUniqueInput" | "SuggestionCreateInput" | "SuggestionCreateManyWithoutApprovedSuggestionsInput" | "SuggestionCreateManyWithoutLikedSuggestionsInput" | "SuggestionCreateManyWithoutSuggestionsInput" | "SuggestionCreateWithoutApprovedByInput" | "SuggestionCreateWithoutAuthorInput" | "SuggestionCreateWithoutLikersInput" | "SuggestionCreateWithoutNoteInput" | "SuggestionUpdateInput" | "SuggestionUpdateManyDataInput" | "SuggestionUpdateManyWithWhereNestedInput" | "SuggestionUpdateManyWithoutApprovedByInput" | "SuggestionUpdateManyWithoutAuthorInput" | "SuggestionUpdateManyWithoutLikersInput" | "SuggestionUpdateManyWithoutNoteInput" | "SuggestionUpdateWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpdateWithWhereUniqueWithoutAuthorInput" | "SuggestionUpdateWithWhereUniqueWithoutLikersInput" | "SuggestionUpdateWithWhereUniqueWithoutNoteInput" | "SuggestionUpdateWithoutApprovedByDataInput" | "SuggestionUpdateWithoutAuthorDataInput" | "SuggestionUpdateWithoutLikersDataInput" | "SuggestionUpdateWithoutNoteDataInput" | "SuggestionUpsertWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpsertWithWhereUniqueWithoutAuthorInput" | "SuggestionUpsertWithWhereUniqueWithoutLikersInput" | "SuggestionUpsertWithWhereUniqueWithoutNoteInput" | "SuggestionWhereUniqueInput" | "UserCreateInput" | "UserCreateManyWithoutAuthorsInput" | "UserCreateManyWithoutLikersInput" | "UserCreateManyWithoutStudentsInput" | "UserCreateManyWithoutTeachersInput" | "UserCreateManyWithoutUsersInput" | "UserCreateOneWithoutApprovedByInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutLeaderInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutApprovedSuggestionsInput" | "UserCreateWithoutCommentsInput" | "UserCreateWithoutDepartmentsInput" | "UserCreateWithoutInstitutesInput" | "UserCreateWithoutLikedCommentsInput" | "UserCreateWithoutLikedNotesInput" | "UserCreateWithoutLikedSuggestionsInput" | "UserCreateWithoutNoteHighlightsInput" | "UserCreateWithoutNotesInput" | "UserCreateWithoutPasswordTokenInput" | "UserCreateWithoutRoleInput" | "UserCreateWithoutStudiedSubjectsInput" | "UserCreateWithoutSuggestionsInput" | "UserCreateWithoutTeachedSubjectsInput" | "UserRoleCreateInput" | "UserRoleCreateOneWithoutRoleInput" | "UserRoleCreateWithoutUsersInput" | "UserRoleUpdateInput" | "UserRoleUpdateOneRequiredWithoutUsersInput" | "UserRoleUpdateWithoutUsersDataInput" | "UserRoleUpsertWithoutUsersInput" | "UserRoleWhereUniqueInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutInstitutesInput" | "UserUpdateManyWithoutLikedCommentsInput" | "UserUpdateManyWithoutLikedNotesInput" | "UserUpdateManyWithoutLikedSuggestionsInput" | "UserUpdateManyWithoutNotesInput" | "UserUpdateManyWithoutRoleInput" | "UserUpdateManyWithoutStudiedSubjectsInput" | "UserUpdateManyWithoutTeachedSubjectsInput" | "UserUpdateOneRequiredWithoutCommentsInput" | "UserUpdateOneRequiredWithoutDepartmentsInput" | "UserUpdateOneRequiredWithoutNoteHighlightsInput" | "UserUpdateOneRequiredWithoutPasswordTokenInput" | "UserUpdateOneRequiredWithoutSuggestionsInput" | "UserUpdateOneWithoutApprovedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutInstitutesInput" | "UserUpdateWithWhereUniqueWithoutLikedCommentsInput" | "UserUpdateWithWhereUniqueWithoutLikedNotesInput" | "UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutNotesInput" | "UserUpdateWithWhereUniqueWithoutRoleInput" | "UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpdateWithoutApprovedSuggestionsDataInput" | "UserUpdateWithoutCommentsDataInput" | "UserUpdateWithoutDepartmentsDataInput" | "UserUpdateWithoutInstitutesDataInput" | "UserUpdateWithoutLikedCommentsDataInput" | "UserUpdateWithoutLikedNotesDataInput" | "UserUpdateWithoutLikedSuggestionsDataInput" | "UserUpdateWithoutNoteHighlightsDataInput" | "UserUpdateWithoutNotesDataInput" | "UserUpdateWithoutPasswordTokenDataInput" | "UserUpdateWithoutRoleDataInput" | "UserUpdateWithoutStudiedSubjectsDataInput" | "UserUpdateWithoutSuggestionsDataInput" | "UserUpdateWithoutTeachedSubjectsDataInput" | "UserUpsertWithWhereUniqueWithoutInstitutesInput" | "UserUpsertWithWhereUniqueWithoutLikedCommentsInput" | "UserUpsertWithWhereUniqueWithoutLikedNotesInput" | "UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpsertWithWhereUniqueWithoutNotesInput" | "UserUpsertWithWhereUniqueWithoutRoleInput" | "UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpsertWithoutApprovedSuggestionsInput" | "UserUpsertWithoutCommentsInput" | "UserUpsertWithoutDepartmentsInput" | "UserUpsertWithoutNoteHighlightsInput" | "UserUpsertWithoutPasswordTokenInput" | "UserUpsertWithoutSuggestionsInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "DepartmentCreateInput" | "DepartmentCreateManyWithoutDepartmentsInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutInstituteInput" | "DepartmentCreateWithoutLeaderInput" | "DepartmentCreateWithoutSubjectsInput" | "DepartmentUpdateInput" | "DepartmentUpdateManyDataInput" | "DepartmentUpdateManyWithWhereNestedInput" | "DepartmentUpdateManyWithoutInstituteInput" | "DepartmentUpdateManyWithoutLeaderInput" | "DepartmentUpdateOneRequiredWithoutSubjectsInput" | "DepartmentUpdateWithWhereUniqueWithoutInstituteInput" | "DepartmentUpdateWithWhereUniqueWithoutLeaderInput" | "DepartmentUpdateWithoutInstituteDataInput" | "DepartmentUpdateWithoutLeaderDataInput" | "DepartmentUpdateWithoutSubjectsDataInput" | "DepartmentUpsertWithWhereUniqueWithoutInstituteInput" | "DepartmentUpsertWithWhereUniqueWithoutLeaderInput" | "DepartmentUpsertWithoutSubjectsInput" | "DepartmentWhereUniqueInput" | "InstituteCreateInput" | "InstituteCreateManyWithoutInstitutesInput" | "InstituteCreateOneWithoutInstituteInput" | "InstituteCreateWithoutDepartmentsInput" | "InstituteCreateWithoutUsersInput" | "InstituteUpdateInput" | "InstituteUpdateManyDataInput" | "InstituteUpdateManyWithWhereNestedInput" | "InstituteUpdateManyWithoutUsersInput" | "InstituteUpdateOneRequiredWithoutDepartmentsInput" | "InstituteUpdateWithWhereUniqueWithoutUsersInput" | "InstituteUpdateWithoutDepartmentsDataInput" | "InstituteUpdateWithoutUsersDataInput" | "InstituteUpsertWithWhereUniqueWithoutUsersInput" | "InstituteUpsertWithoutDepartmentsInput" | "InstituteWhereUniqueInput" | "MutationUpdateOneDepartmentFilter" | "MutationUpdateOneDepartmentWhereInput" | "MutationUpdateOneInstituteFilter" | "MutationUpdateOneInstituteWhereInput" | "MutationUpdateOneNoteCommentFilter" | "MutationUpdateOneNoteCommentThreadFilter" | "MutationUpdateOneNoteCommentThreadWhereInput" | "MutationUpdateOneNoteCommentWhereInput" | "MutationUpdateOneNoteFilter" | "MutationUpdateOneNoteWhereInput" | "MutationUpdateOneSubjectFilter" | "MutationUpdateOneSubjectWhereInput" | "MutationUpdateOneSuggestionFilter" | "MutationUpdateOneSuggestionWhereInput" | "MutationUpdateOneUserRoleFilter" | "MutationUpdateOneUserRoleWhereInput" | "NoteCommentCreateInput" | "NoteCommentCreateManyWithoutCommentsInput" | "NoteCommentCreateManyWithoutLikedCommentsInput" | "NoteCommentCreateManyWithoutRepliesInput" | "NoteCommentCreateOneWithoutCommentInput" | "NoteCommentCreateWithoutAuthorInput" | "NoteCommentCreateWithoutLikersInput" | "NoteCommentCreateWithoutThreadInput" | "NoteCommentCreateWithoutThreadReplyInput" | "NoteCommentThreadCreateInput" | "NoteCommentThreadCreateManyWithoutCommentThreadsInput" | "NoteCommentThreadCreateOneWithoutThreadInput" | "NoteCommentThreadCreateOneWithoutThreadReplyInput" | "NoteCommentThreadCreateWithoutCommentInput" | "NoteCommentThreadCreateWithoutNoteInput" | "NoteCommentThreadCreateWithoutRepliesInput" | "NoteCommentThreadUpdateInput" | "NoteCommentThreadUpdateManyDataInput" | "NoteCommentThreadUpdateManyWithWhereNestedInput" | "NoteCommentThreadUpdateManyWithoutNoteInput" | "NoteCommentThreadUpdateOneWithoutCommentInput" | "NoteCommentThreadUpdateOneWithoutRepliesInput" | "NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpdateWithoutCommentDataInput" | "NoteCommentThreadUpdateWithoutNoteDataInput" | "NoteCommentThreadUpdateWithoutRepliesDataInput" | "NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpsertWithoutCommentInput" | "NoteCommentThreadUpsertWithoutRepliesInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentUpdateInput" | "NoteCommentUpdateManyDataInput" | "NoteCommentUpdateManyWithWhereNestedInput" | "NoteCommentUpdateManyWithoutAuthorInput" | "NoteCommentUpdateManyWithoutLikersInput" | "NoteCommentUpdateManyWithoutThreadReplyInput" | "NoteCommentUpdateOneRequiredWithoutThreadInput" | "NoteCommentUpdateWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpdateWithWhereUniqueWithoutLikersInput" | "NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpdateWithoutAuthorDataInput" | "NoteCommentUpdateWithoutLikersDataInput" | "NoteCommentUpdateWithoutThreadDataInput" | "NoteCommentUpdateWithoutThreadReplyDataInput" | "NoteCommentUpsertWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpsertWithWhereUniqueWithoutLikersInput" | "NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpsertWithoutThreadInput" | "NoteCommentWhereUniqueInput" | "NoteCreateInput" | "NoteCreateManyWithoutLikedNotesInput" | "NoteCreateManyWithoutNotesInput" | "NoteCreateOneWithoutNoteInput" | "NoteCreateWithoutAuthorsInput" | "NoteCreateWithoutCommentThreadsInput" | "NoteCreateWithoutHighlightsInput" | "NoteCreateWithoutLikersInput" | "NoteCreateWithoutSubjectInput" | "NoteCreateWithoutSuggestionsInput" | "NoteHighlightCreateManyWithoutHighlightsInput" | "NoteHighlightCreateManyWithoutNoteHighlightsInput" | "NoteHighlightCreateWithoutNoteInput" | "NoteHighlightCreateWithoutUserInput" | "NoteHighlightUpdateManyDataInput" | "NoteHighlightUpdateManyWithWhereNestedInput" | "NoteHighlightUpdateManyWithoutNoteInput" | "NoteHighlightUpdateManyWithoutUserInput" | "NoteHighlightUpdateWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpdateWithWhereUniqueWithoutUserInput" | "NoteHighlightUpdateWithoutNoteDataInput" | "NoteHighlightUpdateWithoutUserDataInput" | "NoteHighlightUpsertWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpsertWithWhereUniqueWithoutUserInput" | "NoteHighlightWhereUniqueInput" | "NoteUpdateInput" | "NoteUpdateManyDataInput" | "NoteUpdateManyWithWhereNestedInput" | "NoteUpdateManyWithoutAuthorsInput" | "NoteUpdateManyWithoutLikersInput" | "NoteUpdateManyWithoutSubjectInput" | "NoteUpdateOneRequiredWithoutCommentThreadsInput" | "NoteUpdateOneRequiredWithoutHighlightsInput" | "NoteUpdateOneRequiredWithoutSuggestionsInput" | "NoteUpdateWithWhereUniqueWithoutAuthorsInput" | "NoteUpdateWithWhereUniqueWithoutLikersInput" | "NoteUpdateWithWhereUniqueWithoutSubjectInput" | "NoteUpdateWithoutAuthorsDataInput" | "NoteUpdateWithoutCommentThreadsDataInput" | "NoteUpdateWithoutHighlightsDataInput" | "NoteUpdateWithoutLikersDataInput" | "NoteUpdateWithoutSubjectDataInput" | "NoteUpdateWithoutSuggestionsDataInput" | "NoteUpsertWithWhereUniqueWithoutAuthorsInput" | "NoteUpsertWithWhereUniqueWithoutLikersInput" | "NoteUpsertWithWhereUniqueWithoutSubjectInput" | "NoteUpsertWithoutCommentThreadsInput" | "NoteUpsertWithoutHighlightsInput" | "NoteUpsertWithoutSuggestionsInput" | "NoteWhereUniqueInput" | "NullableStringFilter" | "PasswordTokenCreateInput" | "PasswordTokenCreateOneWithoutPasswordTokenInput" | "PasswordTokenCreateWithoutUserInput" | "PasswordTokenUpdateInput" | "PasswordTokenUpdateOneWithoutUserInput" | "PasswordTokenUpdateWithoutUserDataInput" | "PasswordTokenUpsertWithoutUserInput" | "PasswordTokenWhereUniqueInput" | "StringFilter" | "SubjectCreateInput" | "SubjectCreateManyWithoutStudiedSubjectsInput" | "SubjectCreateManyWithoutSubjectsInput" | "SubjectCreateManyWithoutTeachedSubjectsInput" | "SubjectCreateOneWithoutSubjectInput" | "SubjectCreateWithoutDepartmentInput" | "SubjectCreateWithoutInformationsInput" | "SubjectCreateWithoutNotesInput" | "SubjectCreateWithoutStudentsInput" | "SubjectCreateWithoutTeachersInput" | "SubjectInformationCreateInput" | "SubjectInformationCreateManyWithoutInformationsInput" | "SubjectInformationCreateWithoutSubjectInput" | "SubjectInformationUpdateInput" | "SubjectInformationUpdateManyDataInput" | "SubjectInformationUpdateManyWithWhereNestedInput" | "SubjectInformationUpdateManyWithoutSubjectInput" | "SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput" | "SubjectInformationUpdateWithoutSubjectDataInput" | "SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput" | "SubjectInformationWhereUniqueInput" | "SubjectUpdateInput" | "SubjectUpdateManyDataInput" | "SubjectUpdateManyWithWhereNestedInput" | "SubjectUpdateManyWithoutDepartmentInput" | "SubjectUpdateManyWithoutStudentsInput" | "SubjectUpdateManyWithoutTeachersInput" | "SubjectUpdateOneRequiredWithoutInformationsInput" | "SubjectUpdateOneRequiredWithoutNotesInput" | "SubjectUpdateWithWhereUniqueWithoutDepartmentInput" | "SubjectUpdateWithWhereUniqueWithoutStudentsInput" | "SubjectUpdateWithWhereUniqueWithoutTeachersInput" | "SubjectUpdateWithoutDepartmentDataInput" | "SubjectUpdateWithoutInformationsDataInput" | "SubjectUpdateWithoutNotesDataInput" | "SubjectUpdateWithoutStudentsDataInput" | "SubjectUpdateWithoutTeachersDataInput" | "SubjectUpsertWithWhereUniqueWithoutDepartmentInput" | "SubjectUpsertWithWhereUniqueWithoutStudentsInput" | "SubjectUpsertWithWhereUniqueWithoutTeachersInput" | "SubjectUpsertWithoutInformationsInput" | "SubjectUpsertWithoutNotesInput" | "SubjectWhereUniqueInput" | "SuggestionCreateInput" | "SuggestionCreateManyWithoutApprovedSuggestionsInput" | "SuggestionCreateManyWithoutLikedSuggestionsInput" | "SuggestionCreateManyWithoutSuggestionsInput" | "SuggestionCreateWithoutApprovedByInput" | "SuggestionCreateWithoutAuthorInput" | "SuggestionCreateWithoutLikersInput" | "SuggestionCreateWithoutNoteInput" | "SuggestionUpdateInput" | "SuggestionUpdateManyDataInput" | "SuggestionUpdateManyWithWhereNestedInput" | "SuggestionUpdateManyWithoutApprovedByInput" | "SuggestionUpdateManyWithoutAuthorInput" | "SuggestionUpdateManyWithoutLikersInput" | "SuggestionUpdateManyWithoutNoteInput" | "SuggestionUpdateWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpdateWithWhereUniqueWithoutAuthorInput" | "SuggestionUpdateWithWhereUniqueWithoutLikersInput" | "SuggestionUpdateWithWhereUniqueWithoutNoteInput" | "SuggestionUpdateWithoutApprovedByDataInput" | "SuggestionUpdateWithoutAuthorDataInput" | "SuggestionUpdateWithoutLikersDataInput" | "SuggestionUpdateWithoutNoteDataInput" | "SuggestionUpsertWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpsertWithWhereUniqueWithoutAuthorInput" | "SuggestionUpsertWithWhereUniqueWithoutLikersInput" | "SuggestionUpsertWithWhereUniqueWithoutNoteInput" | "SuggestionWhereUniqueInput" | "UserCreateInput" | "UserCreateManyWithoutAuthorsInput" | "UserCreateManyWithoutLikersInput" | "UserCreateManyWithoutStudentsInput" | "UserCreateManyWithoutTeachersInput" | "UserCreateManyWithoutUsersInput" | "UserCreateOneWithoutApprovedByInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutLeaderInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutApprovedSuggestionsInput" | "UserCreateWithoutCommentsInput" | "UserCreateWithoutDepartmentsInput" | "UserCreateWithoutInstitutesInput" | "UserCreateWithoutLikedCommentsInput" | "UserCreateWithoutLikedNotesInput" | "UserCreateWithoutLikedSuggestionsInput" | "UserCreateWithoutNoteHighlightsInput" | "UserCreateWithoutNotesInput" | "UserCreateWithoutPasswordTokenInput" | "UserCreateWithoutRoleInput" | "UserCreateWithoutStudiedSubjectsInput" | "UserCreateWithoutSuggestionsInput" | "UserCreateWithoutTeachedSubjectsInput" | "UserRoleCreateInput" | "UserRoleCreateOneWithoutRoleInput" | "UserRoleCreateWithoutUsersInput" | "UserRoleUpdateInput" | "UserRoleUpdateOneRequiredWithoutUsersInput" | "UserRoleUpdateWithoutUsersDataInput" | "UserRoleUpsertWithoutUsersInput" | "UserRoleWhereUniqueInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutInstitutesInput" | "UserUpdateManyWithoutLikedCommentsInput" | "UserUpdateManyWithoutLikedNotesInput" | "UserUpdateManyWithoutLikedSuggestionsInput" | "UserUpdateManyWithoutNotesInput" | "UserUpdateManyWithoutRoleInput" | "UserUpdateManyWithoutStudiedSubjectsInput" | "UserUpdateManyWithoutTeachedSubjectsInput" | "UserUpdateOneRequiredWithoutCommentsInput" | "UserUpdateOneRequiredWithoutDepartmentsInput" | "UserUpdateOneRequiredWithoutNoteHighlightsInput" | "UserUpdateOneRequiredWithoutPasswordTokenInput" | "UserUpdateOneRequiredWithoutSuggestionsInput" | "UserUpdateOneWithoutApprovedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutInstitutesInput" | "UserUpdateWithWhereUniqueWithoutLikedCommentsInput" | "UserUpdateWithWhereUniqueWithoutLikedNotesInput" | "UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutNotesInput" | "UserUpdateWithWhereUniqueWithoutRoleInput" | "UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpdateWithoutApprovedSuggestionsDataInput" | "UserUpdateWithoutCommentsDataInput" | "UserUpdateWithoutDepartmentsDataInput" | "UserUpdateWithoutInstitutesDataInput" | "UserUpdateWithoutLikedCommentsDataInput" | "UserUpdateWithoutLikedNotesDataInput" | "UserUpdateWithoutLikedSuggestionsDataInput" | "UserUpdateWithoutNoteHighlightsDataInput" | "UserUpdateWithoutNotesDataInput" | "UserUpdateWithoutPasswordTokenDataInput" | "UserUpdateWithoutRoleDataInput" | "UserUpdateWithoutStudiedSubjectsDataInput" | "UserUpdateWithoutSuggestionsDataInput" | "UserUpdateWithoutTeachedSubjectsDataInput" | "UserUpsertWithWhereUniqueWithoutInstitutesInput" | "UserUpsertWithWhereUniqueWithoutLikedCommentsInput" | "UserUpsertWithWhereUniqueWithoutLikedNotesInput" | "UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpsertWithWhereUniqueWithoutNotesInput" | "UserUpsertWithWhereUniqueWithoutRoleInput" | "UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpsertWithoutApprovedSuggestionsInput" | "UserUpsertWithoutCommentsInput" | "UserUpsertWithoutDepartmentsInput" | "UserUpsertWithoutNoteHighlightsInput" | "UserUpsertWithoutPasswordTokenInput" | "UserUpsertWithoutSuggestionsInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = "NoteCategory" | "NoteCategoryEnum" | "UserRoleType" | "UserRoleTypeEnum";
 
