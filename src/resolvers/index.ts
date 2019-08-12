@@ -1,9 +1,12 @@
-import { Mutation } from './mutations';
-import { Query } from './queries';
-import { Models } from './models';
-
-export const resolvers = {
-  Mutation,
-  Query,
-  Models,
-};
+export * from './department';
+export * from './institute';
+export * from './note';
+export * from './note-comment';
+export * from './note-comment-thread';
+export * from './note-highlight';
+export * from './password-token';
+export * from './subject';
+export * from './subject-information';
+export * from './suggestion';
+export * from './user';
+export * from './user-role';

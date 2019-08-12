@@ -1,6 +1,6 @@
-import Photon from '@generated/photon'
+import Photon from '@generated/photon';
 
 export interface Context {
-  photon: Photon
-  request: any
+  photon: Photon;
+  req: any;
 }
