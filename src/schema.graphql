@@ -7,6 +7,11 @@ type AuthPayload {
   user: User!
 }
 
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 """DateTime"""
 scalar DateTime
 
@@ -332,29 +337,30 @@ type Mutation {
   createOneNote(data: NoteCreateInput!): Note!
   createOneNoteComment(data: NoteCommentCreateInput!): NoteComment!
   createOneNoteCommentThread(data: NoteCommentThreadCreateInput!): NoteCommentThread!
-  createOnePasswordToken(data: PasswordTokenCreateInput!): PasswordToken!
+  createOneNoteHighlight(data: NoteHighlightCreateInput!): NoteHighlight!
   createOneSubject(data: SubjectCreateInput!): Subject!
   createOneSubjectInformation(data: SubjectInformationCreateInput!): SubjectInformation!
   createOneSuggestion(data: SuggestionCreateInput!): Suggestion!
-  createOneUser(data: UserCreateInput!): User!
   createOneUserRole(data: UserRoleCreateInput!): UserRole!
   deleteOneDepartment(where: DepartmentWhereUniqueInput!): Department
   deleteOneInstitute(where: InstituteWhereUniqueInput!): Institute
   deleteOneNote(where: NoteWhereUniqueInput!): Note
   deleteOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
   deleteOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  deleteOnePasswordToken(where: PasswordTokenWhereUniqueInput!): PasswordToken
+  deleteOneNoteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
   deleteOneSubject(where: SubjectWhereUniqueInput!): Subject
   deleteOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   deleteOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
-  deleteOneUser(where: UserWhereUniqueInput!): User
   deleteOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+  login(data: UserLoginInput!): AuthPayload!
+  resetPassword(password: String, token: String): AuthPayload!
+  sendResetPasswordEmail(email: String): User!
   updateOneDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
   updateOneInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
   updateOneNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateOneNoteComment(data: NoteCommentUpdateInput!, where: NoteCommentWhereUniqueInput!): NoteComment
   updateOneNoteCommentThread(data: NoteCommentThreadUpdateInput!, where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  updateOnePasswordToken(data: PasswordTokenUpdateInput!, where: PasswordTokenWhereUniqueInput!): PasswordToken
+  updateOneNoteHighlight(data: NoteHighlightUpdateInput!, where: NoteHighlightWhereUniqueInput!): NoteHighlight
   updateOneSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
   updateOneSubjectInformation(data: SubjectInformationUpdateInput!, where: SubjectInformationWhereUniqueInput!): SubjectInformation
   updateOneSuggestion(data: SuggestionUpdateInput!, where: SuggestionWhereUniqueInput!): Suggestion
@@ -439,6 +445,7 @@ input MutationUpdateOneNoteCommentWhereInput {
   id: StringFilter
   identifier: StringFilter
   institutes: MutationUpdateOneNoteCommentFilter
+  isActive: BooleanFilter
   lastName: StringFilter
   likedComments: MutationUpdateOneNoteCommentFilter
   likedNotes: MutationUpdateOneNoteCommentFilter
@@ -498,6 +505,7 @@ input MutationUpdateOneSubjectWhereInput {
   id: StringFilter
   identifier: StringFilter
   institutes: MutationUpdateOneSubjectFilter
+  isActive: BooleanFilter
   lastName: StringFilter
   likedComments: MutationUpdateOneSubjectFilter
   likedNotes: MutationUpdateOneSubjectFilter
@@ -533,6 +541,7 @@ input MutationUpdateOneSuggestionWhereInput {
   id: StringFilter
   identifier: StringFilter
   institutes: MutationUpdateOneSuggestionFilter
+  isActive: BooleanFilter
   lastName: StringFilter
   likedComments: MutationUpdateOneSuggestionFilter
   likedNotes: MutationUpdateOneSuggestionFilter
@@ -568,6 +577,7 @@ input MutationUpdateOneUserRoleWhereInput {
   id: StringFilter
   identifier: StringFilter
   institutes: MutationUpdateOneUserRoleFilter
+  isActive: BooleanFilter
   lastName: StringFilter
   likedComments: MutationUpdateOneUserRoleFilter
   likedNotes: MutationUpdateOneUserRoleFilter
@@ -1184,6 +1194,16 @@ type NoteHighlight {
   user: User!
 }
 
+input NoteHighlightCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteCreateOneWithoutNoteInput!
+  position: String!
+  updatedAt: DateTime
+  user: UserCreateOneWithoutUserInput!
+}
+
 input NoteHighlightCreateManyWithoutHighlightsInput {
   connect: [NoteHighlightWhereUniqueInput!]
   create: [NoteHighlightCreateWithoutNoteInput!]
@@ -1210,6 +1230,16 @@ input NoteHighlightCreateWithoutUserInput {
   note: NoteCreateOneWithoutNoteInput!
   position: String!
   updatedAt: DateTime
+}
+
+input NoteHighlightUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  note: NoteUpdateOneRequiredWithoutHighlightsInput
+  position: String
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutNoteHighlightsInput
 }
 
 input NoteHighlightUpdateManyDataInput {
@@ -1570,15 +1600,6 @@ type PasswordToken {
   user: User!
 }
 
-input PasswordTokenCreateInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: ID
-  token: String!
-  updatedAt: DateTime
-  user: UserCreateOneWithoutUserInput!
-}
-
 input PasswordTokenCreateOneWithoutPasswordTokenInput {
   connect: PasswordTokenWhereUniqueInput
   create: PasswordTokenCreateWithoutUserInput
@@ -1590,15 +1611,6 @@ input PasswordTokenCreateWithoutUserInput {
   id: ID
   token: String!
   updatedAt: DateTime
-}
-
-input PasswordTokenUpdateInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: ID
-  token: String
-  updatedAt: DateTime
-  user: UserUpdateOneRequiredWithoutPasswordTokenInput
 }
 
 input PasswordTokenUpdateOneWithoutUserInput {
@@ -1634,6 +1646,7 @@ type Query {
   findManyNote(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   findManyNoteComment(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   findManyNoteCommentThread(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
+  findManyNoteHighlight(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
   findManyPasswordToken(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
   findManySubject(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
   findManySubjectInformation(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
@@ -1645,12 +1658,14 @@ type Query {
   findOneNote(where: NoteWhereUniqueInput!): Note
   findOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
   findOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  findOneNoteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
   findOnePasswordToken(where: PasswordTokenWhereUniqueInput!): PasswordToken
   findOneSubject(where: SubjectWhereUniqueInput!): Subject
   findOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   findOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
   findOneUser(where: UserWhereUniqueInput!): User
   findOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+  me: User!
 }
 
 input StringFilter {
@@ -2371,34 +2386,6 @@ type User {
   updatedAt: DateTime!
 }
 
-input UserCreateInput {
-  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
-  comments: NoteCommentCreateManyWithoutCommentsInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  departments: DepartmentCreateManyWithoutDepartmentsInput
-  email: String!
-  firstName: String!
-  id: ID
-  identifier: String!
-  institutes: InstituteCreateManyWithoutInstitutesInput
-  lastName: String!
-  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
-  likedNotes: NoteCreateManyWithoutLikedNotesInput
-  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
-  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
-  notes: NoteCreateManyWithoutNotesInput
-  password: String!
-  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
-  phoneNumber: String
-  profilePictureURL: String
-  role: UserRoleCreateOneWithoutRoleInput!
-  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
-  suggestions: SuggestionCreateManyWithoutSuggestionsInput
-  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
-  updatedAt: DateTime
-}
-
 input UserCreateManyWithoutAuthorsInput {
   connect: [UserWhereUniqueInput!]
   create: [UserCreateWithoutNotesInput!]
@@ -2454,6 +2441,7 @@ input UserCreateWithoutApprovedSuggestionsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2481,6 +2469,7 @@ input UserCreateWithoutCommentsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2508,6 +2497,7 @@ input UserCreateWithoutDepartmentsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2535,6 +2525,7 @@ input UserCreateWithoutInstitutesInput {
   firstName: String!
   id: ID
   identifier: String!
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2563,6 +2554,7 @@ input UserCreateWithoutLikedCommentsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedNotes: NoteCreateManyWithoutLikedNotesInput
   likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
@@ -2590,6 +2582,7 @@ input UserCreateWithoutLikedNotesInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
@@ -2617,6 +2610,7 @@ input UserCreateWithoutLikedSuggestionsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2644,6 +2638,7 @@ input UserCreateWithoutNoteHighlightsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2671,6 +2666,7 @@ input UserCreateWithoutNotesInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2678,33 +2674,6 @@ input UserCreateWithoutNotesInput {
   noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
-  phoneNumber: String
-  profilePictureURL: String
-  role: UserRoleCreateOneWithoutRoleInput!
-  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
-  suggestions: SuggestionCreateManyWithoutSuggestionsInput
-  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
-  updatedAt: DateTime
-}
-
-input UserCreateWithoutPasswordTokenInput {
-  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
-  comments: NoteCommentCreateManyWithoutCommentsInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  departments: DepartmentCreateManyWithoutDepartmentsInput
-  email: String!
-  firstName: String!
-  id: ID
-  identifier: String!
-  institutes: InstituteCreateManyWithoutInstitutesInput
-  lastName: String!
-  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
-  likedNotes: NoteCreateManyWithoutLikedNotesInput
-  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
-  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
-  notes: NoteCreateManyWithoutNotesInput
-  password: String!
   phoneNumber: String
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
@@ -2725,6 +2694,7 @@ input UserCreateWithoutRoleInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2752,6 +2722,7 @@ input UserCreateWithoutStudiedSubjectsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2779,6 +2750,7 @@ input UserCreateWithoutSuggestionsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2806,6 +2778,7 @@ input UserCreateWithoutTeachedSubjectsInput {
   id: ID
   identifier: String!
   institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
   lastName: String!
   likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
   likedNotes: NoteCreateManyWithoutLikedNotesInput
@@ -2820,6 +2793,12 @@ input UserCreateWithoutTeachedSubjectsInput {
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
   suggestions: SuggestionCreateManyWithoutSuggestionsInput
   updatedAt: DateTime
+}
+
+"""Input of login"""
+input UserLoginInput {
+  email: String!
+  password: String!
 }
 
 type UserRole {
@@ -2910,6 +2889,7 @@ input UserUpdateManyDataInput {
   firstName: String
   id: ID
   identifier: String
+  isActive: Boolean
   lastName: String
   password: String
   phoneNumber: String
@@ -3039,13 +3019,6 @@ input UserUpdateOneRequiredWithoutNoteHighlightsInput {
   upsert: UserUpsertWithoutNoteHighlightsInput
 }
 
-input UserUpdateOneRequiredWithoutPasswordTokenInput {
-  connect: UserWhereUniqueInput
-  create: UserCreateWithoutPasswordTokenInput
-  update: UserUpdateWithoutPasswordTokenDataInput
-  upsert: UserUpsertWithoutPasswordTokenInput
-}
-
 input UserUpdateOneRequiredWithoutSuggestionsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutSuggestionsInput
@@ -3072,6 +3045,7 @@ input UserUpdateWithoutApprovedSuggestionsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3099,6 +3073,7 @@ input UserUpdateWithoutCommentsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3126,6 +3101,7 @@ input UserUpdateWithoutDepartmentsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3153,6 +3129,7 @@ input UserUpdateWithoutInstitutesDataInput {
   firstName: String
   id: ID
   identifier: String
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3181,6 +3158,7 @@ input UserUpdateWithoutLikedCommentsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedNotes: NoteUpdateManyWithoutLikersInput
   likedSuggestions: SuggestionUpdateManyWithoutLikersInput
@@ -3208,6 +3186,7 @@ input UserUpdateWithoutLikedNotesDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedSuggestions: SuggestionUpdateManyWithoutLikersInput
@@ -3235,6 +3214,7 @@ input UserUpdateWithoutLikedSuggestionsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3262,6 +3242,7 @@ input UserUpdateWithoutNoteHighlightsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3289,6 +3270,7 @@ input UserUpdateWithoutNotesDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3296,33 +3278,6 @@ input UserUpdateWithoutNotesDataInput {
   noteHighlights: NoteHighlightUpdateManyWithoutUserInput
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
-  phoneNumber: String
-  profilePictureURL: String
-  role: UserRoleUpdateOneRequiredWithoutUsersInput
-  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
-  suggestions: SuggestionUpdateManyWithoutAuthorInput
-  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
-  updatedAt: DateTime
-}
-
-input UserUpdateWithoutPasswordTokenDataInput {
-  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
-  comments: NoteCommentUpdateManyWithoutAuthorInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  departments: DepartmentUpdateManyWithoutLeaderInput
-  email: String
-  firstName: String
-  id: ID
-  identifier: String
-  institutes: InstituteUpdateManyWithoutUsersInput
-  lastName: String
-  likedComments: NoteCommentUpdateManyWithoutLikersInput
-  likedNotes: NoteUpdateManyWithoutLikersInput
-  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
-  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
-  notes: NoteUpdateManyWithoutAuthorsInput
-  password: String
   phoneNumber: String
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
@@ -3343,6 +3298,7 @@ input UserUpdateWithoutRoleDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3370,6 +3326,7 @@ input UserUpdateWithoutStudiedSubjectsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3397,6 +3354,7 @@ input UserUpdateWithoutSuggestionsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3424,6 +3382,7 @@ input UserUpdateWithoutTeachedSubjectsDataInput {
   id: ID
   identifier: String
   institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
   lastName: String
   likedComments: NoteCommentUpdateManyWithoutLikersInput
   likedNotes: NoteUpdateManyWithoutLikersInput
@@ -3498,11 +3457,6 @@ input UserUpsertWithoutDepartmentsInput {
 input UserUpsertWithoutNoteHighlightsInput {
   create: UserCreateWithoutNoteHighlightsInput!
   update: UserUpdateWithoutNoteHighlightsDataInput!
-}
-
-input UserUpsertWithoutPasswordTokenInput {
-  create: UserCreateWithoutPasswordTokenInput!
-  update: UserUpdateWithoutPasswordTokenDataInput!
 }
 
 input UserUpsertWithoutSuggestionsInput {

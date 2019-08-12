@@ -34,7 +34,8 @@ async function main() {
       firstName: 'Test',
       lastName: 'User',
       identifier: 'KATZEN',
-      password: '$2y$12$OpGDvPj9lctWxuY9CsXd8Oootkg0xV5nIO2q..pvga6806.CR2luS', // "password"
+      isActive: true,
+      password: '$2b$12$7gGeJkqmmo7tTZ0QoikNBOGz6M1hxPsDVNHKoDmQpH98gMkTA5TuK', // "password"
       role: { connect: { id: userRole.id } },
     },
   });
@@ -43,8 +44,9 @@ async function main() {
       email: 'admin@example.org',
       firstName: 'Test',
       lastName: 'Admin',
-      password: '$2y$12$OpGDvPj9lctWxuY9CsXd8Oootkg0xV5nIO2q..pvga6806.CR2luS', // "password",
+      password: '$2b$12$7gGeJkqmmo7tTZ0QoikNBOGz6M1hxPsDVNHKoDmQpH98gMkTA5TuK', // "password",
       identifier: 'WONDER',
+      isActive: true,
       role: { connect: { id: adminRole.id } },
     },
   });
@@ -53,8 +55,9 @@ async function main() {
       email: 'professor@example.org',
       firstName: 'Test',
       lastName: 'Professor',
-      password: '$2y$12$OpGDvPj9lctWxuY9CsXd8Oootkg0xV5nIO2q..pvga6806.CR2luS', // "password",
+      password: '$2b$12$7gGeJkqmmo7tTZ0QoikNBOGz6M1hxPsDVNHKoDmQpH98gMkTA5TuK', // "password",
       identifier: 'BATMAN',
+      isActive: true,
       role: { connect: { id: professorRole.id } },
     },
   });
@@ -73,8 +76,9 @@ async function main() {
           email: faker.internet.email(),
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
-          password: '$2y$12$OpGDvPj9lctWxuY9CsXd8Oootkg0xV5nIO2q..pvga6806.CR2luS', // "password",
+          password: '$2b$12$7gGeJkqmmo7tTZ0QoikNBOGz6M1hxPsDVNHKoDmQpH98gMkTA5TuK', // "password",
           identifier: faker.random.alphaNumeric(6),
+          isActive: true,
           role: { connect: { id: userRole.id } },
           institutes: { connect: { id: university.id } },
         },

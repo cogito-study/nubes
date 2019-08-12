@@ -19,6 +19,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BooleanFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: boolean | null; // Boolean
+  }
   DepartmentCreateInput: { // input type
     createdAt?: any | null; // DateTime
     deletedAt?: any | null; // DateTime
@@ -347,6 +351,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
     institutes?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
+    isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     likedComments?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
     likedNotes?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
@@ -402,6 +407,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
     institutes?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
+    isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     likedComments?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
     likedNotes?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
@@ -435,6 +441,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
     institutes?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
+    isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     likedComments?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
     likedNotes?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
@@ -468,6 +475,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
     institutes?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
+    isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     likedComments?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
     likedNotes?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
@@ -962,6 +970,15 @@ export interface NexusGenInputs {
     title: string; // String!
     updatedAt?: any | null; // DateTime
   }
+  NoteHighlightCreateInput: { // input type
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    id?: string | null; // ID
+    note: NexusGenInputs['NoteCreateOneWithoutNoteInput']; // NoteCreateOneWithoutNoteInput!
+    position: string; // String!
+    updatedAt?: any | null; // DateTime
+    user: NexusGenInputs['UserCreateOneWithoutUserInput']; // UserCreateOneWithoutUserInput!
+  }
   NoteHighlightCreateManyWithoutHighlightsInput: { // input type
     connect?: NexusGenInputs['NoteHighlightWhereUniqueInput'][] | null; // [NoteHighlightWhereUniqueInput!]
     create?: NexusGenInputs['NoteHighlightCreateWithoutNoteInput'][] | null; // [NoteHighlightCreateWithoutNoteInput!]
@@ -985,6 +1002,15 @@ export interface NexusGenInputs {
     note: NexusGenInputs['NoteCreateOneWithoutNoteInput']; // NoteCreateOneWithoutNoteInput!
     position: string; // String!
     updatedAt?: any | null; // DateTime
+  }
+  NoteHighlightUpdateInput: { // input type
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    id?: string | null; // ID
+    note?: NexusGenInputs['NoteUpdateOneRequiredWithoutHighlightsInput'] | null; // NoteUpdateOneRequiredWithoutHighlightsInput
+    position?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    user?: NexusGenInputs['UserUpdateOneRequiredWithoutNoteHighlightsInput'] | null; // UserUpdateOneRequiredWithoutNoteHighlightsInput
   }
   NoteHighlightUpdateManyDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -1298,14 +1324,6 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
-  PasswordTokenCreateInput: { // input type
-    createdAt?: any | null; // DateTime
-    deletedAt?: any | null; // DateTime
-    id?: string | null; // ID
-    token: string; // String!
-    updatedAt?: any | null; // DateTime
-    user: NexusGenInputs['UserCreateOneWithoutUserInput']; // UserCreateOneWithoutUserInput!
-  }
   PasswordTokenCreateOneWithoutPasswordTokenInput: { // input type
     connect?: NexusGenInputs['PasswordTokenWhereUniqueInput'] | null; // PasswordTokenWhereUniqueInput
     create?: NexusGenInputs['PasswordTokenCreateWithoutUserInput'] | null; // PasswordTokenCreateWithoutUserInput
@@ -1316,14 +1334,6 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     token: string; // String!
     updatedAt?: any | null; // DateTime
-  }
-  PasswordTokenUpdateInput: { // input type
-    createdAt?: any | null; // DateTime
-    deletedAt?: any | null; // DateTime
-    id?: string | null; // ID
-    token?: string | null; // String
-    updatedAt?: any | null; // DateTime
-    user?: NexusGenInputs['UserUpdateOneRequiredWithoutPasswordTokenInput'] | null; // UserUpdateOneRequiredWithoutPasswordTokenInput
   }
   PasswordTokenUpdateOneWithoutUserInput: { // input type
     connect?: NexusGenInputs['PasswordTokenWhereUniqueInput'] | null; // PasswordTokenWhereUniqueInput
@@ -1929,33 +1939,6 @@ export interface NexusGenInputs {
   SuggestionWhereUniqueInput: { // input type
     id?: string | null; // ID
   }
-  UserCreateInput: { // input type
-    approvedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutApprovedSuggestionsInput'] | null; // SuggestionCreateManyWithoutApprovedSuggestionsInput
-    comments?: NexusGenInputs['NoteCommentCreateManyWithoutCommentsInput'] | null; // NoteCommentCreateManyWithoutCommentsInput
-    createdAt?: any | null; // DateTime
-    deletedAt?: any | null; // DateTime
-    departments?: NexusGenInputs['DepartmentCreateManyWithoutDepartmentsInput'] | null; // DepartmentCreateManyWithoutDepartmentsInput
-    email: string; // String!
-    firstName: string; // String!
-    id?: string | null; // ID
-    identifier: string; // String!
-    institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
-    lastName: string; // String!
-    likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
-    likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
-    likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
-    noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
-    notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
-    password: string; // String!
-    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
-    phoneNumber?: string | null; // String
-    profilePictureURL?: string | null; // String
-    role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
-    studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
-    suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
-    teachedSubjects?: NexusGenInputs['SubjectCreateManyWithoutTeachedSubjectsInput'] | null; // SubjectCreateManyWithoutTeachedSubjectsInput
-    updatedAt?: any | null; // DateTime
-  }
   UserCreateManyWithoutAuthorsInput: { // input type
     connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
     create?: NexusGenInputs['UserCreateWithoutNotesInput'][] | null; // [UserCreateWithoutNotesInput!]
@@ -2002,6 +1985,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2028,6 +2012,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2054,6 +2039,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2080,6 +2066,7 @@ export interface NexusGenInputs {
     firstName: string; // String!
     id?: string | null; // ID
     identifier: string; // String!
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2107,6 +2094,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
     likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
@@ -2133,6 +2121,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
@@ -2159,6 +2148,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2185,6 +2175,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2211,6 +2202,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2218,32 +2210,6 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
-    phoneNumber?: string | null; // String
-    profilePictureURL?: string | null; // String
-    role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
-    studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
-    suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
-    teachedSubjects?: NexusGenInputs['SubjectCreateManyWithoutTeachedSubjectsInput'] | null; // SubjectCreateManyWithoutTeachedSubjectsInput
-    updatedAt?: any | null; // DateTime
-  }
-  UserCreateWithoutPasswordTokenInput: { // input type
-    approvedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutApprovedSuggestionsInput'] | null; // SuggestionCreateManyWithoutApprovedSuggestionsInput
-    comments?: NexusGenInputs['NoteCommentCreateManyWithoutCommentsInput'] | null; // NoteCommentCreateManyWithoutCommentsInput
-    createdAt?: any | null; // DateTime
-    deletedAt?: any | null; // DateTime
-    departments?: NexusGenInputs['DepartmentCreateManyWithoutDepartmentsInput'] | null; // DepartmentCreateManyWithoutDepartmentsInput
-    email: string; // String!
-    firstName: string; // String!
-    id?: string | null; // ID
-    identifier: string; // String!
-    institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
-    lastName: string; // String!
-    likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
-    likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
-    likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
-    noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
-    notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
-    password: string; // String!
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
@@ -2263,6 +2229,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2289,6 +2256,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2315,6 +2283,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2341,6 +2310,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier: string; // String!
     institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
     lastName: string; // String!
     likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
@@ -2355,6 +2325,10 @@ export interface NexusGenInputs {
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
     suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
     updatedAt?: any | null; // DateTime
+  }
+  UserLoginInput: { // input type
+    email: string; // String!
+    password: string; // String!
   }
   UserRoleCreateInput: { // input type
     createdAt?: any | null; // DateTime
@@ -2414,6 +2388,7 @@ export interface NexusGenInputs {
     firstName?: string | null; // String
     id?: string | null; // ID
     identifier?: string | null; // String
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     password?: string | null; // String
     phoneNumber?: string | null; // String
@@ -2530,12 +2505,6 @@ export interface NexusGenInputs {
     update?: NexusGenInputs['UserUpdateWithoutNoteHighlightsDataInput'] | null; // UserUpdateWithoutNoteHighlightsDataInput
     upsert?: NexusGenInputs['UserUpsertWithoutNoteHighlightsInput'] | null; // UserUpsertWithoutNoteHighlightsInput
   }
-  UserUpdateOneRequiredWithoutPasswordTokenInput: { // input type
-    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-    create?: NexusGenInputs['UserCreateWithoutPasswordTokenInput'] | null; // UserCreateWithoutPasswordTokenInput
-    update?: NexusGenInputs['UserUpdateWithoutPasswordTokenDataInput'] | null; // UserUpdateWithoutPasswordTokenDataInput
-    upsert?: NexusGenInputs['UserUpsertWithoutPasswordTokenInput'] | null; // UserUpsertWithoutPasswordTokenInput
-  }
   UserUpdateOneRequiredWithoutSuggestionsInput: { // input type
     connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
     create?: NexusGenInputs['UserCreateWithoutSuggestionsInput'] | null; // UserCreateWithoutSuggestionsInput
@@ -2592,6 +2561,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2618,6 +2588,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2644,6 +2615,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2670,6 +2642,7 @@ export interface NexusGenInputs {
     firstName?: string | null; // String
     id?: string | null; // ID
     identifier?: string | null; // String
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2697,6 +2670,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
     likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
@@ -2723,6 +2697,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
@@ -2749,6 +2724,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2775,6 +2751,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2801,6 +2778,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2808,32 +2786,6 @@ export interface NexusGenInputs {
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
-    phoneNumber?: string | null; // String
-    profilePictureURL?: string | null; // String
-    role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
-    studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
-    suggestions?: NexusGenInputs['SuggestionUpdateManyWithoutAuthorInput'] | null; // SuggestionUpdateManyWithoutAuthorInput
-    teachedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutTeachersInput'] | null; // SubjectUpdateManyWithoutTeachersInput
-    updatedAt?: any | null; // DateTime
-  }
-  UserUpdateWithoutPasswordTokenDataInput: { // input type
-    approvedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutApprovedByInput'] | null; // SuggestionUpdateManyWithoutApprovedByInput
-    comments?: NexusGenInputs['NoteCommentUpdateManyWithoutAuthorInput'] | null; // NoteCommentUpdateManyWithoutAuthorInput
-    createdAt?: any | null; // DateTime
-    deletedAt?: any | null; // DateTime
-    departments?: NexusGenInputs['DepartmentUpdateManyWithoutLeaderInput'] | null; // DepartmentUpdateManyWithoutLeaderInput
-    email?: string | null; // String
-    firstName?: string | null; // String
-    id?: string | null; // ID
-    identifier?: string | null; // String
-    institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
-    lastName?: string | null; // String
-    likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
-    likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
-    likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
-    noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
-    notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
-    password?: string | null; // String
     phoneNumber?: string | null; // String
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
@@ -2853,6 +2805,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2879,6 +2832,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2905,6 +2859,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -2931,6 +2886,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     identifier?: string | null; // String
     institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
     lastName?: string | null; // String
     likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
@@ -3002,10 +2958,6 @@ export interface NexusGenInputs {
     create: NexusGenInputs['UserCreateWithoutNoteHighlightsInput']; // UserCreateWithoutNoteHighlightsInput!
     update: NexusGenInputs['UserUpdateWithoutNoteHighlightsDataInput']; // UserUpdateWithoutNoteHighlightsDataInput!
   }
-  UserUpsertWithoutPasswordTokenInput: { // input type
-    create: NexusGenInputs['UserCreateWithoutPasswordTokenInput']; // UserCreateWithoutPasswordTokenInput!
-    update: NexusGenInputs['UserUpdateWithoutPasswordTokenDataInput']; // UserUpdateWithoutPasswordTokenDataInput!
-  }
   UserUpsertWithoutSuggestionsInput: { // input type
     create: NexusGenInputs['UserCreateWithoutSuggestionsInput']; // UserCreateWithoutSuggestionsInput!
     update: NexusGenInputs['UserUpdateWithoutSuggestionsDataInput']; // UserUpdateWithoutSuggestionsDataInput!
@@ -3051,6 +3003,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  BooleanFilter: NexusGenInputs['BooleanFilter'];
   DepartmentCreateInput: NexusGenInputs['DepartmentCreateInput'];
   DepartmentCreateManyWithoutDepartmentsInput: NexusGenInputs['DepartmentCreateManyWithoutDepartmentsInput'];
   DepartmentCreateOneWithoutDepartmentInput: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'];
@@ -3163,10 +3116,12 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteCreateWithoutLikersInput: NexusGenInputs['NoteCreateWithoutLikersInput'];
   NoteCreateWithoutSubjectInput: NexusGenInputs['NoteCreateWithoutSubjectInput'];
   NoteCreateWithoutSuggestionsInput: NexusGenInputs['NoteCreateWithoutSuggestionsInput'];
+  NoteHighlightCreateInput: NexusGenInputs['NoteHighlightCreateInput'];
   NoteHighlightCreateManyWithoutHighlightsInput: NexusGenInputs['NoteHighlightCreateManyWithoutHighlightsInput'];
   NoteHighlightCreateManyWithoutNoteHighlightsInput: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'];
   NoteHighlightCreateWithoutNoteInput: NexusGenInputs['NoteHighlightCreateWithoutNoteInput'];
   NoteHighlightCreateWithoutUserInput: NexusGenInputs['NoteHighlightCreateWithoutUserInput'];
+  NoteHighlightUpdateInput: NexusGenInputs['NoteHighlightUpdateInput'];
   NoteHighlightUpdateManyDataInput: NexusGenInputs['NoteHighlightUpdateManyDataInput'];
   NoteHighlightUpdateManyWithWhereNestedInput: NexusGenInputs['NoteHighlightUpdateManyWithWhereNestedInput'];
   NoteHighlightUpdateManyWithoutNoteInput: NexusGenInputs['NoteHighlightUpdateManyWithoutNoteInput'];
@@ -3204,10 +3159,8 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteUpsertWithoutSuggestionsInput: NexusGenInputs['NoteUpsertWithoutSuggestionsInput'];
   NoteWhereUniqueInput: NexusGenInputs['NoteWhereUniqueInput'];
   NullableStringFilter: NexusGenInputs['NullableStringFilter'];
-  PasswordTokenCreateInput: NexusGenInputs['PasswordTokenCreateInput'];
   PasswordTokenCreateOneWithoutPasswordTokenInput: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'];
   PasswordTokenCreateWithoutUserInput: NexusGenInputs['PasswordTokenCreateWithoutUserInput'];
-  PasswordTokenUpdateInput: NexusGenInputs['PasswordTokenUpdateInput'];
   PasswordTokenUpdateOneWithoutUserInput: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'];
   PasswordTokenUpdateWithoutUserDataInput: NexusGenInputs['PasswordTokenUpdateWithoutUserDataInput'];
   PasswordTokenUpsertWithoutUserInput: NexusGenInputs['PasswordTokenUpsertWithoutUserInput'];
@@ -3284,7 +3237,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SuggestionUpsertWithWhereUniqueWithoutLikersInput: NexusGenInputs['SuggestionUpsertWithWhereUniqueWithoutLikersInput'];
   SuggestionUpsertWithWhereUniqueWithoutNoteInput: NexusGenInputs['SuggestionUpsertWithWhereUniqueWithoutNoteInput'];
   SuggestionWhereUniqueInput: NexusGenInputs['SuggestionWhereUniqueInput'];
-  UserCreateInput: NexusGenInputs['UserCreateInput'];
   UserCreateManyWithoutAuthorsInput: NexusGenInputs['UserCreateManyWithoutAuthorsInput'];
   UserCreateManyWithoutLikersInput: NexusGenInputs['UserCreateManyWithoutLikersInput'];
   UserCreateManyWithoutStudentsInput: NexusGenInputs['UserCreateManyWithoutStudentsInput'];
@@ -3303,11 +3255,11 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserCreateWithoutLikedSuggestionsInput: NexusGenInputs['UserCreateWithoutLikedSuggestionsInput'];
   UserCreateWithoutNoteHighlightsInput: NexusGenInputs['UserCreateWithoutNoteHighlightsInput'];
   UserCreateWithoutNotesInput: NexusGenInputs['UserCreateWithoutNotesInput'];
-  UserCreateWithoutPasswordTokenInput: NexusGenInputs['UserCreateWithoutPasswordTokenInput'];
   UserCreateWithoutRoleInput: NexusGenInputs['UserCreateWithoutRoleInput'];
   UserCreateWithoutStudiedSubjectsInput: NexusGenInputs['UserCreateWithoutStudiedSubjectsInput'];
   UserCreateWithoutSuggestionsInput: NexusGenInputs['UserCreateWithoutSuggestionsInput'];
   UserCreateWithoutTeachedSubjectsInput: NexusGenInputs['UserCreateWithoutTeachedSubjectsInput'];
+  UserLoginInput: NexusGenInputs['UserLoginInput'];
   UserRoleCreateInput: NexusGenInputs['UserRoleCreateInput'];
   UserRoleCreateOneWithoutRoleInput: NexusGenInputs['UserRoleCreateOneWithoutRoleInput'];
   UserRoleCreateWithoutUsersInput: NexusGenInputs['UserRoleCreateWithoutUsersInput'];
@@ -3329,7 +3281,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpdateOneRequiredWithoutCommentsInput: NexusGenInputs['UserUpdateOneRequiredWithoutCommentsInput'];
   UserUpdateOneRequiredWithoutDepartmentsInput: NexusGenInputs['UserUpdateOneRequiredWithoutDepartmentsInput'];
   UserUpdateOneRequiredWithoutNoteHighlightsInput: NexusGenInputs['UserUpdateOneRequiredWithoutNoteHighlightsInput'];
-  UserUpdateOneRequiredWithoutPasswordTokenInput: NexusGenInputs['UserUpdateOneRequiredWithoutPasswordTokenInput'];
   UserUpdateOneRequiredWithoutSuggestionsInput: NexusGenInputs['UserUpdateOneRequiredWithoutSuggestionsInput'];
   UserUpdateOneWithoutApprovedSuggestionsInput: NexusGenInputs['UserUpdateOneWithoutApprovedSuggestionsInput'];
   UserUpdateWithWhereUniqueWithoutInstitutesInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutInstitutesInput'];
@@ -3349,7 +3300,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpdateWithoutLikedSuggestionsDataInput: NexusGenInputs['UserUpdateWithoutLikedSuggestionsDataInput'];
   UserUpdateWithoutNoteHighlightsDataInput: NexusGenInputs['UserUpdateWithoutNoteHighlightsDataInput'];
   UserUpdateWithoutNotesDataInput: NexusGenInputs['UserUpdateWithoutNotesDataInput'];
-  UserUpdateWithoutPasswordTokenDataInput: NexusGenInputs['UserUpdateWithoutPasswordTokenDataInput'];
   UserUpdateWithoutRoleDataInput: NexusGenInputs['UserUpdateWithoutRoleDataInput'];
   UserUpdateWithoutStudiedSubjectsDataInput: NexusGenInputs['UserUpdateWithoutStudiedSubjectsDataInput'];
   UserUpdateWithoutSuggestionsDataInput: NexusGenInputs['UserUpdateWithoutSuggestionsDataInput'];
@@ -3366,7 +3316,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpsertWithoutCommentsInput: NexusGenInputs['UserUpsertWithoutCommentsInput'];
   UserUpsertWithoutDepartmentsInput: NexusGenInputs['UserUpsertWithoutDepartmentsInput'];
   UserUpsertWithoutNoteHighlightsInput: NexusGenInputs['UserUpsertWithoutNoteHighlightsInput'];
-  UserUpsertWithoutPasswordTokenInput: NexusGenInputs['UserUpsertWithoutPasswordTokenInput'];
   UserUpsertWithoutSuggestionsInput: NexusGenInputs['UserUpsertWithoutSuggestionsInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   NoteCategory: NexusGenEnums['NoteCategory'];
@@ -3406,29 +3355,30 @@ export interface NexusGenFieldTypes {
     createOneNote: NexusGenRootTypes['Note']; // Note!
     createOneNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     createOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
-    createOnePasswordToken: NexusGenRootTypes['PasswordToken']; // PasswordToken!
+    createOneNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
     createOneSubject: NexusGenRootTypes['Subject']; // Subject!
     createOneSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     createOneSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
-    createOneUser: NexusGenRootTypes['User']; // User!
     createOneUserRole: NexusGenRootTypes['UserRole']; // UserRole!
     deleteOneDepartment: NexusGenRootTypes['Department'] | null; // Department
     deleteOneInstitute: NexusGenRootTypes['Institute'] | null; // Institute
     deleteOneNote: NexusGenRootTypes['Note'] | null; // Note
     deleteOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
     deleteOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
-    deleteOnePasswordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
+    deleteOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
     deleteOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
     deleteOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
     deleteOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
-    deleteOneUser: NexusGenRootTypes['User'] | null; // User
     deleteOneUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    resetPassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    sendResetPasswordEmail: NexusGenRootTypes['User']; // User!
     updateOneDepartment: NexusGenRootTypes['Department'] | null; // Department
     updateOneInstitute: NexusGenRootTypes['Institute'] | null; // Institute
     updateOneNote: NexusGenRootTypes['Note'] | null; // Note
     updateOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
     updateOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
-    updateOnePasswordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
+    updateOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
     updateOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
     updateOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
     updateOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
@@ -3496,6 +3446,7 @@ export interface NexusGenFieldTypes {
     findManyNote: NexusGenRootTypes['Note'][] | null; // [Note!]
     findManyNoteComment: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     findManyNoteCommentThread: NexusGenRootTypes['NoteCommentThread'][] | null; // [NoteCommentThread!]
+    findManyNoteHighlight: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     findManyPasswordToken: NexusGenRootTypes['PasswordToken'][] | null; // [PasswordToken!]
     findManySubject: NexusGenRootTypes['Subject'][] | null; // [Subject!]
     findManySubjectInformation: NexusGenRootTypes['SubjectInformation'][] | null; // [SubjectInformation!]
@@ -3507,12 +3458,14 @@ export interface NexusGenFieldTypes {
     findOneNote: NexusGenRootTypes['Note'] | null; // Note
     findOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
     findOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    findOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
     findOnePasswordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
     findOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
     findOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
     findOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
     findOneUser: NexusGenRootTypes['User'] | null; // User
     findOneUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    me: NexusGenRootTypes['User']; // User!
   }
   Subject: { // field return type
     code: string; // String!
@@ -3628,8 +3581,8 @@ export interface NexusGenArgTypes {
     createOneNoteCommentThread: { // args
       data: NexusGenInputs['NoteCommentThreadCreateInput']; // NoteCommentThreadCreateInput!
     }
-    createOnePasswordToken: { // args
-      data: NexusGenInputs['PasswordTokenCreateInput']; // PasswordTokenCreateInput!
+    createOneNoteHighlight: { // args
+      data: NexusGenInputs['NoteHighlightCreateInput']; // NoteHighlightCreateInput!
     }
     createOneSubject: { // args
       data: NexusGenInputs['SubjectCreateInput']; // SubjectCreateInput!
@@ -3639,9 +3592,6 @@ export interface NexusGenArgTypes {
     }
     createOneSuggestion: { // args
       data: NexusGenInputs['SuggestionCreateInput']; // SuggestionCreateInput!
-    }
-    createOneUser: { // args
-      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
     }
     createOneUserRole: { // args
       data: NexusGenInputs['UserRoleCreateInput']; // UserRoleCreateInput!
@@ -3661,8 +3611,8 @@ export interface NexusGenArgTypes {
     deleteOneNoteCommentThread: { // args
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
     }
-    deleteOnePasswordToken: { // args
-      where: NexusGenInputs['PasswordTokenWhereUniqueInput']; // PasswordTokenWhereUniqueInput!
+    deleteOneNoteHighlight: { // args
+      where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
     deleteOneSubject: { // args
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
@@ -3673,11 +3623,18 @@ export interface NexusGenArgTypes {
     deleteOneSuggestion: { // args
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
     }
-    deleteOneUser: { // args
-      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
-    }
     deleteOneUserRole: { // args
       where: NexusGenInputs['UserRoleWhereUniqueInput']; // UserRoleWhereUniqueInput!
+    }
+    login: { // args
+      data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
+    }
+    resetPassword: { // args
+      password?: string | null; // String
+      token?: string | null; // String
+    }
+    sendResetPasswordEmail: { // args
+      email?: string | null; // String
     }
     updateOneDepartment: { // args
       data: NexusGenInputs['DepartmentUpdateInput']; // DepartmentUpdateInput!
@@ -3699,9 +3656,9 @@ export interface NexusGenArgTypes {
       data: NexusGenInputs['NoteCommentThreadUpdateInput']; // NoteCommentThreadUpdateInput!
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
     }
-    updateOnePasswordToken: { // args
-      data: NexusGenInputs['PasswordTokenUpdateInput']; // PasswordTokenUpdateInput!
-      where: NexusGenInputs['PasswordTokenWhereUniqueInput']; // PasswordTokenWhereUniqueInput!
+    updateOneNoteHighlight: { // args
+      data: NexusGenInputs['NoteHighlightUpdateInput']; // NoteHighlightUpdateInput!
+      where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
     updateOneSubject: { // args
       data: NexusGenInputs['SubjectUpdateInput']; // SubjectUpdateInput!
@@ -3811,6 +3768,13 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
+    findManyNoteHighlight: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
     findManyPasswordToken: { // args
       after?: string | null; // String
       before?: string | null; // String
@@ -3867,6 +3831,9 @@ export interface NexusGenArgTypes {
     }
     findOneNoteCommentThread: { // args
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
+    }
+    findOneNoteHighlight: { // args
+      where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
     findOnePasswordToken: { // args
       where: NexusGenInputs['PasswordTokenWhereUniqueInput']; // PasswordTokenWhereUniqueInput!
@@ -4023,7 +3990,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "AuthPayload" | "Department" | "Institute" | "Mutation" | "Note" | "NoteComment" | "NoteCommentThread" | "NoteHighlight" | "PasswordToken" | "Query" | "Subject" | "SubjectInformation" | "Suggestion" | "User" | "UserRole";
 
-export type NexusGenInputNames = "DepartmentCreateInput" | "DepartmentCreateManyWithoutDepartmentsInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutInstituteInput" | "DepartmentCreateWithoutLeaderInput" | "DepartmentCreateWithoutSubjectsInput" | "DepartmentUpdateInput" | "DepartmentUpdateManyDataInput" | "DepartmentUpdateManyWithWhereNestedInput" | "DepartmentUpdateManyWithoutInstituteInput" | "DepartmentUpdateManyWithoutLeaderInput" | "DepartmentUpdateOneRequiredWithoutSubjectsInput" | "DepartmentUpdateWithWhereUniqueWithoutInstituteInput" | "DepartmentUpdateWithWhereUniqueWithoutLeaderInput" | "DepartmentUpdateWithoutInstituteDataInput" | "DepartmentUpdateWithoutLeaderDataInput" | "DepartmentUpdateWithoutSubjectsDataInput" | "DepartmentUpsertWithWhereUniqueWithoutInstituteInput" | "DepartmentUpsertWithWhereUniqueWithoutLeaderInput" | "DepartmentUpsertWithoutSubjectsInput" | "DepartmentWhereUniqueInput" | "InstituteCreateInput" | "InstituteCreateManyWithoutInstitutesInput" | "InstituteCreateOneWithoutInstituteInput" | "InstituteCreateWithoutDepartmentsInput" | "InstituteCreateWithoutUsersInput" | "InstituteUpdateInput" | "InstituteUpdateManyDataInput" | "InstituteUpdateManyWithWhereNestedInput" | "InstituteUpdateManyWithoutUsersInput" | "InstituteUpdateOneRequiredWithoutDepartmentsInput" | "InstituteUpdateWithWhereUniqueWithoutUsersInput" | "InstituteUpdateWithoutDepartmentsDataInput" | "InstituteUpdateWithoutUsersDataInput" | "InstituteUpsertWithWhereUniqueWithoutUsersInput" | "InstituteUpsertWithoutDepartmentsInput" | "InstituteWhereUniqueInput" | "MutationUpdateOneDepartmentFilter" | "MutationUpdateOneDepartmentWhereInput" | "MutationUpdateOneInstituteFilter" | "MutationUpdateOneInstituteWhereInput" | "MutationUpdateOneNoteCommentFilter" | "MutationUpdateOneNoteCommentThreadFilter" | "MutationUpdateOneNoteCommentThreadWhereInput" | "MutationUpdateOneNoteCommentWhereInput" | "MutationUpdateOneNoteFilter" | "MutationUpdateOneNoteWhereInput" | "MutationUpdateOneSubjectFilter" | "MutationUpdateOneSubjectWhereInput" | "MutationUpdateOneSuggestionFilter" | "MutationUpdateOneSuggestionWhereInput" | "MutationUpdateOneUserRoleFilter" | "MutationUpdateOneUserRoleWhereInput" | "NoteCommentCreateInput" | "NoteCommentCreateManyWithoutCommentsInput" | "NoteCommentCreateManyWithoutLikedCommentsInput" | "NoteCommentCreateManyWithoutRepliesInput" | "NoteCommentCreateOneWithoutCommentInput" | "NoteCommentCreateWithoutAuthorInput" | "NoteCommentCreateWithoutLikersInput" | "NoteCommentCreateWithoutThreadInput" | "NoteCommentCreateWithoutThreadReplyInput" | "NoteCommentThreadCreateInput" | "NoteCommentThreadCreateManyWithoutCommentThreadsInput" | "NoteCommentThreadCreateOneWithoutThreadInput" | "NoteCommentThreadCreateOneWithoutThreadReplyInput" | "NoteCommentThreadCreateWithoutCommentInput" | "NoteCommentThreadCreateWithoutNoteInput" | "NoteCommentThreadCreateWithoutRepliesInput" | "NoteCommentThreadUpdateInput" | "NoteCommentThreadUpdateManyDataInput" | "NoteCommentThreadUpdateManyWithWhereNestedInput" | "NoteCommentThreadUpdateManyWithoutNoteInput" | "NoteCommentThreadUpdateOneWithoutCommentInput" | "NoteCommentThreadUpdateOneWithoutRepliesInput" | "NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpdateWithoutCommentDataInput" | "NoteCommentThreadUpdateWithoutNoteDataInput" | "NoteCommentThreadUpdateWithoutRepliesDataInput" | "NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpsertWithoutCommentInput" | "NoteCommentThreadUpsertWithoutRepliesInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentUpdateInput" | "NoteCommentUpdateManyDataInput" | "NoteCommentUpdateManyWithWhereNestedInput" | "NoteCommentUpdateManyWithoutAuthorInput" | "NoteCommentUpdateManyWithoutLikersInput" | "NoteCommentUpdateManyWithoutThreadReplyInput" | "NoteCommentUpdateOneRequiredWithoutThreadInput" | "NoteCommentUpdateWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpdateWithWhereUniqueWithoutLikersInput" | "NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpdateWithoutAuthorDataInput" | "NoteCommentUpdateWithoutLikersDataInput" | "NoteCommentUpdateWithoutThreadDataInput" | "NoteCommentUpdateWithoutThreadReplyDataInput" | "NoteCommentUpsertWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpsertWithWhereUniqueWithoutLikersInput" | "NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpsertWithoutThreadInput" | "NoteCommentWhereUniqueInput" | "NoteCreateInput" | "NoteCreateManyWithoutLikedNotesInput" | "NoteCreateManyWithoutNotesInput" | "NoteCreateOneWithoutNoteInput" | "NoteCreateWithoutAuthorsInput" | "NoteCreateWithoutCommentThreadsInput" | "NoteCreateWithoutHighlightsInput" | "NoteCreateWithoutLikersInput" | "NoteCreateWithoutSubjectInput" | "NoteCreateWithoutSuggestionsInput" | "NoteHighlightCreateManyWithoutHighlightsInput" | "NoteHighlightCreateManyWithoutNoteHighlightsInput" | "NoteHighlightCreateWithoutNoteInput" | "NoteHighlightCreateWithoutUserInput" | "NoteHighlightUpdateManyDataInput" | "NoteHighlightUpdateManyWithWhereNestedInput" | "NoteHighlightUpdateManyWithoutNoteInput" | "NoteHighlightUpdateManyWithoutUserInput" | "NoteHighlightUpdateWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpdateWithWhereUniqueWithoutUserInput" | "NoteHighlightUpdateWithoutNoteDataInput" | "NoteHighlightUpdateWithoutUserDataInput" | "NoteHighlightUpsertWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpsertWithWhereUniqueWithoutUserInput" | "NoteHighlightWhereUniqueInput" | "NoteUpdateInput" | "NoteUpdateManyDataInput" | "NoteUpdateManyWithWhereNestedInput" | "NoteUpdateManyWithoutAuthorsInput" | "NoteUpdateManyWithoutLikersInput" | "NoteUpdateManyWithoutSubjectInput" | "NoteUpdateOneRequiredWithoutCommentThreadsInput" | "NoteUpdateOneRequiredWithoutHighlightsInput" | "NoteUpdateOneRequiredWithoutSuggestionsInput" | "NoteUpdateWithWhereUniqueWithoutAuthorsInput" | "NoteUpdateWithWhereUniqueWithoutLikersInput" | "NoteUpdateWithWhereUniqueWithoutSubjectInput" | "NoteUpdateWithoutAuthorsDataInput" | "NoteUpdateWithoutCommentThreadsDataInput" | "NoteUpdateWithoutHighlightsDataInput" | "NoteUpdateWithoutLikersDataInput" | "NoteUpdateWithoutSubjectDataInput" | "NoteUpdateWithoutSuggestionsDataInput" | "NoteUpsertWithWhereUniqueWithoutAuthorsInput" | "NoteUpsertWithWhereUniqueWithoutLikersInput" | "NoteUpsertWithWhereUniqueWithoutSubjectInput" | "NoteUpsertWithoutCommentThreadsInput" | "NoteUpsertWithoutHighlightsInput" | "NoteUpsertWithoutSuggestionsInput" | "NoteWhereUniqueInput" | "NullableStringFilter" | "PasswordTokenCreateInput" | "PasswordTokenCreateOneWithoutPasswordTokenInput" | "PasswordTokenCreateWithoutUserInput" | "PasswordTokenUpdateInput" | "PasswordTokenUpdateOneWithoutUserInput" | "PasswordTokenUpdateWithoutUserDataInput" | "PasswordTokenUpsertWithoutUserInput" | "PasswordTokenWhereUniqueInput" | "StringFilter" | "SubjectCreateInput" | "SubjectCreateManyWithoutStudiedSubjectsInput" | "SubjectCreateManyWithoutSubjectsInput" | "SubjectCreateManyWithoutTeachedSubjectsInput" | "SubjectCreateOneWithoutSubjectInput" | "SubjectCreateWithoutDepartmentInput" | "SubjectCreateWithoutInformationsInput" | "SubjectCreateWithoutNotesInput" | "SubjectCreateWithoutStudentsInput" | "SubjectCreateWithoutTeachersInput" | "SubjectInformationCreateInput" | "SubjectInformationCreateManyWithoutInformationsInput" | "SubjectInformationCreateWithoutSubjectInput" | "SubjectInformationUpdateInput" | "SubjectInformationUpdateManyDataInput" | "SubjectInformationUpdateManyWithWhereNestedInput" | "SubjectInformationUpdateManyWithoutSubjectInput" | "SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput" | "SubjectInformationUpdateWithoutSubjectDataInput" | "SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput" | "SubjectInformationWhereUniqueInput" | "SubjectUpdateInput" | "SubjectUpdateManyDataInput" | "SubjectUpdateManyWithWhereNestedInput" | "SubjectUpdateManyWithoutDepartmentInput" | "SubjectUpdateManyWithoutStudentsInput" | "SubjectUpdateManyWithoutTeachersInput" | "SubjectUpdateOneRequiredWithoutInformationsInput" | "SubjectUpdateOneRequiredWithoutNotesInput" | "SubjectUpdateWithWhereUniqueWithoutDepartmentInput" | "SubjectUpdateWithWhereUniqueWithoutStudentsInput" | "SubjectUpdateWithWhereUniqueWithoutTeachersInput" | "SubjectUpdateWithoutDepartmentDataInput" | "SubjectUpdateWithoutInformationsDataInput" | "SubjectUpdateWithoutNotesDataInput" | "SubjectUpdateWithoutStudentsDataInput" | "SubjectUpdateWithoutTeachersDataInput" | "SubjectUpsertWithWhereUniqueWithoutDepartmentInput" | "SubjectUpsertWithWhereUniqueWithoutStudentsInput" | "SubjectUpsertWithWhereUniqueWithoutTeachersInput" | "SubjectUpsertWithoutInformationsInput" | "SubjectUpsertWithoutNotesInput" | "SubjectWhereUniqueInput" | "SuggestionCreateInput" | "SuggestionCreateManyWithoutApprovedSuggestionsInput" | "SuggestionCreateManyWithoutLikedSuggestionsInput" | "SuggestionCreateManyWithoutSuggestionsInput" | "SuggestionCreateWithoutApprovedByInput" | "SuggestionCreateWithoutAuthorInput" | "SuggestionCreateWithoutLikersInput" | "SuggestionCreateWithoutNoteInput" | "SuggestionUpdateInput" | "SuggestionUpdateManyDataInput" | "SuggestionUpdateManyWithWhereNestedInput" | "SuggestionUpdateManyWithoutApprovedByInput" | "SuggestionUpdateManyWithoutAuthorInput" | "SuggestionUpdateManyWithoutLikersInput" | "SuggestionUpdateManyWithoutNoteInput" | "SuggestionUpdateWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpdateWithWhereUniqueWithoutAuthorInput" | "SuggestionUpdateWithWhereUniqueWithoutLikersInput" | "SuggestionUpdateWithWhereUniqueWithoutNoteInput" | "SuggestionUpdateWithoutApprovedByDataInput" | "SuggestionUpdateWithoutAuthorDataInput" | "SuggestionUpdateWithoutLikersDataInput" | "SuggestionUpdateWithoutNoteDataInput" | "SuggestionUpsertWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpsertWithWhereUniqueWithoutAuthorInput" | "SuggestionUpsertWithWhereUniqueWithoutLikersInput" | "SuggestionUpsertWithWhereUniqueWithoutNoteInput" | "SuggestionWhereUniqueInput" | "UserCreateInput" | "UserCreateManyWithoutAuthorsInput" | "UserCreateManyWithoutLikersInput" | "UserCreateManyWithoutStudentsInput" | "UserCreateManyWithoutTeachersInput" | "UserCreateManyWithoutUsersInput" | "UserCreateOneWithoutApprovedByInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutLeaderInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutApprovedSuggestionsInput" | "UserCreateWithoutCommentsInput" | "UserCreateWithoutDepartmentsInput" | "UserCreateWithoutInstitutesInput" | "UserCreateWithoutLikedCommentsInput" | "UserCreateWithoutLikedNotesInput" | "UserCreateWithoutLikedSuggestionsInput" | "UserCreateWithoutNoteHighlightsInput" | "UserCreateWithoutNotesInput" | "UserCreateWithoutPasswordTokenInput" | "UserCreateWithoutRoleInput" | "UserCreateWithoutStudiedSubjectsInput" | "UserCreateWithoutSuggestionsInput" | "UserCreateWithoutTeachedSubjectsInput" | "UserRoleCreateInput" | "UserRoleCreateOneWithoutRoleInput" | "UserRoleCreateWithoutUsersInput" | "UserRoleUpdateInput" | "UserRoleUpdateOneRequiredWithoutUsersInput" | "UserRoleUpdateWithoutUsersDataInput" | "UserRoleUpsertWithoutUsersInput" | "UserRoleWhereUniqueInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutInstitutesInput" | "UserUpdateManyWithoutLikedCommentsInput" | "UserUpdateManyWithoutLikedNotesInput" | "UserUpdateManyWithoutLikedSuggestionsInput" | "UserUpdateManyWithoutNotesInput" | "UserUpdateManyWithoutRoleInput" | "UserUpdateManyWithoutStudiedSubjectsInput" | "UserUpdateManyWithoutTeachedSubjectsInput" | "UserUpdateOneRequiredWithoutCommentsInput" | "UserUpdateOneRequiredWithoutDepartmentsInput" | "UserUpdateOneRequiredWithoutNoteHighlightsInput" | "UserUpdateOneRequiredWithoutPasswordTokenInput" | "UserUpdateOneRequiredWithoutSuggestionsInput" | "UserUpdateOneWithoutApprovedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutInstitutesInput" | "UserUpdateWithWhereUniqueWithoutLikedCommentsInput" | "UserUpdateWithWhereUniqueWithoutLikedNotesInput" | "UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutNotesInput" | "UserUpdateWithWhereUniqueWithoutRoleInput" | "UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpdateWithoutApprovedSuggestionsDataInput" | "UserUpdateWithoutCommentsDataInput" | "UserUpdateWithoutDepartmentsDataInput" | "UserUpdateWithoutInstitutesDataInput" | "UserUpdateWithoutLikedCommentsDataInput" | "UserUpdateWithoutLikedNotesDataInput" | "UserUpdateWithoutLikedSuggestionsDataInput" | "UserUpdateWithoutNoteHighlightsDataInput" | "UserUpdateWithoutNotesDataInput" | "UserUpdateWithoutPasswordTokenDataInput" | "UserUpdateWithoutRoleDataInput" | "UserUpdateWithoutStudiedSubjectsDataInput" | "UserUpdateWithoutSuggestionsDataInput" | "UserUpdateWithoutTeachedSubjectsDataInput" | "UserUpsertWithWhereUniqueWithoutInstitutesInput" | "UserUpsertWithWhereUniqueWithoutLikedCommentsInput" | "UserUpsertWithWhereUniqueWithoutLikedNotesInput" | "UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpsertWithWhereUniqueWithoutNotesInput" | "UserUpsertWithWhereUniqueWithoutRoleInput" | "UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpsertWithoutApprovedSuggestionsInput" | "UserUpsertWithoutCommentsInput" | "UserUpsertWithoutDepartmentsInput" | "UserUpsertWithoutNoteHighlightsInput" | "UserUpsertWithoutPasswordTokenInput" | "UserUpsertWithoutSuggestionsInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "BooleanFilter" | "DepartmentCreateInput" | "DepartmentCreateManyWithoutDepartmentsInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutInstituteInput" | "DepartmentCreateWithoutLeaderInput" | "DepartmentCreateWithoutSubjectsInput" | "DepartmentUpdateInput" | "DepartmentUpdateManyDataInput" | "DepartmentUpdateManyWithWhereNestedInput" | "DepartmentUpdateManyWithoutInstituteInput" | "DepartmentUpdateManyWithoutLeaderInput" | "DepartmentUpdateOneRequiredWithoutSubjectsInput" | "DepartmentUpdateWithWhereUniqueWithoutInstituteInput" | "DepartmentUpdateWithWhereUniqueWithoutLeaderInput" | "DepartmentUpdateWithoutInstituteDataInput" | "DepartmentUpdateWithoutLeaderDataInput" | "DepartmentUpdateWithoutSubjectsDataInput" | "DepartmentUpsertWithWhereUniqueWithoutInstituteInput" | "DepartmentUpsertWithWhereUniqueWithoutLeaderInput" | "DepartmentUpsertWithoutSubjectsInput" | "DepartmentWhereUniqueInput" | "InstituteCreateInput" | "InstituteCreateManyWithoutInstitutesInput" | "InstituteCreateOneWithoutInstituteInput" | "InstituteCreateWithoutDepartmentsInput" | "InstituteCreateWithoutUsersInput" | "InstituteUpdateInput" | "InstituteUpdateManyDataInput" | "InstituteUpdateManyWithWhereNestedInput" | "InstituteUpdateManyWithoutUsersInput" | "InstituteUpdateOneRequiredWithoutDepartmentsInput" | "InstituteUpdateWithWhereUniqueWithoutUsersInput" | "InstituteUpdateWithoutDepartmentsDataInput" | "InstituteUpdateWithoutUsersDataInput" | "InstituteUpsertWithWhereUniqueWithoutUsersInput" | "InstituteUpsertWithoutDepartmentsInput" | "InstituteWhereUniqueInput" | "MutationUpdateOneDepartmentFilter" | "MutationUpdateOneDepartmentWhereInput" | "MutationUpdateOneInstituteFilter" | "MutationUpdateOneInstituteWhereInput" | "MutationUpdateOneNoteCommentFilter" | "MutationUpdateOneNoteCommentThreadFilter" | "MutationUpdateOneNoteCommentThreadWhereInput" | "MutationUpdateOneNoteCommentWhereInput" | "MutationUpdateOneNoteFilter" | "MutationUpdateOneNoteWhereInput" | "MutationUpdateOneSubjectFilter" | "MutationUpdateOneSubjectWhereInput" | "MutationUpdateOneSuggestionFilter" | "MutationUpdateOneSuggestionWhereInput" | "MutationUpdateOneUserRoleFilter" | "MutationUpdateOneUserRoleWhereInput" | "NoteCommentCreateInput" | "NoteCommentCreateManyWithoutCommentsInput" | "NoteCommentCreateManyWithoutLikedCommentsInput" | "NoteCommentCreateManyWithoutRepliesInput" | "NoteCommentCreateOneWithoutCommentInput" | "NoteCommentCreateWithoutAuthorInput" | "NoteCommentCreateWithoutLikersInput" | "NoteCommentCreateWithoutThreadInput" | "NoteCommentCreateWithoutThreadReplyInput" | "NoteCommentThreadCreateInput" | "NoteCommentThreadCreateManyWithoutCommentThreadsInput" | "NoteCommentThreadCreateOneWithoutThreadInput" | "NoteCommentThreadCreateOneWithoutThreadReplyInput" | "NoteCommentThreadCreateWithoutCommentInput" | "NoteCommentThreadCreateWithoutNoteInput" | "NoteCommentThreadCreateWithoutRepliesInput" | "NoteCommentThreadUpdateInput" | "NoteCommentThreadUpdateManyDataInput" | "NoteCommentThreadUpdateManyWithWhereNestedInput" | "NoteCommentThreadUpdateManyWithoutNoteInput" | "NoteCommentThreadUpdateOneWithoutCommentInput" | "NoteCommentThreadUpdateOneWithoutRepliesInput" | "NoteCommentThreadUpdateWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpdateWithoutCommentDataInput" | "NoteCommentThreadUpdateWithoutNoteDataInput" | "NoteCommentThreadUpdateWithoutRepliesDataInput" | "NoteCommentThreadUpsertWithWhereUniqueWithoutNoteInput" | "NoteCommentThreadUpsertWithoutCommentInput" | "NoteCommentThreadUpsertWithoutRepliesInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentUpdateInput" | "NoteCommentUpdateManyDataInput" | "NoteCommentUpdateManyWithWhereNestedInput" | "NoteCommentUpdateManyWithoutAuthorInput" | "NoteCommentUpdateManyWithoutLikersInput" | "NoteCommentUpdateManyWithoutThreadReplyInput" | "NoteCommentUpdateOneRequiredWithoutThreadInput" | "NoteCommentUpdateWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpdateWithWhereUniqueWithoutLikersInput" | "NoteCommentUpdateWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpdateWithoutAuthorDataInput" | "NoteCommentUpdateWithoutLikersDataInput" | "NoteCommentUpdateWithoutThreadDataInput" | "NoteCommentUpdateWithoutThreadReplyDataInput" | "NoteCommentUpsertWithWhereUniqueWithoutAuthorInput" | "NoteCommentUpsertWithWhereUniqueWithoutLikersInput" | "NoteCommentUpsertWithWhereUniqueWithoutThreadReplyInput" | "NoteCommentUpsertWithoutThreadInput" | "NoteCommentWhereUniqueInput" | "NoteCreateInput" | "NoteCreateManyWithoutLikedNotesInput" | "NoteCreateManyWithoutNotesInput" | "NoteCreateOneWithoutNoteInput" | "NoteCreateWithoutAuthorsInput" | "NoteCreateWithoutCommentThreadsInput" | "NoteCreateWithoutHighlightsInput" | "NoteCreateWithoutLikersInput" | "NoteCreateWithoutSubjectInput" | "NoteCreateWithoutSuggestionsInput" | "NoteHighlightCreateInput" | "NoteHighlightCreateManyWithoutHighlightsInput" | "NoteHighlightCreateManyWithoutNoteHighlightsInput" | "NoteHighlightCreateWithoutNoteInput" | "NoteHighlightCreateWithoutUserInput" | "NoteHighlightUpdateInput" | "NoteHighlightUpdateManyDataInput" | "NoteHighlightUpdateManyWithWhereNestedInput" | "NoteHighlightUpdateManyWithoutNoteInput" | "NoteHighlightUpdateManyWithoutUserInput" | "NoteHighlightUpdateWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpdateWithWhereUniqueWithoutUserInput" | "NoteHighlightUpdateWithoutNoteDataInput" | "NoteHighlightUpdateWithoutUserDataInput" | "NoteHighlightUpsertWithWhereUniqueWithoutNoteInput" | "NoteHighlightUpsertWithWhereUniqueWithoutUserInput" | "NoteHighlightWhereUniqueInput" | "NoteUpdateInput" | "NoteUpdateManyDataInput" | "NoteUpdateManyWithWhereNestedInput" | "NoteUpdateManyWithoutAuthorsInput" | "NoteUpdateManyWithoutLikersInput" | "NoteUpdateManyWithoutSubjectInput" | "NoteUpdateOneRequiredWithoutCommentThreadsInput" | "NoteUpdateOneRequiredWithoutHighlightsInput" | "NoteUpdateOneRequiredWithoutSuggestionsInput" | "NoteUpdateWithWhereUniqueWithoutAuthorsInput" | "NoteUpdateWithWhereUniqueWithoutLikersInput" | "NoteUpdateWithWhereUniqueWithoutSubjectInput" | "NoteUpdateWithoutAuthorsDataInput" | "NoteUpdateWithoutCommentThreadsDataInput" | "NoteUpdateWithoutHighlightsDataInput" | "NoteUpdateWithoutLikersDataInput" | "NoteUpdateWithoutSubjectDataInput" | "NoteUpdateWithoutSuggestionsDataInput" | "NoteUpsertWithWhereUniqueWithoutAuthorsInput" | "NoteUpsertWithWhereUniqueWithoutLikersInput" | "NoteUpsertWithWhereUniqueWithoutSubjectInput" | "NoteUpsertWithoutCommentThreadsInput" | "NoteUpsertWithoutHighlightsInput" | "NoteUpsertWithoutSuggestionsInput" | "NoteWhereUniqueInput" | "NullableStringFilter" | "PasswordTokenCreateOneWithoutPasswordTokenInput" | "PasswordTokenCreateWithoutUserInput" | "PasswordTokenUpdateOneWithoutUserInput" | "PasswordTokenUpdateWithoutUserDataInput" | "PasswordTokenUpsertWithoutUserInput" | "PasswordTokenWhereUniqueInput" | "StringFilter" | "SubjectCreateInput" | "SubjectCreateManyWithoutStudiedSubjectsInput" | "SubjectCreateManyWithoutSubjectsInput" | "SubjectCreateManyWithoutTeachedSubjectsInput" | "SubjectCreateOneWithoutSubjectInput" | "SubjectCreateWithoutDepartmentInput" | "SubjectCreateWithoutInformationsInput" | "SubjectCreateWithoutNotesInput" | "SubjectCreateWithoutStudentsInput" | "SubjectCreateWithoutTeachersInput" | "SubjectInformationCreateInput" | "SubjectInformationCreateManyWithoutInformationsInput" | "SubjectInformationCreateWithoutSubjectInput" | "SubjectInformationUpdateInput" | "SubjectInformationUpdateManyDataInput" | "SubjectInformationUpdateManyWithWhereNestedInput" | "SubjectInformationUpdateManyWithoutSubjectInput" | "SubjectInformationUpdateWithWhereUniqueWithoutSubjectInput" | "SubjectInformationUpdateWithoutSubjectDataInput" | "SubjectInformationUpsertWithWhereUniqueWithoutSubjectInput" | "SubjectInformationWhereUniqueInput" | "SubjectUpdateInput" | "SubjectUpdateManyDataInput" | "SubjectUpdateManyWithWhereNestedInput" | "SubjectUpdateManyWithoutDepartmentInput" | "SubjectUpdateManyWithoutStudentsInput" | "SubjectUpdateManyWithoutTeachersInput" | "SubjectUpdateOneRequiredWithoutInformationsInput" | "SubjectUpdateOneRequiredWithoutNotesInput" | "SubjectUpdateWithWhereUniqueWithoutDepartmentInput" | "SubjectUpdateWithWhereUniqueWithoutStudentsInput" | "SubjectUpdateWithWhereUniqueWithoutTeachersInput" | "SubjectUpdateWithoutDepartmentDataInput" | "SubjectUpdateWithoutInformationsDataInput" | "SubjectUpdateWithoutNotesDataInput" | "SubjectUpdateWithoutStudentsDataInput" | "SubjectUpdateWithoutTeachersDataInput" | "SubjectUpsertWithWhereUniqueWithoutDepartmentInput" | "SubjectUpsertWithWhereUniqueWithoutStudentsInput" | "SubjectUpsertWithWhereUniqueWithoutTeachersInput" | "SubjectUpsertWithoutInformationsInput" | "SubjectUpsertWithoutNotesInput" | "SubjectWhereUniqueInput" | "SuggestionCreateInput" | "SuggestionCreateManyWithoutApprovedSuggestionsInput" | "SuggestionCreateManyWithoutLikedSuggestionsInput" | "SuggestionCreateManyWithoutSuggestionsInput" | "SuggestionCreateWithoutApprovedByInput" | "SuggestionCreateWithoutAuthorInput" | "SuggestionCreateWithoutLikersInput" | "SuggestionCreateWithoutNoteInput" | "SuggestionUpdateInput" | "SuggestionUpdateManyDataInput" | "SuggestionUpdateManyWithWhereNestedInput" | "SuggestionUpdateManyWithoutApprovedByInput" | "SuggestionUpdateManyWithoutAuthorInput" | "SuggestionUpdateManyWithoutLikersInput" | "SuggestionUpdateManyWithoutNoteInput" | "SuggestionUpdateWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpdateWithWhereUniqueWithoutAuthorInput" | "SuggestionUpdateWithWhereUniqueWithoutLikersInput" | "SuggestionUpdateWithWhereUniqueWithoutNoteInput" | "SuggestionUpdateWithoutApprovedByDataInput" | "SuggestionUpdateWithoutAuthorDataInput" | "SuggestionUpdateWithoutLikersDataInput" | "SuggestionUpdateWithoutNoteDataInput" | "SuggestionUpsertWithWhereUniqueWithoutApprovedByInput" | "SuggestionUpsertWithWhereUniqueWithoutAuthorInput" | "SuggestionUpsertWithWhereUniqueWithoutLikersInput" | "SuggestionUpsertWithWhereUniqueWithoutNoteInput" | "SuggestionWhereUniqueInput" | "UserCreateManyWithoutAuthorsInput" | "UserCreateManyWithoutLikersInput" | "UserCreateManyWithoutStudentsInput" | "UserCreateManyWithoutTeachersInput" | "UserCreateManyWithoutUsersInput" | "UserCreateOneWithoutApprovedByInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutLeaderInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutApprovedSuggestionsInput" | "UserCreateWithoutCommentsInput" | "UserCreateWithoutDepartmentsInput" | "UserCreateWithoutInstitutesInput" | "UserCreateWithoutLikedCommentsInput" | "UserCreateWithoutLikedNotesInput" | "UserCreateWithoutLikedSuggestionsInput" | "UserCreateWithoutNoteHighlightsInput" | "UserCreateWithoutNotesInput" | "UserCreateWithoutRoleInput" | "UserCreateWithoutStudiedSubjectsInput" | "UserCreateWithoutSuggestionsInput" | "UserCreateWithoutTeachedSubjectsInput" | "UserLoginInput" | "UserRoleCreateInput" | "UserRoleCreateOneWithoutRoleInput" | "UserRoleCreateWithoutUsersInput" | "UserRoleUpdateInput" | "UserRoleUpdateOneRequiredWithoutUsersInput" | "UserRoleUpdateWithoutUsersDataInput" | "UserRoleUpsertWithoutUsersInput" | "UserRoleWhereUniqueInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutInstitutesInput" | "UserUpdateManyWithoutLikedCommentsInput" | "UserUpdateManyWithoutLikedNotesInput" | "UserUpdateManyWithoutLikedSuggestionsInput" | "UserUpdateManyWithoutNotesInput" | "UserUpdateManyWithoutRoleInput" | "UserUpdateManyWithoutStudiedSubjectsInput" | "UserUpdateManyWithoutTeachedSubjectsInput" | "UserUpdateOneRequiredWithoutCommentsInput" | "UserUpdateOneRequiredWithoutDepartmentsInput" | "UserUpdateOneRequiredWithoutNoteHighlightsInput" | "UserUpdateOneRequiredWithoutSuggestionsInput" | "UserUpdateOneWithoutApprovedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutInstitutesInput" | "UserUpdateWithWhereUniqueWithoutLikedCommentsInput" | "UserUpdateWithWhereUniqueWithoutLikedNotesInput" | "UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpdateWithWhereUniqueWithoutNotesInput" | "UserUpdateWithWhereUniqueWithoutRoleInput" | "UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpdateWithoutApprovedSuggestionsDataInput" | "UserUpdateWithoutCommentsDataInput" | "UserUpdateWithoutDepartmentsDataInput" | "UserUpdateWithoutInstitutesDataInput" | "UserUpdateWithoutLikedCommentsDataInput" | "UserUpdateWithoutLikedNotesDataInput" | "UserUpdateWithoutLikedSuggestionsDataInput" | "UserUpdateWithoutNoteHighlightsDataInput" | "UserUpdateWithoutNotesDataInput" | "UserUpdateWithoutRoleDataInput" | "UserUpdateWithoutStudiedSubjectsDataInput" | "UserUpdateWithoutSuggestionsDataInput" | "UserUpdateWithoutTeachedSubjectsDataInput" | "UserUpsertWithWhereUniqueWithoutInstitutesInput" | "UserUpsertWithWhereUniqueWithoutLikedCommentsInput" | "UserUpsertWithWhereUniqueWithoutLikedNotesInput" | "UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput" | "UserUpsertWithWhereUniqueWithoutNotesInput" | "UserUpsertWithWhereUniqueWithoutRoleInput" | "UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput" | "UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput" | "UserUpsertWithoutApprovedSuggestionsInput" | "UserUpsertWithoutCommentsInput" | "UserUpsertWithoutDepartmentsInput" | "UserUpsertWithoutNoteHighlightsInput" | "UserUpsertWithoutSuggestionsInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = "NoteCategory" | "NoteCategoryEnum" | "UserRoleType" | "UserRoleTypeEnum";
 
