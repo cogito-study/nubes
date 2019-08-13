@@ -3,8 +3,8 @@ import { extendType } from '@prisma/nexus';
 export const NoteCommentThreadMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneNoteCommentThread();
-    t.crud.updateOneNoteCommentThread();
-    t.crud.deleteOneNoteCommentThread();
+    t.crud.createOneNoteCommentThread({ alias: 'createNoteCommentThread' });
+    t.crud.updateOneNoteCommentThread({ alias: 'updateNoteCommentThread' });
+    t.crud.deleteOneNoteCommentThread({ alias: 'deleteNoteCommentThread' });
   },
 });

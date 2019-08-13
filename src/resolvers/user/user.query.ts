@@ -4,8 +4,8 @@ import { getUserID } from '../../utils';
 export const UserQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneUser();
-    t.crud.findManyUser();
+    t.crud.findOneUser({ alias: 'user' });
+    t.crud.findManyUser({ alias: 'users' });
 
     t.field('me', {
       type: 'User',
