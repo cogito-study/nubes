@@ -3350,39 +3350,39 @@ export interface NexusGenFieldTypes {
     users: NexusGenRootTypes['User'][] | null; // [User!]
   }
   Mutation: { // field return type
-    createOneDepartment: NexusGenRootTypes['Department']; // Department!
-    createOneInstitute: NexusGenRootTypes['Institute']; // Institute!
-    createOneNote: NexusGenRootTypes['Note']; // Note!
-    createOneNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
-    createOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
-    createOneNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
-    createOneSubject: NexusGenRootTypes['Subject']; // Subject!
-    createOneSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
-    createOneSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
-    createOneUserRole: NexusGenRootTypes['UserRole']; // UserRole!
-    deleteOneDepartment: NexusGenRootTypes['Department'] | null; // Department
-    deleteOneInstitute: NexusGenRootTypes['Institute'] | null; // Institute
-    deleteOneNote: NexusGenRootTypes['Note'] | null; // Note
-    deleteOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
-    deleteOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
-    deleteOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
-    deleteOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
-    deleteOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
-    deleteOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
-    deleteOneUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    createDepartment: NexusGenRootTypes['Department']; // Department!
+    createInstitute: NexusGenRootTypes['Institute']; // Institute!
+    createNote: NexusGenRootTypes['Note']; // Note!
+    createNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
+    createNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
+    createNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
+    createResetPassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    createSubject: NexusGenRootTypes['Subject']; // Subject!
+    createSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
+    createSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    createUserRole: NexusGenRootTypes['UserRole']; // UserRole!
+    deleteDepartment: NexusGenRootTypes['Department'] | null; // Department
+    deleteInstitute: NexusGenRootTypes['Institute'] | null; // Institute
+    deleteNote: NexusGenRootTypes['Note'] | null; // Note
+    deleteNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
+    deleteNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    deleteNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
+    deleteSubject: NexusGenRootTypes['Subject'] | null; // Subject
+    deleteSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
+    deleteSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
+    deleteUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    resetPassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     sendResetPasswordEmail: NexusGenRootTypes['User']; // User!
-    updateOneDepartment: NexusGenRootTypes['Department'] | null; // Department
-    updateOneInstitute: NexusGenRootTypes['Institute'] | null; // Institute
-    updateOneNote: NexusGenRootTypes['Note'] | null; // Note
-    updateOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
-    updateOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
-    updateOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
-    updateOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
-    updateOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
-    updateOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
-    updateOneUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    updateDepartment: NexusGenRootTypes['Department'] | null; // Department
+    updateInstitute: NexusGenRootTypes['Institute'] | null; // Institute
+    updateNote: NexusGenRootTypes['Note'] | null; // Note
+    updateNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
+    updateNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    updateNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
+    updateSubject: NexusGenRootTypes['Subject'] | null; // Subject
+    updateSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
+    updateSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
+    updateUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
   }
   Note: { // field return type
     authors: NexusGenRootTypes['User'][] | null; // [User!]
@@ -3441,31 +3441,31 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
-    findManyDepartment: NexusGenRootTypes['Department'][] | null; // [Department!]
-    findManyInstitute: NexusGenRootTypes['Institute'][] | null; // [Institute!]
-    findManyNote: NexusGenRootTypes['Note'][] | null; // [Note!]
-    findManyNoteComment: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
-    findManyNoteCommentThread: NexusGenRootTypes['NoteCommentThread'][] | null; // [NoteCommentThread!]
-    findManyNoteHighlight: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
-    findManyPasswordToken: NexusGenRootTypes['PasswordToken'][] | null; // [PasswordToken!]
-    findManySubject: NexusGenRootTypes['Subject'][] | null; // [Subject!]
-    findManySubjectInformation: NexusGenRootTypes['SubjectInformation'][] | null; // [SubjectInformation!]
-    findManySuggestion: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
-    findManyUser: NexusGenRootTypes['User'][] | null; // [User!]
-    findManyUserRole: NexusGenRootTypes['UserRole'][] | null; // [UserRole!]
-    findOneDepartment: NexusGenRootTypes['Department'] | null; // Department
-    findOneInstitute: NexusGenRootTypes['Institute'] | null; // Institute
-    findOneNote: NexusGenRootTypes['Note'] | null; // Note
-    findOneNoteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
-    findOneNoteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
-    findOneNoteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
-    findOnePasswordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
-    findOneSubject: NexusGenRootTypes['Subject'] | null; // Subject
-    findOneSubjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
-    findOneSuggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
-    findOneUser: NexusGenRootTypes['User'] | null; // User
-    findOneUserRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    department: NexusGenRootTypes['Department'] | null; // Department
+    departments: NexusGenRootTypes['Department'][] | null; // [Department!]
+    institute: NexusGenRootTypes['Institute'] | null; // Institute
+    institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
     me: NexusGenRootTypes['User']; // User!
+    note: NexusGenRootTypes['Note'] | null; // Note
+    noteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
+    noteComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
+    noteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
+    noteCommentThreads: NexusGenRootTypes['NoteCommentThread'][] | null; // [NoteCommentThread!]
+    noteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
+    noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
+    notes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    resetPassword: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
+    resetPasswords: NexusGenRootTypes['PasswordToken'][] | null; // [PasswordToken!]
+    subject: NexusGenRootTypes['Subject'] | null; // Subject
+    subjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
+    subjectInformations: NexusGenRootTypes['SubjectInformation'][] | null; // [SubjectInformation!]
+    subjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
+    suggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
+    suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
+    user: NexusGenRootTypes['User'] | null; // User
+    userRole: NexusGenRootTypes['UserRole'] | null; // UserRole
+    userRoles: NexusGenRootTypes['UserRole'][] | null; // [UserRole!]
+    users: NexusGenRootTypes['User'][] | null; // [User!]
   }
   Subject: { // field return type
     code: string; // String!
@@ -3566,113 +3566,113 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
-    createOneDepartment: { // args
+    createDepartment: { // args
       data: NexusGenInputs['DepartmentCreateInput']; // DepartmentCreateInput!
     }
-    createOneInstitute: { // args
+    createInstitute: { // args
       data: NexusGenInputs['InstituteCreateInput']; // InstituteCreateInput!
     }
-    createOneNote: { // args
+    createNote: { // args
       data: NexusGenInputs['NoteCreateInput']; // NoteCreateInput!
     }
-    createOneNoteComment: { // args
+    createNoteComment: { // args
       data: NexusGenInputs['NoteCommentCreateInput']; // NoteCommentCreateInput!
     }
-    createOneNoteCommentThread: { // args
+    createNoteCommentThread: { // args
       data: NexusGenInputs['NoteCommentThreadCreateInput']; // NoteCommentThreadCreateInput!
     }
-    createOneNoteHighlight: { // args
+    createNoteHighlight: { // args
       data: NexusGenInputs['NoteHighlightCreateInput']; // NoteHighlightCreateInput!
     }
-    createOneSubject: { // args
+    createResetPassword: { // args
+      password?: string | null; // String
+      token?: string | null; // String
+    }
+    createSubject: { // args
       data: NexusGenInputs['SubjectCreateInput']; // SubjectCreateInput!
     }
-    createOneSubjectInformation: { // args
+    createSubjectInformation: { // args
       data: NexusGenInputs['SubjectInformationCreateInput']; // SubjectInformationCreateInput!
     }
-    createOneSuggestion: { // args
+    createSuggestion: { // args
       data: NexusGenInputs['SuggestionCreateInput']; // SuggestionCreateInput!
     }
-    createOneUserRole: { // args
+    createUserRole: { // args
       data: NexusGenInputs['UserRoleCreateInput']; // UserRoleCreateInput!
     }
-    deleteOneDepartment: { // args
+    deleteDepartment: { // args
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
     }
-    deleteOneInstitute: { // args
+    deleteInstitute: { // args
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
     }
-    deleteOneNote: { // args
+    deleteNote: { // args
       where: NexusGenInputs['NoteWhereUniqueInput']; // NoteWhereUniqueInput!
     }
-    deleteOneNoteComment: { // args
+    deleteNoteComment: { // args
       where: NexusGenInputs['NoteCommentWhereUniqueInput']; // NoteCommentWhereUniqueInput!
     }
-    deleteOneNoteCommentThread: { // args
+    deleteNoteCommentThread: { // args
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
     }
-    deleteOneNoteHighlight: { // args
+    deleteNoteHighlight: { // args
       where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
-    deleteOneSubject: { // args
+    deleteSubject: { // args
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
     }
-    deleteOneSubjectInformation: { // args
+    deleteSubjectInformation: { // args
       where: NexusGenInputs['SubjectInformationWhereUniqueInput']; // SubjectInformationWhereUniqueInput!
     }
-    deleteOneSuggestion: { // args
+    deleteSuggestion: { // args
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
     }
-    deleteOneUserRole: { // args
+    deleteUserRole: { // args
       where: NexusGenInputs['UserRoleWhereUniqueInput']; // UserRoleWhereUniqueInput!
     }
     login: { // args
       data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
     }
-    resetPassword: { // args
-      password?: string | null; // String
-      token?: string | null; // String
-    }
     sendResetPasswordEmail: { // args
       email?: string | null; // String
     }
-    updateOneDepartment: { // args
+    updateDepartment: { // args
       data: NexusGenInputs['DepartmentUpdateInput']; // DepartmentUpdateInput!
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
     }
-    updateOneInstitute: { // args
+    updateInstitute: { // args
       data: NexusGenInputs['InstituteUpdateInput']; // InstituteUpdateInput!
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
     }
-    updateOneNote: { // args
+    updateNote: { // args
       data: NexusGenInputs['NoteUpdateInput']; // NoteUpdateInput!
       where: NexusGenInputs['NoteWhereUniqueInput']; // NoteWhereUniqueInput!
     }
-    updateOneNoteComment: { // args
+    updateNoteComment: { // args
       data: NexusGenInputs['NoteCommentUpdateInput']; // NoteCommentUpdateInput!
       where: NexusGenInputs['NoteCommentWhereUniqueInput']; // NoteCommentWhereUniqueInput!
     }
-    updateOneNoteCommentThread: { // args
+    updateNoteCommentThread: { // args
       data: NexusGenInputs['NoteCommentThreadUpdateInput']; // NoteCommentThreadUpdateInput!
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
     }
-    updateOneNoteHighlight: { // args
+    updateNoteHighlight: { // args
       data: NexusGenInputs['NoteHighlightUpdateInput']; // NoteHighlightUpdateInput!
       where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
-    updateOneSubject: { // args
+    updateSubject: { // args
       data: NexusGenInputs['SubjectUpdateInput']; // SubjectUpdateInput!
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
     }
-    updateOneSubjectInformation: { // args
+    updateSubjectInformation: { // args
       data: NexusGenInputs['SubjectInformationUpdateInput']; // SubjectInformationUpdateInput!
       where: NexusGenInputs['SubjectInformationWhereUniqueInput']; // SubjectInformationWhereUniqueInput!
     }
-    updateOneSuggestion: { // args
+    updateSuggestion: { // args
       data: NexusGenInputs['SuggestionUpdateInput']; // SuggestionUpdateInput!
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
     }
-    updateOneUserRole: { // args
+    updateUserRole: { // args
       data: NexusGenInputs['UserRoleUpdateInput']; // UserRoleUpdateInput!
       where: NexusGenInputs['UserRoleWhereUniqueInput']; // UserRoleWhereUniqueInput!
     }
@@ -3733,125 +3733,125 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    findManyDepartment: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyInstitute: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyNote: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyNoteComment: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyNoteCommentThread: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyNoteHighlight: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyPasswordToken: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManySubject: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManySubjectInformation: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManySuggestion: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyUser: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyUserRole: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findOneDepartment: { // args
+    department: { // args
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
     }
-    findOneInstitute: { // args
+    departments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    institute: { // args
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
     }
-    findOneNote: { // args
+    institutes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    note: { // args
       where: NexusGenInputs['NoteWhereUniqueInput']; // NoteWhereUniqueInput!
     }
-    findOneNoteComment: { // args
+    noteComment: { // args
       where: NexusGenInputs['NoteCommentWhereUniqueInput']; // NoteCommentWhereUniqueInput!
     }
-    findOneNoteCommentThread: { // args
+    noteComments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    noteCommentThread: { // args
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
     }
-    findOneNoteHighlight: { // args
+    noteCommentThreads: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    noteHighlight: { // args
       where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     }
-    findOnePasswordToken: { // args
+    noteHighlights: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    notes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    resetPassword: { // args
       where: NexusGenInputs['PasswordTokenWhereUniqueInput']; // PasswordTokenWhereUniqueInput!
     }
-    findOneSubject: { // args
+    resetPasswords: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    subject: { // args
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
     }
-    findOneSubjectInformation: { // args
+    subjectInformation: { // args
       where: NexusGenInputs['SubjectInformationWhereUniqueInput']; // SubjectInformationWhereUniqueInput!
     }
-    findOneSuggestion: { // args
+    subjectInformations: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    subjects: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    suggestion: { // args
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
     }
-    findOneUser: { // args
+    suggestions: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    user: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
     }
-    findOneUserRole: { // args
+    userRole: { // args
       where: NexusGenInputs['UserRoleWhereUniqueInput']; // UserRoleWhereUniqueInput!
+    }
+    userRoles: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
   }
   Subject: {

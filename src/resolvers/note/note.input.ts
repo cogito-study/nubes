@@ -3,10 +3,10 @@ import { GraphQLResolveInfo } from 'graphql';
 import { NexusGenArgTypes } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 
-export const noteFindOneInputValidator = async (
-  resolve: FieldResolver<'Query', 'findOneNote'>,
+export const noteInputValidator = async (
+  resolve: FieldResolver<'Query', 'note'>,
   parent: {},
-  args: NexusGenArgTypes['Query']['findOneNote'],
+  args: NexusGenArgTypes['Query']['note'],
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

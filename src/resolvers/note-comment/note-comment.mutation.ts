@@ -3,8 +3,8 @@ import { extendType } from '@prisma/nexus';
 export const NoteCommentMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneNoteComment();
-    t.crud.updateOneNoteComment();
-    t.crud.deleteOneNoteComment();
+    t.crud.createOneNoteComment({ alias: 'createNoteComment' });
+    t.crud.updateOneNoteComment({ alias: 'updateNoteComment' });
+    t.crud.deleteOneNoteComment({ alias: 'deleteNoteComment' });
   },
 });

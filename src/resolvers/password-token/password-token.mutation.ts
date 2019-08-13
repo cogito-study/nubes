@@ -15,7 +15,7 @@ const checkTokenValid = (token: string) => {
 export const PasswordTokenMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.field('resetPassword', {
+    t.field('createResetPassword', {
       type: 'AuthPayload',
       args: {
         token: stringArg(),

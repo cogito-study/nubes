@@ -3,8 +3,8 @@ import { extendType } from '@prisma/nexus';
 export const DepartmentMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneDepartment();
-    t.crud.updateOneDepartment();
-    t.crud.deleteOneDepartment();
+    t.crud.createOneDepartment({ alias: 'createDepartment' });
+    t.crud.updateOneDepartment({ alias: 'updateDepartment' });
+    t.crud.deleteOneDepartment({ alias: 'deleteDepartment' });
   },
 });

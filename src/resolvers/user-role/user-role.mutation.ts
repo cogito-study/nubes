@@ -3,8 +3,8 @@ import { extendType } from '@prisma/nexus';
 export const UserRoleMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneUserRole();
-    t.crud.updateOneUserRole();
-    t.crud.deleteOneUserRole();
+    t.crud.createOneUserRole({ alias: 'createUserRole' });
+    t.crud.updateOneUserRole({ alias: 'updateUserRole' });
+    t.crud.deleteOneUserRole({ alias: 'deleteUserRole' });
   },
 });

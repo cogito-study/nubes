@@ -332,39 +332,39 @@ input InstituteWhereUniqueInput {
 }
 
 type Mutation {
-  createOneDepartment(data: DepartmentCreateInput!): Department!
-  createOneInstitute(data: InstituteCreateInput!): Institute!
-  createOneNote(data: NoteCreateInput!): Note!
-  createOneNoteComment(data: NoteCommentCreateInput!): NoteComment!
-  createOneNoteCommentThread(data: NoteCommentThreadCreateInput!): NoteCommentThread!
-  createOneNoteHighlight(data: NoteHighlightCreateInput!): NoteHighlight!
-  createOneSubject(data: SubjectCreateInput!): Subject!
-  createOneSubjectInformation(data: SubjectInformationCreateInput!): SubjectInformation!
-  createOneSuggestion(data: SuggestionCreateInput!): Suggestion!
-  createOneUserRole(data: UserRoleCreateInput!): UserRole!
-  deleteOneDepartment(where: DepartmentWhereUniqueInput!): Department
-  deleteOneInstitute(where: InstituteWhereUniqueInput!): Institute
-  deleteOneNote(where: NoteWhereUniqueInput!): Note
-  deleteOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
-  deleteOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  deleteOneNoteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
-  deleteOneSubject(where: SubjectWhereUniqueInput!): Subject
-  deleteOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
-  deleteOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
-  deleteOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+  createDepartment(data: DepartmentCreateInput!): Department!
+  createInstitute(data: InstituteCreateInput!): Institute!
+  createNote(data: NoteCreateInput!): Note!
+  createNoteComment(data: NoteCommentCreateInput!): NoteComment!
+  createNoteCommentThread(data: NoteCommentThreadCreateInput!): NoteCommentThread!
+  createNoteHighlight(data: NoteHighlightCreateInput!): NoteHighlight!
+  createResetPassword(password: String, token: String): AuthPayload!
+  createSubject(data: SubjectCreateInput!): Subject!
+  createSubjectInformation(data: SubjectInformationCreateInput!): SubjectInformation!
+  createSuggestion(data: SuggestionCreateInput!): Suggestion!
+  createUserRole(data: UserRoleCreateInput!): UserRole!
+  deleteDepartment(where: DepartmentWhereUniqueInput!): Department
+  deleteInstitute(where: InstituteWhereUniqueInput!): Institute
+  deleteNote(where: NoteWhereUniqueInput!): Note
+  deleteNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
+  deleteNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  deleteNoteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
+  deleteSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  deleteSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
+  deleteUserRole(where: UserRoleWhereUniqueInput!): UserRole
   login(data: UserLoginInput!): AuthPayload!
-  resetPassword(password: String, token: String): AuthPayload!
   sendResetPasswordEmail(email: String): User!
-  updateOneDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
-  updateOneInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
-  updateOneNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
-  updateOneNoteComment(data: NoteCommentUpdateInput!, where: NoteCommentWhereUniqueInput!): NoteComment
-  updateOneNoteCommentThread(data: NoteCommentThreadUpdateInput!, where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  updateOneNoteHighlight(data: NoteHighlightUpdateInput!, where: NoteHighlightWhereUniqueInput!): NoteHighlight
-  updateOneSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
-  updateOneSubjectInformation(data: SubjectInformationUpdateInput!, where: SubjectInformationWhereUniqueInput!): SubjectInformation
-  updateOneSuggestion(data: SuggestionUpdateInput!, where: SuggestionWhereUniqueInput!): Suggestion
-  updateOneUserRole(data: UserRoleUpdateInput!, where: UserRoleWhereUniqueInput!): UserRole
+  updateDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
+  updateInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
+  updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
+  updateNoteComment(data: NoteCommentUpdateInput!, where: NoteCommentWhereUniqueInput!): NoteComment
+  updateNoteCommentThread(data: NoteCommentThreadUpdateInput!, where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  updateNoteHighlight(data: NoteHighlightUpdateInput!, where: NoteHighlightWhereUniqueInput!): NoteHighlight
+  updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateSubjectInformation(data: SubjectInformationUpdateInput!, where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  updateSuggestion(data: SuggestionUpdateInput!, where: SuggestionWhereUniqueInput!): Suggestion
+  updateUserRole(data: UserRoleUpdateInput!, where: UserRoleWhereUniqueInput!): UserRole
 }
 
 input MutationUpdateOneDepartmentFilter {
@@ -1641,31 +1641,31 @@ input PasswordTokenWhereUniqueInput {
 }
 
 type Query {
-  findManyDepartment(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
-  findManyInstitute(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
-  findManyNote(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
-  findManyNoteComment(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
-  findManyNoteCommentThread(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
-  findManyNoteHighlight(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  findManyPasswordToken(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
-  findManySubject(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
-  findManySubjectInformation(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
-  findManySuggestion(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  findManyUser(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  findManyUserRole(after: String, before: String, first: Int, last: Int, skip: Int): [UserRole!]
-  findOneDepartment(where: DepartmentWhereUniqueInput!): Department
-  findOneInstitute(where: InstituteWhereUniqueInput!): Institute
-  findOneNote(where: NoteWhereUniqueInput!): Note
-  findOneNoteComment(where: NoteCommentWhereUniqueInput!): NoteComment
-  findOneNoteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  findOneNoteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
-  findOnePasswordToken(where: PasswordTokenWhereUniqueInput!): PasswordToken
-  findOneSubject(where: SubjectWhereUniqueInput!): Subject
-  findOneSubjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
-  findOneSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
-  findOneUser(where: UserWhereUniqueInput!): User
-  findOneUserRole(where: UserRoleWhereUniqueInput!): UserRole
+  department(where: DepartmentWhereUniqueInput!): Department
+  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
+  institute(where: InstituteWhereUniqueInput!): Institute
+  institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
   me: User!
+  note(where: NoteWhereUniqueInput!): Note
+  noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
+  noteComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  noteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
+  noteCommentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
+  noteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
+  noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
+  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  resetPassword(where: PasswordTokenWhereUniqueInput!): PasswordToken
+  resetPasswords(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
+  subject(where: SubjectWhereUniqueInput!): Subject
+  subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  subjectInformations(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
+  subjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  suggestion(where: SuggestionWhereUniqueInput!): Suggestion
+  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  user(where: UserWhereUniqueInput!): User
+  userRole(where: UserRoleWhereUniqueInput!): UserRole
+  userRoles(after: String, before: String, first: Int, last: Int, skip: Int): [UserRole!]
+  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
 }
 
 input StringFilter {

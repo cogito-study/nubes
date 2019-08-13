@@ -7,7 +7,7 @@ import { join } from 'path';
 import * as allTypes from './resolvers';
 import { userLoginInputValidator } from './resolvers/user/user.input';
 import { Context } from './types';
-import { noteFindOneInputValidator } from './resolvers/note/note.input';
+import { noteInputValidator } from './resolvers/note/note.input';
 
 const photon = new Photon({
   debug: true,
@@ -23,7 +23,7 @@ const exampleMiddleware = {
     login: userLoginInputValidator,
   },
   Query: {
-    findOneNote: noteFindOneInputValidator,
+    note: noteInputValidator,
   },
 };
 
