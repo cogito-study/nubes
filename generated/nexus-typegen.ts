@@ -3395,6 +3395,7 @@ export interface NexusGenFieldTypes {
     highlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     id: string; // ID!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
     noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
     number: number; // Int!
     subject: NexusGenRootTypes['Subject']; // Subject!
@@ -3409,6 +3410,7 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     id: string; // ID!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
     thread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     threadReply: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     updatedAt: any; // DateTime!
@@ -3499,6 +3501,7 @@ export interface NexusGenFieldTypes {
     delta: string; // String!
     id: string; // ID!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
     note: NexusGenRootTypes['Note']; // Note!
     updatedAt: any; // DateTime!
   }
