@@ -26,6 +26,15 @@ export const Note = objectType({
     t.model.highlights({ type: 'NoteHighlight' });
     t.model.subject({ type: 'Subject' });
 
+    t.field('likesCount', {
+      type: 'Int',
+      description: 'Number of likes on the note',
+      resolve: async ({ id }, args, context) => {
+        const likers = await context.photon.notes.findOne({ where: { id } }).likers();
+        return likers.length;
+      },
+    });
+
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

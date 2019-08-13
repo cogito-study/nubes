@@ -606,6 +606,9 @@ type Note {
   highlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
   id: ID!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the note"""
+  likesCount: Int!
   noteCategory: NoteCategoryEnum!
   number: Int!
   subject: Subject!
@@ -631,6 +634,9 @@ type NoteComment {
   deletedAt: DateTime
   id: ID!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the note comment"""
+  likesCount: Int!
   thread: NoteCommentThread
   threadReply: NoteCommentThread
   updatedAt: DateTime!
@@ -2108,6 +2114,9 @@ type Suggestion {
   delta: String!
   id: ID!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the suggestion"""
+  likesCount: Int!
   note: Note!
   updatedAt: DateTime!
 }
