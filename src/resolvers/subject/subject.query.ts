@@ -4,6 +4,13 @@ export const SubjectQuery = extendType({
   type: 'Query',
   definition: (t) => {
     t.crud.findOneSubject({ alias: 'subject' });
-    t.crud.findManySubject({ alias: 'subjects' });
+    t.crud.findManySubject({
+      alias: 'subjects',
+      filtering: {
+        code: true,
+        name: true,
+        description: true,
+      },
+    });
   },
 });

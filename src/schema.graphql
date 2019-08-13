@@ -331,6 +331,17 @@ input InstituteWhereUniqueInput {
   id: ID
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 type Mutation {
   createDepartment(data: DepartmentCreateInput!): Department!
   createInstitute(data: InstituteCreateInput!): Institute!
@@ -1648,7 +1659,7 @@ input PasswordTokenWhereUniqueInput {
 
 type Query {
   department(where: DepartmentWhereUniqueInput!): Department
-  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
+  departments(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyDepartmentWhereInput): [Department!]
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
   me: User!
@@ -1659,19 +1670,78 @@ type Query {
   noteCommentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
   noteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
   noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  notes(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyNoteWhereInput): [Note!]
   resetPassword(where: PasswordTokenWhereUniqueInput!): PasswordToken
   resetPasswords(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
   subject(where: SubjectWhereUniqueInput!): Subject
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
-  subjectInformations(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
-  subjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  subjectInformations(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySubjectInformationWhereInput): [SubjectInformation!]
+  subjects(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySubjectWhereInput): [Subject!]
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
-  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  suggestions(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySuggestionWhereInput): [Suggestion!]
   user(where: UserWhereUniqueInput!): User
   userRole(where: UserRoleWhereUniqueInput!): UserRole
-  userRoles(after: String, before: String, first: Int, last: Int, skip: Int): [UserRole!]
-  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  userRoles(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyUserRoleWhereInput): [UserRole!]
+  users(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyUserWhereInput): [User!]
+}
+
+input QueryFindManyDepartmentWhereInput {
+  description: StringFilter
+  name: StringFilter
+}
+
+input QueryFindManyNoteFilter {
+  every: QueryFindManyNoteWhereInput
+  none: QueryFindManyNoteWhereInput
+  some: QueryFindManyNoteWhereInput
+}
+
+input QueryFindManyNoteWhereInput {
+  description: NullableStringFilter
+  likers: QueryFindManyNoteFilter
+  number: IntFilter
+  subject: QueryFindManyNoteWhereInput
+  title: StringFilter
+}
+
+input QueryFindManySubjectInformationWhereInput {
+  subtitle: NullableStringFilter
+  title: StringFilter
+}
+
+input QueryFindManySubjectWhereInput {
+  code: StringFilter
+  description: StringFilter
+  name: StringFilter
+}
+
+input QueryFindManySuggestionFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
+input QueryFindManySuggestionWhereInput {
+  approvedAt: QueryFindManySuggestionFilter
+}
+
+input QueryFindManyUserRoleWhereInput {
+  name: StringFilter
+}
+
+input QueryFindManyUserWhereInput {
+  email: StringFilter
+  firstName: StringFilter
+  identifier: StringFilter
+  isActive: BooleanFilter
+  lastName: StringFilter
+  phoneNumber: NullableStringFilter
+  role: QueryFindManyUserWhereInput
 }
 
 input StringFilter {

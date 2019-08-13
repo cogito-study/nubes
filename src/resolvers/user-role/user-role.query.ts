@@ -4,6 +4,11 @@ export const UserRoleQuery = extendType({
   type: 'Query',
   definition: (t) => {
     t.crud.findOneUserRole({ alias: 'userRole' });
-    t.crud.findManyUserRole({ alias: 'userRoles' });
+    t.crud.findManyUserRole({
+      alias: 'userRoles',
+      filtering: {
+        name: true,
+      },
+    });
   },
 });
