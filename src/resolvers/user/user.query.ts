@@ -1,4 +1,4 @@
-import { extendType, idArg } from '@prisma/nexus';
+import { extendType } from '@prisma/nexus';
 import { getUserID } from '../../utils';
 
 export const UserQuery = extendType({

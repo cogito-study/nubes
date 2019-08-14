@@ -355,7 +355,6 @@ type Mutation {
   createNoteComment(data: NoteCommentCreateInput!): NoteComment!
   createNoteCommentThread(data: NoteCommentThreadCreateInput!): NoteCommentThread!
   createNoteHighlight(data: NoteHighlightCreateInput!): NoteHighlight!
-  createResetPassword(password: String, token: String): AuthPayload!
   createSubject(data: SubjectCreateInput!): Subject!
   createSubjectInformation(data: SubjectInformationCreateInput!): SubjectInformation!
   createSuggestion(data: SuggestionCreateInput!): Suggestion!
@@ -371,7 +370,6 @@ type Mutation {
   deleteSuggestion(where: SuggestionWhereUniqueInput!): Suggestion
   deleteUserRole(where: UserRoleWhereUniqueInput!): UserRole
   login(data: UserLoginInput!): AuthPayload!
-  sendResetPasswordEmail(email: String): User!
   updateDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
   updateInstitute(data: InstituteUpdateInput!, where: InstituteWhereUniqueInput!): Institute
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note

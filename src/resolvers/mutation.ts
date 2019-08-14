@@ -11,19 +11,19 @@ export const Mutation = mutationType({
       args: {
         data: ImageUploadInput.asArg({ required: true }),
       },
-      resolve: async (parent, { data: { file, extension } }, ctx, info) => {
-        let base64EncodedImageString = file.replace(/^data:image\/\w+;base64,/, '');
+      resolve: async (parent, { data: { file, extension } }) => {
+        const base64EncodedImageString = file.replace(/^data:image\/\w+;base64,/, '');
 
-        var bufferStream = new Stream.PassThrough();
+        const bufferStream = new Stream.PassThrough();
         bufferStream.end(Buffer.from(base64EncodedImageString, 'base64'));
 
         const storage = new Storage({
           projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
         });
 
-        let googleCloudBucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
-        let fileName = `${uuid()}.${extension}`;
-        let uploadedFile = googleCloudBucket.file(fileName);
+        const googleCloudBucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
+        const fileName = `${uuid()}.${extension}`;
+        const uploadedFile = googleCloudBucket.file(fileName);
 
         return new Promise<string>((resolve, reject) => {
           bufferStream
