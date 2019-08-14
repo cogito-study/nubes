@@ -12,8 +12,9 @@
     "@prisma/nexus": "^0.0.1",
     "apollo-server": "^2.8.1",
     "bcrypt": "3.0.6",
-    "graphql-middleware": "^3.0.3",
+    "dotenv": "^8.0.0",
     "env-cmd": "^9.0.3",
+    "graphql-middleware": "^3.0.3",
     "graphql-shield": "5.3.8",
     "jsonwebtoken": "8.5.1",
     "nexus": "0.12.0-beta.5",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "3.0.0",
+    "@types/dotenv": "^6.1.1",
     "@types/faker": "^4.1.5",
     "@types/jsonwebtoken": "8.3.2",
     "@types/node": "^12.0.10",

@@ -2,12 +2,15 @@ import { nexusPrismaPlugin } from '@generated/nexus-prisma';
 import Photon from '@generated/photon';
 import { makeSchema } from '@prisma/nexus';
 import { ApolloServer } from 'apollo-server';
+import { config } from 'dotenv';
 import { applyMiddleware } from 'graphql-middleware';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import * as allTypes from './resolvers';
+import { noteInputValidator } from './resolvers/note/note.input';
 import { userLoginInputValidator } from './resolvers/user/user.input';
 import { Context } from './types';
-import { noteInputValidator } from './resolvers/note/note.input';
+
+config({ path: resolve(__dirname, '../.env') });
 
 const photon = new Photon({
   debug: true,
