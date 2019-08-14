@@ -13,7 +13,7 @@ export const UserMutation = extendType({
       args: {
         data: UserLoginInput.asArg({ required: true }),
       },
-      resolve: async (parent, { data: { email, password } }, ctx, info) => {
+      resolve: async (parent, { data: { email, password } }, ctx) => {
         try {
           const user = await ctx.photon.users.findOne({ where: { email } });
 

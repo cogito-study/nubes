@@ -63,15 +63,15 @@ async function main() {
   });
 
   for (let indexOfUniversity = 0; indexOfUniversity < 3; indexOfUniversity++) {
-    let university = await photon.institutes.create({
+    const university = await photon.institutes.create({
       data: {
         name: `University of ${faker.address.city()}`,
       },
     });
-    let students = Array();
+    const students = [];
     students.push({ id: user.id });
     for (let index = 0; index < 100; index++) {
-      let user = await photon.users.create({
+      const user = await photon.users.create({
         data: {
           email: faker.internet.email(),
           firstName: faker.name.firstName(),
@@ -86,7 +86,7 @@ async function main() {
       students.push({ id: user.id });
     }
     for (let indexOfDepartment = 0; indexOfDepartment < 10; indexOfDepartment++) {
-      let department = await photon.departments.create({
+      const department = await photon.departments.create({
         data: {
           name: faker.name.jobArea(),
           description: faker.name.jobDescriptor(),
@@ -95,7 +95,7 @@ async function main() {
         },
       });
       for (let indexOfSubject = 0; indexOfSubject < 10; indexOfSubject++) {
-        let subject = await photon.subjects.create({
+        const subject = await photon.subjects.create({
           data: {
             name: faker.random.words(2),
             code: faker.random.alphaNumeric(12),

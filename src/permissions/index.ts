@@ -1,23 +1,23 @@
-import { rule, shield } from 'graphql-shield'
-import { getUserId } from '../utils'
+import { rule, shield } from 'graphql-shield';
+import { getUserID } from '../utils';
 
 const rules = {
   isAuthenticatedUser: rule()((parent, args, context) => {
-    const userId = getUserId(context)
-    return Boolean(userId)
+    const userId = getUserID(context);
+    return Boolean(userId);
   }),
   isPostOwner: rule()(async (parent, { id }, context) => {
-    const userId = getUserId(context)
+    const userId = getUserID(context);
     const author = await context.photon.posts
       .findOne({
         where: {
           id,
         },
       })
-      .author()
-    return userId === author.id
+      .author();
+    return userId === author.id;
   }),
-}
+};
 
 export const permissions = shield({
   Query: {
@@ -30,4 +30,4 @@ export const permissions = shield({
     deletePost: rules.isPostOwner,
     publish: rules.isPostOwner,
   },
-})
+});

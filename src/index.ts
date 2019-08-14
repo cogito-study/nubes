@@ -66,6 +66,6 @@ const server = new ApolloServer({
   debug: process.env.NODE_ENV === 'development',
 });
 
-server.listen().then(({ url, server }) => {
+server.listen().then(({ url }) => {
   console.log(`🚀 Server is running on ${url}`);
 });
