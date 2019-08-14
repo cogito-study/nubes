@@ -2,6 +2,7 @@ import { inputObjectType, FieldResolver } from '@prisma/nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { GraphQLResolveInfo } from 'graphql';
+import * as yup from 'yup';
 
 export const userLoginInputValidator = async (
   resolve: FieldResolver<'Mutation', 'login'>,
@@ -10,10 +11,13 @@ export const userLoginInputValidator = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  console.log('before', info);
-  const result = await resolve(parent, args, context, info);
-  console.log('result', result);
-  return result;
+  const schema = yup.object().shape({
+    email: yup.string().email(),
+  });
+  const schemaIsValid = await schema.isValid(args.data);
+  if (!schemaIsValid) throw new Error('Invalid email address!');
+
+  return await resolve(parent, args, context, info);
 };
 
 export const UserLoginInput = inputObjectType({
