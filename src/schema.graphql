@@ -203,6 +203,12 @@ input DepartmentWhereUniqueInput {
   id: ID
 }
 
+"""Input of image upload"""
+input ImageUploadInput {
+  extension: String!
+  file: String!
+}
+
 type Institute {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -376,6 +382,7 @@ type Mutation {
   updateSubjectInformation(data: SubjectInformationUpdateInput!, where: SubjectInformationWhereUniqueInput!): SubjectInformation
   updateSuggestion(data: SuggestionUpdateInput!, where: SuggestionWhereUniqueInput!): Suggestion
   updateUserRole(data: UserRoleUpdateInput!, where: UserRoleWhereUniqueInput!): UserRole
+  uploadImage(data: ImageUploadInput!): String!
 }
 
 input MutationUpdateOneDepartmentFilter {

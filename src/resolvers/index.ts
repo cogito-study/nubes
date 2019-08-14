@@ -10,3 +10,5 @@ export * from './subject-information';
 export * from './suggestion';
 export * from './user';
 export * from './user-role';
+export * from './mutation';
+export * from './input';
