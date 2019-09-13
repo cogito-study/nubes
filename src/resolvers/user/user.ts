@@ -25,7 +25,7 @@ export const User = objectType({
     t.model.passwordToken({ type: 'PasswordToken' });
     t.model.departments({ type: 'Department' });
     t.model.institutes({ type: 'Institute' });
-
+    t.model.preferredLanguage({ type: 'Language' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

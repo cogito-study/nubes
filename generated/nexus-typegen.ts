@@ -334,6 +334,106 @@ export interface NexusGenInputs {
     not?: number | null; // Int
     notIn?: number[] | null; // [Int!]
   };
+  LanguageCreateManyWithoutLanguageInput: {
+    // input type
+    connect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    create?: NexusGenInputs['LanguageCreateWithoutSubjectsInput'][] | null; // [LanguageCreateWithoutSubjectsInput!]
+  };
+  LanguageCreateManyWithoutPreferredLanguageInput: {
+    // input type
+    connect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    create?: NexusGenInputs['LanguageCreateWithoutUsersInput'][] | null; // [LanguageCreateWithoutUsersInput!]
+  };
+  LanguageCreateWithoutSubjectsInput: {
+    // input type
+    code: string; // String!
+    id?: string | null; // ID
+    name: string; // String!
+    users?: NexusGenInputs['UserCreateManyWithoutUsersInput'] | null; // UserCreateManyWithoutUsersInput
+  };
+  LanguageCreateWithoutUsersInput: {
+    // input type
+    code: string; // String!
+    id?: string | null; // ID
+    name: string; // String!
+    subjects?: NexusGenInputs['SubjectCreateManyWithoutSubjectsInput'] | null; // SubjectCreateManyWithoutSubjectsInput
+  };
+  LanguageUpdateManyDataInput: {
+    // input type
+    code?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+  };
+  LanguageUpdateManyWithWhereNestedInput: {
+    // input type
+    data: NexusGenInputs['LanguageUpdateManyDataInput']; // LanguageUpdateManyDataInput!
+    where: NexusGenInputs['MutationUpdateOneSubjectWhereInput']; // MutationUpdateOneSubjectWhereInput!
+  };
+  LanguageUpdateManyWithoutSubjectsInput: {
+    // input type
+    connect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    create?: NexusGenInputs['LanguageCreateWithoutSubjectsInput'][] | null; // [LanguageCreateWithoutSubjectsInput!]
+    delete?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneSubjectWhereInput'][] | null; // [MutationUpdateOneSubjectWhereInput!]
+    disconnect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    set?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    update?: NexusGenInputs['LanguageUpdateWithWhereUniqueWithoutSubjectsInput'][] | null; // [LanguageUpdateWithWhereUniqueWithoutSubjectsInput!]
+    updateMany?: NexusGenInputs['LanguageUpdateManyWithWhereNestedInput'][] | null; // [LanguageUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['LanguageUpsertWithWhereUniqueWithoutSubjectsInput'][] | null; // [LanguageUpsertWithWhereUniqueWithoutSubjectsInput!]
+  };
+  LanguageUpdateManyWithoutUsersInput: {
+    // input type
+    connect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    create?: NexusGenInputs['LanguageCreateWithoutUsersInput'][] | null; // [LanguageCreateWithoutUsersInput!]
+    delete?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneDepartmentWhereInput'][] | null; // [MutationUpdateOneDepartmentWhereInput!]
+    disconnect?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    set?: NexusGenInputs['LanguageWhereUniqueInput'][] | null; // [LanguageWhereUniqueInput!]
+    update?: NexusGenInputs['LanguageUpdateWithWhereUniqueWithoutUsersInput'][] | null; // [LanguageUpdateWithWhereUniqueWithoutUsersInput!]
+    updateMany?: NexusGenInputs['LanguageUpdateManyWithWhereNestedInput'][] | null; // [LanguageUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['LanguageUpsertWithWhereUniqueWithoutUsersInput'][] | null; // [LanguageUpsertWithWhereUniqueWithoutUsersInput!]
+  };
+  LanguageUpdateWithWhereUniqueWithoutSubjectsInput: {
+    // input type
+    data: NexusGenInputs['LanguageUpdateWithoutSubjectsDataInput']; // LanguageUpdateWithoutSubjectsDataInput!
+    where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
+  };
+  LanguageUpdateWithWhereUniqueWithoutUsersInput: {
+    // input type
+    data: NexusGenInputs['LanguageUpdateWithoutUsersDataInput']; // LanguageUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
+  };
+  LanguageUpdateWithoutSubjectsDataInput: {
+    // input type
+    code?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    users?: NexusGenInputs['UserUpdateManyWithoutPreferredLanguageInput'] | null; // UserUpdateManyWithoutPreferredLanguageInput
+  };
+  LanguageUpdateWithoutUsersDataInput: {
+    // input type
+    code?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    subjects?: NexusGenInputs['SubjectUpdateManyWithoutLanguageInput'] | null; // SubjectUpdateManyWithoutLanguageInput
+  };
+  LanguageUpsertWithWhereUniqueWithoutSubjectsInput: {
+    // input type
+    create: NexusGenInputs['LanguageCreateWithoutSubjectsInput']; // LanguageCreateWithoutSubjectsInput!
+    update: NexusGenInputs['LanguageUpdateWithoutSubjectsDataInput']; // LanguageUpdateWithoutSubjectsDataInput!
+    where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
+  };
+  LanguageUpsertWithWhereUniqueWithoutUsersInput: {
+    // input type
+    create: NexusGenInputs['LanguageCreateWithoutUsersInput']; // LanguageCreateWithoutUsersInput!
+    update: NexusGenInputs['LanguageUpdateWithoutUsersDataInput']; // LanguageUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
+  };
+  LanguageWhereUniqueInput: {
+    // input type
+    code?: string | null; // String
+    id?: string | null; // ID
+  };
   MutationUpdateOneDepartmentFilter: {
     // input type
     every?: NexusGenInputs['MutationUpdateOneDepartmentWhereInput'] | null; // MutationUpdateOneDepartmentWhereInput
@@ -349,6 +449,7 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     informations?: NexusGenInputs['MutationUpdateOneDepartmentFilter'] | null; // MutationUpdateOneDepartmentFilter
+    language?: NexusGenInputs['MutationUpdateOneDepartmentFilter'] | null; // MutationUpdateOneDepartmentFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['MutationUpdateOneDepartmentWhereInput'][] | null; // [MutationUpdateOneDepartmentWhereInput!]
     notes?: NexusGenInputs['MutationUpdateOneDepartmentFilter'] | null; // MutationUpdateOneDepartmentFilter
@@ -424,6 +525,7 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['MutationUpdateOneNoteCommentWhereInput'][] | null; // [MutationUpdateOneNoteCommentWhereInput!]
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    preferredLanguage?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
     profilePictureURL?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     studiedSubjects?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
     suggestions?: NexusGenInputs['MutationUpdateOneNoteCommentFilter'] | null; // MutationUpdateOneNoteCommentFilter
@@ -484,6 +586,7 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['MutationUpdateOneSubjectWhereInput'][] | null; // [MutationUpdateOneSubjectWhereInput!]
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    preferredLanguage?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
     profilePictureURL?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     studiedSubjects?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
     suggestions?: NexusGenInputs['MutationUpdateOneSubjectFilter'] | null; // MutationUpdateOneSubjectFilter
@@ -520,6 +623,7 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['MutationUpdateOneSuggestionWhereInput'][] | null; // [MutationUpdateOneSuggestionWhereInput!]
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    preferredLanguage?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
     profilePictureURL?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     studiedSubjects?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
     suggestions?: NexusGenInputs['MutationUpdateOneSuggestionFilter'] | null; // MutationUpdateOneSuggestionFilter
@@ -556,6 +660,7 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['MutationUpdateOneUserRoleWhereInput'][] | null; // [MutationUpdateOneUserRoleWhereInput!]
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    preferredLanguage?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
     profilePictureURL?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     studiedSubjects?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
     suggestions?: NexusGenInputs['MutationUpdateOneUserRoleFilter'] | null; // MutationUpdateOneUserRoleFilter
@@ -1618,6 +1723,7 @@ export interface NexusGenInputs {
     description: string; // String!
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
     name: string; // String!
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
@@ -1652,6 +1758,7 @@ export interface NexusGenInputs {
     description: string; // String!
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
     name: string; // String!
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
@@ -1666,6 +1773,22 @@ export interface NexusGenInputs {
     department: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput']; // DepartmentCreateOneWithoutDepartmentInput!
     description: string; // String!
     id?: string | null; // ID
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
+    name: string; // String!
+    notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
+    students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
+    teachers?: NexusGenInputs['UserCreateManyWithoutTeachersInput'] | null; // UserCreateManyWithoutTeachersInput
+    updatedAt?: any | null; // DateTime
+  };
+  SubjectCreateWithoutLanguageInput: {
+    // input type
+    code: string; // String!
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    department: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput']; // DepartmentCreateOneWithoutDepartmentInput!
+    description: string; // String!
+    id?: string | null; // ID
+    informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
     name: string; // String!
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
@@ -1681,6 +1804,7 @@ export interface NexusGenInputs {
     description: string; // String!
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
     name: string; // String!
     students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
     teachers?: NexusGenInputs['UserCreateManyWithoutTeachersInput'] | null; // UserCreateManyWithoutTeachersInput
@@ -1695,6 +1819,7 @@ export interface NexusGenInputs {
     description: string; // String!
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
     name: string; // String!
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     teachers?: NexusGenInputs['UserCreateManyWithoutTeachersInput'] | null; // UserCreateManyWithoutTeachersInput
@@ -1709,6 +1834,7 @@ export interface NexusGenInputs {
     description: string; // String!
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationCreateManyWithoutInformationsInput'] | null; // SubjectInformationCreateManyWithoutInformationsInput
+    language?: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'] | null; // LanguageCreateManyWithoutLanguageInput
     name: string; // String!
     notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     students?: NexusGenInputs['UserCreateManyWithoutStudentsInput'] | null; // UserCreateManyWithoutStudentsInput
@@ -1812,6 +1938,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
     name?: string | null; // String
     notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
     students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
@@ -1844,6 +1971,18 @@ export interface NexusGenInputs {
     update?: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutDepartmentInput'][] | null; // [SubjectUpdateWithWhereUniqueWithoutDepartmentInput!]
     updateMany?: NexusGenInputs['SubjectUpdateManyWithWhereNestedInput'][] | null; // [SubjectUpdateManyWithWhereNestedInput!]
     upsert?: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutDepartmentInput'][] | null; // [SubjectUpsertWithWhereUniqueWithoutDepartmentInput!]
+  };
+  SubjectUpdateManyWithoutLanguageInput: {
+    // input type
+    connect?: NexusGenInputs['SubjectWhereUniqueInput'][] | null; // [SubjectWhereUniqueInput!]
+    create?: NexusGenInputs['SubjectCreateWithoutLanguageInput'][] | null; // [SubjectCreateWithoutLanguageInput!]
+    delete?: NexusGenInputs['SubjectWhereUniqueInput'][] | null; // [SubjectWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneDepartmentWhereInput'][] | null; // [MutationUpdateOneDepartmentWhereInput!]
+    disconnect?: NexusGenInputs['SubjectWhereUniqueInput'][] | null; // [SubjectWhereUniqueInput!]
+    set?: NexusGenInputs['SubjectWhereUniqueInput'][] | null; // [SubjectWhereUniqueInput!]
+    update?: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutLanguageInput'][] | null; // [SubjectUpdateWithWhereUniqueWithoutLanguageInput!]
+    updateMany?: NexusGenInputs['SubjectUpdateManyWithWhereNestedInput'][] | null; // [SubjectUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutLanguageInput'][] | null; // [SubjectUpsertWithWhereUniqueWithoutLanguageInput!]
   };
   SubjectUpdateManyWithoutStudentsInput: {
     // input type
@@ -1888,6 +2027,11 @@ export interface NexusGenInputs {
     data: NexusGenInputs['SubjectUpdateWithoutDepartmentDataInput']; // SubjectUpdateWithoutDepartmentDataInput!
     where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
   };
+  SubjectUpdateWithWhereUniqueWithoutLanguageInput: {
+    // input type
+    data: NexusGenInputs['SubjectUpdateWithoutLanguageDataInput']; // SubjectUpdateWithoutLanguageDataInput!
+    where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
+  };
   SubjectUpdateWithWhereUniqueWithoutStudentsInput: {
     // input type
     data: NexusGenInputs['SubjectUpdateWithoutStudentsDataInput']; // SubjectUpdateWithoutStudentsDataInput!
@@ -1906,6 +2050,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
     name?: string | null; // String
     notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
     students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
@@ -1920,6 +2065,22 @@ export interface NexusGenInputs {
     department?: NexusGenInputs['DepartmentUpdateOneRequiredWithoutSubjectsInput'] | null; // DepartmentUpdateOneRequiredWithoutSubjectsInput
     description?: string | null; // String
     id?: string | null; // ID
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
+    name?: string | null; // String
+    notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
+    students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
+    teachers?: NexusGenInputs['UserUpdateManyWithoutTeachedSubjectsInput'] | null; // UserUpdateManyWithoutTeachedSubjectsInput
+    updatedAt?: any | null; // DateTime
+  };
+  SubjectUpdateWithoutLanguageDataInput: {
+    // input type
+    code?: string | null; // String
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentUpdateOneRequiredWithoutSubjectsInput'] | null; // DepartmentUpdateOneRequiredWithoutSubjectsInput
+    description?: string | null; // String
+    id?: string | null; // ID
+    informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
     name?: string | null; // String
     notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
     students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
@@ -1935,6 +2096,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
     name?: string | null; // String
     students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
     teachers?: NexusGenInputs['UserUpdateManyWithoutTeachedSubjectsInput'] | null; // UserUpdateManyWithoutTeachedSubjectsInput
@@ -1949,6 +2111,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
     name?: string | null; // String
     notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
     teachers?: NexusGenInputs['UserUpdateManyWithoutTeachedSubjectsInput'] | null; // UserUpdateManyWithoutTeachedSubjectsInput
@@ -1963,6 +2126,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     informations?: NexusGenInputs['SubjectInformationUpdateManyWithoutSubjectInput'] | null; // SubjectInformationUpdateManyWithoutSubjectInput
+    language?: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'] | null; // LanguageUpdateManyWithoutSubjectsInput
     name?: string | null; // String
     notes?: NexusGenInputs['NoteUpdateManyWithoutSubjectInput'] | null; // NoteUpdateManyWithoutSubjectInput
     students?: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'] | null; // UserUpdateManyWithoutStudiedSubjectsInput
@@ -1972,6 +2136,12 @@ export interface NexusGenInputs {
     // input type
     create: NexusGenInputs['SubjectCreateWithoutDepartmentInput']; // SubjectCreateWithoutDepartmentInput!
     update: NexusGenInputs['SubjectUpdateWithoutDepartmentDataInput']; // SubjectUpdateWithoutDepartmentDataInput!
+    where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
+  };
+  SubjectUpsertWithWhereUniqueWithoutLanguageInput: {
+    // input type
+    create: NexusGenInputs['SubjectCreateWithoutLanguageInput']; // SubjectCreateWithoutLanguageInput!
+    update: NexusGenInputs['SubjectUpdateWithoutLanguageDataInput']; // SubjectUpdateWithoutLanguageDataInput!
     where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
   };
   SubjectUpsertWithWhereUniqueWithoutStudentsInput: {
@@ -2314,6 +2484,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2342,6 +2513,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2370,6 +2542,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2398,6 +2571,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2426,6 +2600,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2454,6 +2629,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2482,6 +2658,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2510,6 +2687,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2535,6 +2713,36 @@ export interface NexusGenInputs {
     likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
     likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
     noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
+    password: string; // String!
+    passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
+    phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
+    profilePictureURL?: string | null; // String
+    role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
+    studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
+    suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
+    teachedSubjects?: NexusGenInputs['SubjectCreateManyWithoutTeachedSubjectsInput'] | null; // SubjectCreateManyWithoutTeachedSubjectsInput
+    updatedAt?: any | null; // DateTime
+  };
+  UserCreateWithoutPreferredLanguageInput: {
+    // input type
+    approvedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutApprovedSuggestionsInput'] | null; // SuggestionCreateManyWithoutApprovedSuggestionsInput
+    comments?: NexusGenInputs['NoteCommentCreateManyWithoutCommentsInput'] | null; // NoteCommentCreateManyWithoutCommentsInput
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    departments?: NexusGenInputs['DepartmentCreateManyWithoutDepartmentsInput'] | null; // DepartmentCreateManyWithoutDepartmentsInput
+    email: string; // String!
+    firstName: string; // String!
+    id?: string | null; // ID
+    identifier: string; // String!
+    institutes?: NexusGenInputs['InstituteCreateManyWithoutInstitutesInput'] | null; // InstituteCreateManyWithoutInstitutesInput
+    isActive?: boolean | null; // Boolean
+    lastName: string; // String!
+    likedComments?: NexusGenInputs['NoteCommentCreateManyWithoutLikedCommentsInput'] | null; // NoteCommentCreateManyWithoutLikedCommentsInput
+    likedNotes?: NexusGenInputs['NoteCreateManyWithoutLikedNotesInput'] | null; // NoteCreateManyWithoutLikedNotesInput
+    likedSuggestions?: NexusGenInputs['SuggestionCreateManyWithoutLikedSuggestionsInput'] | null; // SuggestionCreateManyWithoutLikedSuggestionsInput
+    noteHighlights?: NexusGenInputs['NoteHighlightCreateManyWithoutNoteHighlightsInput'] | null; // NoteHighlightCreateManyWithoutNoteHighlightsInput
+    notes?: NexusGenInputs['NoteCreateManyWithoutNotesInput'] | null; // NoteCreateManyWithoutNotesInput
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
@@ -2567,6 +2775,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
     suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
@@ -2595,6 +2804,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     suggestions?: NexusGenInputs['SuggestionCreateManyWithoutSuggestionsInput'] | null; // SuggestionCreateManyWithoutSuggestionsInput
@@ -2623,6 +2833,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2651,6 +2862,7 @@ export interface NexusGenInputs {
     password: string; // String!
     passwordToken?: NexusGenInputs['PasswordTokenCreateOneWithoutPasswordTokenInput'] | null; // PasswordTokenCreateOneWithoutPasswordTokenInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'] | null; // LanguageCreateManyWithoutPreferredLanguageInput
     profilePictureURL?: string | null; // String
     role: NexusGenInputs['UserRoleCreateOneWithoutRoleInput']; // UserRoleCreateOneWithoutRoleInput!
     studiedSubjects?: NexusGenInputs['SubjectCreateManyWithoutStudiedSubjectsInput'] | null; // SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2801,6 +3013,18 @@ export interface NexusGenInputs {
     updateMany?: NexusGenInputs['UserUpdateManyWithWhereNestedInput'][] | null; // [UserUpdateManyWithWhereNestedInput!]
     upsert?: NexusGenInputs['UserUpsertWithWhereUniqueWithoutNotesInput'][] | null; // [UserUpsertWithWhereUniqueWithoutNotesInput!]
   };
+  UserUpdateManyWithoutPreferredLanguageInput: {
+    // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutPreferredLanguageInput'][] | null; // [UserCreateWithoutPreferredLanguageInput!]
+    delete?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneSubjectWhereInput'][] | null; // [MutationUpdateOneSubjectWhereInput!]
+    disconnect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    set?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    update?: NexusGenInputs['UserUpdateWithWhereUniqueWithoutPreferredLanguageInput'][] | null; // [UserUpdateWithWhereUniqueWithoutPreferredLanguageInput!]
+    updateMany?: NexusGenInputs['UserUpdateManyWithWhereNestedInput'][] | null; // [UserUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['UserUpsertWithWhereUniqueWithoutPreferredLanguageInput'][] | null; // [UserUpsertWithWhereUniqueWithoutPreferredLanguageInput!]
+  };
   UserUpdateManyWithoutRoleInput: {
     // input type
     connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
@@ -2899,6 +3123,11 @@ export interface NexusGenInputs {
     data: NexusGenInputs['UserUpdateWithoutNotesDataInput']; // UserUpdateWithoutNotesDataInput!
     where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
   };
+  UserUpdateWithWhereUniqueWithoutPreferredLanguageInput: {
+    // input type
+    data: NexusGenInputs['UserUpdateWithoutPreferredLanguageDataInput']; // UserUpdateWithoutPreferredLanguageDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  };
   UserUpdateWithWhereUniqueWithoutRoleInput: {
     // input type
     data: NexusGenInputs['UserUpdateWithoutRoleDataInput']; // UserUpdateWithoutRoleDataInput!
@@ -2935,6 +3164,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -2963,6 +3193,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -2991,6 +3222,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3019,6 +3251,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3047,6 +3280,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3075,6 +3309,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3103,6 +3338,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3131,6 +3367,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3156,6 +3393,36 @@ export interface NexusGenInputs {
     likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
     likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
     noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
+    password?: string | null; // String
+    passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
+    phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
+    profilePictureURL?: string | null; // String
+    role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
+    studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
+    suggestions?: NexusGenInputs['SuggestionUpdateManyWithoutAuthorInput'] | null; // SuggestionUpdateManyWithoutAuthorInput
+    teachedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutTeachersInput'] | null; // SubjectUpdateManyWithoutTeachersInput
+    updatedAt?: any | null; // DateTime
+  };
+  UserUpdateWithoutPreferredLanguageDataInput: {
+    // input type
+    approvedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutApprovedByInput'] | null; // SuggestionUpdateManyWithoutApprovedByInput
+    comments?: NexusGenInputs['NoteCommentUpdateManyWithoutAuthorInput'] | null; // NoteCommentUpdateManyWithoutAuthorInput
+    createdAt?: any | null; // DateTime
+    deletedAt?: any | null; // DateTime
+    departments?: NexusGenInputs['DepartmentUpdateManyWithoutLeaderInput'] | null; // DepartmentUpdateManyWithoutLeaderInput
+    email?: string | null; // String
+    firstName?: string | null; // String
+    id?: string | null; // ID
+    identifier?: string | null; // String
+    institutes?: NexusGenInputs['InstituteUpdateManyWithoutUsersInput'] | null; // InstituteUpdateManyWithoutUsersInput
+    isActive?: boolean | null; // Boolean
+    lastName?: string | null; // String
+    likedComments?: NexusGenInputs['NoteCommentUpdateManyWithoutLikersInput'] | null; // NoteCommentUpdateManyWithoutLikersInput
+    likedNotes?: NexusGenInputs['NoteUpdateManyWithoutLikersInput'] | null; // NoteUpdateManyWithoutLikersInput
+    likedSuggestions?: NexusGenInputs['SuggestionUpdateManyWithoutLikersInput'] | null; // SuggestionUpdateManyWithoutLikersInput
+    noteHighlights?: NexusGenInputs['NoteHighlightUpdateManyWithoutUserInput'] | null; // NoteHighlightUpdateManyWithoutUserInput
+    notes?: NexusGenInputs['NoteUpdateManyWithoutAuthorsInput'] | null; // NoteUpdateManyWithoutAuthorsInput
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
@@ -3188,6 +3455,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
     suggestions?: NexusGenInputs['SuggestionUpdateManyWithoutAuthorInput'] | null; // SuggestionUpdateManyWithoutAuthorInput
@@ -3216,6 +3484,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     suggestions?: NexusGenInputs['SuggestionUpdateManyWithoutAuthorInput'] | null; // SuggestionUpdateManyWithoutAuthorInput
@@ -3244,6 +3513,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3272,6 +3542,7 @@ export interface NexusGenInputs {
     password?: string | null; // String
     passwordToken?: NexusGenInputs['PasswordTokenUpdateOneWithoutUserInput'] | null; // PasswordTokenUpdateOneWithoutUserInput
     phoneNumber?: string | null; // String
+    preferredLanguage?: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'] | null; // LanguageUpdateManyWithoutUsersInput
     profilePictureURL?: string | null; // String
     role?: NexusGenInputs['UserRoleUpdateOneRequiredWithoutUsersInput'] | null; // UserRoleUpdateOneRequiredWithoutUsersInput
     studiedSubjects?: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'] | null; // SubjectUpdateManyWithoutStudentsInput
@@ -3306,6 +3577,12 @@ export interface NexusGenInputs {
     // input type
     create: NexusGenInputs['UserCreateWithoutNotesInput']; // UserCreateWithoutNotesInput!
     update: NexusGenInputs['UserUpdateWithoutNotesDataInput']; // UserUpdateWithoutNotesDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  };
+  UserUpsertWithWhereUniqueWithoutPreferredLanguageInput: {
+    // input type
+    create: NexusGenInputs['UserCreateWithoutPreferredLanguageInput']; // UserCreateWithoutPreferredLanguageInput!
+    update: NexusGenInputs['UserUpdateWithoutPreferredLanguageDataInput']; // UserUpdateWithoutPreferredLanguageDataInput!
     where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
   };
   UserUpsertWithWhereUniqueWithoutRoleInput: {
@@ -3373,6 +3650,7 @@ export interface NexusGenRootTypes {
   };
   Department: photon.Department;
   Institute: photon.Institute;
+  Language: photon.Language;
   Mutation: {};
   Note: photon.Note;
   NoteComment: photon.NoteComment;
@@ -3434,6 +3712,21 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   InstituteUpsertWithoutDepartmentsInput: NexusGenInputs['InstituteUpsertWithoutDepartmentsInput'];
   InstituteWhereUniqueInput: NexusGenInputs['InstituteWhereUniqueInput'];
   IntFilter: NexusGenInputs['IntFilter'];
+  LanguageCreateManyWithoutLanguageInput: NexusGenInputs['LanguageCreateManyWithoutLanguageInput'];
+  LanguageCreateManyWithoutPreferredLanguageInput: NexusGenInputs['LanguageCreateManyWithoutPreferredLanguageInput'];
+  LanguageCreateWithoutSubjectsInput: NexusGenInputs['LanguageCreateWithoutSubjectsInput'];
+  LanguageCreateWithoutUsersInput: NexusGenInputs['LanguageCreateWithoutUsersInput'];
+  LanguageUpdateManyDataInput: NexusGenInputs['LanguageUpdateManyDataInput'];
+  LanguageUpdateManyWithWhereNestedInput: NexusGenInputs['LanguageUpdateManyWithWhereNestedInput'];
+  LanguageUpdateManyWithoutSubjectsInput: NexusGenInputs['LanguageUpdateManyWithoutSubjectsInput'];
+  LanguageUpdateManyWithoutUsersInput: NexusGenInputs['LanguageUpdateManyWithoutUsersInput'];
+  LanguageUpdateWithWhereUniqueWithoutSubjectsInput: NexusGenInputs['LanguageUpdateWithWhereUniqueWithoutSubjectsInput'];
+  LanguageUpdateWithWhereUniqueWithoutUsersInput: NexusGenInputs['LanguageUpdateWithWhereUniqueWithoutUsersInput'];
+  LanguageUpdateWithoutSubjectsDataInput: NexusGenInputs['LanguageUpdateWithoutSubjectsDataInput'];
+  LanguageUpdateWithoutUsersDataInput: NexusGenInputs['LanguageUpdateWithoutUsersDataInput'];
+  LanguageUpsertWithWhereUniqueWithoutSubjectsInput: NexusGenInputs['LanguageUpsertWithWhereUniqueWithoutSubjectsInput'];
+  LanguageUpsertWithWhereUniqueWithoutUsersInput: NexusGenInputs['LanguageUpsertWithWhereUniqueWithoutUsersInput'];
+  LanguageWhereUniqueInput: NexusGenInputs['LanguageWhereUniqueInput'];
   MutationUpdateOneDepartmentFilter: NexusGenInputs['MutationUpdateOneDepartmentFilter'];
   MutationUpdateOneDepartmentWhereInput: NexusGenInputs['MutationUpdateOneDepartmentWhereInput'];
   MutationUpdateOneInstituteFilter: NexusGenInputs['MutationUpdateOneInstituteFilter'];
@@ -3575,6 +3868,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectCreateOneWithoutSubjectInput: NexusGenInputs['SubjectCreateOneWithoutSubjectInput'];
   SubjectCreateWithoutDepartmentInput: NexusGenInputs['SubjectCreateWithoutDepartmentInput'];
   SubjectCreateWithoutInformationsInput: NexusGenInputs['SubjectCreateWithoutInformationsInput'];
+  SubjectCreateWithoutLanguageInput: NexusGenInputs['SubjectCreateWithoutLanguageInput'];
   SubjectCreateWithoutNotesInput: NexusGenInputs['SubjectCreateWithoutNotesInput'];
   SubjectCreateWithoutStudentsInput: NexusGenInputs['SubjectCreateWithoutStudentsInput'];
   SubjectCreateWithoutTeachersInput: NexusGenInputs['SubjectCreateWithoutTeachersInput'];
@@ -3593,19 +3887,23 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectUpdateManyDataInput: NexusGenInputs['SubjectUpdateManyDataInput'];
   SubjectUpdateManyWithWhereNestedInput: NexusGenInputs['SubjectUpdateManyWithWhereNestedInput'];
   SubjectUpdateManyWithoutDepartmentInput: NexusGenInputs['SubjectUpdateManyWithoutDepartmentInput'];
+  SubjectUpdateManyWithoutLanguageInput: NexusGenInputs['SubjectUpdateManyWithoutLanguageInput'];
   SubjectUpdateManyWithoutStudentsInput: NexusGenInputs['SubjectUpdateManyWithoutStudentsInput'];
   SubjectUpdateManyWithoutTeachersInput: NexusGenInputs['SubjectUpdateManyWithoutTeachersInput'];
   SubjectUpdateOneRequiredWithoutInformationsInput: NexusGenInputs['SubjectUpdateOneRequiredWithoutInformationsInput'];
   SubjectUpdateOneRequiredWithoutNotesInput: NexusGenInputs['SubjectUpdateOneRequiredWithoutNotesInput'];
   SubjectUpdateWithWhereUniqueWithoutDepartmentInput: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutDepartmentInput'];
+  SubjectUpdateWithWhereUniqueWithoutLanguageInput: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutLanguageInput'];
   SubjectUpdateWithWhereUniqueWithoutStudentsInput: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutStudentsInput'];
   SubjectUpdateWithWhereUniqueWithoutTeachersInput: NexusGenInputs['SubjectUpdateWithWhereUniqueWithoutTeachersInput'];
   SubjectUpdateWithoutDepartmentDataInput: NexusGenInputs['SubjectUpdateWithoutDepartmentDataInput'];
   SubjectUpdateWithoutInformationsDataInput: NexusGenInputs['SubjectUpdateWithoutInformationsDataInput'];
+  SubjectUpdateWithoutLanguageDataInput: NexusGenInputs['SubjectUpdateWithoutLanguageDataInput'];
   SubjectUpdateWithoutNotesDataInput: NexusGenInputs['SubjectUpdateWithoutNotesDataInput'];
   SubjectUpdateWithoutStudentsDataInput: NexusGenInputs['SubjectUpdateWithoutStudentsDataInput'];
   SubjectUpdateWithoutTeachersDataInput: NexusGenInputs['SubjectUpdateWithoutTeachersDataInput'];
   SubjectUpsertWithWhereUniqueWithoutDepartmentInput: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutDepartmentInput'];
+  SubjectUpsertWithWhereUniqueWithoutLanguageInput: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutLanguageInput'];
   SubjectUpsertWithWhereUniqueWithoutStudentsInput: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutStudentsInput'];
   SubjectUpsertWithWhereUniqueWithoutTeachersInput: NexusGenInputs['SubjectUpsertWithWhereUniqueWithoutTeachersInput'];
   SubjectUpsertWithoutInformationsInput: NexusGenInputs['SubjectUpsertWithoutInformationsInput'];
@@ -3657,6 +3955,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserCreateWithoutLikedSuggestionsInput: NexusGenInputs['UserCreateWithoutLikedSuggestionsInput'];
   UserCreateWithoutNoteHighlightsInput: NexusGenInputs['UserCreateWithoutNoteHighlightsInput'];
   UserCreateWithoutNotesInput: NexusGenInputs['UserCreateWithoutNotesInput'];
+  UserCreateWithoutPreferredLanguageInput: NexusGenInputs['UserCreateWithoutPreferredLanguageInput'];
   UserCreateWithoutRoleInput: NexusGenInputs['UserCreateWithoutRoleInput'];
   UserCreateWithoutStudiedSubjectsInput: NexusGenInputs['UserCreateWithoutStudiedSubjectsInput'];
   UserCreateWithoutSuggestionsInput: NexusGenInputs['UserCreateWithoutSuggestionsInput'];
@@ -3677,6 +3976,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpdateManyWithoutLikedNotesInput: NexusGenInputs['UserUpdateManyWithoutLikedNotesInput'];
   UserUpdateManyWithoutLikedSuggestionsInput: NexusGenInputs['UserUpdateManyWithoutLikedSuggestionsInput'];
   UserUpdateManyWithoutNotesInput: NexusGenInputs['UserUpdateManyWithoutNotesInput'];
+  UserUpdateManyWithoutPreferredLanguageInput: NexusGenInputs['UserUpdateManyWithoutPreferredLanguageInput'];
   UserUpdateManyWithoutRoleInput: NexusGenInputs['UserUpdateManyWithoutRoleInput'];
   UserUpdateManyWithoutStudiedSubjectsInput: NexusGenInputs['UserUpdateManyWithoutStudiedSubjectsInput'];
   UserUpdateManyWithoutTeachedSubjectsInput: NexusGenInputs['UserUpdateManyWithoutTeachedSubjectsInput'];
@@ -3690,6 +3990,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpdateWithWhereUniqueWithoutLikedNotesInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutLikedNotesInput'];
   UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput'];
   UserUpdateWithWhereUniqueWithoutNotesInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutNotesInput'];
+  UserUpdateWithWhereUniqueWithoutPreferredLanguageInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutPreferredLanguageInput'];
   UserUpdateWithWhereUniqueWithoutRoleInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutRoleInput'];
   UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput'];
   UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput'];
@@ -3702,6 +4003,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpdateWithoutLikedSuggestionsDataInput: NexusGenInputs['UserUpdateWithoutLikedSuggestionsDataInput'];
   UserUpdateWithoutNoteHighlightsDataInput: NexusGenInputs['UserUpdateWithoutNoteHighlightsDataInput'];
   UserUpdateWithoutNotesDataInput: NexusGenInputs['UserUpdateWithoutNotesDataInput'];
+  UserUpdateWithoutPreferredLanguageDataInput: NexusGenInputs['UserUpdateWithoutPreferredLanguageDataInput'];
   UserUpdateWithoutRoleDataInput: NexusGenInputs['UserUpdateWithoutRoleDataInput'];
   UserUpdateWithoutStudiedSubjectsDataInput: NexusGenInputs['UserUpdateWithoutStudiedSubjectsDataInput'];
   UserUpdateWithoutSuggestionsDataInput: NexusGenInputs['UserUpdateWithoutSuggestionsDataInput'];
@@ -3711,6 +4013,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserUpsertWithWhereUniqueWithoutLikedNotesInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutLikedNotesInput'];
   UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput'];
   UserUpsertWithWhereUniqueWithoutNotesInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutNotesInput'];
+  UserUpsertWithWhereUniqueWithoutPreferredLanguageInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutPreferredLanguageInput'];
   UserUpsertWithWhereUniqueWithoutRoleInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutRoleInput'];
   UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput'];
   UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput'];
@@ -3753,6 +4056,12 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     updatedAt: any; // DateTime!
     users: NexusGenRootTypes['User'][] | null; // [User!]
+  };
+  Language: {
+    // field return type
+    code: string; // String!
+    id: string; // ID!
+    name: string; // String!
   };
   Mutation: {
     // field return type
@@ -3858,6 +4167,8 @@ export interface NexusGenFieldTypes {
     departments: NexusGenRootTypes['Department'][] | null; // [Department!]
     institute: NexusGenRootTypes['Institute'] | null; // Institute
     institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
+    language: NexusGenRootTypes['Language'] | null; // Language
+    languages: NexusGenRootTypes['Language'][] | null; // [Language!]
     me: NexusGenRootTypes['User']; // User!
     note: NexusGenRootTypes['Note'] | null; // Note
     noteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
@@ -3939,6 +4250,7 @@ export interface NexusGenFieldTypes {
     password: string; // String!
     passwordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
     phoneNumber: string | null; // String
+    preferredLanguage: NexusGenRootTypes['Language'][] | null; // [Language!]
     profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole']; // UserRole!
     studiedSubjects: NexusGenRootTypes['Subject'][] | null; // [Subject!]
@@ -4215,6 +4527,18 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
+    language: {
+      // args
+      where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
+    };
+    languages: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
     note: {
       // args
       where: NexusGenInputs['NoteWhereUniqueInput']; // NoteWhereUniqueInput!
@@ -4451,6 +4775,14 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
+    preferredLanguage: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
     studiedSubjects: {
       // args
       after?: string | null; // String
@@ -4496,6 +4828,7 @@ export type NexusGenObjectNames =
   | 'AuthPayload'
   | 'Department'
   | 'Institute'
+  | 'Language'
   | 'Mutation'
   | 'Note'
   | 'NoteComment'
@@ -4550,6 +4883,21 @@ export type NexusGenInputNames =
   | 'InstituteUpsertWithoutDepartmentsInput'
   | 'InstituteWhereUniqueInput'
   | 'IntFilter'
+  | 'LanguageCreateManyWithoutLanguageInput'
+  | 'LanguageCreateManyWithoutPreferredLanguageInput'
+  | 'LanguageCreateWithoutSubjectsInput'
+  | 'LanguageCreateWithoutUsersInput'
+  | 'LanguageUpdateManyDataInput'
+  | 'LanguageUpdateManyWithWhereNestedInput'
+  | 'LanguageUpdateManyWithoutSubjectsInput'
+  | 'LanguageUpdateManyWithoutUsersInput'
+  | 'LanguageUpdateWithWhereUniqueWithoutSubjectsInput'
+  | 'LanguageUpdateWithWhereUniqueWithoutUsersInput'
+  | 'LanguageUpdateWithoutSubjectsDataInput'
+  | 'LanguageUpdateWithoutUsersDataInput'
+  | 'LanguageUpsertWithWhereUniqueWithoutSubjectsInput'
+  | 'LanguageUpsertWithWhereUniqueWithoutUsersInput'
+  | 'LanguageWhereUniqueInput'
   | 'MutationUpdateOneDepartmentFilter'
   | 'MutationUpdateOneDepartmentWhereInput'
   | 'MutationUpdateOneInstituteFilter'
@@ -4691,6 +5039,7 @@ export type NexusGenInputNames =
   | 'SubjectCreateOneWithoutSubjectInput'
   | 'SubjectCreateWithoutDepartmentInput'
   | 'SubjectCreateWithoutInformationsInput'
+  | 'SubjectCreateWithoutLanguageInput'
   | 'SubjectCreateWithoutNotesInput'
   | 'SubjectCreateWithoutStudentsInput'
   | 'SubjectCreateWithoutTeachersInput'
@@ -4709,19 +5058,23 @@ export type NexusGenInputNames =
   | 'SubjectUpdateManyDataInput'
   | 'SubjectUpdateManyWithWhereNestedInput'
   | 'SubjectUpdateManyWithoutDepartmentInput'
+  | 'SubjectUpdateManyWithoutLanguageInput'
   | 'SubjectUpdateManyWithoutStudentsInput'
   | 'SubjectUpdateManyWithoutTeachersInput'
   | 'SubjectUpdateOneRequiredWithoutInformationsInput'
   | 'SubjectUpdateOneRequiredWithoutNotesInput'
   | 'SubjectUpdateWithWhereUniqueWithoutDepartmentInput'
+  | 'SubjectUpdateWithWhereUniqueWithoutLanguageInput'
   | 'SubjectUpdateWithWhereUniqueWithoutStudentsInput'
   | 'SubjectUpdateWithWhereUniqueWithoutTeachersInput'
   | 'SubjectUpdateWithoutDepartmentDataInput'
   | 'SubjectUpdateWithoutInformationsDataInput'
+  | 'SubjectUpdateWithoutLanguageDataInput'
   | 'SubjectUpdateWithoutNotesDataInput'
   | 'SubjectUpdateWithoutStudentsDataInput'
   | 'SubjectUpdateWithoutTeachersDataInput'
   | 'SubjectUpsertWithWhereUniqueWithoutDepartmentInput'
+  | 'SubjectUpsertWithWhereUniqueWithoutLanguageInput'
   | 'SubjectUpsertWithWhereUniqueWithoutStudentsInput'
   | 'SubjectUpsertWithWhereUniqueWithoutTeachersInput'
   | 'SubjectUpsertWithoutInformationsInput'
@@ -4773,6 +5126,7 @@ export type NexusGenInputNames =
   | 'UserCreateWithoutLikedSuggestionsInput'
   | 'UserCreateWithoutNoteHighlightsInput'
   | 'UserCreateWithoutNotesInput'
+  | 'UserCreateWithoutPreferredLanguageInput'
   | 'UserCreateWithoutRoleInput'
   | 'UserCreateWithoutStudiedSubjectsInput'
   | 'UserCreateWithoutSuggestionsInput'
@@ -4793,6 +5147,7 @@ export type NexusGenInputNames =
   | 'UserUpdateManyWithoutLikedNotesInput'
   | 'UserUpdateManyWithoutLikedSuggestionsInput'
   | 'UserUpdateManyWithoutNotesInput'
+  | 'UserUpdateManyWithoutPreferredLanguageInput'
   | 'UserUpdateManyWithoutRoleInput'
   | 'UserUpdateManyWithoutStudiedSubjectsInput'
   | 'UserUpdateManyWithoutTeachedSubjectsInput'
@@ -4806,6 +5161,7 @@ export type NexusGenInputNames =
   | 'UserUpdateWithWhereUniqueWithoutLikedNotesInput'
   | 'UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput'
   | 'UserUpdateWithWhereUniqueWithoutNotesInput'
+  | 'UserUpdateWithWhereUniqueWithoutPreferredLanguageInput'
   | 'UserUpdateWithWhereUniqueWithoutRoleInput'
   | 'UserUpdateWithWhereUniqueWithoutStudiedSubjectsInput'
   | 'UserUpdateWithWhereUniqueWithoutTeachedSubjectsInput'
@@ -4818,6 +5174,7 @@ export type NexusGenInputNames =
   | 'UserUpdateWithoutLikedSuggestionsDataInput'
   | 'UserUpdateWithoutNoteHighlightsDataInput'
   | 'UserUpdateWithoutNotesDataInput'
+  | 'UserUpdateWithoutPreferredLanguageDataInput'
   | 'UserUpdateWithoutRoleDataInput'
   | 'UserUpdateWithoutStudiedSubjectsDataInput'
   | 'UserUpdateWithoutSuggestionsDataInput'
@@ -4827,6 +5184,7 @@ export type NexusGenInputNames =
   | 'UserUpsertWithWhereUniqueWithoutLikedNotesInput'
   | 'UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput'
   | 'UserUpsertWithWhereUniqueWithoutNotesInput'
+  | 'UserUpsertWithWhereUniqueWithoutPreferredLanguageInput'
   | 'UserUpsertWithWhereUniqueWithoutRoleInput'
   | 'UserUpsertWithWhereUniqueWithoutStudiedSubjectsInput'
   | 'UserUpsertWithWhereUniqueWithoutTeachedSubjectsInput'

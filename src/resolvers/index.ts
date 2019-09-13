@@ -1,5 +1,6 @@
 export * from './department';
 export * from './institute';
+export * from './language';
 export * from './note';
 export * from './note-comment';
 export * from './note-comment-thread';

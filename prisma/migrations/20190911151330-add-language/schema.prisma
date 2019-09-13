@@ -177,7 +177,7 @@ model User {
   passwordToken       PasswordToken?  @relation(name: "PasswordTokenUser")
   departments         Department[]    @relation(name: "DepartmentLeader")
   institutes          Institute[]     @relation(name: "InstituteUsers")
-  preferredLanguage   Language?       @relation(name: "UserPrefferedLanguage")
+  preferredLanguage   Language?      @relation(name: "UserPrefferedLanguage")
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
   deletedAt           DateTime?
