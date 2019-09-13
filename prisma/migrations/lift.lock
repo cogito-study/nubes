@@ -9,3 +9,5 @@
 20190806152911-schema-revision
 20190806175216-password-token-optional
 20190808153457-add-is-active-flag-to-user
+20190911151113-add_language
+20190911151330-add-language

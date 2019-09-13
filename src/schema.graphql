@@ -348,6 +348,112 @@ input IntFilter {
   notIn: [Int!]
 }
 
+type Language {
+  code: String!
+  id: ID!
+  name: String!
+}
+
+input LanguageCreateManyWithoutLanguageInput {
+  connect: [LanguageWhereUniqueInput!]
+  create: [LanguageCreateWithoutSubjectsInput!]
+}
+
+input LanguageCreateManyWithoutPreferredLanguageInput {
+  connect: [LanguageWhereUniqueInput!]
+  create: [LanguageCreateWithoutUsersInput!]
+}
+
+input LanguageCreateWithoutSubjectsInput {
+  code: String!
+  id: ID
+  name: String!
+  users: UserCreateManyWithoutUsersInput
+}
+
+input LanguageCreateWithoutUsersInput {
+  code: String!
+  id: ID
+  name: String!
+  subjects: SubjectCreateManyWithoutSubjectsInput
+}
+
+input LanguageUpdateManyDataInput {
+  code: String
+  id: ID
+  name: String
+}
+
+input LanguageUpdateManyWithoutSubjectsInput {
+  connect: [LanguageWhereUniqueInput!]
+  create: [LanguageCreateWithoutSubjectsInput!]
+  delete: [LanguageWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [LanguageWhereUniqueInput!]
+  set: [LanguageWhereUniqueInput!]
+  update: [LanguageUpdateWithWhereUniqueWithoutSubjectsInput!]
+  updateMany: [LanguageUpdateManyWithWhereNestedInput!]
+  upsert: [LanguageUpsertWithWhereUniqueWithoutSubjectsInput!]
+}
+
+input LanguageUpdateManyWithoutUsersInput {
+  connect: [LanguageWhereUniqueInput!]
+  create: [LanguageCreateWithoutUsersInput!]
+  delete: [LanguageWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [LanguageWhereUniqueInput!]
+  set: [LanguageWhereUniqueInput!]
+  update: [LanguageUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [LanguageUpdateManyWithWhereNestedInput!]
+  upsert: [LanguageUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input LanguageUpdateManyWithWhereNestedInput {
+  data: LanguageUpdateManyDataInput!
+  where: MutationUpdateOneSubjectWhereInput!
+}
+
+input LanguageUpdateWithoutSubjectsDataInput {
+  code: String
+  id: ID
+  name: String
+  users: UserUpdateManyWithoutPreferredLanguageInput
+}
+
+input LanguageUpdateWithoutUsersDataInput {
+  code: String
+  id: ID
+  name: String
+  subjects: SubjectUpdateManyWithoutLanguageInput
+}
+
+input LanguageUpdateWithWhereUniqueWithoutSubjectsInput {
+  data: LanguageUpdateWithoutSubjectsDataInput!
+  where: LanguageWhereUniqueInput!
+}
+
+input LanguageUpdateWithWhereUniqueWithoutUsersInput {
+  data: LanguageUpdateWithoutUsersDataInput!
+  where: LanguageWhereUniqueInput!
+}
+
+input LanguageUpsertWithWhereUniqueWithoutSubjectsInput {
+  create: LanguageCreateWithoutSubjectsInput!
+  update: LanguageUpdateWithoutSubjectsDataInput!
+  where: LanguageWhereUniqueInput!
+}
+
+input LanguageUpsertWithWhereUniqueWithoutUsersInput {
+  create: LanguageCreateWithoutUsersInput!
+  update: LanguageUpdateWithoutUsersDataInput!
+  where: LanguageWhereUniqueInput!
+}
+
+input LanguageWhereUniqueInput {
+  code: String
+  id: ID
+}
+
 type Mutation {
   createDepartment(data: DepartmentCreateInput!): Department!
   createInstitute(data: InstituteCreateInput!): Institute!
@@ -397,6 +503,7 @@ input MutationUpdateOneDepartmentWhereInput {
   description: StringFilter
   id: StringFilter
   informations: MutationUpdateOneDepartmentFilter
+  language: MutationUpdateOneDepartmentFilter
   name: StringFilter
   NOT: [MutationUpdateOneDepartmentWhereInput!]
   notes: MutationUpdateOneDepartmentFilter
@@ -472,6 +579,7 @@ input MutationUpdateOneNoteCommentWhereInput {
   OR: [MutationUpdateOneNoteCommentWhereInput!]
   password: StringFilter
   phoneNumber: NullableStringFilter
+  preferredLanguage: MutationUpdateOneNoteCommentFilter
   profilePictureURL: NullableStringFilter
   studiedSubjects: MutationUpdateOneNoteCommentFilter
   suggestions: MutationUpdateOneNoteCommentFilter
@@ -532,6 +640,7 @@ input MutationUpdateOneSubjectWhereInput {
   OR: [MutationUpdateOneSubjectWhereInput!]
   password: StringFilter
   phoneNumber: NullableStringFilter
+  preferredLanguage: MutationUpdateOneSubjectFilter
   profilePictureURL: NullableStringFilter
   studiedSubjects: MutationUpdateOneSubjectFilter
   suggestions: MutationUpdateOneSubjectFilter
@@ -568,6 +677,7 @@ input MutationUpdateOneSuggestionWhereInput {
   OR: [MutationUpdateOneSuggestionWhereInput!]
   password: StringFilter
   phoneNumber: NullableStringFilter
+  preferredLanguage: MutationUpdateOneSuggestionFilter
   profilePictureURL: NullableStringFilter
   studiedSubjects: MutationUpdateOneSuggestionFilter
   suggestions: MutationUpdateOneSuggestionFilter
@@ -604,6 +714,7 @@ input MutationUpdateOneUserRoleWhereInput {
   OR: [MutationUpdateOneUserRoleWhereInput!]
   password: StringFilter
   phoneNumber: NullableStringFilter
+  preferredLanguage: MutationUpdateOneUserRoleFilter
   profilePictureURL: NullableStringFilter
   studiedSubjects: MutationUpdateOneUserRoleFilter
   suggestions: MutationUpdateOneUserRoleFilter
@@ -1667,6 +1778,8 @@ type Query {
   departments(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyDepartmentWhereInput): [Department!]
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  language(where: LanguageWhereUniqueInput!): Language
+  languages(after: String, before: String, first: Int, last: Int, skip: Int): [Language!]
   me: User!
   note(where: NoteWhereUniqueInput!): Note
   noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
@@ -1786,6 +1899,7 @@ input SubjectCreateInput {
   description: String!
   id: ID
   informations: SubjectInformationCreateManyWithoutInformationsInput
+  language: LanguageCreateManyWithoutLanguageInput
   name: String!
   notes: NoteCreateManyWithoutNotesInput
   students: UserCreateManyWithoutStudentsInput
@@ -1820,6 +1934,7 @@ input SubjectCreateWithoutDepartmentInput {
   description: String!
   id: ID
   informations: SubjectInformationCreateManyWithoutInformationsInput
+  language: LanguageCreateManyWithoutLanguageInput
   name: String!
   notes: NoteCreateManyWithoutNotesInput
   students: UserCreateManyWithoutStudentsInput
@@ -1834,6 +1949,22 @@ input SubjectCreateWithoutInformationsInput {
   department: DepartmentCreateOneWithoutDepartmentInput!
   description: String!
   id: ID
+  language: LanguageCreateManyWithoutLanguageInput
+  name: String!
+  notes: NoteCreateManyWithoutNotesInput
+  students: UserCreateManyWithoutStudentsInput
+  teachers: UserCreateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input SubjectCreateWithoutLanguageInput {
+  code: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput!
+  description: String!
+  id: ID
+  informations: SubjectInformationCreateManyWithoutInformationsInput
   name: String!
   notes: NoteCreateManyWithoutNotesInput
   students: UserCreateManyWithoutStudentsInput
@@ -1849,6 +1980,7 @@ input SubjectCreateWithoutNotesInput {
   description: String!
   id: ID
   informations: SubjectInformationCreateManyWithoutInformationsInput
+  language: LanguageCreateManyWithoutLanguageInput
   name: String!
   students: UserCreateManyWithoutStudentsInput
   teachers: UserCreateManyWithoutTeachersInput
@@ -1863,6 +1995,7 @@ input SubjectCreateWithoutStudentsInput {
   description: String!
   id: ID
   informations: SubjectInformationCreateManyWithoutInformationsInput
+  language: LanguageCreateManyWithoutLanguageInput
   name: String!
   notes: NoteCreateManyWithoutNotesInput
   teachers: UserCreateManyWithoutTeachersInput
@@ -1877,6 +2010,7 @@ input SubjectCreateWithoutTeachersInput {
   description: String!
   id: ID
   informations: SubjectInformationCreateManyWithoutInformationsInput
+  language: LanguageCreateManyWithoutLanguageInput
   name: String!
   notes: NoteCreateManyWithoutNotesInput
   students: UserCreateManyWithoutStudentsInput
@@ -1991,6 +2125,7 @@ input SubjectUpdateInput {
   description: String
   id: ID
   informations: SubjectInformationUpdateManyWithoutSubjectInput
+  language: LanguageUpdateManyWithoutSubjectsInput
   name: String
   notes: NoteUpdateManyWithoutSubjectInput
   students: UserUpdateManyWithoutStudiedSubjectsInput
@@ -2018,6 +2153,18 @@ input SubjectUpdateManyWithoutDepartmentInput {
   update: [SubjectUpdateWithWhereUniqueWithoutDepartmentInput!]
   updateMany: [SubjectUpdateManyWithWhereNestedInput!]
   upsert: [SubjectUpsertWithWhereUniqueWithoutDepartmentInput!]
+}
+
+input SubjectUpdateManyWithoutLanguageInput {
+  connect: [SubjectWhereUniqueInput!]
+  create: [SubjectCreateWithoutLanguageInput!]
+  delete: [SubjectWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneDepartmentWhereInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  set: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutLanguageInput!]
+  updateMany: [SubjectUpdateManyWithWhereNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutLanguageInput!]
 }
 
 input SubjectUpdateManyWithoutStudentsInput {
@@ -2070,6 +2217,7 @@ input SubjectUpdateWithoutDepartmentDataInput {
   description: String
   id: ID
   informations: SubjectInformationUpdateManyWithoutSubjectInput
+  language: LanguageUpdateManyWithoutSubjectsInput
   name: String
   notes: NoteUpdateManyWithoutSubjectInput
   students: UserUpdateManyWithoutStudiedSubjectsInput
@@ -2084,6 +2232,22 @@ input SubjectUpdateWithoutInformationsDataInput {
   department: DepartmentUpdateOneRequiredWithoutSubjectsInput
   description: String
   id: ID
+  language: LanguageUpdateManyWithoutSubjectsInput
+  name: String
+  notes: NoteUpdateManyWithoutSubjectInput
+  students: UserUpdateManyWithoutStudiedSubjectsInput
+  teachers: UserUpdateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input SubjectUpdateWithoutLanguageDataInput {
+  code: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneRequiredWithoutSubjectsInput
+  description: String
+  id: ID
+  informations: SubjectInformationUpdateManyWithoutSubjectInput
   name: String
   notes: NoteUpdateManyWithoutSubjectInput
   students: UserUpdateManyWithoutStudiedSubjectsInput
@@ -2099,6 +2263,7 @@ input SubjectUpdateWithoutNotesDataInput {
   description: String
   id: ID
   informations: SubjectInformationUpdateManyWithoutSubjectInput
+  language: LanguageUpdateManyWithoutSubjectsInput
   name: String
   students: UserUpdateManyWithoutStudiedSubjectsInput
   teachers: UserUpdateManyWithoutTeachedSubjectsInput
@@ -2113,6 +2278,7 @@ input SubjectUpdateWithoutStudentsDataInput {
   description: String
   id: ID
   informations: SubjectInformationUpdateManyWithoutSubjectInput
+  language: LanguageUpdateManyWithoutSubjectsInput
   name: String
   notes: NoteUpdateManyWithoutSubjectInput
   teachers: UserUpdateManyWithoutTeachedSubjectsInput
@@ -2127,6 +2293,7 @@ input SubjectUpdateWithoutTeachersDataInput {
   description: String
   id: ID
   informations: SubjectInformationUpdateManyWithoutSubjectInput
+  language: LanguageUpdateManyWithoutSubjectsInput
   name: String
   notes: NoteUpdateManyWithoutSubjectInput
   students: UserUpdateManyWithoutStudiedSubjectsInput
@@ -2135,6 +2302,11 @@ input SubjectUpdateWithoutTeachersDataInput {
 
 input SubjectUpdateWithWhereUniqueWithoutDepartmentInput {
   data: SubjectUpdateWithoutDepartmentDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpdateWithWhereUniqueWithoutLanguageInput {
+  data: SubjectUpdateWithoutLanguageDataInput!
   where: SubjectWhereUniqueInput!
 }
 
@@ -2161,6 +2333,12 @@ input SubjectUpsertWithoutNotesInput {
 input SubjectUpsertWithWhereUniqueWithoutDepartmentInput {
   create: SubjectCreateWithoutDepartmentInput!
   update: SubjectUpdateWithoutDepartmentDataInput!
+  where: SubjectWhereUniqueInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutLanguageInput {
+  create: SubjectCreateWithoutLanguageInput!
+  update: SubjectUpdateWithoutLanguageDataInput!
   where: SubjectWhereUniqueInput!
 }
 
@@ -2462,6 +2640,7 @@ type User {
   password: String!
   passwordToken: PasswordToken
   phoneNumber: String
+  preferredLanguage(after: String, before: String, first: Int, last: Int, skip: Int): [Language!]
   profilePictureURL: String
   role: UserRole!
   studiedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
@@ -2535,6 +2714,7 @@ input UserCreateWithoutApprovedSuggestionsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2563,6 +2743,7 @@ input UserCreateWithoutCommentsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2591,6 +2772,7 @@ input UserCreateWithoutDepartmentsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2619,6 +2801,7 @@ input UserCreateWithoutInstitutesInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2647,6 +2830,7 @@ input UserCreateWithoutLikedCommentsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2675,6 +2859,7 @@ input UserCreateWithoutLikedNotesInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2703,6 +2888,7 @@ input UserCreateWithoutLikedSuggestionsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2731,6 +2917,7 @@ input UserCreateWithoutNoteHighlightsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2756,6 +2943,36 @@ input UserCreateWithoutNotesInput {
   likedNotes: NoteCreateManyWithoutLikedNotesInput
   likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
   noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  password: String!
+  passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
+  phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
+  profilePictureURL: String
+  role: UserRoleCreateOneWithoutRoleInput!
+  studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
+  suggestions: SuggestionCreateManyWithoutSuggestionsInput
+  teachedSubjects: SubjectCreateManyWithoutTeachedSubjectsInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutPreferredLanguageInput {
+  approvedSuggestions: SuggestionCreateManyWithoutApprovedSuggestionsInput
+  comments: NoteCommentCreateManyWithoutCommentsInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentCreateManyWithoutDepartmentsInput
+  email: String!
+  firstName: String!
+  id: ID
+  identifier: String!
+  institutes: InstituteCreateManyWithoutInstitutesInput
+  isActive: Boolean
+  lastName: String!
+  likedComments: NoteCommentCreateManyWithoutLikedCommentsInput
+  likedNotes: NoteCreateManyWithoutLikedNotesInput
+  likedSuggestions: SuggestionCreateManyWithoutLikedSuggestionsInput
+  noteHighlights: NoteHighlightCreateManyWithoutNoteHighlightsInput
+  notes: NoteCreateManyWithoutNotesInput
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
@@ -2788,6 +3005,7 @@ input UserCreateWithoutRoleInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
   suggestions: SuggestionCreateManyWithoutSuggestionsInput
@@ -2816,6 +3034,7 @@ input UserCreateWithoutStudiedSubjectsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   suggestions: SuggestionCreateManyWithoutSuggestionsInput
@@ -2844,6 +3063,7 @@ input UserCreateWithoutSuggestionsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -2872,6 +3092,7 @@ input UserCreateWithoutTeachedSubjectsInput {
   password: String!
   passwordToken: PasswordTokenCreateOneWithoutPasswordTokenInput
   phoneNumber: String
+  preferredLanguage: LanguageCreateManyWithoutPreferredLanguageInput
   profilePictureURL: String
   role: UserRoleCreateOneWithoutRoleInput!
   studiedSubjects: SubjectCreateManyWithoutStudiedSubjectsInput
@@ -3041,6 +3262,18 @@ input UserUpdateManyWithoutNotesInput {
   upsert: [UserUpsertWithWhereUniqueWithoutNotesInput!]
 }
 
+input UserUpdateManyWithoutPreferredLanguageInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutPreferredLanguageInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneSubjectWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutPreferredLanguageInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutPreferredLanguageInput!]
+}
+
 input UserUpdateManyWithoutRoleInput {
   connect: [UserWhereUniqueInput!]
   create: [UserCreateWithoutRoleInput!]
@@ -3139,6 +3372,7 @@ input UserUpdateWithoutApprovedSuggestionsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3167,6 +3401,7 @@ input UserUpdateWithoutCommentsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3195,6 +3430,7 @@ input UserUpdateWithoutDepartmentsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3223,6 +3459,7 @@ input UserUpdateWithoutInstitutesDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3251,6 +3488,7 @@ input UserUpdateWithoutLikedCommentsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3279,6 +3517,7 @@ input UserUpdateWithoutLikedNotesDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3307,6 +3546,7 @@ input UserUpdateWithoutLikedSuggestionsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3335,6 +3575,7 @@ input UserUpdateWithoutNoteHighlightsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3360,6 +3601,36 @@ input UserUpdateWithoutNotesDataInput {
   likedNotes: NoteUpdateManyWithoutLikersInput
   likedSuggestions: SuggestionUpdateManyWithoutLikersInput
   noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  password: String
+  passwordToken: PasswordTokenUpdateOneWithoutUserInput
+  phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
+  profilePictureURL: String
+  role: UserRoleUpdateOneRequiredWithoutUsersInput
+  studiedSubjects: SubjectUpdateManyWithoutStudentsInput
+  suggestions: SuggestionUpdateManyWithoutAuthorInput
+  teachedSubjects: SubjectUpdateManyWithoutTeachersInput
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutPreferredLanguageDataInput {
+  approvedSuggestions: SuggestionUpdateManyWithoutApprovedByInput
+  comments: NoteCommentUpdateManyWithoutAuthorInput
+  createdAt: DateTime
+  deletedAt: DateTime
+  departments: DepartmentUpdateManyWithoutLeaderInput
+  email: String
+  firstName: String
+  id: ID
+  identifier: String
+  institutes: InstituteUpdateManyWithoutUsersInput
+  isActive: Boolean
+  lastName: String
+  likedComments: NoteCommentUpdateManyWithoutLikersInput
+  likedNotes: NoteUpdateManyWithoutLikersInput
+  likedSuggestions: SuggestionUpdateManyWithoutLikersInput
+  noteHighlights: NoteHighlightUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutAuthorsInput
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
@@ -3392,6 +3663,7 @@ input UserUpdateWithoutRoleDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
   suggestions: SuggestionUpdateManyWithoutAuthorInput
@@ -3420,6 +3692,7 @@ input UserUpdateWithoutStudiedSubjectsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   suggestions: SuggestionUpdateManyWithoutAuthorInput
@@ -3448,6 +3721,7 @@ input UserUpdateWithoutSuggestionsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3476,6 +3750,7 @@ input UserUpdateWithoutTeachedSubjectsDataInput {
   password: String
   passwordToken: PasswordTokenUpdateOneWithoutUserInput
   phoneNumber: String
+  preferredLanguage: LanguageUpdateManyWithoutUsersInput
   profilePictureURL: String
   role: UserRoleUpdateOneRequiredWithoutUsersInput
   studiedSubjects: SubjectUpdateManyWithoutStudentsInput
@@ -3505,6 +3780,11 @@ input UserUpdateWithWhereUniqueWithoutLikedSuggestionsInput {
 
 input UserUpdateWithWhereUniqueWithoutNotesInput {
   data: UserUpdateWithoutNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutPreferredLanguageInput {
+  data: UserUpdateWithoutPreferredLanguageDataInput!
   where: UserWhereUniqueInput!
 }
 
@@ -3575,6 +3855,12 @@ input UserUpsertWithWhereUniqueWithoutLikedSuggestionsInput {
 input UserUpsertWithWhereUniqueWithoutNotesInput {
   create: UserCreateWithoutNotesInput!
   update: UserUpdateWithoutNotesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutPreferredLanguageInput {
+  create: UserCreateWithoutPreferredLanguageInput!
+  update: UserUpdateWithoutPreferredLanguageDataInput!
   where: UserWhereUniqueInput!
 }
 
