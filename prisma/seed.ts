@@ -26,6 +26,19 @@ async function main() {
     },
   });
 
+  const english = await photon.languages.create({
+    data: {
+      code: 'en',
+      name: 'English',
+    },
+  });
+  const hungarian = await photon.languages.create({
+    data: {
+      code: 'hu',
+      name: 'Magyar',
+    },
+  });
+
   if (process.env.NODE_ENV === 'production') return;
 
   const user = await photon.users.create({
@@ -104,6 +117,9 @@ async function main() {
             teachers: { connect: { id: professor.id } },
             students: {
               connect: [...students],
+            },
+            language: {
+              connect: { id: hungarian.id },
             },
           },
         });
