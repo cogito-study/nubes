@@ -1,11 +1,10 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const DepartmentQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneDepartment({ alias: 'department' });
-    t.crud.findManyDepartment({
-      alias: 'departments',
+    t.crud.department();
+    t.crud.departments({
       filtering: {
         name: true,
         description: true,

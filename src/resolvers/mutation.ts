@@ -1,4 +1,4 @@
-import { mutationType } from '@prisma/nexus';
+import { mutationType } from 'nexus';
 import { Stream } from 'stream';
 import { v4 as uuid } from 'uuid';
 import { Storage } from '@google-cloud/storage';

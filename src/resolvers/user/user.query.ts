@@ -1,11 +1,11 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 import { getUserID } from '../../utils';
 
 export const UserQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneUser({ alias: 'user' });
-    t.crud.findManyUser({
+    t.crud.user({ alias: 'user' });
+    t.crud.users({
       alias: 'users',
       filtering: {
         email: true,

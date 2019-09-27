@@ -1,4 +1,4 @@
-import { objectType, enumType } from '@prisma/nexus';
+import { objectType, enumType } from 'nexus';
 import { NoteCategory } from '@generated/photon';
 
 export const Note = objectType({

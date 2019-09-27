@@ -1,9 +1,9 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const NoteCommentThreadQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneNoteCommentThread({ alias: 'noteCommentThread' });
-    t.crud.findManyNoteCommentThread({ alias: 'noteCommentThreads' });
+    t.crud.notecommentthread({ alias: 'noteCommentThread' });
+    t.crud.notecommentthreads({ alias: 'noteCommentThreads' });
   },
 });
