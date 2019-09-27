@@ -1,11 +1,10 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const SubjectQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneSubject({ alias: 'subject' });
-    t.crud.findManySubject({
-      alias: 'subjects',
+    t.crud.subject();
+    t.crud.subjects({
       filtering: {
         code: true,
         name: true,

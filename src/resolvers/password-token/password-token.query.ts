@@ -1,9 +1,9 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const PasswordTokenQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOnePasswordToken({ alias: 'resetPassword' });
-    t.crud.findManyPasswordToken({ alias: 'resetPasswords' });
+    t.crud.passwordtoken({ alias: 'resetPassword' });
+    t.crud.passwordtokens({ alias: 'resetPasswords' });
   },
 });

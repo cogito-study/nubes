@@ -1,11 +1,10 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const NoteQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneNote({ alias: 'note' });
-    t.crud.findManyNote({
-      alias: 'notes',
+    t.crud.note();
+    t.crud.notes({
       filtering: {
         title: true,
         number: true,

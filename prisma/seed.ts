@@ -1,4 +1,4 @@
-import Photon from '@generated/photon';
+import { Photon } from '@generated/photon';
 import * as faker from 'faker';
 // TODO: Refactor when prisma2 supports seed
 const photon = new Photon();

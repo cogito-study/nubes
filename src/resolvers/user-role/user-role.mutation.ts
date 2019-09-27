@@ -1,4 +1,4 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const UserRoleMutation = extendType({
   type: 'Mutation',

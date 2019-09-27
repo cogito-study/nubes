@@ -1,9 +1,9 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 
 export const InstituteQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.findOneInstitute({ alias: 'institute' });
-    t.crud.findManyInstitute({ alias: 'institutes' });
+    t.crud.institute();
+    t.crud.institutes();
   },
 });

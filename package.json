@@ -19,15 +19,16 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^3.1.0",
-    "@prisma/nexus": "^0.0.1",
     "apollo-server": "^2.9.3",
     "bcrypt": "3.0.6",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.1.0",
     "env-cmd": "^9.0.3",
     "graphql-middleware": "^4.0.1",
     "graphql-shield": "6.1.0",
     "jsonwebtoken": "8.5.1",
     "nexus": "0.12.0-beta.9",
+    "nexus-prisma": "0.4.2",
+    "prisma2": "2.0.0-alpha.206",
     "stream": "^0.0.2",
     "uuid": "^3.3.3",
     "yup": "^0.27.0"
@@ -37,7 +38,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/faker": "^4.1.5",
     "@types/jsonwebtoken": "8.3.2",
-    "@types/node": "^12.0.10",
+    "@types/node": "^12.7.4",
     "@types/uuid": "^3.4.5",
     "@types/yup": "^0.26.22",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
@@ -52,7 +53,7 @@
     "prettier": "1.16.4",
     "ts-node": "^8.3.0",
     "ts-node-dev": "1.0.0-pre.40",
-    "typescript": "3.5.2"
+    "typescript": "3.6.3"
   },
   "husky": {
     "hooks": {

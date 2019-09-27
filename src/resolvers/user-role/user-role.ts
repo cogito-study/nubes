@@ -1,4 +1,4 @@
-import { objectType, enumType } from '@prisma/nexus';
+import { objectType, enumType } from 'nexus';
 import { UserRoleType } from '@generated/photon';
 
 export const UserRole = objectType({

@@ -1,4 +1,4 @@
-import { inputObjectType, FieldResolver } from '@prisma/nexus';
+import { inputObjectType, FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { GraphQLResolveInfo } from 'graphql';

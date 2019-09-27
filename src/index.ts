@@ -1,6 +1,5 @@
 import { nexusPrismaPlugin } from '@generated/nexus-prisma';
-import Photon from '@generated/photon';
-import { makeSchema } from '@prisma/nexus';
+import { Photon } from '@generated/photon';
 import { ApolloServer } from 'apollo-server';
 import { config } from 'dotenv';
 import { applyMiddleware } from 'graphql-middleware';
@@ -9,8 +8,8 @@ import * as allTypes from './resolvers';
 import { noteInputValidator } from './resolvers/note/note.input';
 import { userLoginInputValidator } from './resolvers/user/user.input';
 import { Context } from './types';
-
 config({ path: resolve(__dirname, '../.env') });
+import { makeSchema } from 'nexus';
 
 const photon = new Photon({
   debug: true,

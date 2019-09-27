@@ -1,4 +1,4 @@
-import { extendType } from '@prisma/nexus';
+import { extendType } from 'nexus';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { UserLoginInput } from './user.input';
