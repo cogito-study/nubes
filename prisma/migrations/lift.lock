@@ -11,3 +11,9 @@
 20190808153457-add-is-active-flag-to-user
 20190911151113-add_language
 20190911151330-add-language
+20190927133607-update-auth-schemna
+20191002142437-init-auth
+20191002143718-init-auth
+20191002152800-init-auth
+20191002161419-update-permissions-enum
+20191002185440-fix-permissions

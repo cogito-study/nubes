@@ -15,3 +15,5 @@ export function getUserID(context: Context) {
     return verifiedToken && verifiedToken.userID;
   }
 }
+
+export const optionalConnect = (object?: { id: string }) => (object ? { connect: object } : null);

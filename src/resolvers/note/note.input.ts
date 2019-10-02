@@ -1,18 +1,30 @@
-import { FieldResolver } from 'nexus';
+import { inputObjectType } from 'nexus';
 
-import { GraphQLResolveInfo } from 'graphql';
-import { NexusGenArgTypes } from '../../../generated/nexus-typegen';
-import { Context } from '../../types';
+export const CreateNoteInput = inputObjectType({
+  name: 'CreateNoteInput',
+  description: 'Input of create note',
+  definition(t) {
+    t.string('name', { required: true });
+    t.string('content', { required: true });
+    t.string('contentHTML', { required: true });
+    t.string('title', { required: true });
+    t.int('number', { required: true });
+    t.string('description');
+    t.field('noteCategory', { type: 'NoteCategoryEnum', required: true });
+    t.field('subject', { type: 'ConnectRelation', required: true });
+  },
+});
 
-export const noteInputValidator = async (
-  resolve: FieldResolver<'Query', 'note'>,
-  parent: {},
-  args: NexusGenArgTypes['Query']['note'],
-  context: Context,
-  info: GraphQLResolveInfo,
-) => {
-  console.log('before', info);
-  const result = await resolve(parent, args, context, info);
-  console.log('result', result);
-  return result;
-};
+export const UpdateNoteInput = inputObjectType({
+  name: 'UpdateNoteInput',
+  description: 'Input of update note',
+  definition(t) {
+    t.string('name');
+    t.string('content');
+    t.string('contentHTML');
+    t.string('title');
+    t.int('number');
+    t.string('description');
+    t.field('noteCategory', { type: 'NoteCategoryEnum' });
+  },
+});

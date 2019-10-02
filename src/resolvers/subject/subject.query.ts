@@ -6,6 +6,7 @@ export const SubjectQuery = extendType({
     t.crud.subject();
     t.crud.subjects({
       filtering: {
+        id: true,
         code: true,
         name: true,
         description: true,

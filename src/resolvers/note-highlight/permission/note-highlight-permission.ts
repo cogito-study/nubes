@@ -1,21 +1,20 @@
 import { objectType, enumType } from 'nexus';
-import { UserRoleType } from '@generated/photon';
+import { NoteHighlightPermissionType } from '@generated/photon';
 
-export const UserRole = objectType({
-  name: 'UserRole',
+export const NoteHighlightPermission = objectType({
+  name: 'NoteHighlightPermission',
   definition(t) {
     t.model.id();
-    t.model.name();
     // TODO: Fix when prisma2 supports enums
     t.field('type', {
       type: enumType({
-        name: 'UserRoleTypeEnum',
-        members: UserRoleType,
+        name: 'NoteHighlightPermissionTypeEnum',
+        members: NoteHighlightPermissionType,
       }),
       resolve: ({ type }) => type,
     });
-    t.model.users({ type: 'User' });
 
+    t.model.objects({ type: 'NoteHighlight' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

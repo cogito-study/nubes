@@ -1,0 +1,1619 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "DepartmentPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "InstitutePermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "NoteCommentPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "NoteCommentThreadPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "NoteHighlightPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "NotePermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Permission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "SubjectPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "SubjectInformationPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "SuggestionPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "UserPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "UserGroup",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "name": "departmentPermission",
+      "type": {
+        "Relation": {
+          "to": "DepartmentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "DepartmentToDepartmentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "name": "institutePermission",
+      "type": {
+        "Relation": {
+          "to": "InstitutePermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "InstituteToInstitutePermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "name": "notePermission",
+      "type": {
+        "Relation": {
+          "to": "NotePermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteToNotePermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "name": "noteCommentPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentToNoteCommentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "name": "noteCommentThreadPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentThreadPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentThreadToNoteCommentThreadPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "name": "noteHighlightPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteHighlightPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteHighlightToNoteHighlightPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "name": "subjectPermission",
+      "type": {
+        "Relation": {
+          "to": "SubjectPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectToSubjectPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "name": "subjectInformationPermission",
+      "type": {
+        "Relation": {
+          "to": "SubjectInformationPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectInformationToSubjectInformationPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "name": "suggestionPermission",
+      "type": {
+        "Relation": {
+          "to": "SuggestionPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SuggestionToSuggestionPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "groups",
+      "type": {
+        "Relation": {
+          "to": "UserGroup",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserGroups",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "userPermission",
+      "type": {
+        "Relation": {
+          "to": "UserPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserToUserPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "type",
+      "type": {
+        "Enum": "DepartmentPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Department",
+          "to_fields": [],
+          "name": "DepartmentToDepartmentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "DepartmentPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "type",
+      "type": {
+        "Enum": "InstitutePermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Institute",
+          "to_fields": [],
+          "name": "InstituteToInstitutePermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "InstitutePermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "type",
+      "type": {
+        "Enum": "NoteCommentPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteComment",
+          "to_fields": [],
+          "name": "NoteCommentToNoteCommentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "type",
+      "type": {
+        "Enum": "NoteCommentThreadPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentThread",
+          "to_fields": [],
+          "name": "NoteCommentThreadToNoteCommentThreadPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentThreadPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "type",
+      "type": {
+        "Enum": "NoteHighlightPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteHighlight",
+          "to_fields": [],
+          "name": "NoteHighlightToNoteHighlightPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteHighlightPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "type",
+      "type": {
+        "Enum": "NotePermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Note",
+          "to_fields": [],
+          "name": "NoteToNotePermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NotePermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "userGroups",
+      "type": {
+        "Relation": {
+          "to": "UserGroup",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserGroupPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "users",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "departmentPermission",
+      "type": {
+        "Relation": {
+          "to": "DepartmentPermission",
+          "to_fields": [],
+          "name": "DepartmentPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "institutePermission",
+      "type": {
+        "Relation": {
+          "to": "InstitutePermission",
+          "to_fields": [],
+          "name": "InstitutePermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "notePermission",
+      "type": {
+        "Relation": {
+          "to": "NotePermission",
+          "to_fields": [],
+          "name": "NotePermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "noteCommentPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentPermission",
+          "to_fields": [],
+          "name": "NoteCommentPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "noteCommentThreadPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentThreadPermission",
+          "to_fields": [],
+          "name": "NoteCommentThreadPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "noteHighlightPermission",
+      "type": {
+        "Relation": {
+          "to": "NoteHighlightPermission",
+          "to_fields": [],
+          "name": "NoteHighlightPermissionToPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "subjectPermission",
+      "type": {
+        "Relation": {
+          "to": "SubjectPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToSubjectPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "subjectInformationPermission",
+      "type": {
+        "Relation": {
+          "to": "SubjectInformationPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToSubjectInformationPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "suggestionPermission",
+      "type": {
+        "Relation": {
+          "to": "SuggestionPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToSuggestionPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "userPermission",
+      "type": {
+        "Relation": {
+          "to": "UserPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToUserPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "type",
+      "type": {
+        "Enum": "SubjectPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Subject",
+          "to_fields": [],
+          "name": "SubjectToSubjectPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToSubjectPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "type",
+      "type": {
+        "Enum": "SubjectInformationPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "SubjectInformation",
+          "to_fields": [],
+          "name": "SubjectInformationToSubjectInformationPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToSubjectInformationPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "type",
+      "type": {
+        "Enum": "SuggestionPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Suggestion",
+          "to_fields": [],
+          "name": "SuggestionToSuggestionPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToSuggestionPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "type",
+      "type": {
+        "Enum": "UserPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [],
+          "name": "UserToUserPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToUserPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserGroup",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserGroup",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserGroup",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserGroupPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserGroup",
+      "name": "users",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserGroups",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "DepartmentPermissionType",
+      "values": [
+        "UPDATE_DEPARTMENT",
+        "CREATE_SUBJECT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "InstitutePermissionType",
+      "values": [
+        "UPDATE_INSTITUTE",
+        "CREATE_DEPARTMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "NoteCommentPermissionType",
+      "values": [
+        "UPDATE",
+        "DELETE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "NoteCommentThreadPermissionType",
+      "values": [
+        "UPDATE",
+        "DELETE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "NoteHighlightPermissionType",
+      "values": [
+        "UPDATE",
+        "DELETE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "NotePermissionType",
+      "values": [
+        "UPDATE",
+        "APPROVE_SUGGESTION",
+        "CREATE_SUGGESTION",
+        "DECLINE_SUGGESTION"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "SubjectPermissionType",
+      "values": [
+        "UPDATE_SUBJECT",
+        "CREATE_NOTE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "SubjectInformationPermissionType",
+      "values": [
+        "UPDATE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "SuggestionPermissionType",
+      "values": [
+        "UPDATE_SUGGESTION",
+        "CREATE_NOTE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "UserPermissionType",
+      "values": [
+        "UPDATE_USER"
+      ]
+    }
+  ]
+}

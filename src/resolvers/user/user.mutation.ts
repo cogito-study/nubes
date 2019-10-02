@@ -1,7 +1,8 @@
 import { extendType } from 'nexus';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { UserLoginInput } from './user.input';
+import { UserLoginInput, UpdateUserInput } from './user.input';
+import { WhereUniqueInput } from '../input';
 
 const generateToken = (userID: string, options = {}) => sign({ userID }, process.env.APP_SECRET, options);
 
@@ -13,7 +14,7 @@ export const UserMutation = extendType({
       args: {
         data: UserLoginInput.asArg({ required: true }),
       },
-      resolve: async (parent, { data: { email, password } }, ctx) => {
+      resolve: async (_, { data: { email, password } }, ctx) => {
         try {
           const user = await ctx.photon.users.findOne({ where: { email } });
 
@@ -28,6 +29,32 @@ export const UserMutation = extendType({
         } catch {
           throw new Error('Invalid email or password');
         }
+      },
+    });
+
+    t.field('updateUser', {
+      type: 'User',
+      args: {
+        where: WhereUniqueInput.asArg({ required: true }),
+        data: UpdateUserInput.asArg({ required: true }),
+      },
+      resolve: (_, { where, data }, ctx) => {
+        return ctx.photon.users.update({
+          where,
+          data,
+        });
+      },
+    });
+
+    t.field('deleteUser', {
+      type: 'User',
+      args: {
+        where: WhereUniqueInput.asArg({ required: true }),
+      },
+      resolve: (_, { where }, ctx) => {
+        return ctx.photon.users.delete({
+          where,
+        });
       },
     });
   },
