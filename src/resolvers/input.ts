@@ -8,3 +8,18 @@ export const ImageUploadInput = inputObjectType({
     t.string('extension', { required: true });
   },
 });
+
+export const ConnectRelation = inputObjectType({
+  name: 'ConnectRelation',
+  definition(t) {
+    t.id('id', { required: true });
+  },
+});
+
+export const WhereUniqueInput = inputObjectType({
+  name: 'WhereUniqueInput',
+  description: 'Unique input',
+  definition(t) {
+    t.id('id');
+  },
+});

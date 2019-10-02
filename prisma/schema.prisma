@@ -164,6 +164,7 @@ model User {
   identifier          String
   isActive            Boolean         @default(false)
   role                UserRole        @relation(name: "UserRole")
+  groups              UserGroup[]     @relation(name: "UserGroups")
   notes               Note[]          @relation(name: "NoteAuthors")
   noteHighlights      NoteHighlight[] @relation(name: "UserNoteHighlights")
   suggestions         Suggestion[]    @relation(name: "SuggestionAuthor")
@@ -178,6 +179,7 @@ model User {
   departments         Department[]    @relation(name: "DepartmentLeader")
   institutes          Institute[]     @relation(name: "InstituteUsers")
   preferredLanguage   Language?       @relation(name: "UserPrefferedLanguage")
+  permissions         Permission[]    @relation
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
   deletedAt           DateTime?
@@ -191,4 +193,172 @@ model UserRole {
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
   deletedAt DateTime?
+}
+
+model DepartmentPermission {
+  id        String                   @default(cuid()) @id @unique
+  type      DepartmentPermissionType
+  objects   Department[]             @relation
+  createdAt DateTime                 @default(now())
+  updatedAt DateTime                 @updatedAt
+  deletedAt DateTime?
+}
+
+enum DepartmentPermissionType {
+  UPDATE_DEPARTMENT
+  DELETE_DEPARTMENT
+  CREATE_SUBJECT
+}
+
+model InstitutePermission {
+  id        String                  @default(cuid()) @id @unique
+  type      InstitutePermissionType
+  objects   Institute[]             @relation
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  deletedAt DateTime?
+}
+
+enum InstitutePermissionType {
+  UPDATE_INSTITUTE
+  DELETE_INSTITUTE
+  CREATE_DEPARTMENT
+}
+
+model NoteCommentPermission {
+  id        String                    @default(cuid()) @id @unique
+  type      NoteCommentPermissionType
+  objects   NoteComment[]             @relation
+  createdAt DateTime                  @default(now())
+  updatedAt DateTime                  @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteCommentPermissionType {
+  UPDATE_NOTE_COMMENT
+  DELETE_NOTE_COMMENT
+}
+
+model NoteCommentThreadPermission {
+  id        String                          @default(cuid()) @id @unique
+  type      NoteCommentThreadPermissionType
+  objects   NoteCommentThread[]             @relation
+  createdAt DateTime                        @default(now())
+  updatedAt DateTime                        @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteCommentThreadPermissionType {
+  DELETE_NOTE_COMMENT_THREAD
+}
+
+model NoteHighlightPermission {
+  id        String                      @default(cuid()) @id @unique
+  type      NoteHighlightPermissionType
+  objects   NoteHighlight[]             @relation
+  createdAt DateTime                    @default(now())
+  updatedAt DateTime                    @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteHighlightPermissionType {
+  UPDATE_NOTE_HIGHLIGHT
+  DELETE_NOTE_HIGHLIGHT
+}
+
+model NotePermission {
+  id        String             @default(cuid()) @id @unique
+  type      NotePermissionType
+  objects   Note[]             @relation
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+}
+
+enum NotePermissionType {
+  UPDATE_NOTE
+  DELETE_NOTE
+  CREATE_SUGGESTION
+}
+
+model Permission {
+  id                           String                        @default(cuid()) @id @unique
+  userGroups                   UserGroup[]                   @relation(name: "UserGroupPermissions")
+  users                        User[]                        @relation
+  departmentPermission         DepartmentPermission?         @relation
+  institutePermission          InstitutePermission?          @relation
+  notePermission               NotePermission?               @relation
+  noteCommentPermission        NoteCommentPermission?        @relation
+  noteCommentThreadPermission  NoteCommentThreadPermission?  @relation
+  noteHighlightPermission      NoteHighlightPermission?      @relation
+  subjectPermission            SubjectPermission?            @relation
+  subjectInformationPermission SubjectInformationPermission? @relation
+  suggestionPermission         SuggestionPermission?         @relation
+  userPermission               UserPermission?               @relation
+}
+
+model SubjectPermission {
+  id        String                @default(cuid()) @id @unique
+  type      SubjectPermissionType
+  objects   Subject[]             @relation
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  deletedAt DateTime?
+}
+
+enum SubjectPermissionType {
+  UPDATE_SUBJECT
+  DELETE_SUBJECT
+  CREATE_NOTE
+}
+
+model SubjectInformationPermission {
+  id        String                           @default(cuid()) @id @unique
+  type      SubjectInformationPermissionType
+  objects   SubjectInformation[]             @relation
+  createdAt DateTime                         @default(now())
+  updatedAt DateTime                         @updatedAt
+  deletedAt DateTime?
+}
+
+enum SubjectInformationPermissionType {
+  UPDATE_SUBJECT_INFORMATION
+  DELETE_SUBJECT_INFORMATION
+}
+
+model SuggestionPermission {
+  id        String                   @default(cuid()) @id @unique
+  type      SuggestionPermissionType
+  objects   Suggestion[]             @relation
+  createdAt DateTime                 @default(now())
+  updatedAt DateTime                 @updatedAt
+  deletedAt DateTime?
+}
+
+enum SuggestionPermissionType {
+  UPDATE_SUGGESTION
+  DELETE_SUGGESTION
+  APPROVE_SUGGESTION
+  REJECT_SUGGESTION
+}
+
+model UserPermission {
+  id        String             @default(cuid()) @id @unique
+  type      UserPermissionType
+  objects   User[]             @relation
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+}
+
+enum UserPermissionType {
+  UPDATE_USER
+  DELETE_USER
+}
+
+model UserGroup {
+  id          String       @default(cuid()) @id @unique
+  name        String
+  permissions Permission[] @relation(name: "UserGroupPermissions")
+  users       User[]       @relation(name: "UserGroups")
 }

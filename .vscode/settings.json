@@ -2,7 +2,8 @@
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "eslint.validate": [{
+  "eslint.validate": [
+    {
       "language": "javascript",
       "autoFix": true
     },
@@ -15,5 +16,6 @@
   "files.trimTrailingWhitespace": true,
   "javascript.format.enable": false,
   "tslint.enable": false,
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "cSpell.words": ["middlewares"]
 }

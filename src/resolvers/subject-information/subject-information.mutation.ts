@@ -1,10 +1,47 @@
 import { extendType } from 'nexus';
+import { CreateSubjectInformationInput, UpdateSubjectInformationInput } from './subject-information.input';
+import { WhereUniqueInput } from '../input';
 
 export const SubjectInformationMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneSubjectInformation({ alias: 'createSubjectInformation' });
-    t.crud.updateOneSubjectInformation({ alias: 'updateSubjectInformation' });
-    t.crud.deleteOneSubjectInformation({ alias: 'deleteSubjectInformation' });
+    t.field('createSubjectInformation', {
+      type: 'SubjectInformation',
+      args: { data: CreateSubjectInformationInput.asArg({ required: true }) },
+      resolve: (_, { data: { subject, ...rest } }, ctx) => {
+        return ctx.photon.subjectInformations.create({
+          data: {
+            subject: { connect: subject },
+            ...rest,
+          },
+        });
+      },
+    });
+
+    t.field('updateSubjectInformation', {
+      type: 'SubjectInformation',
+      args: {
+        where: WhereUniqueInput.asArg({ required: true }),
+        data: UpdateSubjectInformationInput.asArg({ required: true }),
+      },
+      resolve: (_, { where, data }, ctx) => {
+        return ctx.photon.subjectInformations.update({
+          where,
+          data,
+        });
+      },
+    });
+
+    t.field('deleteSubjectInformation', {
+      type: 'SubjectInformation',
+      args: {
+        where: WhereUniqueInput.asArg({ required: true }),
+      },
+      resolve: (_, { where }, ctx) => {
+        return ctx.photon.subjectInformations.delete({
+          where,
+        });
+      },
+    });
   },
 });

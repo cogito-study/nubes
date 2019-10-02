@@ -3,13 +3,12 @@ import { Photon } from '@generated/photon';
 import { ApolloServer } from 'apollo-server';
 import { config } from 'dotenv';
 import { applyMiddleware } from 'graphql-middleware';
+import { makeSchema } from 'nexus';
 import { join, resolve } from 'path';
+import { middlewares } from './middlewares';
 import * as allTypes from './resolvers';
-import { noteInputValidator } from './resolvers/note/note.input';
-import { userLoginInputValidator } from './resolvers/user/user.input';
 import { Context } from './types';
 config({ path: resolve(__dirname, '../.env') });
-import { makeSchema } from 'nexus';
 
 const photon = new Photon({
   debug: true,
@@ -18,16 +17,6 @@ const photon = new Photon({
 const nexusPrisma = nexusPrismaPlugin({
   photon: (ctx: Context) => ctx.photon,
 });
-
-// Minimal example middleware (before & after)
-const exampleMiddleware = {
-  Mutation: {
-    login: userLoginInputValidator,
-  },
-  Query: {
-    note: noteInputValidator,
-  },
-};
 
 const schema = makeSchema({
   types: [allTypes, nexusPrisma],
@@ -51,7 +40,7 @@ const schema = makeSchema({
 });
 
 // @ts-ignore
-applyMiddleware(schema, exampleMiddleware);
+applyMiddleware(schema, ...middlewares);
 
 const server = new ApolloServer({
   schema,
