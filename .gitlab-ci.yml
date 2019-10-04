@@ -1,7 +1,6 @@
 image: node:lts
 
 stages:
-  - install-dependencies
   - lint
   - test
   - build
@@ -11,14 +10,6 @@ stages:
 cache:
   paths:
     - node_modules/
-
-install-dependencies:
-  stage: install-dependencies
-  script:
-    - yarn install
-  artifacts:
-    paths:
-      - node_modules/
 
 lint:
   stage: lint
