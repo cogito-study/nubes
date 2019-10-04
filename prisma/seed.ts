@@ -63,6 +63,23 @@ async function main() {
       role: { connect: { id: adminRole.id } },
     },
   });
+  photon.userPermissions.create({
+    data: {
+      type: 'UPDATE_USER',
+      permission: {
+        create: {
+          users: {
+            connect: {
+              id: admin.id,
+            },
+          },
+        },
+      },
+      objects: {
+        connect: { id: admin.id },
+      },
+    },
+  });
   const professor = await photon.users.create({
     data: {
       email: 'professor@example.org',
@@ -107,6 +124,23 @@ async function main() {
           institute: { connect: { id: university.id } },
         },
       });
+      photon.departmentPermissions.create({
+        data: {
+          type: 'UPDATE_DEPARTMENT',
+          permission: {
+            create: {
+              users: {
+                connect: {
+                  id: admin.id,
+                },
+              },
+            },
+          },
+          objects: {
+            connect: { id: department.id },
+          },
+        },
+      });
       for (let indexOfSubject = 0; indexOfSubject < 10; indexOfSubject++) {
         const subject = await photon.subjects.create({
           data: {
@@ -124,7 +158,7 @@ async function main() {
           },
         });
         for (let indexOfNote = 0; indexOfNote < 10; indexOfNote++) {
-          await photon.notes.create({
+          let note = await photon.notes.create({
             data: {
               title: faker.random.words(2),
               number: faker.random.number(),
@@ -139,6 +173,23 @@ async function main() {
                 ],
               }),
               contentHTML: '<b>Gandalf</b> the <span style="color: #cccccc;>Grey</span>',
+            },
+          });
+          photon.notePermissions.create({
+            data: {
+              type: 'UPDATE_NOTE',
+              permission: {
+                create: {
+                  users: {
+                    connect: {
+                      id: admin.id,
+                    },
+                  },
+                },
+              },
+              objects: {
+                connect: { id: note.id },
+              },
             },
           });
         }
