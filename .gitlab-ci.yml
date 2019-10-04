@@ -1,0 +1,99 @@
+image: node:lts
+
+stages:
+  - install-dependencies
+  - lint
+  - test
+  - build
+  - deploy
+  - apollo
+
+cache:
+  paths:
+    - node_modules/
+
+install-dependencies:
+  stage: install-dependencies
+  script:
+    - yarn install
+  artifacts:
+    paths:
+      - node_modules/
+
+lint:
+  stage: lint
+  script:
+    - npx eslint
+
+testing:
+  stage: test
+  script:
+    - echo "to be implemented"
+
+deploy-staging:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$STAGING_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $STAGING_USERNAME@$STAGING_HOST "cd $STAGING_DIRECTORY && git pull && cp .env.staging .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Staging deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - development
+
+deploy-production:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $PROD_USERNAME@$PROD_HOST "cd $PROD_DIRECTORY && git pull && cp .env.prod .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Production deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-demo:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$DEMO_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $DEMO_USERNAME@$DEMO_HOST "cd $DEMO_DIRECTORY && git pull && cp .env.demo .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Demo deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+apollo-service-push-staging:
+  stage: apollo
+  script:
+    - npx apollo service:push --tag=staging --endpoint=https://staging-api.cogito.study/ --key=$ENGINE_API_KEY
+  only:
+    - development
+
+apollo-service-push-production:
+  stage: apollo
+  script:
+    - npx apollo service:push --tag=production --endpoint=https://api.cogito.study/ --key=$ENGINE_API_KEY
+  only:
+    - master
