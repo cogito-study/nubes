@@ -1,0 +1,19 @@
+# IF THERE'S A GIT CONFLICT IN THIS FILE, DON'T SOLVE IT MANUALLY!
+# INSTEAD EXECUTE `prisma lift fix`
+# lift lockfile v1
+# Read more about conflict resolution here: TODO
+
+20190801135018-init
+20190805165933-init-schema
+20190806132643-fix-relations
+20190806152911-schema-revision
+20190806175216-password-token-optional
+20190808153457-add-is-active-flag-to-user
+20190911151113-add_language
+20190911151330-add-language
+20190927133607-update-auth-schemna
+20191002142437-init-auth
+20191002143718-init-auth
+20191002152800-init-auth
+20191002161419-update-permissions-enum
+20191002185440-fix-permissions

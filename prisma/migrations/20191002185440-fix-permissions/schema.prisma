@@ -1,0 +1,365 @@
+datasource postgres {
+  url      = env("POSTGRESQL_URL")
+  provider = "postgres"
+}
+
+generator photon {
+  provider = "photonjs"
+}
+
+generator nexus_prisma {
+  provider = "nexus-prisma"
+}
+
+enum NoteCategory {
+  NOTE
+  CASE_STUDY
+}
+
+enum UserRoleType {
+  USER
+  ADMIN
+  PROFESSOR
+}
+
+model Department {
+  id          String    @default(cuid()) @id @unique
+  name        String
+  description String
+  leader      User      @relation(name: "DepartmentLeader")
+  subjects    Subject[] @relation(name: "DepartmentSubjects")
+  institute   Institute @relation(name: "DepartmentInstitute")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Institute {
+  id          String       @default(cuid()) @id @unique
+  name        String
+  departments Department[] @relation(name: "DepartmentInstitute")
+  users       User[]       @relation(name: "InstituteUsers")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+}
+
+model Language {
+  id       String    @default(cuid()) @id @unique
+  code     String    @unique
+  name     String
+  users    User[]    @relation(name: "UserPrefferedLanguage")
+  subjects Subject[] @relation(name: "SubjectLanguage")
+}
+
+model Note {
+  id             String              @default(cuid()) @id @unique
+  content        String
+  contentHTML    String
+  title          String
+  number         Int
+  description    String?
+  noteCategory   NoteCategory
+  suggestions    Suggestion[]        @relation(name: "NoteSuggestions")
+  commentThreads NoteCommentThread[] @relation(name: "NoteCommentThreads")
+  authors        User[]              @relation(name: "NoteAuthors")
+  likers         User[]              @relation(name: "NoteLikers")
+  highlights     NoteHighlight[]     @relation(name: "NoteHighlights")
+  subject        Subject             @relation(name: "SubjectNotes")
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  deletedAt      DateTime?
+}
+
+model NoteComment {
+  id          String             @default(cuid()) @id @unique
+  content     String
+  author      User               @relation(name: "CommentAuthor")
+  likers      User[]             @relation(name: "CommentLikers")
+  thread      NoteCommentThread? @relation(name: "NoteCommentThreadComment")
+  threadReply NoteCommentThread? @relation(name: "NoteCommentThreadReplies")
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  deletedAt   DateTime?
+}
+
+model NoteCommentThread {
+  id        String        @default(cuid()) @id @unique
+  position  String
+  comment   NoteComment   @relation(name: "NoteCommentThreadComment")
+  replies   NoteComment[] @relation(name: "NoteCommentThreadReplies")
+  note      Note          @relation(name: "NoteCommentThreads")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+}
+
+model NoteHighlight {
+  id        String    @default(cuid()) @id @unique
+  position  String
+  user      User      @relation(name: "UserNoteHighlights")
+  note      Note      @relation(name: "NoteHighlights")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model PasswordToken {
+  id        String    @default(cuid()) @id @unique
+  token     String    @unique
+  user      User      @relation(name: "PasswordTokenUser")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Subject {
+  id           String               @default(cuid()) @id @unique
+  code         String               @unique
+  name         String
+  description  String
+  department   Department           @relation(name: "DepartmentSubjects")
+  teachers     User[]               @relation(name: "SubjectTeachers")
+  students     User[]               @relation(name: "SubjectStudents")
+  informations SubjectInformation[] @relation(name: "SubjectInformations")
+  notes        Note[]               @relation(name: "SubjectNotes")
+  language     Language             @relation(name: "SubjectLanguage")
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  deletedAt    DateTime?
+}
+
+model SubjectInformation {
+  id        String    @default(cuid()) @id @unique
+  title     String
+  subtitle  String?
+  content   String
+  subject   Subject   @relation(name: "SubjectInformations")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Suggestion {
+  id         String    @default(cuid()) @id @unique
+  delta      String
+  approvedAt DateTime?
+  likers     User[]    @relation(name: "SuggestionLikers")
+  approvedBy User?     @relation(name: "SuggestionApprovedBy")
+  note       Note      @relation(name: "NoteSuggestions")
+  author     User      @relation(name: "SuggestionAuthor")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+}
+
+model User {
+  id                  String          @default(cuid()) @id @unique
+  email               String          @unique
+  password            String
+  profilePictureURL   String?
+  firstName           String
+  lastName            String
+  phoneNumber         String?
+  identifier          String
+  isActive            Boolean         @default(false)
+  role                UserRole        @relation(name: "UserRole")
+  groups              UserGroup[]     @relation(name: "UserGroups")
+  notes               Note[]          @relation(name: "NoteAuthors")
+  noteHighlights      NoteHighlight[] @relation(name: "UserNoteHighlights")
+  suggestions         Suggestion[]    @relation(name: "SuggestionAuthor")
+  approvedSuggestions Suggestion[]    @relation(name: "SuggestionApprovedBy")
+  teachedSubjects     Subject[]       @relation(name: "SubjectTeachers")
+  studiedSubjects     Subject[]       @relation(name: "SubjectStudents")
+  likedNotes          Note[]          @relation(name: "NoteLikers")
+  comments            NoteComment[]   @relation(name: "CommentAuthor")
+  likedComments       NoteComment[]   @relation(name: "CommentLikers")
+  likedSuggestions    Suggestion[]    @relation(name: "SuggestionLikers")
+  passwordToken       PasswordToken?  @relation(name: "PasswordTokenUser")
+  departments         Department[]    @relation(name: "DepartmentLeader")
+  institutes          Institute[]     @relation(name: "InstituteUsers")
+  preferredLanguage   Language?       @relation(name: "UserPrefferedLanguage")
+  permissions         Permission[]    @relation
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  deletedAt           DateTime?
+}
+
+model UserRole {
+  id        String       @default(cuid()) @id @unique
+  name      String
+  type      UserRoleType
+  users     User[]       @relation(name: "UserRole")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  deletedAt DateTime?
+}
+
+model DepartmentPermission {
+  id        String                   @default(cuid()) @id @unique
+  type      DepartmentPermissionType
+  objects   Department[]             @relation
+  createdAt DateTime                 @default(now())
+  updatedAt DateTime                 @updatedAt
+  deletedAt DateTime?
+}
+
+enum DepartmentPermissionType {
+  UPDATE_DEPARTMENT
+  DELETE_DEPARTMENT
+  CREATE_SUBJECT
+}
+
+model InstitutePermission {
+  id        String                  @default(cuid()) @id @unique
+  type      InstitutePermissionType
+  objects   Institute[]             @relation
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  deletedAt DateTime?
+}
+
+enum InstitutePermissionType {
+  UPDATE_INSTITUTE
+  DELETE_INSTITUTE
+  CREATE_DEPARTMENT
+}
+
+model NoteCommentPermission {
+  id        String                    @default(cuid()) @id @unique
+  type      NoteCommentPermissionType
+  objects   NoteComment[]             @relation
+  createdAt DateTime                  @default(now())
+  updatedAt DateTime                  @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteCommentPermissionType {
+  UPDATE_NOTE_COMMENT
+  DELETE_NOTE_COMMENT
+}
+
+model NoteCommentThreadPermission {
+  id        String                          @default(cuid()) @id @unique
+  type      NoteCommentThreadPermissionType
+  objects   NoteCommentThread[]             @relation
+  createdAt DateTime                        @default(now())
+  updatedAt DateTime                        @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteCommentThreadPermissionType {
+  UPDATE_NOTE_COMMENT_THREAD
+  DELETE_NOTE_COMMENT_THREAD
+}
+
+model NoteHighlightPermission {
+  id        String                      @default(cuid()) @id @unique
+  type      NoteHighlightPermissionType
+  objects   NoteHighlight[]             @relation
+  createdAt DateTime                    @default(now())
+  updatedAt DateTime                    @updatedAt
+  deletedAt DateTime?
+}
+
+enum NoteHighlightPermissionType {
+  UPDATE_NOTE_HIGHLIGHT
+  DELETE_NOTE_HIGHLIGHT
+}
+
+model NotePermission {
+  id        String             @default(cuid()) @id @unique
+  type      NotePermissionType
+  objects   Note[]             @relation
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+}
+
+enum NotePermissionType {
+  UPDATE_NOTE
+  DELETE_NOTE
+  CREATE_SUGGESTION
+}
+
+model Permission {
+  id                           String                        @default(cuid()) @id @unique
+  userGroups                   UserGroup[]                   @relation(name: "UserGroupPermissions")
+  users                        User[]                        @relation
+  departmentPermission         DepartmentPermission?         @relation
+  institutePermission          InstitutePermission?          @relation
+  notePermission               NotePermission?               @relation
+  noteCommentPermission        NoteCommentPermission?        @relation
+  noteCommentThreadPermission  NoteCommentThreadPermission?  @relation
+  noteHighlightPermission      NoteHighlightPermission?      @relation
+  subjectPermission            SubjectPermission?            @relation
+  subjectInformationPermission SubjectInformationPermission? @relation
+  suggestionPermission         SuggestionPermission?         @relation
+  userPermission               UserPermission?               @relation
+}
+
+model SubjectPermission {
+  id        String                @default(cuid()) @id @unique
+  type      SubjectPermissionType
+  objects   Subject[]             @relation
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  deletedAt DateTime?
+}
+
+enum SubjectPermissionType {
+  UPDATE_SUBJECT
+  DELETE_SUBJECT
+  CREATE_NOTE
+}
+
+model SubjectInformationPermission {
+  id        String                           @default(cuid()) @id @unique
+  type      SubjectInformationPermissionType
+  objects   SubjectInformation[]             @relation
+  createdAt DateTime                         @default(now())
+  updatedAt DateTime                         @updatedAt
+  deletedAt DateTime?
+}
+
+enum SubjectInformationPermissionType {
+  UPDATE_SUBJECT_INFORMATION
+  DELETE_SUBJECT_INFORMATION
+}
+
+model SuggestionPermission {
+  id        String                   @default(cuid()) @id @unique
+  type      SuggestionPermissionType
+  objects   Suggestion[]             @relation
+  createdAt DateTime                 @default(now())
+  updatedAt DateTime                 @updatedAt
+  deletedAt DateTime?
+}
+
+enum SuggestionPermissionType {
+  UPDATE_SUGGESTION
+  DELETE_SUGGESTION
+  APPROVE_SUGGESTION
+  REJECT_SUGGESTION
+}
+
+model UserPermission {
+  id        String             @default(cuid()) @id @unique
+  type      UserPermissionType
+  objects   User[]             @relation
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+}
+
+enum UserPermissionType {
+  UPDATE_USER
+  DELETE_USER
+}
+
+model UserGroup {
+  id          String       @default(cuid()) @id @unique
+  name        String
+  permissions Permission[] @relation(name: "UserGroupPermissions")
+  users       User[]       @relation(name: "UserGroups")
+}

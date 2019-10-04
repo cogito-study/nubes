@@ -84,6 +84,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# End of https://www.gitignore.io/api/node
-
 google-storage-credentials.json
+
+dist/

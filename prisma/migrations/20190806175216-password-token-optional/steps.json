@@ -1,0 +1,11 @@
+{
+  "version": "0.1.9",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "passwordToken",
+      "arity": "optional"
+    }
+  ]
+}

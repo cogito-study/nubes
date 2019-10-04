@@ -1,25 +1,15 @@
 image: node:lts
 
 stages:
-  - install-dependencies
   - lint
   - test
   - build
-  - prisma-deploy
   - deploy
   - apollo
 
 cache:
   paths:
     - node_modules/
-
-install-dependencies:
-  stage: install-dependencies
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
 
 lint:
   stage: lint
@@ -30,24 +20,6 @@ testing:
   stage: test
   script:
     - echo "to be implemented"
-
-prisma-deploy-staging:
-  stage: prisma-deploy
-  script:
-    - npm install -g prisma
-    - prisma login --key $PRISMA_API_KEY
-    - npm run prisma-deploy:staging
-  only:
-    - development
-
-prisma-deploy-production:
-  stage: prisma-deploy
-  script:
-    - npm install -g prisma
-    - prisma login --key $PRISMA_API_KEY
-    - npm run prisma-deploy:prod
-  only:
-    - master
 
 deploy-staging:
   image: alpine

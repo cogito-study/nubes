@@ -1,0 +1,115 @@
+{
+  "version": "0.2.7",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "Language",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "name": "code",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "name": "users",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [],
+          "name": "UserPrefferedLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "name": "subjects",
+      "type": {
+        "Relation": {
+          "to": "Subject",
+          "to_fields": [],
+          "name": "SubjectLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "name": "language",
+      "type": {
+        "Relation": {
+          "to": "Language",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "preferredLanguage",
+      "type": {
+        "Relation": {
+          "to": "Language",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserPrefferedLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    }
+  ]
+}

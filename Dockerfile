@@ -1,10 +1,11 @@
-FROM node:8.10
+FROM node:lts
 RUN mkdir /usr/src/server
 WORKDIR /usr/src/server
 ENV PATH /usr/src/server/node_modules/.bin:$PATH
 COPY package.json /usr/src/server/package.json
-COPY package-lock.json /usr/src/server/package-lock.json
-RUN npm install -g npm
-RUN npm install
+COPY yarn.lock /usr/src/server/yarn.lock
 COPY . /usr/src/server
-CMD ["npm","start"]
+RUN npm install -g prisma2 --unsafe-perm
+RUN yarn install
+COPY . /usr/src/server
+CMD prisma2 lift up && yarn run start
