@@ -3525,10 +3525,10 @@ prettier@1.18.2:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
   integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
 
-prisma2@2.0.0-alpha.206:
-  version "2.0.0-alpha.206"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-alpha.206.tgz#1b7a819f606c03469b80df33e4c01554abcdc8bb"
-  integrity sha512-fN8g0KOG8IjN+lDN9wgoW+Oh5qSxwii8otSBoM5LvMaPYVqotwcAd9mG9K6qdT1QneecVL/Pgf03+U1G4x+gDQ==
+prisma2@2.0.0-preview-9.1:
+  version "2.0.0-preview-9.1"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview-9.1.tgz#b87359de0854a26ebee506bc92c35cfd53355bcd"
+  integrity sha512-nSlPBmmdi7CrFJ+HtumJJak9XepYNfAAd4ZMSB6tbVhIlyXwzzwOVNRyzKQrFXeRalv/hkXnItzU7+A5bT4BYQ==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
