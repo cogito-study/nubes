@@ -25,7 +25,7 @@
     "env-cmd": "9.0.3",
     "graphql-middleware": "4.0.1",
     "jsonwebtoken": "8.5.1",
-    "nexus": "0.12.0-beta.9",
+    "nexus": "0.12.0-beta.13",
     "nexus-prisma": "0.4.2",
     "stream": "0.0.2",
     "uuid": "3.3.3",
