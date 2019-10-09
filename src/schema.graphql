@@ -2,7 +2,20 @@
 ### Do not make changes to this file directly
 
 
-type AuthPayload {
+"""Input of activation user"""
+input ActivateUserInput {
+  password: String!
+  token: String!
+}
+
+type ActivationToken {
+  createdAt: DateTime!
+  id: ID!
+  token: String!
+  user: User!
+}
+
+type AuthenticationPayload {
   token: String!
   user: User!
 }
@@ -122,6 +135,11 @@ input DepartmentWhereUniqueInput {
   id: ID
 }
 
+"""Input of forgot password"""
+input ForgotPasswordInput {
+  email: String
+}
+
 """Input of image upload"""
 input ImageUploadInput {
   extension: String!
@@ -180,6 +198,7 @@ input LanguageWhereUniqueInput {
 }
 
 type Mutation {
+  activateUser(data: ActivateUserInput!): AuthenticationPayload!
   createDepartment(data: CreateDepartmentInput!): Department!
   createInstitute(data: CreateInstituteInput!): Institute!
   createNote(data: CreateNoteInput!): Note!
@@ -199,7 +218,9 @@ type Mutation {
   deleteSubjectInformation(where: WhereUniqueInput!): SubjectInformation!
   deleteSuggestion(where: WhereUniqueInput!): Suggestion!
   deleteUser(where: WhereUniqueInput!): User!
-  login(data: UserLoginInput!): AuthPayload!
+  forgotPassword(data: ForgotPasswordInput!): String!
+  login(data: UserLoginInput!): AuthenticationPayload!
+  resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
   updateNote(data: UpdateNoteInput!, where: WhereUniqueInput!): Note!
@@ -483,6 +504,18 @@ input QueryFindManyUserWhereInput {
   role: QueryFindManyUserWhereInput
 }
 
+"""Input of reset password"""
+input ResetPasswordInput {
+  password: String!
+  token: String!
+}
+
+type ResetPasswordToken {
+  createdAt: DateTime!
+  email: ID!
+  token: String!
+}
+
 input StringFilter {
   contains: String
   endsWith: String
@@ -662,9 +695,11 @@ type User {
   deletedAt: DateTime
   departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
   email: String!
+  firstName: String!
   id: ID!
   identifier: String!
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  lastName: String!
   likedComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   likedNotes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]

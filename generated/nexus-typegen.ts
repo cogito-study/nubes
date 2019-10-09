@@ -18,6 +18,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  ActivateUserInput: {
+    // input type
+    password: string; // String!
+    token: string; // String!
+  };
   BooleanFilter: {
     // input type
     equals?: boolean | null; // Boolean
@@ -93,6 +98,10 @@ export interface NexusGenInputs {
   DepartmentWhereUniqueInput: {
     // input type
     id?: string | null; // ID
+  };
+  ForgotPasswordInput: {
+    // input type
+    email?: string | null; // String
   };
   ImageUploadInput: {
     // input type
@@ -210,6 +219,11 @@ export interface NexusGenInputs {
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     role?: NexusGenInputs['QueryFindManyUserWhereInput'] | null; // QueryFindManyUserWhereInput
   };
+  ResetPasswordInput: {
+    // input type
+    password: string; // String!
+    token: string; // String!
+  };
   StringFilter: {
     // input type
     contains?: string | null; // String
@@ -318,7 +332,8 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
-  AuthPayload: {
+  ActivationToken: photon.ActivationToken;
+  AuthenticationPayload: {
     // root type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
@@ -340,6 +355,7 @@ export interface NexusGenRootTypes {
   PasswordToken: photon.PasswordToken;
   Permission: photon.Permission;
   Query: {};
+  ResetPasswordToken: photon.ResetPasswordToken;
   Subject: photon.Subject;
   SubjectInformation: photon.SubjectInformation;
   SubjectInformationPermission: photon.SubjectInformationPermission;
@@ -357,6 +373,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  ActivateUserInput: NexusGenInputs['ActivateUserInput'];
   BooleanFilter: NexusGenInputs['BooleanFilter'];
   ConnectRelation: NexusGenInputs['ConnectRelation'];
   CreateDepartmentInput: NexusGenInputs['CreateDepartmentInput'];
@@ -369,6 +386,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   CreateSubjectInput: NexusGenInputs['CreateSubjectInput'];
   CreateSuggestionInput: NexusGenInputs['CreateSuggestionInput'];
   DepartmentWhereUniqueInput: NexusGenInputs['DepartmentWhereUniqueInput'];
+  ForgotPasswordInput: NexusGenInputs['ForgotPasswordInput'];
   ImageUploadInput: NexusGenInputs['ImageUploadInput'];
   InstituteWhereUniqueInput: NexusGenInputs['InstituteWhereUniqueInput'];
   IntFilter: NexusGenInputs['IntFilter'];
@@ -387,6 +405,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   QueryFindManySuggestionFilter: NexusGenInputs['QueryFindManySuggestionFilter'];
   QueryFindManySuggestionWhereInput: NexusGenInputs['QueryFindManySuggestionWhereInput'];
   QueryFindManyUserWhereInput: NexusGenInputs['QueryFindManyUserWhereInput'];
+  ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   SubjectInformationWhereUniqueInput: NexusGenInputs['SubjectInformationWhereUniqueInput'];
   SubjectWhereUniqueInput: NexusGenInputs['SubjectWhereUniqueInput'];
@@ -417,7 +436,14 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  AuthPayload: {
+  ActivationToken: {
+    // field return type
+    createdAt: any; // DateTime!
+    id: string; // ID!
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  };
+  AuthenticationPayload: {
     // field return type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
@@ -470,6 +496,7 @@ export interface NexusGenFieldTypes {
   };
   Mutation: {
     // field return type
+    activateUser: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     createDepartment: NexusGenRootTypes['Department']; // Department!
     createInstitute: NexusGenRootTypes['Institute']; // Institute!
     createNote: NexusGenRootTypes['Note']; // Note!
@@ -489,7 +516,9 @@ export interface NexusGenFieldTypes {
     deleteSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     deleteSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     deleteUser: NexusGenRootTypes['User']; // User!
-    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    forgotPassword: string; // String!
+    login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
     updateNote: NexusGenRootTypes['Note']; // Note!
@@ -652,6 +681,12 @@ export interface NexusGenFieldTypes {
     userPermissions: NexusGenRootTypes['UserPermission'][] | null; // [UserPermission!]
     users: NexusGenRootTypes['User'][] | null; // [User!]
   };
+  ResetPasswordToken: {
+    // field return type
+    createdAt: any; // DateTime!
+    email: string; // ID!
+    token: string; // String!
+  };
   Subject: {
     // field return type
     code: string; // String!
@@ -726,9 +761,11 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     departments: NexusGenRootTypes['Department'][] | null; // [Department!]
     email: string; // String!
+    firstName: string; // String!
     id: string; // ID!
     identifier: string; // String!
     institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
+    lastName: string; // String!
     likedComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     likedNotes: NexusGenRootTypes['Note'][] | null; // [Note!]
     noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
@@ -804,6 +841,10 @@ export interface NexusGenArgTypes {
     };
   };
   Mutation: {
+    activateUser: {
+      // args
+      data: NexusGenInputs['ActivateUserInput']; // ActivateUserInput!
+    };
     createDepartment: {
       // args
       data: NexusGenInputs['CreateDepartmentInput']; // CreateDepartmentInput!
@@ -880,9 +921,17 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    forgotPassword: {
+      // args
+      data: NexusGenInputs['ForgotPasswordInput']; // ForgotPasswordInput!
+    };
     login: {
       // args
       data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
+    };
+    resetPassword: {
+      // args
+      data: NexusGenInputs['ResetPasswordInput']; // ResetPasswordInput!
     };
     updateDepartment: {
       // args
@@ -1449,7 +1498,8 @@ export interface NexusGenAbstractResolveReturnTypes {}
 export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames =
-  | 'AuthPayload'
+  | 'ActivationToken'
+  | 'AuthenticationPayload'
   | 'Department'
   | 'DepartmentPermission'
   | 'Institute'
@@ -1467,6 +1517,7 @@ export type NexusGenObjectNames =
   | 'PasswordToken'
   | 'Permission'
   | 'Query'
+  | 'ResetPasswordToken'
   | 'Subject'
   | 'SubjectInformation'
   | 'SubjectInformationPermission'
@@ -1477,6 +1528,7 @@ export type NexusGenObjectNames =
   | 'UserPermission';
 
 export type NexusGenInputNames =
+  | 'ActivateUserInput'
   | 'BooleanFilter'
   | 'ConnectRelation'
   | 'CreateDepartmentInput'
@@ -1489,6 +1541,7 @@ export type NexusGenInputNames =
   | 'CreateSubjectInput'
   | 'CreateSuggestionInput'
   | 'DepartmentWhereUniqueInput'
+  | 'ForgotPasswordInput'
   | 'ImageUploadInput'
   | 'InstituteWhereUniqueInput'
   | 'IntFilter'
@@ -1507,6 +1560,7 @@ export type NexusGenInputNames =
   | 'QueryFindManySuggestionFilter'
   | 'QueryFindManySuggestionWhereInput'
   | 'QueryFindManyUserWhereInput'
+  | 'ResetPasswordInput'
   | 'StringFilter'
   | 'SubjectInformationWhereUniqueInput'
   | 'SubjectWhereUniqueInput'

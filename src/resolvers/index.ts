@@ -13,3 +13,4 @@ export * from './user';
 export * from './permissions';
 export * from './mutation';
 export * from './input';
+export * from './authentication';

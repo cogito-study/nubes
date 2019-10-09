@@ -1,7 +1,7 @@
 import { objectType } from 'nexus';
 
-export const AuthPayload = objectType({
-  name: 'AuthPayload',
+export const AuthenticationPayload = objectType({
+  name: 'AuthenticationPayload',
   definition(t) {
     t.string('token');
     t.field('user', { type: 'User' });
