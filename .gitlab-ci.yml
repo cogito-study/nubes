@@ -1,9 +1,10 @@
 image: node:lts
 
 stages:
+  - dependencies-install
   - lint
-  - test
   - build
+  - test
   - deploy
   - apollo
 
@@ -11,10 +12,20 @@ cache:
   paths:
     - node_modules/
 
+dependencies-install:
+  stage: dependencies-install
+  script:
+    - npx yarn install
+
 lint:
   stage: lint
   script:
-    - npx eslint
+    - npx yarn lint
+
+build:
+  stage: build
+  script:
+    - npx yarn build
 
 testing:
   stage: test
