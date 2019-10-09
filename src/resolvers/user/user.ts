@@ -4,6 +4,8 @@ export const User = objectType({
   name: 'User',
   definition(t) {
     t.model.id();
+    t.model.firstName();
+    t.model.lastName();
     t.model.email();
     t.model.password();
     t.model.profilePictureURL();

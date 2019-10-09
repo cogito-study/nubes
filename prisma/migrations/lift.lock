@@ -17,3 +17,4 @@
 20191002152800-init-auth
 20191002161419-update-permissions-enum
 20191002185440-fix-permissions
+20191004163443-activation-and-reset-password-token

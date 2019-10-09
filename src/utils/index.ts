@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import { Context } from './types';
+import { Context } from '../types';
 
 interface Token {
   userID: string;
@@ -17,3 +17,5 @@ export function getUserID(context: Context) {
 }
 
 export const optionalConnect = (object?: { id: string }) => (object ? { connect: object } : null);
+
+export const catchNotExistError = (err: { message: string }) => (err.message.match(/RecordDoesNotExist/i) ? null : err);

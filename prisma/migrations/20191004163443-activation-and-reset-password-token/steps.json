@@ -1,0 +1,182 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "ActivationToken",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "ResetPasswordToken",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "activationToken",
+      "type": {
+        "Relation": {
+          "to": "ActivationToken",
+          "to_fields": [],
+          "name": "ActivationTokenToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "ResetPasswordToken",
+      "type": {
+        "Relation": {
+          "to": "ResetPasswordToken",
+          "to_fields": [],
+          "name": "ResetPasswordTokenToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "ActivationTokenToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "name": "token",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "name": "email",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "name": "token",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "ResetPasswordTokenToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "NoteCommentThreadPermissionType",
+      "values": [
+        "DELETE_NOTE_COMMENT_THREAD"
+      ]
+    }
+  ]
+}
