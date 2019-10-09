@@ -8,4 +8,4 @@ COPY . /usr/src/server
 RUN npm install -g prisma2 --unsafe-perm
 RUN yarn install
 COPY . /usr/src/server
-CMD prisma2 lift up && yarn run start
+CMD prisma2 lift up && yarn run build && yarn run serve
