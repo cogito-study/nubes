@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "3.2.1",
-    "apollo-server": "2.9.3",
+    "apollo-server": "2.9.6",
     "bcrypt": "3.0.6",
     "date-fns": "2.4.1",
     "dotenv": "8.1.0",
