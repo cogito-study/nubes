@@ -18,7 +18,7 @@
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch-ts\" \"yarn run serve-debug\""
   },
   "dependencies": {
-    "@google-cloud/storage": "3.2.1",
+    "@google-cloud/storage": "3.3.1",
     "apollo-server": "2.9.6",
     "bcrypt": "3.0.6",
     "date-fns": "2.4.1",
