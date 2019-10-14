@@ -3,6 +3,8 @@ import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { GraphQLResolveInfo } from 'graphql';
 import { hasNotePermission } from './note.permission';
+import { ForbiddenError } from 'apollo-server';
+import { __ } from 'i18n';
 
 export const updateNote = async (
   resolve: FieldResolver<'Mutation', 'updateNote'>,
@@ -21,7 +23,7 @@ export const updateNote = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
 
 export const deleteNote = async (
@@ -41,5 +43,5 @@ export const deleteNote = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };

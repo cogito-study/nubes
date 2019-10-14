@@ -1,8 +1,10 @@
+import { UserInputError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
+import * as yup from 'yup';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
-import * as yup from 'yup';
 
 export const userLoginInputValidator = async (
   resolve: FieldResolver<'Mutation', 'login'>,
@@ -15,7 +17,7 @@ export const userLoginInputValidator = async (
     email: yup.string().email(),
   });
   const schemaIsValid = await schema.isValid(args.data);
-  if (!schemaIsValid) throw new Error('Invalid email address!');
+  if (!schemaIsValid) throw new UserInputError(__('invalid_email'));
 
   return await resolve(parent, args, context, info);
 };

@@ -1,4 +1,5 @@
 import { post, Options, UrlOptions } from 'request';
+import { ApolloError } from 'apollo-server';
 
 export const randomFounder = () => ['Máté', 'Ádám', 'Kristóf'][Math.floor(Math.random() * 3)];
 
@@ -40,8 +41,6 @@ export const sendEmail = (
   };
 
   post(options, (error) => {
-    if (error) {
-      throw new Error(error);
-    }
+    if (error) throw new ApolloError(error);
   });
 };

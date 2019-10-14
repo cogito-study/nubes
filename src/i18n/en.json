@@ -1,0 +1,9 @@
+{
+  "token_expired": "Token expired",
+  "invalid_email": "Invalid email address!",
+  "no_permission": "You don't have permission!",
+  "wait_%s_minutes": {
+    "one": "Please wait 1 minute",
+    "other": "Please wait %s minutes"
+  }
+}
