@@ -1,7 +1,9 @@
+import { ForbiddenError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
 import { hasNoteHighlightPermission } from './note-highlight.permission';
 
 export const updateNoteHighlight = async (
@@ -21,7 +23,7 @@ export const updateNoteHighlight = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
 
 export const deleteNoteHighlight = async (
@@ -41,5 +43,5 @@ export const deleteNoteHighlight = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };

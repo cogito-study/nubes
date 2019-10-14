@@ -1,5 +1,7 @@
-import { v4 as uuid } from 'uuid';
 import { addMinutes, isBefore } from 'date-fns';
+import { v4 as uuid } from 'uuid';
+import { ApolloError } from 'apollo-server';
+import { __, __n } from 'i18n';
 
 type TokenExpirationType = 'resetPassword' | 'activate';
 
@@ -13,7 +15,7 @@ export const generateToken = () => uuid();
 export const checkTokenExpiration = (token: { createdAt: string }, type: TokenExpirationType) => {
   const createdAt = new Date();
   const expiredAt = addMinutes(new Date(token.createdAt), tokenExpirationMinutes[type]);
-  if (isBefore(expiredAt, createdAt)) throw new Error('Token expired :(');
+  if (isBefore(expiredAt, createdAt)) throw new ApolloError(__('token_expired'));
 };
 
 export const checkTokenGenerationFrequency = (token: { createdAt: string }) => {
@@ -21,6 +23,6 @@ export const checkTokenGenerationFrequency = (token: { createdAt: string }) => {
   const maxFrequency = 5;
   const canCreateAt = addMinutes(new Date(token.createdAt), maxFrequency);
   if (isBefore(createdAt, canCreateAt)) {
-    throw new Error(`Pls wait ${maxFrequency} minutes`);
+    throw new ApolloError(__n('wait_%s_minutes', maxFrequency));
   }
 };

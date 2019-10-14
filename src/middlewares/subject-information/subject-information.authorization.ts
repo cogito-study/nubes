@@ -1,7 +1,9 @@
+import { ForbiddenError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
 import { hasSubjectInformationPermission } from './subject-information.permission';
 
 export const updateSubjectInformation = async (
@@ -21,7 +23,7 @@ export const updateSubjectInformation = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
 
 export const deleteSubjectInformation = async (
@@ -41,5 +43,5 @@ export const deleteSubjectInformation = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };

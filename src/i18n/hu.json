@@ -1,0 +1,9 @@
+{
+  "token_expired": "Lejárt token",
+  "invalid_email": "Rossz e-mail formátum!",
+  "no_permission": "Nincs jogosultságod ehhez a művelethez!",
+  "wait_%s_minutes": {
+    "one": "Kérlek várj egy percet",
+    "other": "Kérlek várj %s percet"
+  }
+}

@@ -3,6 +3,8 @@ import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { GraphQLResolveInfo } from 'graphql';
 import { hasInstitutePermission } from './institute.permission';
+import { ForbiddenError } from 'apollo-server';
+import { __ } from 'i18n';
 
 export const createDepartment = async (
   resolve: FieldResolver<'Mutation', 'createDepartment'>,
@@ -21,7 +23,7 @@ export const createDepartment = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
 
 export const updateInstitute = async (
@@ -41,7 +43,7 @@ export const updateInstitute = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
 
 export const deleteInstitute = async (
@@ -61,5 +63,5 @@ export const deleteInstitute = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };
