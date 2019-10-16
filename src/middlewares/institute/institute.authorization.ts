@@ -5,6 +5,7 @@ import { GraphQLResolveInfo } from 'graphql';
 import { hasInstitutePermission } from './institute.permission';
 import { ForbiddenError } from 'apollo-server';
 import { __ } from 'i18n';
+import { getUserID } from '../../utils';
 
 export const createDepartment = async (
   resolve: FieldResolver<'Mutation', 'createDepartment'>,
@@ -63,5 +64,26 @@ export const deleteInstitute = async (
     return await resolve(parent, args, context, info);
   }
 
+  throw new ForbiddenError(__('no_permission'));
+};
+
+export const institutes = async (
+  resolve: FieldResolver<'Query', 'institutes'>,
+  parent: {},
+  args: {},
+  context: Context,
+  info: GraphQLResolveInfo,
+) => {
+  try {
+    const user = await context.photon.users.findOne({
+      where: { id: getUserID(context) },
+      include: {
+        role: true,
+      },
+    });
+    if (user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
+  } catch {
+    throw new ForbiddenError(__('no_permission'));
+  }
   throw new ForbiddenError(__('no_permission'));
 };
