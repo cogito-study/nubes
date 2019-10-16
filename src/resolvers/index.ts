@@ -10,6 +10,7 @@ export * from './subject';
 export * from './subject-information';
 export * from './suggestion';
 export * from './user';
+export * from './user-role';
 export * from './permissions';
 export * from './mutation';
 export * from './input';

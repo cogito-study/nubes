@@ -12,6 +12,7 @@ export const User = objectType({
     t.model.phoneNumber();
     t.model.identifier();
 
+    t.model.role({ type: 'UserRole' });
     t.model.notes({ type: 'Note' });
     t.model.noteHighlights({ type: 'NoteHighlight' });
     t.model.suggestions({ type: 'Suggestion' });

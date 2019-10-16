@@ -1,8 +1,10 @@
-import { updateUser } from './user.authorization';
+import { updateUser, users } from './user.authorization';
 
 export const userMiddlewares = {
   Mutation: {
     updateUser,
   },
-  Query: {},
+  Query: {
+    users,
+  },
 };

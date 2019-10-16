@@ -175,17 +175,6 @@ input InstituteWhereUniqueInput {
   id: ID
 }
 
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: Int
-  notIn: [Int!]
-}
-
 type Language {
   code: String!
   id: ID!
@@ -391,11 +380,6 @@ type PasswordToken {
   user: User!
 }
 
-input PasswordTokenWhereUniqueInput {
-  id: ID
-  token: String
-}
-
 type Permission {
   departmentPermission: DepartmentPermission
   id: ID!
@@ -412,86 +396,20 @@ type Permission {
 
 type Query {
   department(where: DepartmentWhereUniqueInput!): Department
-  departmentPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [DepartmentPermission!]
-  departments(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyDepartmentWhereInput): [Department!]
   institute(where: InstituteWhereUniqueInput!): Institute
-  institutePermissions(after: String, before: String, first: Int, last: Int, skip: Int): [InstitutePermission!]
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
   language(where: LanguageWhereUniqueInput!): Language
   languages(after: String, before: String, first: Int, last: Int, skip: Int): [Language!]
   me: User!
   note(where: NoteWhereUniqueInput!): Note
   noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
-  noteCommentPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentPermission!]
-  noteComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   noteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
-  noteCommentThreadPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThreadPermission!]
-  noteCommentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
   noteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
-  noteHighlightPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlightPermission!]
-  noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  notePermissions(after: String, before: String, first: Int, last: Int, skip: Int): [NotePermission!]
-  notes(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyNoteWhereInput): [Note!]
-  resetPassword(where: PasswordTokenWhereUniqueInput!): PasswordToken
-  resetPasswords(after: String, before: String, first: Int, last: Int, skip: Int): [PasswordToken!]
   subject(where: SubjectWhereUniqueInput!): Subject
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
-  subjectInformationPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformationPermission!]
-  subjectInformations(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySubjectInformationWhereInput): [SubjectInformation!]
-  subjectPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectPermission!]
-  subjects(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySubjectWhereInput): [Subject!]
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
-  suggestionPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [SuggestionPermission!]
-  suggestions(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManySuggestionWhereInput): [Suggestion!]
   user(where: UserWhereUniqueInput!): User
-  userPermissions(after: String, before: String, first: Int, last: Int, skip: Int): [UserPermission!]
   users(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyUserWhereInput): [User!]
-}
-
-input QueryFindManyDepartmentWhereInput {
-  description: StringFilter
-  name: StringFilter
-}
-
-input QueryFindManyNoteFilter {
-  every: QueryFindManyNoteWhereInput
-  none: QueryFindManyNoteWhereInput
-  some: QueryFindManyNoteWhereInput
-}
-
-input QueryFindManyNoteWhereInput {
-  description: NullableStringFilter
-  likers: QueryFindManyNoteFilter
-  number: IntFilter
-  subject: QueryFindManyNoteWhereInput
-  title: StringFilter
-}
-
-input QueryFindManySubjectInformationWhereInput {
-  subtitle: NullableStringFilter
-  title: StringFilter
-}
-
-input QueryFindManySubjectWhereInput {
-  code: StringFilter
-  description: StringFilter
-  id: StringFilter
-  name: StringFilter
-}
-
-input QueryFindManySuggestionFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: DateTime
-  notIn: [DateTime!]
-}
-
-input QueryFindManySuggestionWhereInput {
-  approvedAt: QueryFindManySuggestionFilter
 }
 
 input QueryFindManyUserWhereInput {
@@ -709,6 +627,7 @@ type User {
   phoneNumber: String
   preferredLanguage: Language
   profilePictureURL: String
+  role: UserRole!
   studiedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
   suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
   teachedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
@@ -733,6 +652,21 @@ type UserPermission {
 enum UserPermissionTypeEnum {
   DELETE_USER
   UPDATE_USER
+}
+
+type UserRole {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  name: String!
+  type: UserRoleTypeEnum!
+  updatedAt: DateTime!
+}
+
+enum UserRoleTypeEnum {
+  ADMIN
+  PROFESSOR
+  USER
 }
 
 input UserWhereUniqueInput {
