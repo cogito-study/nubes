@@ -5,5 +5,6 @@
   "wait_%s_minutes": {
     "one": "Kérlek várj egy percet",
     "other": "Kérlek várj %s percet"
-  }
+  },
+  "unauthenticated": "Jelentkezz be!"
 }
