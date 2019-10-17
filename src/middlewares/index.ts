@@ -1,4 +1,5 @@
 import { departmentMiddlewares } from './department';
+import { authenticationMiddlewares } from './authentication';
 import { i18nInitMiddleware } from './i18n';
 import { instituteMiddlewares } from './institute';
 import { noteMiddlewares } from './note';
@@ -11,6 +12,7 @@ import { suggestionMiddlewares } from './suggestion';
 import { userMiddlewares } from './user';
 
 export const middlewares = [
+  authenticationMiddlewares,
   departmentMiddlewares,
   i18nInitMiddleware,
   instituteMiddlewares,
