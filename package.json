@@ -22,7 +22,7 @@
     "apollo-server": "2.9.6",
     "bcrypt": "3.0.6",
     "date-fns": "2.5.1",
-    "dotenv": "8.1.0",
+    "dotenv": "8.2.0",
     "env-cmd": "9.0.3",
     "graphql-middleware": "4.0.1",
     "i18n": "0.8.3",
