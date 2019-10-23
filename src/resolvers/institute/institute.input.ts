@@ -5,7 +5,6 @@ export const CreateInstituteInput = inputObjectType({
   description: 'Input of create institute',
   definition(t) {
     t.string('name', { required: true });
-    t.string('description', { required: true });
   },
 });
 
@@ -14,6 +13,5 @@ export const UpdateInstituteInput = inputObjectType({
   description: 'Input of update institute',
   definition(t) {
     t.string('name');
-    t.string('description');
   },
 });
