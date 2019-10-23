@@ -39,7 +39,6 @@ input CreateDepartmentInput {
 
 """Input of create institute"""
 input CreateInstituteInput {
-  description: String!
   name: String!
 }
 
@@ -556,7 +555,6 @@ input UpdateDepartmentInput {
 
 """Input of update institute"""
 input UpdateInstituteInput {
-  description: String
   name: String
 }
 

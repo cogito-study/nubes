@@ -41,7 +41,6 @@ export interface NexusGenInputs {
   };
   CreateInstituteInput: {
     // input type
-    description: string; // String!
     name: string; // String!
   };
   CreateNoteCommentInput: {
@@ -197,7 +196,6 @@ export interface NexusGenInputs {
   };
   UpdateInstituteInput: {
     // input type
-    description?: string | null; // String
     name?: string | null; // String
   };
   UpdateNoteCommentInput: {

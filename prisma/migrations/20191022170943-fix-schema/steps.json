@@ -1,0 +1,35 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Permission",
+      "name": "users",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserPermissions",
+          "on_delete": "None"
+        }
+      }
+    }
+  ]
+}
