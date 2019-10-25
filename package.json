@@ -39,7 +39,7 @@
     "@types/faker": "4.1.6",
     "@types/i18n": "0.8.6",
     "@types/jsonwebtoken": "8.3.5",
-    "@types/node": "12.11.6",
+    "@types/node": "12.11.7",
     "@types/request": "2.48.3",
     "@types/uuid": "3.4.5",
     "@types/yup": "0.26.24",
