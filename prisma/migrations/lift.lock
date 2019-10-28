@@ -19,3 +19,4 @@
 20191002185440-fix-permissions
 20191004163443-activation-and-reset-password-token
 20191022170943-fix-schema
+20191028194721-add-rejected-at-to-suggestion

@@ -90,7 +90,6 @@ export interface NexusGenInputs {
   };
   CreateSuggestionInput: {
     // input type
-    author: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     delta: string; // String!
     note: NexusGenInputs['ConnectRelation']; // ConnectRelation!
   };
@@ -297,6 +296,13 @@ export interface NexusGenRootTypes {
   SubjectInformation: photon.SubjectInformation;
   SubjectInformationPermission: photon.SubjectInformationPermission;
   SubjectPermission: photon.SubjectPermission;
+  Subscription: {
+    // root type
+    approvedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    createdSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    rejectedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    updatedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+  };
   Suggestion: photon.Suggestion;
   SuggestionPermission: photon.SuggestionPermission;
   User: photon.User;
@@ -427,6 +433,7 @@ export interface NexusGenFieldTypes {
   Mutation: {
     // field return type
     activateUser: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createDepartment: NexusGenRootTypes['Department']; // Department!
     createInstitute: NexusGenRootTypes['Institute']; // Institute!
     createNote: NexusGenRootTypes['Note']; // Note!
@@ -448,6 +455,7 @@ export interface NexusGenFieldTypes {
     deleteUser: NexusGenRootTypes['User']; // User!
     forgotPassword: string; // String!
     login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
@@ -641,6 +649,13 @@ export interface NexusGenFieldTypes {
     type: NexusGenEnums['SubjectPermissionTypeEnum']; // SubjectPermissionTypeEnum!
     updatedAt: any; // DateTime!
   };
+  Subscription: {
+    // field return type
+    approvedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    createdSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    rejectedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    updatedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+  };
   Suggestion: {
     // field return type
     approvedAt: any | null; // DateTime
@@ -765,6 +780,10 @@ export interface NexusGenArgTypes {
       // args
       data: NexusGenInputs['ActivateUserInput']; // ActivateUserInput!
     };
+    approveSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     createDepartment: {
       // args
       data: NexusGenInputs['CreateDepartmentInput']; // CreateDepartmentInput!
@@ -848,6 +867,10 @@ export interface NexusGenArgTypes {
     login: {
       // args
       data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
+    };
+    rejectSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
     resetPassword: {
       // args
@@ -1130,6 +1153,24 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
   };
+  Subscription: {
+    approvedSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    createdSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    rejectedSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    updatedSuggestion: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+  };
   Suggestion: {
     likers: {
       // args
@@ -1281,6 +1322,7 @@ export type NexusGenObjectNames =
   | 'SubjectInformation'
   | 'SubjectInformationPermission'
   | 'SubjectPermission'
+  | 'Subscription'
   | 'Suggestion'
   | 'SuggestionPermission'
   | 'User'

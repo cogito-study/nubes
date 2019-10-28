@@ -5,7 +5,6 @@ export const CreateSuggestionInput = inputObjectType({
   description: 'Input of create suggestion',
   definition(t) {
     t.string('delta', { required: true });
-    t.field('author', { type: 'ConnectRelation', required: true });
     t.field('note', { type: 'ConnectRelation', required: true });
   },
 });

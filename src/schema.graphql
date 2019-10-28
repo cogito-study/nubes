@@ -95,7 +95,6 @@ input CreateSubjectInput {
 
 """Input of create suggestion"""
 input CreateSuggestionInput {
-  author: ConnectRelation!
   delta: String!
   note: ConnectRelation!
 }
@@ -187,6 +186,7 @@ input LanguageWhereUniqueInput {
 
 type Mutation {
   activateUser(data: ActivateUserInput!): AuthenticationPayload!
+  approveSuggestion(where: WhereUniqueInput!): Suggestion!
   createDepartment(data: CreateDepartmentInput!): Department!
   createInstitute(data: CreateInstituteInput!): Institute!
   createNote(data: CreateNoteInput!): Note!
@@ -208,6 +208,7 @@ type Mutation {
   deleteUser(where: WhereUniqueInput!): User!
   forgotPassword(data: ForgotPasswordInput!): String!
   login(data: UserLoginInput!): AuthenticationPayload!
+  rejectSuggestion(where: WhereUniqueInput!): Suggestion!
   resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
@@ -509,6 +510,13 @@ enum SubjectPermissionTypeEnum {
 input SubjectWhereUniqueInput {
   code: String
   id: ID
+}
+
+type Subscription {
+  approvedSuggestion(where: WhereUniqueInput!): Suggestion!
+  createdSuggestion(where: WhereUniqueInput!): Suggestion!
+  rejectedSuggestion(where: WhereUniqueInput!): Suggestion!
+  updatedSuggestion(where: WhereUniqueInput!): Suggestion!
 }
 
 type Suggestion {

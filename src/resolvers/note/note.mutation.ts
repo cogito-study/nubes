@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { CreateNoteInput, UpdateNoteInput } from './note.input';
 import { WhereUniqueInput } from '../input';
+import { CreateNoteInput, UpdateNoteInput } from './note.input';
 
 export const NoteMutation = extendType({
   type: 'Mutation',

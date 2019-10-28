@@ -1,5 +1,6 @@
+import { UserInclude } from '@generated/photon';
 import { verify } from 'jsonwebtoken';
-import { Context } from '../types';
+import { Context } from './../types';
 
 interface Token {
   userID: string;
@@ -14,6 +15,10 @@ export function getUserID(context: Context) {
     const verifiedToken = verify(token, process.env.APP_SECRET) as Token;
     return verifiedToken && verifiedToken.userID;
   }
+}
+
+export async function getCurrentUser(ctx: Context, include: UserInclude) {
+  return await ctx.photon.users.findOne({ where: { id: getUserID(ctx) }, include });
 }
 
 export const optionalConnect = (object?: { id: string }) => (object ? { connect: object } : null);
