@@ -5,6 +5,7 @@ export const Suggestion = objectType({
   definition(t) {
     t.model.id();
     t.model.approvedAt();
+    t.model.rejectedAt();
     t.model.delta();
 
     t.model.likers({ type: 'User' });

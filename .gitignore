@@ -87,3 +87,6 @@ typings/
 google-storage-credentials.json
 
 dist/
+
+# SQLite test database
+prisma/test.db
