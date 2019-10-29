@@ -8,7 +8,7 @@ import { hasUserPermission } from './user.permission';
 import { getUserID } from '../../utils';
 
 export const updateUser = async (
-  resolve: FieldResolver<'Mutation', 'updateUser'>,
+  resolve: FieldResolver<'Mutation', 'updateOneUser'>,
   parent: {},
   args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateUserInput'] },
   context: Context,

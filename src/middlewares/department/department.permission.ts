@@ -1,4 +1,4 @@
-import { DepartmentPermissionType } from '@generated/photon';
+import { DepartmentPermissionType, User } from '@generated/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils';
 
@@ -35,4 +35,38 @@ export const hasDepartmentPermission = async ({
   } catch (error) {
     return false;
   }
+};
+
+export const addDepartmentPermission = async ({
+  permission,
+  users,
+  departmentID,
+  context,
+}: {
+  permission: DepartmentPermissionType;
+  users: Array<User>;
+  departmentID: string;
+  context: Context;
+}) => {
+  users.forEach(async (user) => {
+    await context.photon.departmentPermissions.create({
+      data: {
+        type: permission,
+        objects: {
+          connect: {
+            id: departmentID,
+          },
+        },
+        permission: {
+          create: {
+            users: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        },
+      },
+    });
+  });
 };

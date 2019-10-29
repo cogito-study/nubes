@@ -1,0 +1,395 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "DepartmentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "DepartmentPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "InstitutePermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "InstitutePermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "NotePermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NotePermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentThreadPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentThreadPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "NoteHighlightPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteHighlightPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "SubjectPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "SubjectInformationPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectInformationPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "SuggestionPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SuggestionPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "userPermissions",
+      "type": {
+        "Relation": {
+          "to": "UserPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserUserPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "User",
+      "name": "userPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Department",
+      "name": "departmentPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Institute",
+      "name": "institutePermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Note",
+      "name": "notePermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "NoteComment",
+      "name": "noteCommentPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "NoteCommentThread",
+      "name": "noteCommentThreadPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "NoteHighlight",
+      "name": "noteHighlightPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Subject",
+      "name": "subjectPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "SubjectInformation",
+      "name": "subjectInformationPermission"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Suggestion",
+      "name": "suggestionPermission"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "DepartmentPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Department",
+          "to_fields": [
+            "id"
+          ],
+          "name": "DepartmentPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "InstitutePermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Institute",
+          "to_fields": [
+            "id"
+          ],
+          "name": "InstitutePermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NoteCommentPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteComment",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NoteCommentThreadPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteCommentThread",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentThreadPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NoteHighlightPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "NoteHighlight",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteHighlightPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NotePermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Note",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NotePermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "SubjectPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Subject",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "SubjectInformationPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "SubjectInformation",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectInformationPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "SuggestionPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Suggestion",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SuggestionPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "UserPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserUserPermissions",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "NotePermissionType",
+      "values": [
+        "READ_NOTE",
+        "UPDATE_NOTE",
+        "DELETE_NOTE",
+        "CREATE_SUGGESTION"
+      ]
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "SubjectPermissionType",
+      "values": [
+        "CREATE_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT",
+        "DELETE_SUBJECT",
+        "CREATE_NOTE"
+      ]
+    }
+  ]
+}

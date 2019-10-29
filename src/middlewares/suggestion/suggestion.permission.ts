@@ -1,4 +1,4 @@
-import { SuggestionPermissionType } from '@generated/photon';
+import { SuggestionPermissionType, User } from '@generated/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils';
 
@@ -35,4 +35,38 @@ export const hasSuggestionPermission = async ({
   } catch (error) {
     return false;
   }
+};
+
+export const addSuggestionPermission = async ({
+  permission,
+  users,
+  suggestionID,
+  context,
+}: {
+  permission: SuggestionPermissionType;
+  users: Array<User>;
+  suggestionID: string;
+  context: Context;
+}) => {
+  users.forEach(async (user) => {
+    await context.photon.suggestionPermissions.create({
+      data: {
+        type: permission,
+        objects: {
+          connect: {
+            id: suggestionID,
+          },
+        },
+        permission: {
+          create: {
+            users: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        },
+      },
+    });
+  });
 };

@@ -5,6 +5,7 @@ import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { hasDepartmentPermission } from './department.permission';
+import { addSubjectPermission } from '../subject/subject.permission';
 
 export const createSubject = async (
   resolve: FieldResolver<'Mutation', 'createSubject'>,
@@ -20,7 +21,48 @@ export const createSubject = async (
       context: context,
     })
   ) {
-    return await resolve(parent, args, context, info);
+    const response = await resolve(parent, args, context, info);
+    const subject = await context.photon.subjects.findOne({
+      include: {
+        teachers: true,
+      },
+      where: {
+        id: await response.id,
+      },
+    });
+
+    addSubjectPermission({
+      permission: 'CREATE_NOTE',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+    addSubjectPermission({
+      permission: 'UPDATE_SUBJECT',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+    addSubjectPermission({
+      permission: 'DELETE_SUBJECT',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+    addSubjectPermission({
+      permission: 'READ_SUBJECT',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+    addSubjectPermission({
+      permission: 'CREATE_SUBJECT_INFORMATION',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+
+    return subject;
   }
 
   throw new ForbiddenError(__('no_permission'));
