@@ -232,7 +232,6 @@ model DepartmentPermission {
 
 enum DepartmentPermissionType {
   UPDATE_DEPARTMENT
-  READ_DEPARTMENT
   DELETE_DEPARTMENT
   CREATE_SUBJECT
 }
@@ -338,7 +337,6 @@ enum SubjectPermissionType {
   CREATE_SUBJECT_INFORMATION
   UPDATE_SUBJECT
   DELETE_SUBJECT
-  READ_SUBJECT
   CREATE_NOTE
 }
 
@@ -352,7 +350,6 @@ model SubjectInformationPermission {
 }
 
 enum SubjectInformationPermissionType {
-  READ_SUBJECT_INFORMATION
   UPDATE_SUBJECT_INFORMATION
   DELETE_SUBJECT_INFORMATION
 }
@@ -368,7 +365,6 @@ model SuggestionPermission {
 
 enum SuggestionPermissionType {
   UPDATE_SUGGESTION
-  READ_SUGGESTION
   DELETE_SUGGESTION
   APPROVE_SUGGESTION
   REJECT_SUGGESTION

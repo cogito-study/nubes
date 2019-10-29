@@ -1,4 +1,4 @@
-import { SubjectPermissionType } from '@generated/photon';
+import { SubjectPermissionType, User } from '@generated/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils';
 
@@ -35,4 +35,38 @@ export const hasSubjectPermission = async ({
   } catch (error) {
     return false;
   }
+};
+
+export const addSubjectPermission = async ({
+  permission,
+  users,
+  subjectID,
+  context,
+}: {
+  permission: SubjectPermissionType;
+  users: Array<User>;
+  subjectID: string;
+  context: Context;
+}) => {
+  users.forEach(async (user) => {
+    await context.photon.subjectPermissions.create({
+      data: {
+        type: permission,
+        objects: {
+          connect: {
+            id: subjectID,
+          },
+        },
+        permission: {
+          create: {
+            users: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        },
+      },
+    });
+  });
 };

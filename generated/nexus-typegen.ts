@@ -67,7 +67,6 @@ export interface NexusGenInputs {
     content: string; // String!
     contentHTML: string; // String!
     description?: string | null; // String
-    name: string; // String!
     noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
     number: number; // Int!
     subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
@@ -210,7 +209,6 @@ export interface NexusGenInputs {
     content?: string | null; // String
     contentHTML?: string | null; // String
     description?: string | null; // String
-    name?: string | null; // String
     noteCategory?: NexusGenEnums['NoteCategoryEnum'] | null; // NoteCategoryEnum
     number?: number | null; // Int
     title?: string | null; // String
@@ -253,16 +251,29 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  DepartmentPermissionTypeEnum: 'CREATE_SUBJECT' | 'DELETE_DEPARTMENT' | 'UPDATE_DEPARTMENT';
+  DepartmentPermissionTypeEnum: 'CREATE_SUBJECT' | 'DELETE_DEPARTMENT' | 'READ_DEPARTMENT' | 'UPDATE_DEPARTMENT';
   InstitutePermissionTypeEnum: 'CREATE_DEPARTMENT' | 'DELETE_INSTITUTE' | 'UPDATE_INSTITUTE';
   NoteCategoryEnum: 'CASE_STUDY' | 'NOTE';
   NoteCommentPermissionTypeEnum: 'DELETE_NOTE_COMMENT' | 'UPDATE_NOTE_COMMENT';
   NoteCommentThreadPermissionTypeEnum: 'DELETE_NOTE_COMMENT_THREAD';
   NoteHighlightPermissionTypeEnum: 'DELETE_NOTE_HIGHLIGHT' | 'UPDATE_NOTE_HIGHLIGHT';
-  NotePermissionTypeEnum: 'CREATE_SUGGESTION' | 'DELETE_NOTE' | 'UPDATE_NOTE';
-  SubjectInformationPermissionTypeEnum: 'DELETE_SUBJECT_INFORMATION' | 'UPDATE_SUBJECT_INFORMATION';
-  SubjectPermissionTypeEnum: 'CREATE_NOTE' | 'DELETE_SUBJECT' | 'UPDATE_SUBJECT';
-  SuggestionPermissionTypeEnum: 'APPROVE_SUGGESTION' | 'DELETE_SUGGESTION' | 'REJECT_SUGGESTION' | 'UPDATE_SUGGESTION';
+  NotePermissionTypeEnum: 'CREATE_SUGGESTION' | 'DELETE_NOTE' | 'READ_NOTE' | 'UPDATE_NOTE';
+  SubjectInformationPermissionTypeEnum:
+    | 'DELETE_SUBJECT_INFORMATION'
+    | 'READ_SUBJECT_INFORMATION'
+    | 'UPDATE_SUBJECT_INFORMATION';
+  SubjectPermissionTypeEnum:
+    | 'CREATE_NOTE'
+    | 'CREATE_SUBJECT_INFORMATION'
+    | 'DELETE_SUBJECT'
+    | 'READ_SUBJECT'
+    | 'UPDATE_SUBJECT';
+  SuggestionPermissionTypeEnum:
+    | 'APPROVE_SUGGESTION'
+    | 'DELETE_SUGGESTION'
+    | 'READ_SUGGESTION'
+    | 'REJECT_SUGGESTION'
+    | 'UPDATE_SUGGESTION';
   UserPermissionTypeEnum: 'DELETE_USER' | 'UPDATE_USER';
   UserRoleTypeEnum: 'ADMIN' | 'PROFESSOR' | 'USER';
 }

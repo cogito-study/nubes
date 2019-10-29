@@ -69,7 +69,6 @@ input CreateNoteInput {
   content: String!
   contentHTML: String!
   description: String
-  name: String!
   noteCategory: NoteCategoryEnum!
   number: Int!
   subject: ConnectRelation!
@@ -126,6 +125,7 @@ type DepartmentPermission {
 enum DepartmentPermissionTypeEnum {
   CREATE_SUBJECT
   DELETE_DEPARTMENT
+  READ_DEPARTMENT
   UPDATE_DEPARTMENT
 }
 
@@ -350,6 +350,7 @@ type NotePermission {
 enum NotePermissionTypeEnum {
   CREATE_SUGGESTION
   DELETE_NOTE
+  READ_NOTE
   UPDATE_NOTE
 }
 
@@ -485,6 +486,7 @@ type SubjectInformationPermission {
 
 enum SubjectInformationPermissionTypeEnum {
   DELETE_SUBJECT_INFORMATION
+  READ_SUBJECT_INFORMATION
   UPDATE_SUBJECT_INFORMATION
 }
 
@@ -503,7 +505,9 @@ type SubjectPermission {
 
 enum SubjectPermissionTypeEnum {
   CREATE_NOTE
+  CREATE_SUBJECT_INFORMATION
   DELETE_SUBJECT
+  READ_SUBJECT
   UPDATE_SUBJECT
 }
 
@@ -546,6 +550,7 @@ type SuggestionPermission {
 enum SuggestionPermissionTypeEnum {
   APPROVE_SUGGESTION
   DELETE_SUGGESTION
+  READ_SUGGESTION
   REJECT_SUGGESTION
   UPDATE_SUGGESTION
 }
@@ -581,7 +586,6 @@ input UpdateNoteInput {
   content: String
   contentHTML: String
   description: String
-  name: String
   noteCategory: NoteCategoryEnum
   number: Int
   title: String

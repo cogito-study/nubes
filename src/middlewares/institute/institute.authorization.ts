@@ -6,6 +6,7 @@ import { hasInstitutePermission } from './institute.permission';
 import { ForbiddenError } from 'apollo-server';
 import { __ } from 'i18n';
 import { getUserID } from '../../utils';
+import { addDepartmentPermission } from '../department/department.permission';
 
 export const createDepartment = async (
   resolve: FieldResolver<'Mutation', 'createDepartment'>,
@@ -21,7 +22,42 @@ export const createDepartment = async (
       context: context,
     })
   ) {
-    return await resolve(parent, args, context, info);
+    const response = await resolve(parent, args, context, info);
+    const department = await context.photon.departments.findOne({
+      include: {
+        leader: true,
+      },
+      where: {
+        id: await response.id,
+      },
+    });
+    addDepartmentPermission({
+      permission: 'CREATE_SUBJECT',
+      users: [department.leader],
+      departmentID: department.id,
+      context,
+    });
+    addDepartmentPermission({
+      permission: 'UPDATE_DEPARTMENT',
+      users: [department.leader],
+      departmentID: department.id,
+      context,
+    });
+    addDepartmentPermission({
+      permission: 'DELETE_DEPARTMENT',
+      users: [department.leader],
+      departmentID: department.id,
+      context,
+    });
+
+    addDepartmentPermission({
+      permission: 'READ_DEPARTMENT',
+      users: [department.leader],
+      departmentID: department.id,
+      context,
+    });
+
+    return department;
   }
 
   throw new ForbiddenError(__('no_permission'));
