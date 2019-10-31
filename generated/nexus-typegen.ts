@@ -678,6 +678,7 @@ export interface NexusGenFieldTypes {
     likers: NexusGenRootTypes['User'][] | null; // [User!]
     likesCount: number; // Int!
     note: NexusGenRootTypes['Note']; // Note!
+    rejectedAt: any | null; // DateTime
     updatedAt: any; // DateTime!
   };
   SuggestionPermission: {

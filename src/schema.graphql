@@ -535,6 +535,7 @@ type Suggestion {
   """Number of likes on the suggestion"""
   likesCount: Int!
   note: Note!
+  rejectedAt: DateTime
   updatedAt: DateTime!
 }
 
