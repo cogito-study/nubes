@@ -99,9 +99,8 @@ async function main() {
       },
     });
     const students = [];
-    students.push({ id: user.id });
     for (let index = 0; index < 100; index++) {
-      const user = await photon.users.create({
+      const newUser = await photon.users.create({
         data: {
           email: faker.internet.email(),
           firstName: faker.name.firstName(),
@@ -113,9 +112,9 @@ async function main() {
           institutes: { connect: { id: university.id } },
         },
       });
-      students.push({ id: user.id });
+      students.push({ id: newUser.id });
     }
-    for (let indexOfDepartment = 0; indexOfDepartment < 10; indexOfDepartment++) {
+    for (let indexOfDepartment = 0; indexOfDepartment < 5; indexOfDepartment++) {
       const department = await photon.departments.create({
         data: {
           name: faker.name.jobArea(),
@@ -141,7 +140,13 @@ async function main() {
           },
         },
       });
-      for (let indexOfSubject = 0; indexOfSubject < 10; indexOfSubject++) {
+      let connectedStudents = [];
+      if (indexOfDepartment == 0 && indexOfUniversity == 0) {
+        connectedStudents = [...students, { id: user.id }];
+      } else {
+        connectedStudents = [...students];
+      }
+      for (let indexOfSubject = 0; indexOfSubject < 5; indexOfSubject++) {
         const subject = await photon.subjects.create({
           data: {
             name: faker.random.words(2),
@@ -150,7 +155,7 @@ async function main() {
             department: { connect: { id: department.id } },
             teachers: { connect: { id: professor.id } },
             students: {
-              connect: [...students],
+              connect: [...connectedStudents],
             },
             language: {
               connect: { id: hungarian.id },
@@ -160,8 +165,8 @@ async function main() {
         for (let indexOfNote = 0; indexOfNote < 10; indexOfNote++) {
           let note = await photon.notes.create({
             data: {
-              title: faker.random.words(2),
-              number: faker.random.number(),
+              title: faker.random.words(3),
+              number: faker.random.number(100),
               description: faker.random.words(13),
               subject: { connect: { id: subject.id } },
               noteCategory: 'NOTE',
