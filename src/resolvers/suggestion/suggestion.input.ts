@@ -16,3 +16,10 @@ export const UpdateSuggestionInput = inputObjectType({
     t.string('delta');
   },
 });
+
+export const SuggestionsInput = inputObjectType({
+  name: 'SuggestionsInput',
+  definition(t) {
+    t.id('noteID');
+  },
+});

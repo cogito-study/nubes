@@ -186,6 +186,10 @@ export interface NexusGenInputs {
     // input type
     id?: string | null; // ID
   };
+  SuggestionsInput: {
+    // input type
+    noteID?: string | null; // ID
+  };
   UpdateDepartmentInput: {
     // input type
     description?: string | null; // String
@@ -356,6 +360,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectInformationWhereUniqueInput: NexusGenInputs['SubjectInformationWhereUniqueInput'];
   SubjectWhereUniqueInput: NexusGenInputs['SubjectWhereUniqueInput'];
   SuggestionWhereUniqueInput: NexusGenInputs['SuggestionWhereUniqueInput'];
+  SuggestionsInput: NexusGenInputs['SuggestionsInput'];
   UpdateDepartmentInput: NexusGenInputs['UpdateDepartmentInput'];
   UpdateInstituteInput: NexusGenInputs['UpdateInstituteInput'];
   UpdateNoteCommentInput: NexusGenInputs['UpdateNoteCommentInput'];
@@ -594,6 +599,7 @@ export interface NexusGenFieldTypes {
   };
   Query: {
     // field return type
+    activeSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     department: NexusGenRootTypes['Department'] | null; // Department
     institute: NexusGenRootTypes['Institute'] | null; // Institute
     institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
@@ -672,9 +678,11 @@ export interface NexusGenFieldTypes {
     approvedAt: any | null; // DateTime
     approvedBy: NexusGenRootTypes['User'] | null; // User
     author: NexusGenRootTypes['User']; // User!
+    createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     delta: string; // String!
     id: string; // ID!
+    isActive: boolean; // Boolean!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
     likesCount: number; // Int!
     note: NexusGenRootTypes['Note']; // Note!
@@ -1042,6 +1050,10 @@ export interface NexusGenArgTypes {
     };
   };
   Query: {
+    activeSuggestions: {
+      // args
+      where: NexusGenInputs['SuggestionsInput']; // SuggestionsInput!
+    };
     department: {
       // args
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
@@ -1371,6 +1383,7 @@ export type NexusGenInputNames =
   | 'SubjectInformationWhereUniqueInput'
   | 'SubjectWhereUniqueInput'
   | 'SuggestionWhereUniqueInput'
+  | 'SuggestionsInput'
   | 'UpdateDepartmentInput'
   | 'UpdateInstituteInput'
   | 'UpdateNoteCommentInput'
