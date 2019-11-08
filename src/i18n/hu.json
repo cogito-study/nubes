@@ -6,5 +6,6 @@
     "one": "Kérlek várj egy percet",
     "other": "Kérlek várj %s percet"
   },
-  "unauthenticated": "Jelentkezz be!"
+  "unauthenticated": "Jelentkezz be!",
+  "full_name": "{{lastName}} {{firstName}}"
 }

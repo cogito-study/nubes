@@ -1,4 +1,5 @@
 import { objectType } from 'nexus';
+import { __ } from 'i18n';
 
 export const User = objectType({
   name: 'User',
@@ -11,7 +12,12 @@ export const User = objectType({
     t.model.profilePictureURL();
     t.model.phoneNumber();
     t.model.identifier();
-
+    t.field('fullName', {
+      type: 'String',
+      resolve: async ({ firstName, lastName }) => {
+        return __('full_name', { firstName, lastName });
+      },
+    });
     t.model.role({ type: 'UserRole' });
     t.model.notes({ type: 'Note' });
     t.model.noteHighlights({ type: 'NoteHighlight' });

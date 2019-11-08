@@ -625,6 +625,7 @@ type User {
   departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
   email: String!
   firstName: String!
+  fullName: String!
   id: ID!
   identifier: String!
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]

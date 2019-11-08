@@ -699,6 +699,7 @@ export interface NexusGenFieldTypes {
     departments: NexusGenRootTypes['Department'][] | null; // [Department!]
     email: string; // String!
     firstName: string; // String!
+    fullName: string; // String!
     id: string; // ID!
     identifier: string; // String!
     institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
@@ -1427,4 +1428,10 @@ export interface NexusGenTypes {
   allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes'];
   abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
   abstractResolveReturn: NexusGenAbstractResolveReturnTypes;
+}
+
+declare global {
+  interface NexusGenPluginTypeConfig<TypeName extends string> {}
+  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {}
+  interface NexusGenPluginSchemaConfig {}
 }
