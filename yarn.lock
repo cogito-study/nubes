@@ -4016,15 +4016,7 @@ nexus-prisma@0.5.2:
     nexus "^0.12.0-rc.4"
     pluralize "^8.0.0"
 
-nexus@0.12.0-rc:
-  version "0.12.0-rc"
-  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.12.0-rc.tgz#8fe41a6d90ceee3378a9e38e74c47427f6295039"
-  integrity sha512-Ytycgt/5t5eqYUDUvRzS0UBgulv94ckxy2yEu5FMpNBN8kDNuPxMP6heUA+zWKrFnqykobqqvOW8FoJfalVKtA==
-  dependencies:
-    iterall "^1.2.2"
-    tslib "^1.9.3"
-
-nexus@^0.12.0-rc.4:
+nexus@0.12.0-rc.4, nexus@^0.12.0-rc.4:
   version "0.12.0-rc.4"
   resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.12.0-rc.4.tgz#ba9308d050aaadd1e9495194d724b495668cfd29"
   integrity sha512-8y8oeZjmIPHQO/pVKIHPFXyVg7NqDh61xH8Ccw42inezN6Q4Lx4K7hBLfTBXOFBtnUXeYRIWjqS3qylS6hLIWg==
