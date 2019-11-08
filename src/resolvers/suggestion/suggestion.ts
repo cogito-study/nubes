@@ -4,6 +4,7 @@ export const Suggestion = objectType({
   name: 'Suggestion',
   definition(t) {
     t.model.id();
+    t.model.createdAt();
     t.model.approvedAt();
     t.model.rejectedAt();
     t.model.delta();
@@ -19,6 +20,13 @@ export const Suggestion = objectType({
       resolve: async ({ id }, args, context) => {
         const likers = await context.photon.suggestions.findOne({ where: { id } }).likers();
         return likers.length;
+      },
+    });
+
+    t.field('isActive', {
+      type: 'Boolean',
+      resolve: async ({ approvedAt, deletedAt, rejectedAt }) => {
+        return rejectedAt === null && approvedAt === null && deletedAt === null;
       },
     });
 

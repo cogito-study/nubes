@@ -396,6 +396,7 @@ type Permission {
 }
 
 type Query {
+  activeSuggestions(where: SuggestionsInput!): [Suggestion!]!
   department(where: DepartmentWhereUniqueInput!): Department
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
@@ -527,9 +528,11 @@ type Suggestion {
   approvedAt: DateTime
   approvedBy: User
   author: User!
+  createdAt: DateTime!
   deletedAt: DateTime
   delta: String!
   id: ID!
+  isActive: Boolean!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
 
   """Number of likes on the suggestion"""
@@ -554,6 +557,10 @@ enum SuggestionPermissionTypeEnum {
   READ_SUGGESTION
   REJECT_SUGGESTION
   UPDATE_SUGGESTION
+}
+
+input SuggestionsInput {
+  noteID: ID
 }
 
 input SuggestionWhereUniqueInput {
