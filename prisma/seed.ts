@@ -1,5 +1,8 @@
 import { Photon } from '@generated/photon';
+import { config } from 'dotenv';
 import * as faker from 'faker';
+import { resolve } from 'path';
+config({ path: resolve(__dirname, '../.env') });
 // TODO: Refactor when prisma2 supports seed
 const photon = new Photon();
 
@@ -162,6 +165,15 @@ async function main() {
             },
           },
         });
+        for (let indexOfSubjectInformation = 0; indexOfSubjectInformation < 3; indexOfSubjectInformation++) {
+          let subjectInformation = await photon.subjectInformations.create({
+            data: {
+              title: faker.random.words(3),
+              content: faker.random.words(40),
+              subject: { connect: { id: subject.id } },
+            },
+          });
+        }
         for (let indexOfNote = 0; indexOfNote < 10; indexOfNote++) {
           let note = await photon.notes.create({
             data: {
