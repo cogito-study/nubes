@@ -6,5 +6,6 @@
     "one": "Please wait 1 minute",
     "other": "Please wait %s minutes"
   },
-  "unauthenticated": "You need to login!"
+  "unauthenticated": "You need to login!",
+  "full_name": "{{firstName}} {{lastName}}"
 }
