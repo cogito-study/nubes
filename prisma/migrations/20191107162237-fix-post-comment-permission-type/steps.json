@@ -1,0 +1,13 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "PostCommentPermission",
+      "name": "type",
+      "type": {
+        "Enum": "PostCommentPermissionType"
+      }
+    }
+  ]
+}

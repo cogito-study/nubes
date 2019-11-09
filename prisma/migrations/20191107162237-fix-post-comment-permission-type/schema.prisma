@@ -188,7 +188,7 @@ model User {
   noteComments        NoteComment[]       @relation(name: "NoteCommentAuthor")
   postComments        PostComment[]       @relation(name: "PostCommentAuthor")
   likedNoteComments   NoteComment[]       @relation(name: "NoteCommentLikers")
-  likedPostComments   PostComment[]       @relation(name: "CommentLikers")
+  likedComments       PostComment[]       @relation(name: "CommentLikers")
   likedPosts          Post[]              @relation(name: "PostLikers")
   posts               Post[]              @relation(name: "PostAuthor")
   likedSuggestions    Suggestion[]        @relation(name: "SuggestionLikers")
