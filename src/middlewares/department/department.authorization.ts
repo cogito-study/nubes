@@ -38,6 +38,12 @@ export const createSubject = async (
       context,
     });
     addSubjectPermission({
+      permission: 'CREATE_POST',
+      users: subject.teachers,
+      subjectID: subject.id,
+      context,
+    });
+    addSubjectPermission({
       permission: 'UPDATE_SUBJECT',
       users: subject.teachers,
       subjectID: subject.id,

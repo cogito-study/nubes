@@ -72,6 +72,17 @@ export interface NexusGenInputs {
     subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     title: string; // String!
   };
+  CreatePostCommentInput: {
+    // input type
+    content: string; // String!
+    name: string; // String!
+    post: NexusGenInputs['ConnectRelation']; // ConnectRelation!
+  };
+  CreatePostInput: {
+    // input type
+    content: string; // String!
+    subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
+  };
   CreateSubjectInformationInput: {
     // input type
     content: string; // String!
@@ -143,6 +154,10 @@ export interface NexusGenInputs {
     not?: string | null; // String
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
+  };
+  PostCommentWhereUniqueInput: {
+    // input type
+    id?: string | null; // ID
   };
   QueryFindManyUserWhereInput: {
     // input type
@@ -217,6 +232,14 @@ export interface NexusGenInputs {
     number?: number | null; // Int
     title?: string | null; // String
   };
+  UpdatePostCommentInput: {
+    // input type
+    content?: string | null; // String
+  };
+  UpdatePostInput: {
+    // input type
+    content?: string | null; // String
+  };
   UpdateSubjectInformationInput: {
     // input type
     content?: string | null; // String
@@ -262,12 +285,15 @@ export interface NexusGenEnums {
   NoteCommentThreadPermissionTypeEnum: 'DELETE_NOTE_COMMENT_THREAD';
   NoteHighlightPermissionTypeEnum: 'DELETE_NOTE_HIGHLIGHT' | 'UPDATE_NOTE_HIGHLIGHT';
   NotePermissionTypeEnum: 'CREATE_SUGGESTION' | 'DELETE_NOTE' | 'READ_NOTE' | 'UPDATE_NOTE';
+  PostCommentPermissionTypeEnum: 'DELETE_POSTCOMMENT' | 'READ_POSTCOMMENT' | 'UPDATE_POSTCOMMENT';
+  PostPermissionTypeEnum: 'CREATE_POSTCOMMENT' | 'DELETE_POST' | 'READ_POST' | 'UPDATE_POST';
   SubjectInformationPermissionTypeEnum:
     | 'DELETE_SUBJECT_INFORMATION'
     | 'READ_SUBJECT_INFORMATION'
     | 'UPDATE_SUBJECT_INFORMATION';
   SubjectPermissionTypeEnum:
     | 'CREATE_NOTE'
+    | 'CREATE_POST'
     | 'CREATE_SUBJECT_INFORMATION'
     | 'DELETE_SUBJECT'
     | 'READ_SUBJECT'
@@ -305,6 +331,10 @@ export interface NexusGenRootTypes {
   NotePermission: photon.NotePermission;
   PasswordToken: photon.PasswordToken;
   Permission: photon.Permission;
+  Post: photon.Post;
+  PostComment: photon.PostComment;
+  PostCommentPermission: photon.PostCommentPermission;
+  PostPermission: photon.PostPermission;
   Query: {};
   ResetPasswordToken: photon.ResetPasswordToken;
   Subject: photon.Subject;
@@ -341,6 +371,8 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   CreateNoteCommentThreadInput: NexusGenInputs['CreateNoteCommentThreadInput'];
   CreateNoteHighlightInput: NexusGenInputs['CreateNoteHighlightInput'];
   CreateNoteInput: NexusGenInputs['CreateNoteInput'];
+  CreatePostCommentInput: NexusGenInputs['CreatePostCommentInput'];
+  CreatePostInput: NexusGenInputs['CreatePostInput'];
   CreateSubjectInformationInput: NexusGenInputs['CreateSubjectInformationInput'];
   CreateSubjectInput: NexusGenInputs['CreateSubjectInput'];
   CreateSuggestionInput: NexusGenInputs['CreateSuggestionInput'];
@@ -354,6 +386,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteHighlightWhereUniqueInput: NexusGenInputs['NoteHighlightWhereUniqueInput'];
   NoteWhereUniqueInput: NexusGenInputs['NoteWhereUniqueInput'];
   NullableStringFilter: NexusGenInputs['NullableStringFilter'];
+  PostCommentWhereUniqueInput: NexusGenInputs['PostCommentWhereUniqueInput'];
   QueryFindManyUserWhereInput: NexusGenInputs['QueryFindManyUserWhereInput'];
   ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   StringFilter: NexusGenInputs['StringFilter'];
@@ -366,6 +399,8 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateNoteCommentInput: NexusGenInputs['UpdateNoteCommentInput'];
   UpdateNoteHighlightInput: NexusGenInputs['UpdateNoteHighlightInput'];
   UpdateNoteInput: NexusGenInputs['UpdateNoteInput'];
+  UpdatePostCommentInput: NexusGenInputs['UpdatePostCommentInput'];
+  UpdatePostInput: NexusGenInputs['UpdatePostInput'];
   UpdateSubjectInformationInput: NexusGenInputs['UpdateSubjectInformationInput'];
   UpdateSubjectInput: NexusGenInputs['UpdateSubjectInput'];
   UpdateSuggestionInput: NexusGenInputs['UpdateSuggestionInput'];
@@ -380,6 +415,8 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteCommentThreadPermissionTypeEnum: NexusGenEnums['NoteCommentThreadPermissionTypeEnum'];
   NoteHighlightPermissionTypeEnum: NexusGenEnums['NoteHighlightPermissionTypeEnum'];
   NotePermissionTypeEnum: NexusGenEnums['NotePermissionTypeEnum'];
+  PostCommentPermissionTypeEnum: NexusGenEnums['PostCommentPermissionTypeEnum'];
+  PostPermissionTypeEnum: NexusGenEnums['PostPermissionTypeEnum'];
   SubjectInformationPermissionTypeEnum: NexusGenEnums['SubjectInformationPermissionTypeEnum'];
   SubjectPermissionTypeEnum: NexusGenEnums['SubjectPermissionTypeEnum'];
   SuggestionPermissionTypeEnum: NexusGenEnums['SuggestionPermissionTypeEnum'];
@@ -456,6 +493,8 @@ export interface NexusGenFieldTypes {
     createNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     createNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
     createNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
+    createPost: NexusGenRootTypes['Post']; // Post!
+    createPostComment: NexusGenRootTypes['PostComment']; // PostComment!
     createSubject: NexusGenRootTypes['Subject']; // Subject!
     createSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     createSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
@@ -465,11 +504,15 @@ export interface NexusGenFieldTypes {
     deleteNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     deleteNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
     deleteNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
+    deletePost: NexusGenRootTypes['Post']; // Post!
+    deletePostComment: NexusGenRootTypes['PostComment']; // PostComment!
     deleteSubject: NexusGenRootTypes['Subject']; // Subject!
     deleteSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     deleteSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     deleteUser: NexusGenRootTypes['User']; // User!
+    dislikePost: NexusGenRootTypes['Post']; // Post!
     forgotPassword: string; // String!
+    likePost: NexusGenRootTypes['Post']; // Post!
     login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
@@ -478,6 +521,8 @@ export interface NexusGenFieldTypes {
     updateNote: NexusGenRootTypes['Note']; // Note!
     updateNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     updateNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
+    updatePost: NexusGenRootTypes['Post']; // Post!
+    updatePostComment: NexusGenRootTypes['PostComment']; // PostComment!
     updateSubject: NexusGenRootTypes['Subject']; // Subject!
     updateSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     updateSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
@@ -597,6 +642,49 @@ export interface NexusGenFieldTypes {
     suggestionPermission: NexusGenRootTypes['SuggestionPermission'] | null; // SuggestionPermission
     userPermission: NexusGenRootTypes['UserPermission'] | null; // UserPermission
   };
+  Post: {
+    // field return type
+    author: NexusGenRootTypes['User']; // User!
+    comments: NexusGenRootTypes['PostComment'][] | null; // [PostComment!]
+    content: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
+    subject: NexusGenRootTypes['Subject']; // Subject!
+    updatedAt: any; // DateTime!
+  };
+  PostComment: {
+    // field return type
+    author: NexusGenRootTypes['User']; // User!
+    content: string; // String!
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    likers: NexusGenRootTypes['User'][] | null; // [User!]
+    likesCount: number; // Int!
+    post: NexusGenRootTypes['Post']; // Post!
+    updatedAt: any; // DateTime!
+  };
+  PostCommentPermission: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    objects: NexusGenRootTypes['PostComment'][] | null; // [PostComment!]
+    type: NexusGenEnums['PostCommentPermissionTypeEnum']; // PostCommentPermissionTypeEnum!
+    updatedAt: any; // DateTime!
+  };
+  PostPermission: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    objects: NexusGenRootTypes['Post'][] | null; // [Post!]
+    type: NexusGenEnums['PostPermissionTypeEnum']; // PostPermissionTypeEnum!
+    updatedAt: any; // DateTime!
+  };
   Query: {
     // field return type
     activeSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
@@ -610,6 +698,8 @@ export interface NexusGenFieldTypes {
     noteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
     noteCommentThread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     noteHighlight: NexusGenRootTypes['NoteHighlight'] | null; // NoteHighlight
+    postComment: NexusGenRootTypes['PostComment'] | null; // PostComment
+    posts: NexusGenRootTypes['Post'][]; // [Post!]!
     subject: NexusGenRootTypes['Subject'] | null; // Subject
     subjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
     suggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
@@ -633,6 +723,7 @@ export interface NexusGenFieldTypes {
     informations: NexusGenRootTypes['SubjectInformation'][] | null; // [SubjectInformation!]
     name: string; // String!
     notes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    posts: NexusGenRootTypes['Post'][] | null; // [Post!]
     students: NexusGenRootTypes['User'][] | null; // [User!]
     teachers: NexusGenRootTypes['User'][] | null; // [User!]
     updatedAt: any; // DateTime!
@@ -701,7 +792,6 @@ export interface NexusGenFieldTypes {
   User: {
     // field return type
     approvedSuggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
-    comments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     departments: NexusGenRootTypes['Department'][] | null; // [Department!]
@@ -712,8 +802,9 @@ export interface NexusGenFieldTypes {
     identifier: string; // String!
     institutes: NexusGenRootTypes['Institute'][] | null; // [Institute!]
     lastName: string; // String!
-    likedComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     likedNotes: NexusGenRootTypes['Note'][] | null; // [Note!]
+    likedPostComments: NexusGenRootTypes['PostComment'][] | null; // [PostComment!]
+    noteComments: NexusGenRootTypes['NoteComment'][] | null; // [NoteComment!]
     noteHighlights: NexusGenRootTypes['NoteHighlight'][] | null; // [NoteHighlight!]
     notes: NexusGenRootTypes['Note'][] | null; // [Note!]
     password: string; // String!
@@ -829,6 +920,14 @@ export interface NexusGenArgTypes {
       // args
       data: NexusGenInputs['CreateNoteHighlightInput']; // CreateNoteHighlightInput!
     };
+    createPost: {
+      // args
+      data: NexusGenInputs['CreatePostInput']; // CreatePostInput!
+    };
+    createPostComment: {
+      // args
+      data: NexusGenInputs['CreatePostCommentInput']; // CreatePostCommentInput!
+    };
     createSubject: {
       // args
       data: NexusGenInputs['CreateSubjectInput']; // CreateSubjectInput!
@@ -865,6 +964,14 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    deletePost: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    deletePostComment: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     deleteSubject: {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
@@ -881,9 +988,17 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    dislikePost: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     forgotPassword: {
       // args
       data: NexusGenInputs['ForgotPasswordInput']; // ForgotPasswordInput!
+    };
+    likePost: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
     login: {
       // args
@@ -920,6 +1035,16 @@ export interface NexusGenArgTypes {
     updateNoteHighlight: {
       // args
       data: NexusGenInputs['UpdateNoteHighlightInput']; // UpdateNoteHighlightInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    updatePost: {
+      // args
+      data: NexusGenInputs['UpdatePostInput']; // UpdatePostInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    updatePostComment: {
+      // args
+      data: NexusGenInputs['UpdatePostCommentInput']; // UpdatePostCommentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
     updateSubject: {
@@ -1049,6 +1174,54 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
   };
+  Post: {
+    comments: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    likers: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
+  PostComment: {
+    likers: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
+  PostCommentPermission: {
+    objects: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
+  PostPermission: {
+    objects: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
   Query: {
     activeSuggestions: {
       // args
@@ -1098,6 +1271,10 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
     };
+    postComment: {
+      // args
+      where: NexusGenInputs['PostCommentWhereUniqueInput']; // PostCommentWhereUniqueInput!
+    };
     subject: {
       // args
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
@@ -1134,6 +1311,14 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
     notes: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    posts: {
       // args
       after?: string | null; // String
       before?: string | null; // String
@@ -1225,14 +1410,6 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
-    comments: {
-      // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    };
     departments: {
       // args
       after?: string | null; // String
@@ -1249,7 +1426,7 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
-    likedComments: {
+    likedNotes: {
       // args
       after?: string | null; // String
       before?: string | null; // String
@@ -1257,7 +1434,15 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
-    likedNotes: {
+    likedPostComments: {
+      // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    noteComments: {
       // args
       after?: string | null; // String
       before?: string | null; // String
@@ -1341,6 +1526,10 @@ export type NexusGenObjectNames =
   | 'NotePermission'
   | 'PasswordToken'
   | 'Permission'
+  | 'Post'
+  | 'PostComment'
+  | 'PostCommentPermission'
+  | 'PostPermission'
   | 'Query'
   | 'ResetPasswordToken'
   | 'Subject'
@@ -1364,6 +1553,8 @@ export type NexusGenInputNames =
   | 'CreateNoteCommentThreadInput'
   | 'CreateNoteHighlightInput'
   | 'CreateNoteInput'
+  | 'CreatePostCommentInput'
+  | 'CreatePostInput'
   | 'CreateSubjectInformationInput'
   | 'CreateSubjectInput'
   | 'CreateSuggestionInput'
@@ -1377,6 +1568,7 @@ export type NexusGenInputNames =
   | 'NoteHighlightWhereUniqueInput'
   | 'NoteWhereUniqueInput'
   | 'NullableStringFilter'
+  | 'PostCommentWhereUniqueInput'
   | 'QueryFindManyUserWhereInput'
   | 'ResetPasswordInput'
   | 'StringFilter'
@@ -1389,6 +1581,8 @@ export type NexusGenInputNames =
   | 'UpdateNoteCommentInput'
   | 'UpdateNoteHighlightInput'
   | 'UpdateNoteInput'
+  | 'UpdatePostCommentInput'
+  | 'UpdatePostInput'
   | 'UpdateSubjectInformationInput'
   | 'UpdateSubjectInput'
   | 'UpdateSuggestionInput'
@@ -1405,6 +1599,8 @@ export type NexusGenEnumNames =
   | 'NoteCommentThreadPermissionTypeEnum'
   | 'NoteHighlightPermissionTypeEnum'
   | 'NotePermissionTypeEnum'
+  | 'PostCommentPermissionTypeEnum'
+  | 'PostPermissionTypeEnum'
   | 'SubjectInformationPermissionTypeEnum'
   | 'SubjectPermissionTypeEnum'
   | 'SuggestionPermissionTypeEnum'

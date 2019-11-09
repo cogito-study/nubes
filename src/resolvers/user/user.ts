@@ -26,8 +26,8 @@ export const User = objectType({
     t.model.teachedSubjects({ type: 'Subject' });
     t.model.studiedSubjects({ type: 'Subject' });
     t.model.likedNotes({ type: 'Note' });
-    t.model.comments({ type: 'NoteComment' });
-    t.model.likedComments({ type: 'NoteComment' });
+    t.model.noteComments({ type: 'NoteComment' });
+    t.model.likedPostComments({ type: 'PostComment' });
     t.model.passwordToken({ type: 'PasswordToken' });
     t.model.departments({ type: 'Department' });
     t.model.institutes({ type: 'Institute' });

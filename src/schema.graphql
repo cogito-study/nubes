@@ -75,6 +75,19 @@ input CreateNoteInput {
   title: String!
 }
 
+"""Input of create post comment"""
+input CreatePostCommentInput {
+  content: String!
+  name: String!
+  post: ConnectRelation!
+}
+
+"""Input of create post"""
+input CreatePostInput {
+  content: String!
+  subject: ConnectRelation!
+}
+
 """Input of create subject information"""
 input CreateSubjectInformationInput {
   content: String!
@@ -193,6 +206,8 @@ type Mutation {
   createNoteComment(data: CreateNoteCommentInput!): NoteComment!
   createNoteCommentThread(data: CreateNoteCommentThreadInput!): NoteCommentThread!
   createNoteHighlight(data: CreateNoteHighlightInput!): NoteHighlight!
+  createPost(data: CreatePostInput!): Post!
+  createPostComment(data: CreatePostCommentInput!): PostComment!
   createSubject(data: CreateSubjectInput!): Subject!
   createSubjectInformation(data: CreateSubjectInformationInput!): SubjectInformation!
   createSuggestion(data: CreateSuggestionInput!): Suggestion!
@@ -202,11 +217,15 @@ type Mutation {
   deleteNoteComment(where: WhereUniqueInput!): NoteComment!
   deleteNoteCommentThread(where: WhereUniqueInput!): NoteCommentThread!
   deleteNoteHighlight(where: WhereUniqueInput!): NoteHighlight!
+  deletePost(where: WhereUniqueInput!): Post!
+  deletePostComment(where: WhereUniqueInput!): PostComment!
   deleteSubject(where: WhereUniqueInput!): Subject!
   deleteSubjectInformation(where: WhereUniqueInput!): SubjectInformation!
   deleteSuggestion(where: WhereUniqueInput!): Suggestion!
   deleteUser(where: WhereUniqueInput!): User!
+  dislikePost(where: WhereUniqueInput!): Post!
   forgotPassword(data: ForgotPasswordInput!): String!
+  likePost(where: WhereUniqueInput!): Post!
   login(data: UserLoginInput!): AuthenticationPayload!
   rejectSuggestion(where: WhereUniqueInput!): Suggestion!
   resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
@@ -215,6 +234,8 @@ type Mutation {
   updateNote(data: UpdateNoteInput!, where: WhereUniqueInput!): Note!
   updateNoteComment(data: UpdateNoteCommentInput!, where: WhereUniqueInput!): NoteComment!
   updateNoteHighlight(data: UpdateNoteHighlightInput!, where: WhereUniqueInput!): NoteHighlight!
+  updatePost(data: UpdatePostInput!, where: WhereUniqueInput!): Post!
+  updatePostComment(data: UpdatePostCommentInput!, where: WhereUniqueInput!): PostComment!
   updateSubject(data: UpdateSubjectInput!, where: WhereUniqueInput!): Subject!
   updateSubjectInformation(data: UpdateSubjectInformationInput!, where: WhereUniqueInput!): SubjectInformation!
   updateSuggestion(data: UpdateSuggestionInput!, where: WhereUniqueInput!): Suggestion!
@@ -395,6 +416,70 @@ type Permission {
   userPermission: UserPermission
 }
 
+type Post {
+  author: User!
+  comments(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
+  content: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the post"""
+  likesCount: Int!
+  subject: Subject!
+  updatedAt: DateTime!
+}
+
+type PostComment {
+  author: User!
+  content: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+
+  """Number of likes on the postComment"""
+  likesCount: Int!
+  post: Post!
+  updatedAt: DateTime!
+}
+
+type PostCommentPermission {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  objects(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
+  type: PostCommentPermissionTypeEnum!
+  updatedAt: DateTime!
+}
+
+enum PostCommentPermissionTypeEnum {
+  DELETE_POSTCOMMENT
+  READ_POSTCOMMENT
+  UPDATE_POSTCOMMENT
+}
+
+input PostCommentWhereUniqueInput {
+  id: ID
+}
+
+type PostPermission {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Post!]
+  type: PostPermissionTypeEnum!
+  updatedAt: DateTime!
+}
+
+enum PostPermissionTypeEnum {
+  CREATE_POSTCOMMENT
+  DELETE_POST
+  READ_POST
+  UPDATE_POST
+}
+
 type Query {
   activeSuggestions(where: SuggestionsInput!): [Suggestion!]!
   department(where: DepartmentWhereUniqueInput!): Department
@@ -407,6 +492,8 @@ type Query {
   noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
   noteCommentThread(where: NoteCommentThreadWhereUniqueInput!): NoteCommentThread
   noteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
+  postComment(where: PostCommentWhereUniqueInput!): PostComment
+  posts: [Post!]!
   subject(where: SubjectWhereUniqueInput!): Subject
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
@@ -460,6 +547,7 @@ type Subject {
   informations(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
   name: String!
   notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  posts(after: String, before: String, first: Int, last: Int, skip: Int): [Post!]
   students(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   teachers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   updatedAt: DateTime!
@@ -506,6 +594,7 @@ type SubjectPermission {
 
 enum SubjectPermissionTypeEnum {
   CREATE_NOTE
+  CREATE_POST
   CREATE_SUBJECT_INFORMATION
   DELETE_SUBJECT
   READ_SUBJECT
@@ -599,6 +688,16 @@ input UpdateNoteInput {
   title: String
 }
 
+"""Input of update post comment"""
+input UpdatePostCommentInput {
+  content: String
+}
+
+"""Input of update post"""
+input UpdatePostInput {
+  content: String
+}
+
 """Input of update subject information"""
 input UpdateSubjectInformationInput {
   content: String
@@ -626,7 +725,6 @@ input UpdateUserInput {
 
 type User {
   approvedSuggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  comments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   createdAt: DateTime!
   deletedAt: DateTime
   departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
@@ -637,8 +735,9 @@ type User {
   identifier: String!
   institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
   lastName: String!
-  likedComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   likedNotes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  likedPostComments(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
+  noteComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
   noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
   notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
   password: String!

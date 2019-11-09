@@ -188,7 +188,7 @@ model User {
   noteComments        NoteComment[]       @relation(name: "NoteCommentAuthor")
   postComments        PostComment[]       @relation(name: "PostCommentAuthor")
   likedNoteComments   NoteComment[]       @relation(name: "NoteCommentLikers")
-  likedPostComments   PostComment[]       @relation(name: "CommentLikers")
+  likedComments       PostComment[]       @relation(name: "CommentLikers")
   likedPosts          Post[]              @relation(name: "PostLikers")
   posts               Post[]              @relation(name: "PostAuthor")
   likedSuggestions    Suggestion[]        @relation(name: "SuggestionLikers")
@@ -358,11 +358,11 @@ model Permission {
 }
 
 model PostCommentPermission {
-  id        String                    @default(cuid()) @id @unique
-  type      PostCommentPermissionType
-  objects   PostComment[]             @relation(name: "PostCommentPermissions")
-  createdAt DateTime                  @default(now())
-  updatedAt DateTime                  @updatedAt
+  id        String             @default(cuid()) @id @unique
+  type      PostPermissionType
+  objects   PostComment[]      @relation(name: "PostCommentPermissions")
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
   deletedAt DateTime?
 }
 

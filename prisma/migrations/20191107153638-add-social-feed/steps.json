@@ -1,0 +1,762 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "UpdateEnum",
+      "name": "DepartmentPermissionType",
+      "values": [
+        "UPDATE_DEPARTMENT",
+        "READ_DEPARTMENT",
+        "DELETE_DEPARTMENT",
+        "CREATE_SUBJECT"
+      ]
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "SubjectPermissionType",
+      "values": [
+        "CREATE_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT",
+        "DELETE_SUBJECT",
+        "READ_SUBJECT",
+        "CREATE_NOTE"
+      ]
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "SubjectInformationPermissionType",
+      "values": [
+        "READ_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT_INFORMATION",
+        "DELETE_SUBJECT_INFORMATION"
+      ]
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "SuggestionPermissionType",
+      "values": [
+        "UPDATE_SUGGESTION",
+        "READ_SUGGESTION",
+        "DELETE_SUGGESTION",
+        "APPROVE_SUGGESTION",
+        "REJECT_SUGGESTION"
+      ]
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Post",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PostComment",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PostCommentPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PostPermission",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "name": "posts",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [],
+          "name": "SubjectPosts",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "noteComments",
+      "type": {
+        "Relation": {
+          "to": "NoteComment",
+          "to_fields": [],
+          "name": "NoteCommentAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "postComments",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [],
+          "name": "PostCommentAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "likedNoteComments",
+      "type": {
+        "Relation": {
+          "to": "NoteComment",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentLikers",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "likedPosts",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostLikers",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "posts",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [],
+          "name": "PostAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "content",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "subject",
+      "type": {
+        "Relation": {
+          "to": "Subject",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SubjectPosts",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "likers",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostLikers",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "comments",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [],
+          "name": "PostPostComments",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "PostPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "content",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostCommentAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "post",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostPostComments",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "likers",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CommentLikers",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "permissions",
+      "type": {
+        "Relation": {
+          "to": "PostCommentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostCommentPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "postPermission",
+      "type": {
+        "Relation": {
+          "to": "PostPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToPostPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Permission",
+      "name": "postCommentPermission",
+      "type": {
+        "Relation": {
+          "to": "PostCommentPermission",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PermissionToPostCommentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "type",
+      "type": {
+        "Enum": "PostPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostCommentPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToPostCommentPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "type",
+      "type": {
+        "Enum": "PostPermissionType"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "objects",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostPermissions",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "deletedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "name": "permission",
+      "type": {
+        "Relation": {
+          "to": "Permission",
+          "to_fields": [],
+          "name": "PermissionToPostPermission",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "User",
+      "name": "comments"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "likedComments",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CommentLikers",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NoteComment",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentAuthor",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "NoteComment",
+      "name": "likers",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "NoteCommentLikers",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "PostCommentPermissionType",
+      "values": [
+        "UPDATE_POSTCOMMENT",
+        "DELETE_POSTCOMMENT",
+        "READ_POSTCOMMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "PostPermissionType",
+      "values": [
+        "CREATE_POSTCOMMENT",
+        "UPDATE_POST",
+        "DELETE_POST",
+        "READ_POST"
+      ]
+    },
+    {
+      "stepType": "UpdateEnum",
+      "name": "SubjectPermissionType",
+      "values": [
+        "CREATE_POST",
+        "CREATE_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT",
+        "DELETE_SUBJECT",
+        "READ_SUBJECT",
+        "CREATE_NOTE"
+      ]
+    }
+  ]
+}

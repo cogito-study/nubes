@@ -1,0 +1,27 @@
+{
+  "version": "0.3.1",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "likedPostComments",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CommentLikers",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "User",
+      "name": "likedComments"
+    }
+  ]
+}

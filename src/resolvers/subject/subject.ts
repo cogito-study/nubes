@@ -13,6 +13,7 @@ export const Subject = objectType({
     t.model.students({ type: 'User' });
     t.model.informations({ type: 'SubjectInformation' });
     t.model.notes({ type: 'Note' });
+    t.model.posts({ type: 'Post' });
 
     t.model.createdAt();
     t.model.updatedAt();
