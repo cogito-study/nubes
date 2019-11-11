@@ -77,8 +77,8 @@ model Note {
 model NoteComment {
   id          String                  @default(cuid()) @id @unique
   content     String
-  author      User                    @relation(name: "NoteCommentAuthor")
-  likers      User[]                  @relation(name: "NoteCommentLikers")
+  author      User                    @relation(name: "CommentAuthor")
+  likers      User[]                  @relation(name: "CommentLikers")
   thread      NoteCommentThread?      @relation(name: "NoteCommentThreadComment")
   threadReply NoteCommentThread?      @relation(name: "NoteCommentThreadReplies")
   permissions NoteCommentPermission[] @relation(name: "NoteCommentPermissions")
@@ -129,7 +129,6 @@ model Subject {
   students     User[]               @relation(name: "SubjectStudents")
   informations SubjectInformation[] @relation(name: "SubjectInformations")
   notes        Note[]               @relation(name: "SubjectNotes")
-  posts        Post[]               @relation(name: "SubjectPosts")
   language     Language             @relation(name: "SubjectLanguage")
   permissions  SubjectPermission[]  @relation(name: "SubjectPermissions")
   createdAt    DateTime             @default(now())
@@ -186,12 +185,8 @@ model User {
   teachedSubjects     Subject[]           @relation(name: "SubjectTeachers")
   studiedSubjects     Subject[]           @relation(name: "SubjectStudents")
   likedNotes          Note[]              @relation(name: "NoteLikers")
-  noteComments        NoteComment[]       @relation(name: "NoteCommentAuthor")
-  postComments        PostComment[]       @relation(name: "PostCommentAuthor")
-  likedNoteComments   NoteComment[]       @relation(name: "NoteCommentLikers")
-  likedPostComments   PostComment[]       @relation(name: "CommentLikers")
-  likedPosts          Post[]              @relation(name: "PostLikers")
-  posts               Post[]              @relation(name: "PostAuthor")
+  comments            NoteComment[]       @relation(name: "CommentAuthor")
+  likedComments       NoteComment[]       @relation(name: "CommentLikers")
   likedSuggestions    Suggestion[]        @relation(name: "SuggestionLikers")
   passwordToken       PasswordToken?      @relation(name: "PasswordTokenUser")
   departments         Department[]        @relation(name: "DepartmentLeader")
@@ -202,31 +197,6 @@ model User {
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
   deletedAt           DateTime?
-}
-
-model Post {
-  id          String           @default(cuid()) @id @unique
-  content     String
-  author      User             @relation(name: "PostAuthor")
-  subject     Subject          @relation(name: "SubjectPosts")
-  likers      User[]           @relation(name: "PostLikers")
-  comments    PostComment[]    @relation(name: "PostPostComments")
-  permissions PostPermission[] @relation(name: "PostPermissions")
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-  deletedAt   DateTime?
-}
-
-model PostComment {
-  id          String                  @default(cuid()) @id @unique
-  content     String
-  author      User                    @relation(name: "PostCommentAuthor")
-  post        Post                    @relation(name: "PostPostComments")
-  likers      User[]                  @relation(name: "CommentLikers")
-  permissions PostCommentPermission[] @relation(name: "PostCommentPermissions")
-  createdAt   DateTime                @default(now())
-  updatedAt   DateTime                @updatedAt
-  deletedAt   DateTime?
 }
 
 model ActivationToken {
@@ -347,8 +317,6 @@ model Permission {
   departmentPermission         DepartmentPermission?         @relation
   institutePermission          InstitutePermission?          @relation
   notePermission               NotePermission?               @relation
-  postPermission               PostPermission?               @relation
-  postCommentPermission        PostCommentPermission?        @relation
   noteCommentPermission        NoteCommentPermission?        @relation
   noteCommentThreadPermission  NoteCommentThreadPermission?  @relation
   noteHighlightPermission      NoteHighlightPermission?      @relation
@@ -356,37 +324,6 @@ model Permission {
   subjectInformationPermission SubjectInformationPermission? @relation
   suggestionPermission         SuggestionPermission?         @relation
   userPermission               UserPermission?               @relation
-}
-
-model PostCommentPermission {
-  id        String                    @default(cuid()) @id @unique
-  type      PostCommentPermissionType
-  objects   PostComment[]             @relation(name: "PostCommentPermissions")
-  createdAt DateTime                  @default(now())
-  updatedAt DateTime                  @updatedAt
-  deletedAt DateTime?
-}
-
-enum PostCommentPermissionType {
-  UPDATE_POSTCOMMENT
-  DELETE_POSTCOMMENT
-  READ_POSTCOMMENT
-}
-
-model PostPermission {
-  id        String             @default(cuid()) @id @unique
-  type      PostPermissionType
-  objects   Post[]             @relation(name: "PostPermissions")
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  deletedAt DateTime?
-}
-
-enum PostPermissionType {
-  CREATE_POSTCOMMENT
-  UPDATE_POST
-  DELETE_POST
-  READ_POST
 }
 
 model SubjectPermission {
@@ -399,7 +336,6 @@ model SubjectPermission {
 }
 
 enum SubjectPermissionType {
-  CREATE_POST
   CREATE_SUBJECT_INFORMATION
   UPDATE_SUBJECT
   DELETE_SUBJECT

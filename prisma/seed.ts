@@ -88,6 +88,7 @@ async function main() {
       email: 'professor@example.org',
       firstName: 'Test',
       lastName: 'Professor',
+      position: 'professor',
       password: '$2b$12$7gGeJkqmmo7tTZ0QoikNBOGz6M1hxPsDVNHKoDmQpH98gMkTA5TuK', // "password",
       identifier: 'BATMAN',
       isActive: true,

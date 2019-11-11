@@ -12,6 +12,7 @@ export const User = objectType({
     t.model.profilePictureURL();
     t.model.phoneNumber();
     t.model.identifier();
+    t.model.position();
     t.field('fullName', {
       type: 'String',
       resolve: async ({ firstName, lastName }) => {
