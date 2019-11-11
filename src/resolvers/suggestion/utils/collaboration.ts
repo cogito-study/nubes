@@ -2,6 +2,7 @@ import { publishSuggestionEvent } from './../suggestion.subscription';
 import Delta from 'quill-delta';
 import { Context } from '../../../types';
 import { getUserID } from '../../../utils/authentication';
+import { isActiveSuggestion } from './is-active';
 
 export async function applySuggestion(suggestionId: string, ctx: Context) {
   const suggestion = await ctx.photon.suggestions.findOne({
@@ -40,9 +41,7 @@ export async function applySuggestion(suggestionId: string, ctx: Context) {
       include: { note: true },
     });
 
-    // Fix when this gets solved https://github.com/prisma-labs/nexus-prisma/issues/515
-    // @ts-ignore
-    if (updatedSuggestion.isActive)
+    if (isActiveSuggestion(updatedSuggestion))
       await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
   }
 }

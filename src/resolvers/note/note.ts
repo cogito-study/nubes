@@ -1,5 +1,5 @@
-import { objectType, enumType } from 'nexus';
 import { NoteCategory } from '@generated/photon';
+import { enumType, objectType } from 'nexus';
 
 export const Note = objectType({
   name: 'Note',
@@ -19,7 +19,6 @@ export const Note = objectType({
       resolve: ({ noteCategory }) => noteCategory,
     });
 
-    t.model.suggestions({ type: 'Suggestion' });
     t.model.commentThreads({ type: 'NoteCommentThread' });
     t.model.authors({ type: 'User' });
     t.model.likers({ type: 'User' });

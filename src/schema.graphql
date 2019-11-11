@@ -260,7 +260,6 @@ type Note {
   noteCategory: NoteCategoryEnum!
   number: Int!
   subject: Subject!
-  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
   title: String!
   updatedAt: DateTime!
 }
@@ -621,7 +620,6 @@ type Suggestion {
   deletedAt: DateTime
   delta: String!
   id: ID!
-  isActive: Boolean!
   likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
 
   """Number of likes on the suggestion"""

@@ -23,13 +23,6 @@ export const Suggestion = objectType({
       },
     });
 
-    t.field('isActive', {
-      type: 'Boolean',
-      resolve: async ({ approvedAt, deletedAt, rejectedAt }) => {
-        return rejectedAt === null && approvedAt === null && deletedAt === null;
-      },
-    });
-
     t.model.updatedAt();
     t.model.deletedAt();
   },

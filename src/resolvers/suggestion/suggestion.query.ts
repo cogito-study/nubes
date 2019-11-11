@@ -1,5 +1,6 @@
 import { extendType } from 'nexus';
-import { SuggestionsInput } from './suggestion.input';
+import { SuggestionsInput } from '.';
+import { isActiveSuggestion } from './utils/is-active';
 
 export const SuggestionQuery = extendType({
   type: 'Query',
@@ -12,17 +13,13 @@ export const SuggestionQuery = extendType({
       resolve: async (_, { where: { noteID } }, ctx) => {
         const suggestions = await ctx.photon.suggestions.findMany({
           where: {
-            AND: {
-              note: {
-                id: noteID,
-              },
-              // Fix when this gets solved https://github.com/prisma-labs/nexus-prisma/issues/515
-              // @ts-ignore
-              isActive: true,
+            note: {
+              id: noteID,
             },
           },
         });
-        return suggestions;
+
+        return suggestions.filter(isActiveSuggestion);
       },
     });
   },

@@ -549,7 +549,6 @@ export interface NexusGenFieldTypes {
     noteCategory: NexusGenEnums['NoteCategoryEnum']; // NoteCategoryEnum!
     number: number; // Int!
     subject: NexusGenRootTypes['Subject']; // Subject!
-    suggestions: NexusGenRootTypes['Suggestion'][] | null; // [Suggestion!]
     title: string; // String!
     updatedAt: any; // DateTime!
   };
@@ -777,7 +776,6 @@ export interface NexusGenFieldTypes {
     deletedAt: any | null; // DateTime
     delta: string; // String!
     id: string; // ID!
-    isActive: boolean; // Boolean!
     likers: NexusGenRootTypes['User'][] | null; // [User!]
     likesCount: number; // Int!
     note: NexusGenRootTypes['Note']; // Note!
@@ -1103,14 +1101,6 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
     likers: {
-      // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    };
-    suggestions: {
       // args
       after?: string | null; // String
       before?: string | null; // String
