@@ -10,13 +10,12 @@ interface JWToken {
 }
 
 export const validateJWToken = (token: string): JWToken =>
-  verify(token, process.env.APP_SECRET) as JWToken;
+  verify(token.replace('Bearer ', '').replace(/"/g, ''), process.env.APP_SECRET) as JWToken;
 
 export const getUserID = (context: Context) => {
   const Authorization = context.req.headers.authorization;
   if (Authorization) {
-    const token = Authorization.replace('Bearer ', '').replace(/"/g, '');
-    const verifiedToken = validateJWToken(token);
+    const verifiedToken = validateJWToken(Authorization);
     return verifiedToken && verifiedToken.userID;
   }
 };

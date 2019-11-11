@@ -71,10 +71,4 @@ export const authenticationMiddlewares = {
     user: requireLogin,
     users: requireLogin,
   },
-  Subscription: {
-    createdSuggestion: requireLogin,
-    approvedSuggestion: requireLogin,
-    updatedSuggestion: requireLogin,
-    rejectedSuggestion: requireLogin,
-  },
 };
