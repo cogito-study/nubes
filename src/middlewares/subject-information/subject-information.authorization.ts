@@ -9,7 +9,10 @@ import { hasSubjectInformationPermission } from './subject-information.permissio
 export const updateSubjectInformation = async (
   resolve: FieldResolver<'Mutation', 'updateSubjectInformation'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateSubjectInformationInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdateSubjectInformationInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

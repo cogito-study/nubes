@@ -1,7 +1,7 @@
 import { extendType } from 'nexus';
 import { CreatePostCommentInput, UpdatePostCommentInput } from './post-comment.input';
 import { WhereUniqueInput } from '../input';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 
 export const PostCommentMutation = extendType({
   type: 'Mutation',

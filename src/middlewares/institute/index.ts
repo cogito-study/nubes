@@ -1,4 +1,9 @@
-import { createDepartment, updateInstitute, deleteInstitute, institutes } from './institute.authorization';
+import {
+  createDepartment,
+  updateInstitute,
+  deleteInstitute,
+  institutes,
+} from './institute.authorization';
 
 export const instituteMiddlewares = {
   Mutation: {

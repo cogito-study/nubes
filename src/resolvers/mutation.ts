@@ -32,7 +32,9 @@ export const Mutation = mutationType({
               reject(err); // TODO: Error handling
             })
             .on('finish', () =>
-              resolve(`https://storage.googleapis.com/${process.env.GOOGLE_CLOUD_BUCKET_NAME}/${fileName}`),
+              resolve(
+                `https://storage.googleapis.com/${process.env.GOOGLE_CLOUD_BUCKET_NAME}/${fileName}`,
+              ),
             );
         });
       },

@@ -1,7 +1,7 @@
 import { publishSuggestionEvent } from './../suggestion.subscription';
 import Delta from 'quill-delta';
 import { Context } from '../../../types';
-import { getUserID } from '../../../utils';
+import { getUserID } from '../../../utils/authentication';
 
 export async function applySuggestion(suggestionId: string, ctx: Context) {
   const suggestion = await ctx.photon.suggestions.findOne({
@@ -9,7 +9,9 @@ export async function applySuggestion(suggestionId: string, ctx: Context) {
     include: { note: true },
   });
   const { note } = suggestion;
-  const newContent = new Delta(JSON.parse(note.content)).compose(new Delta(JSON.parse(suggestion.delta)));
+  const newContent = new Delta(JSON.parse(note.content)).compose(
+    new Delta(JSON.parse(suggestion.delta)),
+  );
 
   await ctx.photon.suggestions.update({
     where: { id: suggestionId },
@@ -27,16 +29,20 @@ export async function applySuggestion(suggestionId: string, ctx: Context) {
     },
   });
 
-  for (const s of remainingSuggestions) {
+  for (const remainingSuggestion of remainingSuggestions) {
+    const transformedDelta = new Delta(JSON.parse(suggestion.delta)).transform(
+      new Delta(JSON.parse(remainingSuggestion.delta)),
+    );
+
     const updatedSuggestion = await ctx.photon.suggestions.update({
-      where: { id: s.id },
-      data: {
-        delta: JSON.stringify(new Delta(JSON.parse(suggestion.delta)).transform(new Delta(JSON.parse(s.delta)))),
-      },
+      where: { id: remainingSuggestion.id },
+      data: { delta: JSON.stringify(transformedDelta) },
       include: { note: true },
     });
+
     // Fix when this gets solved https://github.com/prisma-labs/nexus-prisma/issues/515
     // @ts-ignore
-    if (updatedSuggestion.isActive) await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
+    if (updatedSuggestion.isActive)
+      await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
   }
 }

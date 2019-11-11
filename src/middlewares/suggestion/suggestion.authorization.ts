@@ -9,7 +9,10 @@ import { hasSuggestionPermission } from './suggestion.permission';
 export const updateSuggestion = async (
   resolve: FieldResolver<'Mutation', 'updateSuggestion'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateSuggestionInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdateSuggestionInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

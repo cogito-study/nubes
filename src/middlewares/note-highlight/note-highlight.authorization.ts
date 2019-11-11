@@ -9,7 +9,10 @@ import { hasNoteHighlightPermission } from './note-highlight.permission';
 export const updateNoteHighlight = async (
   resolve: FieldResolver<'Mutation', 'updateNoteHighlight'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateNoteHighlightInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdateNoteHighlightInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

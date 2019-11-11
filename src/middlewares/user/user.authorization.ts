@@ -5,7 +5,7 @@ import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { hasUserPermission } from './user.permission';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 
 export const updateUser = async (
   resolve: FieldResolver<'Mutation', 'updateOneUser'>,

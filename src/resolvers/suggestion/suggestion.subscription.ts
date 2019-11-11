@@ -4,7 +4,11 @@ import { extendType } from 'nexus';
 import { Context } from './../../types';
 import { WhereUniqueInput } from './../input';
 
-type SuggestionEvent = 'SUGGESTION_CREATE' | 'SUGGESTION_UPDATE' | 'SUGGESTION_APPROVE' | 'SUGGESTION_REJECT';
+type SuggestionEvent =
+  | 'SUGGESTION_CREATE'
+  | 'SUGGESTION_UPDATE'
+  | 'SUGGESTION_APPROVE'
+  | 'SUGGESTION_REJECT';
 
 type PayloadName = string;
 
@@ -15,7 +19,11 @@ const payloadToEvent: Record<SuggestionEvent, PayloadName> = {
   SUGGESTION_REJECT: 'rejectedSuggestion',
 };
 
-export const publishSuggestionEvent = async (event: SuggestionEvent, suggestion: Suggestion, ctx: Context) => {
+export const publishSuggestionEvent = async (
+  event: SuggestionEvent,
+  suggestion: Suggestion,
+  ctx: Context,
+) => {
   await ctx.pubsub.publish(event, { [payloadToEvent[event]]: suggestion });
 };
 

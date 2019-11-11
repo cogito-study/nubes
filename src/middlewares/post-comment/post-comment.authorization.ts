@@ -9,7 +9,10 @@ import { hasPostCommentPermission } from './post-comment.permission';
 export const updatePostComment = async (
   resolve: FieldResolver<'Mutation', 'updatePostComment'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdatePostCommentInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdatePostCommentInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

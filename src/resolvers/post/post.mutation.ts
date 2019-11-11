@@ -1,7 +1,7 @@
 import { extendType } from 'nexus';
 import { WhereUniqueInput } from '../input';
 import { CreatePostInput, UpdatePostInput } from './post.input';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 
 export const PostMutation = extendType({
   type: 'Mutation',

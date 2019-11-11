@@ -2,8 +2,17 @@ import { extendType } from 'nexus';
 import { catchNotExistError } from '../../utils';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
 import { EmailTemplateType, randomFounder, sendEmail } from '../../utils/email';
-import { checkTokenExpiration, checkTokenGenerationFrequency, generateToken } from '../../utils/token';
-import { ActivateUserInput, ForgotPasswordInput, ResetPasswordInput, UserLoginInput } from './authentication.input';
+import {
+  checkTokenExpiration,
+  checkTokenGenerationFrequency,
+  generateToken,
+} from '../../utils/token';
+import {
+  ActivateUserInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+  UserLoginInput,
+} from './authentication.input';
 
 export const AuthenticationMutation = extendType({
   type: 'Mutation',

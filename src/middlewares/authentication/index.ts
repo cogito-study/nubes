@@ -1,7 +1,7 @@
 import { FieldResolver } from 'nexus';
 import { Context } from '../../types';
 import { GraphQLResolveInfo } from 'graphql';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 import { ForbiddenError } from 'apollo-server';
 import { __ } from 'i18n';
 
