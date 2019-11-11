@@ -810,6 +810,7 @@ export interface NexusGenFieldTypes {
     password: string; // String!
     passwordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
     phoneNumber: string | null; // String
+    position: string | null; // String
     preferredLanguage: NexusGenRootTypes['Language'] | null; // Language
     profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole']; // UserRole!

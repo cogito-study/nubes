@@ -21,6 +21,7 @@
 20191022170943-fix-schema
 20191028194721-add-rejected-at-to-suggestion
 20191029100349-fix-permissions
+20191108151902-add-position-to-users
 20191107153638-add-social-feed
 20191107162237-fix-post-comment-permission-type
 20191108162617-rename-liked-comments-field

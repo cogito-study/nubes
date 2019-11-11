@@ -743,6 +743,7 @@ type User {
   password: String!
   passwordToken: PasswordToken
   phoneNumber: String
+  position: String
   preferredLanguage: Language
   profilePictureURL: String
   role: UserRole!
