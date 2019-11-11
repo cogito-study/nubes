@@ -5,7 +5,7 @@ import { GraphQLResolveInfo } from 'graphql';
 import { hasInstitutePermission } from './institute.permission';
 import { ForbiddenError } from 'apollo-server';
 import { __ } from 'i18n';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 import { addDepartmentPermission } from '../department/department.permission';
 
 export const createDepartment = async (

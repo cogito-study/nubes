@@ -77,7 +77,10 @@ export const createSubject = async (
 export const updateDepartment = async (
   resolve: FieldResolver<'Mutation', 'updateDepartment'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateDepartmentInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdateDepartmentInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

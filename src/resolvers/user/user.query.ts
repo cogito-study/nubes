@@ -1,5 +1,5 @@
 import { extendType } from 'nexus';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 
 export const UserQuery = extendType({
   type: 'Query',

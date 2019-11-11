@@ -8,7 +8,7 @@ const defaultLocale = 'en';
 
 const setLanguage = async (context: Context, availableLanguages: Array<string>) => {
   const languageCode = context.req.headers.languagecode;
-  availableLanguages.includes(languageCode) ? await setLocale(languageCode) : await setLocale(defaultLocale);
+  availableLanguages.includes(languageCode) ? setLocale(languageCode) : setLocale(defaultLocale);
 };
 
 export const i18nInitMiddleware = async (

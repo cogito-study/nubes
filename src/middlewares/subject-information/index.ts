@@ -1,4 +1,7 @@
-import { updateSubjectInformation, deleteSubjectInformation } from './subject-information.authorization';
+import {
+  updateSubjectInformation,
+  deleteSubjectInformation,
+} from './subject-information.authorization';
 
 export const subjectInformationMiddlewares = {
   Mutation: {

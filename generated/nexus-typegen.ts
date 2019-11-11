@@ -278,7 +278,11 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  DepartmentPermissionTypeEnum: 'CREATE_SUBJECT' | 'DELETE_DEPARTMENT' | 'READ_DEPARTMENT' | 'UPDATE_DEPARTMENT';
+  DepartmentPermissionTypeEnum:
+    | 'CREATE_SUBJECT'
+    | 'DELETE_DEPARTMENT'
+    | 'READ_DEPARTMENT'
+    | 'UPDATE_DEPARTMENT';
   InstitutePermissionTypeEnum: 'CREATE_DEPARTMENT' | 'DELETE_INSTITUTE' | 'UPDATE_INSTITUTE';
   NoteCategoryEnum: 'CASE_STUDY' | 'NOTE';
   NoteCommentPermissionTypeEnum: 'DELETE_NOTE_COMMENT' | 'UPDATE_NOTE_COMMENT';
@@ -1628,7 +1632,10 @@ export interface NexusGenTypes {
   interfaceNames: NexusGenInterfaceNames;
   scalarNames: NexusGenScalarNames;
   unionNames: NexusGenUnionNames;
-  allInputTypes: NexusGenTypes['inputNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['scalarNames'];
+  allInputTypes:
+    | NexusGenTypes['inputNames']
+    | NexusGenTypes['enumNames']
+    | NexusGenTypes['scalarNames'];
   allOutputTypes:
     | NexusGenTypes['objectNames']
     | NexusGenTypes['enumNames']

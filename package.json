@@ -1,22 +1,4 @@
 {
-  "name": "cogito-backend",
-  "version": "0.1.4",
-  "license": "MIT",
-  "scripts": {
-    "seed": "ts-node prisma/seed.ts",
-    "postinstall": "prisma2 generate",
-    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
-    "build": "yarn run build-ts && yarn run lint",
-    "serve": "node dist/src/index.js",
-    "watch-node": "nodemon dist/src/index.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch-ts\" \"yarn run watch-node\"",
-    "build-ts": "tsc",
-    "watch-ts": "tsc -w",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "debug": "yarn run build && yarn run watch-debug",
-    "serve-debug": "nodemon --inspect dist/src/index.js",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch-ts\" \"yarn run serve-debug\""
-  },
   "dependencies": {
     "@google-cloud/storage": "3.3.1",
     "apollo-server": "2.9.6",
@@ -68,11 +50,30 @@
       "pre-commit": "lint-staged"
     }
   },
+  "license": "MIT",
   "lint-staged": {
     "*.ts": [
       "eslint . --ext .ts --fix",
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "name": "cogito-backend",
+  "scripts": {
+    "build": "yarn run build-ts && yarn run lint",
+    "build-ts": "tsc",
+    "debug": "yarn run build && yarn run watch-debug",
+    "format": "prettier --write './src/**/*.ts'",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "postinstall": "prisma2 generate",
+    "seed": "ts-node prisma/seed.ts",
+    "serve": "node dist/src/index.js",
+    "serve-debug": "nodemon --inspect dist/src/index.js",
+    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch-ts\" \"yarn run watch-node\"",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch-ts\" \"yarn run serve-debug\"",
+    "watch-node": "nodemon dist/src/index.js",
+    "watch-ts": "tsc -w"
+  },
+  "version": "0.1.4"
 }

@@ -1,6 +1,6 @@
 import { SubjectInformationPermissionType, User } from '@generated/photon';
 import { Context } from '../../types';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 
 export const hasSubjectInformationPermission = async ({
   permission,

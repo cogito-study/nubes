@@ -9,7 +9,10 @@ import { hasNoteCommentPermission } from './note-comment.permission';
 export const updateNoteComment = async (
   resolve: FieldResolver<'Mutation', 'updateNoteComment'>,
   parent: {},
-  args: { where: NexusGenInputs['WhereUniqueInput']; data: NexusGenInputs['UpdateNoteCommentInput'] },
+  args: {
+    where: NexusGenInputs['WhereUniqueInput'];
+    data: NexusGenInputs['UpdateNoteCommentInput'];
+  },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

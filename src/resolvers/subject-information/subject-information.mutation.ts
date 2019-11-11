@@ -1,5 +1,8 @@
 import { extendType } from 'nexus';
-import { CreateSubjectInformationInput, UpdateSubjectInformationInput } from './subject-information.input';
+import {
+  CreateSubjectInformationInput,
+  UpdateSubjectInformationInput,
+} from './subject-information.input';
 import { WhereUniqueInput } from '../input';
 
 export const SubjectInformationMutation = extendType({

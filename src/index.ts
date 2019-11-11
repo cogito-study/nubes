@@ -8,6 +8,7 @@ import { join, resolve } from 'path';
 import { middlewares } from './middlewares';
 import * as allTypes from './resolvers';
 import { Context } from './types';
+import { validateJWToken } from './utils/authentication';
 config({ path: resolve(__dirname, '../.env') });
 
 const pubsub = new PubSub();
@@ -46,7 +47,20 @@ applyMiddleware(schema, ...middlewares);
 const server = new ApolloServer({
   schema,
   subscriptions: {
-    onConnect: () => console.log('CONNECTION_ESTABLISHED'),
+    onConnect: (connectionParams: { authToken?: string | null }) => {
+      if (connectionParams.authToken) {
+        return new Promise((resolve, reject) => {
+          const token = validateJWToken(connectionParams.authToken);
+
+          console.log('token', token);
+
+          // TODO: Localize
+          token ? resolve(token.userID) : reject(new Error('Invalid auth token!'));
+        });
+      }
+      // TODO: Localize
+      throw new Error('Missing auth token!');
+    },
   },
   context: (request) => {
     return {
@@ -59,6 +73,7 @@ const server = new ApolloServer({
   debug: process.env.NODE_ENV === 'development',
 });
 
-server.listen().then(({ url }) => {
+server.listen().then(({ url, subscriptionsUrl }) => {
   console.log(`🚀 Server is running on ${url}`);
+  console.log(`🚀 Subscriptions ready at ${subscriptionsUrl}`);
 });

@@ -1,5 +1,5 @@
 import { extendType } from 'nexus';
-import { getUserID } from '../../utils';
+import { getUserID } from '../../utils/authentication';
 import { WhereUniqueInput } from '../input';
 import { Context } from './../../types';
 import { CreateSuggestionInput, UpdateSuggestionInput } from './suggestion.input';
