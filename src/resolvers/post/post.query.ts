@@ -10,6 +10,7 @@ export const PostQuery = extendType({
       args: {},
       resolve: async (_, {}, ctx) => {
         const posts = await ctx.photon.posts.findMany({
+          orderBy: { createdAt: 'desc' },
           where: {
             subject: {
               students: {
