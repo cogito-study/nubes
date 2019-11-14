@@ -192,6 +192,10 @@ export interface NexusGenInputs {
     // input type
     id?: string | null; // ID
   };
+  SubjectPostsOrderByInput: {
+    // input type
+    createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
+  };
   SubjectWhereUniqueInput: {
     // input type
     code?: string | null; // String
@@ -289,6 +293,7 @@ export interface NexusGenEnums {
   NoteCommentThreadPermissionTypeEnum: 'DELETE_NOTE_COMMENT_THREAD';
   NoteHighlightPermissionTypeEnum: 'DELETE_NOTE_HIGHLIGHT' | 'UPDATE_NOTE_HIGHLIGHT';
   NotePermissionTypeEnum: 'CREATE_SUGGESTION' | 'DELETE_NOTE' | 'READ_NOTE' | 'UPDATE_NOTE';
+  OrderByArg: photon.OrderByArg;
   PostCommentPermissionTypeEnum: 'DELETE_POSTCOMMENT' | 'READ_POSTCOMMENT' | 'UPDATE_POSTCOMMENT';
   PostPermissionTypeEnum: 'CREATE_POSTCOMMENT' | 'DELETE_POST' | 'READ_POST' | 'UPDATE_POST';
   SubjectInformationPermissionTypeEnum:
@@ -395,6 +400,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   SubjectInformationWhereUniqueInput: NexusGenInputs['SubjectInformationWhereUniqueInput'];
+  SubjectPostsOrderByInput: NexusGenInputs['SubjectPostsOrderByInput'];
   SubjectWhereUniqueInput: NexusGenInputs['SubjectWhereUniqueInput'];
   SuggestionWhereUniqueInput: NexusGenInputs['SuggestionWhereUniqueInput'];
   SuggestionsInput: NexusGenInputs['SuggestionsInput'];
@@ -419,6 +425,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteCommentThreadPermissionTypeEnum: NexusGenEnums['NoteCommentThreadPermissionTypeEnum'];
   NoteHighlightPermissionTypeEnum: NexusGenEnums['NoteHighlightPermissionTypeEnum'];
   NotePermissionTypeEnum: NexusGenEnums['NotePermissionTypeEnum'];
+  OrderByArg: NexusGenEnums['OrderByArg'];
   PostCommentPermissionTypeEnum: NexusGenEnums['PostCommentPermissionTypeEnum'];
   PostPermissionTypeEnum: NexusGenEnums['PostPermissionTypeEnum'];
   SubjectInformationPermissionTypeEnum: NexusGenEnums['SubjectInformationPermissionTypeEnum'];
@@ -1319,6 +1326,7 @@ export interface NexusGenArgTypes {
       before?: string | null; // String
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['SubjectPostsOrderByInput'] | null; // SubjectPostsOrderByInput
       skip?: number | null; // Int
     };
     students: {
@@ -1568,6 +1576,7 @@ export type NexusGenInputNames =
   | 'ResetPasswordInput'
   | 'StringFilter'
   | 'SubjectInformationWhereUniqueInput'
+  | 'SubjectPostsOrderByInput'
   | 'SubjectWhereUniqueInput'
   | 'SuggestionWhereUniqueInput'
   | 'SuggestionsInput'
@@ -1594,6 +1603,7 @@ export type NexusGenEnumNames =
   | 'NoteCommentThreadPermissionTypeEnum'
   | 'NoteHighlightPermissionTypeEnum'
   | 'NotePermissionTypeEnum'
+  | 'OrderByArg'
   | 'PostCommentPermissionTypeEnum'
   | 'PostPermissionTypeEnum'
   | 'SubjectInformationPermissionTypeEnum'
