@@ -714,6 +714,7 @@ export interface NexusGenFieldTypes {
     subjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
     suggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
     user: NexusGenRootTypes['User'] | null; // User
+    userInfo: NexusGenRootTypes['User']; // User!
     users: NexusGenRootTypes['User'][] | null; // [User!]
   };
   ResetPasswordToken: {
@@ -1292,6 +1293,10 @@ export interface NexusGenArgTypes {
     user: {
       // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    };
+    userInfo: {
+      // args
+      token?: string | null; // String
     };
     users: {
       // args

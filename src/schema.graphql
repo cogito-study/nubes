@@ -502,6 +502,7 @@ type Query {
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
   user(where: UserWhereUniqueInput!): User
+  userInfo(token: String): User!
   users(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyUserWhereInput): [User!]
 }
 
