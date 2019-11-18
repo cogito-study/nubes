@@ -29,6 +29,7 @@ export const UserQuery = extendType({
 
     t.field('userInfo', {
       type: 'User',
+      nullable: true,
       args: {
         token: stringArg(),
       },
