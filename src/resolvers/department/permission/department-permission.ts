@@ -1,18 +1,10 @@
-import { objectType, enumType } from 'nexus';
-import { DepartmentPermissionType } from '@generated/photon';
+import { objectType } from 'nexus';
 
 export const DepartmentPermission = objectType({
   name: 'DepartmentPermission',
   definition(t) {
     t.model.id();
-    // TODO: Fix when prisma2 supports enums
-    t.field('type', {
-      type: enumType({
-        name: 'DepartmentPermissionTypeEnum',
-        members: DepartmentPermissionType,
-      }),
-      resolve: ({ type }) => type,
-    });
+    t.model.type();
 
     t.model.objects({ type: 'Department' });
     t.model.createdAt();

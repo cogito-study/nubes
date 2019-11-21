@@ -110,16 +110,12 @@ export const institutes = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  try {
-    const user = await context.photon.users.findOne({
-      where: { id: getUserID(context) },
-      include: {
-        role: true,
-      },
-    });
-    if (user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
-  } catch {
-    throw new ForbiddenError(__('no_permission'));
-  }
-  throw new ForbiddenError(__('no_permission'));
+  const user = await context.photon.users.findOne({
+    where: { id: getUserID(context) },
+    include: {
+      role: true,
+    },
+  });
+  if (user === null) throw new ForbiddenError(__('no_permission'));
+  if (user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
 };

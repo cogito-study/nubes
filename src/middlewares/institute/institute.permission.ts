@@ -11,28 +11,17 @@ export const hasInstitutePermission = async ({
   instituteID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.institutePermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              institutePermission: {
-                objects: { some: { id: instituteID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          institutePermission: { type: permission, objects: { some: { id: instituteID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };

@@ -1,18 +1,10 @@
-import { objectType, enumType } from 'nexus';
-import { NoteHighlightPermissionType } from '@generated/photon';
+import { objectType } from 'nexus';
 
 export const NoteHighlightPermission = objectType({
   name: 'NoteHighlightPermission',
   definition(t) {
     t.model.id();
-    // TODO: Fix when prisma2 supports enums
-    t.field('type', {
-      type: enumType({
-        name: 'NoteHighlightPermissionTypeEnum',
-        members: NoteHighlightPermissionType,
-      }),
-      resolve: ({ type }) => type,
-    });
+    t.model.type();
 
     t.model.objects({ type: 'NoteHighlight' });
     t.model.createdAt();

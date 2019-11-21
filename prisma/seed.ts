@@ -69,7 +69,7 @@ async function main() {
   photon.userPermissions.create({
     data: {
       type: 'UPDATE_USER',
-      permission: {
+      permissions: {
         create: {
           users: {
             connect: {
@@ -130,7 +130,7 @@ async function main() {
       photon.departmentPermissions.create({
         data: {
           type: 'UPDATE_DEPARTMENT',
-          permission: {
+          permissions: {
             create: {
               users: {
                 connect: {
@@ -196,7 +196,7 @@ async function main() {
           photon.notePermissions.create({
             data: {
               type: 'UPDATE_NOTE',
-              permission: {
+              permissions: {
                 create: {
                   users: {
                     connect: {

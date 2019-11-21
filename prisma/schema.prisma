@@ -7,10 +7,6 @@ generator photon {
   provider = "photonjs"
 }
 
-generator nexus_prisma {
-  provider = "nexus-prisma"
-}
-
 enum NoteCategory {
   NOTE
   CASE_STUDY

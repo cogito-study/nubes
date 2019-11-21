@@ -11,30 +11,19 @@ export const hasPostPermission = async ({
   postID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.postPermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              postPermission: {
-                objects: { some: { id: postID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          postPermission: { type: permission, objects: { some: { id: postID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };
 
 export const addPostPermission = async ({
@@ -57,7 +46,7 @@ export const addPostPermission = async ({
             id: postID,
           },
         },
-        permission: {
+        permissions: {
           create: {
             users: {
               connect: {
