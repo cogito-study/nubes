@@ -15,6 +15,16 @@ type ActivationToken {
   user: User!
 }
 
+input ActivationTokenWhereInput {
+  AND: [ActivationTokenWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [ActivationTokenWhereInput!]
+  OR: [ActivationTokenWhereInput!]
+  token: StringFilter
+  user: UserWhereInput
+}
+
 type AuthenticationPayload {
   token: String!
   user: User!
@@ -69,7 +79,7 @@ input CreateNoteInput {
   content: String!
   contentHTML: String!
   description: String
-  noteCategory: NoteCategoryEnum!
+  noteCategory: NoteCategory!
   number: Int!
   subject: ConnectRelation!
   title: String!
@@ -111,8 +121,18 @@ input CreateSuggestionInput {
   note: ConnectRelation!
 }
 
-"""DateTime"""
 scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
 
 type Department {
   createdAt: DateTime!
@@ -122,24 +142,65 @@ type Department {
   institute: Institute!
   leader: User!
   name: String!
-  subjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  subjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   updatedAt: DateTime!
+}
+
+input DepartmentFilter {
+  every: DepartmentWhereInput
+  none: DepartmentWhereInput
+  some: DepartmentWhereInput
 }
 
 type DepartmentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
-  type: DepartmentPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
+  type: DepartmentPermissionType!
   updatedAt: DateTime!
 }
 
-enum DepartmentPermissionTypeEnum {
+input DepartmentPermissionFilter {
+  every: DepartmentPermissionWhereInput
+  none: DepartmentPermissionWhereInput
+  some: DepartmentPermissionWhereInput
+}
+
+enum DepartmentPermissionType {
   CREATE_SUBJECT
   DELETE_DEPARTMENT
   READ_DEPARTMENT
   UPDATE_DEPARTMENT
+}
+
+input DepartmentPermissionWhereInput {
+  AND: [DepartmentPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [DepartmentPermissionWhereInput!]
+  objects: DepartmentFilter
+  OR: [DepartmentPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: DepartmentPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input DepartmentWhereInput {
+  AND: [DepartmentWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  institute: InstituteWhereInput
+  leader: UserWhereInput
+  name: StringFilter
+  NOT: [DepartmentWhereInput!]
+  OR: [DepartmentWhereInput!]
+  permissions: DepartmentPermissionFilter
+  subjects: SubjectFilter
+  updatedAt: DateTimeFilter
 }
 
 input DepartmentWhereUniqueInput {
@@ -160,36 +221,97 @@ input ImageUploadInput {
 type Institute {
   createdAt: DateTime!
   deletedAt: DateTime
-  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
+  departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
   id: ID!
   name: String!
   updatedAt: DateTime!
-  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  users(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+}
+
+input InstituteFilter {
+  every: InstituteWhereInput
+  none: InstituteWhereInput
+  some: InstituteWhereInput
 }
 
 type InstitutePermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
-  type: InstitutePermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
+  type: InstitutePermissionType!
   updatedAt: DateTime!
 }
 
-enum InstitutePermissionTypeEnum {
+input InstitutePermissionFilter {
+  every: InstitutePermissionWhereInput
+  none: InstitutePermissionWhereInput
+  some: InstitutePermissionWhereInput
+}
+
+enum InstitutePermissionType {
   CREATE_DEPARTMENT
   DELETE_INSTITUTE
   UPDATE_INSTITUTE
+}
+
+input InstitutePermissionWhereInput {
+  AND: [InstitutePermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [InstitutePermissionWhereInput!]
+  objects: InstituteFilter
+  OR: [InstitutePermissionWhereInput!]
+  permissions: PermissionFilter
+  type: InstitutePermissionType
+  updatedAt: DateTimeFilter
+}
+
+input InstituteWhereInput {
+  AND: [InstituteWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  departments: DepartmentFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [InstituteWhereInput!]
+  OR: [InstituteWhereInput!]
+  permissions: InstitutePermissionFilter
+  updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input InstituteWhereUniqueInput {
   id: ID
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 type Language {
   code: String!
   id: ID!
   name: String!
+}
+
+input LanguageWhereInput {
+  AND: [LanguageWhereInput!]
+  code: StringFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [LanguageWhereInput!]
+  OR: [LanguageWhereInput!]
+  subjects: SubjectFilter
+  users: UserFilter
 }
 
 input LanguageWhereUniqueInput {
@@ -244,27 +366,27 @@ type Mutation {
 }
 
 type Note {
-  authors(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  commentThreads(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
+  authors(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+  commentThreads(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteCommentThread!]!
   content: String!
   contentHTML: String!
   createdAt: DateTime!
   deletedAt: DateTime
   description: String
-  highlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
+  highlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
   id: ID!
-  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 
   """Number of likes on the note"""
   likesCount: Int!
-  noteCategory: NoteCategoryEnum!
+  noteCategory: NoteCategory!
   number: Int!
   subject: Subject!
   title: String!
   updatedAt: DateTime!
 }
 
-enum NoteCategoryEnum {
+enum NoteCategory {
   CASE_STUDY
   NOTE
 }
@@ -275,7 +397,7 @@ type NoteComment {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 
   """Number of likes on the note comment"""
   likesCount: Int!
@@ -284,18 +406,43 @@ type NoteComment {
   updatedAt: DateTime!
 }
 
+input NoteCommentFilter {
+  every: NoteCommentWhereInput
+  none: NoteCommentWhereInput
+  some: NoteCommentWhereInput
+}
+
 type NoteCommentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
-  type: NoteCommentPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
+  type: NoteCommentPermissionType!
   updatedAt: DateTime!
 }
 
-enum NoteCommentPermissionTypeEnum {
+input NoteCommentPermissionFilter {
+  every: NoteCommentPermissionWhereInput
+  none: NoteCommentPermissionWhereInput
+  some: NoteCommentPermissionWhereInput
+}
+
+enum NoteCommentPermissionType {
   DELETE_NOTE_COMMENT
   UPDATE_NOTE_COMMENT
+}
+
+input NoteCommentPermissionWhereInput {
+  AND: [NoteCommentPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NoteCommentPermissionWhereInput!]
+  objects: NoteCommentFilter
+  OR: [NoteCommentPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: NoteCommentPermissionType
+  updatedAt: DateTimeFilter
 }
 
 type NoteCommentThread {
@@ -305,29 +452,91 @@ type NoteCommentThread {
   id: ID!
   note: Note!
   position: String!
-  replies(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
+  replies(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
   updatedAt: DateTime!
+}
+
+input NoteCommentThreadFilter {
+  every: NoteCommentThreadWhereInput
+  none: NoteCommentThreadWhereInput
+  some: NoteCommentThreadWhereInput
 }
 
 type NoteCommentThreadPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [NoteCommentThread!]
-  type: NoteCommentThreadPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteCommentThread!]!
+  type: NoteCommentThreadPermissionType!
   updatedAt: DateTime!
 }
 
-enum NoteCommentThreadPermissionTypeEnum {
+input NoteCommentThreadPermissionFilter {
+  every: NoteCommentThreadPermissionWhereInput
+  none: NoteCommentThreadPermissionWhereInput
+  some: NoteCommentThreadPermissionWhereInput
+}
+
+enum NoteCommentThreadPermissionType {
   DELETE_NOTE_COMMENT_THREAD
+}
+
+input NoteCommentThreadPermissionWhereInput {
+  AND: [NoteCommentThreadPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NoteCommentThreadPermissionWhereInput!]
+  objects: NoteCommentThreadFilter
+  OR: [NoteCommentThreadPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: NoteCommentThreadPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input NoteCommentThreadWhereInput {
+  AND: [NoteCommentThreadWhereInput!]
+  comment: NoteCommentWhereInput
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NoteCommentThreadWhereInput!]
+  note: NoteWhereInput
+  OR: [NoteCommentThreadWhereInput!]
+  permissions: NoteCommentThreadPermissionFilter
+  position: StringFilter
+  replies: NoteCommentFilter
+  updatedAt: DateTimeFilter
 }
 
 input NoteCommentThreadWhereUniqueInput {
   id: ID
 }
 
+input NoteCommentWhereInput {
+  AND: [NoteCommentWhereInput!]
+  author: UserWhereInput
+  content: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  likers: UserFilter
+  NOT: [NoteCommentWhereInput!]
+  OR: [NoteCommentWhereInput!]
+  permissions: NoteCommentPermissionFilter
+  thread: NoteCommentThreadWhereInput
+  threadReply: NoteCommentThreadWhereInput
+  updatedAt: DateTimeFilter
+}
+
 input NoteCommentWhereUniqueInput {
   id: ID
+}
+
+input NoteFilter {
+  every: NoteWhereInput
+  none: NoteWhereInput
+  some: NoteWhereInput
 }
 
 type NoteHighlight {
@@ -340,18 +549,57 @@ type NoteHighlight {
   user: User!
 }
 
+input NoteHighlightFilter {
+  every: NoteHighlightWhereInput
+  none: NoteHighlightWhereInput
+  some: NoteHighlightWhereInput
+}
+
 type NoteHighlightPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  type: NoteHighlightPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
+  type: NoteHighlightPermissionType!
   updatedAt: DateTime!
 }
 
-enum NoteHighlightPermissionTypeEnum {
+input NoteHighlightPermissionFilter {
+  every: NoteHighlightPermissionWhereInput
+  none: NoteHighlightPermissionWhereInput
+  some: NoteHighlightPermissionWhereInput
+}
+
+enum NoteHighlightPermissionType {
   DELETE_NOTE_HIGHLIGHT
   UPDATE_NOTE_HIGHLIGHT
+}
+
+input NoteHighlightPermissionWhereInput {
+  AND: [NoteHighlightPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NoteHighlightPermissionWhereInput!]
+  objects: NoteHighlightFilter
+  OR: [NoteHighlightPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: NoteHighlightPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input NoteHighlightWhereInput {
+  AND: [NoteHighlightWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NoteHighlightWhereInput!]
+  note: NoteWhereInput
+  OR: [NoteHighlightWhereInput!]
+  permissions: NoteHighlightPermissionFilter
+  position: StringFilter
+  updatedAt: DateTimeFilter
+  user: UserWhereInput
 }
 
 input NoteHighlightWhereUniqueInput {
@@ -362,20 +610,73 @@ type NotePermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
-  type: NotePermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
+  type: NotePermissionType!
   updatedAt: DateTime!
 }
 
-enum NotePermissionTypeEnum {
+input NotePermissionFilter {
+  every: NotePermissionWhereInput
+  none: NotePermissionWhereInput
+  some: NotePermissionWhereInput
+}
+
+enum NotePermissionType {
   CREATE_SUGGESTION
   DELETE_NOTE
   READ_NOTE
   UPDATE_NOTE
 }
 
+input NotePermissionWhereInput {
+  AND: [NotePermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [NotePermissionWhereInput!]
+  objects: NoteFilter
+  OR: [NotePermissionWhereInput!]
+  permissions: PermissionFilter
+  type: NotePermissionType
+  updatedAt: DateTimeFilter
+}
+
+input NoteWhereInput {
+  AND: [NoteWhereInput!]
+  authors: UserFilter
+  commentThreads: NoteCommentThreadFilter
+  content: StringFilter
+  contentHTML: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  description: NullableStringFilter
+  highlights: NoteHighlightFilter
+  id: StringFilter
+  likers: UserFilter
+  NOT: [NoteWhereInput!]
+  noteCategory: NoteCategory
+  number: IntFilter
+  OR: [NoteWhereInput!]
+  permissions: NotePermissionFilter
+  subject: SubjectWhereInput
+  suggestions: SuggestionFilter
+  title: StringFilter
+  updatedAt: DateTimeFilter
+}
+
 input NoteWhereUniqueInput {
   id: ID
+}
+
+input NullableDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
 }
 
 input NullableStringFilter {
@@ -406,6 +707,18 @@ type PasswordToken {
   user: User!
 }
 
+input PasswordTokenWhereInput {
+  AND: [PasswordTokenWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [PasswordTokenWhereInput!]
+  OR: [PasswordTokenWhereInput!]
+  token: StringFilter
+  updatedAt: DateTimeFilter
+  user: UserWhereInput
+}
+
 type Permission {
   departmentPermission: DepartmentPermission
   id: ID!
@@ -420,14 +733,41 @@ type Permission {
   userPermission: UserPermission
 }
 
+input PermissionFilter {
+  every: PermissionWhereInput
+  none: PermissionWhereInput
+  some: PermissionWhereInput
+}
+
+input PermissionWhereInput {
+  AND: [PermissionWhereInput!]
+  departmentPermission: DepartmentPermissionWhereInput
+  id: StringFilter
+  institutePermission: InstitutePermissionWhereInput
+  NOT: [PermissionWhereInput!]
+  noteCommentPermission: NoteCommentPermissionWhereInput
+  noteCommentThreadPermission: NoteCommentThreadPermissionWhereInput
+  noteHighlightPermission: NoteHighlightPermissionWhereInput
+  notePermission: NotePermissionWhereInput
+  OR: [PermissionWhereInput!]
+  postCommentPermission: PostCommentPermissionWhereInput
+  postPermission: PostPermissionWhereInput
+  subjectInformationPermission: SubjectInformationPermissionWhereInput
+  subjectPermission: SubjectPermissionWhereInput
+  suggestionPermission: SuggestionPermissionWhereInput
+  userGroups: UserGroupFilter
+  userPermission: UserPermissionWhereInput
+  users: UserFilter
+}
+
 type Post {
   author: User!
-  comments(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
+  comments(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
   content: String!
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 
   """Number of likes on the post"""
   likesCount: Int!
@@ -441,7 +781,7 @@ type PostComment {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 
   """Number of likes on the postComment"""
   likesCount: Int!
@@ -449,48 +789,129 @@ type PostComment {
   updatedAt: DateTime!
 }
 
+input PostCommentFilter {
+  every: PostCommentWhereInput
+  none: PostCommentWhereInput
+  some: PostCommentWhereInput
+}
+
 type PostCommentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
-  type: PostCommentPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
+  type: PostCommentPermissionType!
   updatedAt: DateTime!
 }
 
-enum PostCommentPermissionTypeEnum {
+input PostCommentPermissionFilter {
+  every: PostCommentPermissionWhereInput
+  none: PostCommentPermissionWhereInput
+  some: PostCommentPermissionWhereInput
+}
+
+enum PostCommentPermissionType {
   DELETE_POSTCOMMENT
   READ_POSTCOMMENT
   UPDATE_POSTCOMMENT
+}
+
+input PostCommentPermissionWhereInput {
+  AND: [PostCommentPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [PostCommentPermissionWhereInput!]
+  objects: PostCommentFilter
+  OR: [PostCommentPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: PostCommentPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input PostCommentWhereInput {
+  AND: [PostCommentWhereInput!]
+  author: UserWhereInput
+  content: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  likers: UserFilter
+  NOT: [PostCommentWhereInput!]
+  OR: [PostCommentWhereInput!]
+  permissions: PostCommentPermissionFilter
+  post: PostWhereInput
+  updatedAt: DateTimeFilter
 }
 
 input PostCommentWhereUniqueInput {
   id: ID
 }
 
+input PostFilter {
+  every: PostWhereInput
+  none: PostWhereInput
+  some: PostWhereInput
+}
+
 type PostPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Post!]
-  type: PostPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Post!]!
+  type: PostPermissionType!
   updatedAt: DateTime!
 }
 
-enum PostPermissionTypeEnum {
+input PostPermissionFilter {
+  every: PostPermissionWhereInput
+  none: PostPermissionWhereInput
+  some: PostPermissionWhereInput
+}
+
+enum PostPermissionType {
   CREATE_POSTCOMMENT
   DELETE_POST
   READ_POST
   UPDATE_POST
 }
 
+input PostPermissionWhereInput {
+  AND: [PostPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [PostPermissionWhereInput!]
+  objects: PostFilter
+  OR: [PostPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: PostPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  author: UserWhereInput
+  comments: PostCommentFilter
+  content: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  likers: UserFilter
+  NOT: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  permissions: PostPermissionFilter
+  subject: SubjectWhereInput
+  updatedAt: DateTimeFilter
+}
+
 type Query {
   activeSuggestions(where: SuggestionsInput!): [Suggestion!]!
   department(where: DepartmentWhereUniqueInput!): Department
   institute(where: InstituteWhereUniqueInput!): Institute
-  institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
   language(where: LanguageWhereUniqueInput!): Language
-  languages(after: String, before: String, first: Int, last: Int, skip: Int): [Language!]
+  languages(after: ID, before: ID, first: Int, last: Int, skip: Int): [Language!]!
   me: User!
   note(where: NoteWhereUniqueInput!): Note
   noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
@@ -502,18 +923,18 @@ type Query {
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
   user(where: UserWhereUniqueInput!): User
-  userInfo(token: String): User!
-  users(after: String, before: String, first: Int, last: Int, skip: Int, where: QueryFindManyUserWhereInput): [User!]
+  userInfo(token: String): User
+  users(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QueryUsersWhereInput): [User!]!
 }
 
-input QueryFindManyUserWhereInput {
+input QueryUsersWhereInput {
   email: StringFilter
   firstName: StringFilter
   identifier: StringFilter
   isActive: BooleanFilter
   lastName: StringFilter
   phoneNumber: NullableStringFilter
-  role: QueryFindManyUserWhereInput
+  role: UserRoleWhereInput
 }
 
 """Input of reset password"""
@@ -526,6 +947,16 @@ type ResetPasswordToken {
   createdAt: DateTime!
   email: ID!
   token: String!
+}
+
+input ResetPasswordTokenWhereInput {
+  AND: [ResetPasswordTokenWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  NOT: [ResetPasswordTokenWhereInput!]
+  OR: [ResetPasswordTokenWhereInput!]
+  token: StringFilter
+  users: UserFilter
 }
 
 input StringFilter {
@@ -549,13 +980,19 @@ type Subject {
   department: Department!
   description: String!
   id: ID!
-  informations(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
+  informations(after: ID, before: ID, first: Int, last: Int, skip: Int): [SubjectInformation!]!
   name: String!
-  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
-  posts(after: String, before: String, first: Int, last: Int, orderBy: SubjectPostsOrderByInput, skip: Int): [Post!]
-  students(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  teachers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
+  posts(after: ID, before: ID, first: Int, last: Int, orderBy: SubjectPostsOrderByInput, skip: Int): [Post!]!
+  students(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+  teachers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
   updatedAt: DateTime!
+}
+
+input SubjectFilter {
+  every: SubjectWhereInput
+  none: SubjectWhereInput
+  some: SubjectWhereInput
 }
 
 type SubjectInformation {
@@ -569,19 +1006,59 @@ type SubjectInformation {
   updatedAt: DateTime!
 }
 
+input SubjectInformationFilter {
+  every: SubjectInformationWhereInput
+  none: SubjectInformationWhereInput
+  some: SubjectInformationWhereInput
+}
+
 type SubjectInformationPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [SubjectInformation!]
-  type: SubjectInformationPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [SubjectInformation!]!
+  type: SubjectInformationPermissionType!
   updatedAt: DateTime!
 }
 
-enum SubjectInformationPermissionTypeEnum {
+input SubjectInformationPermissionFilter {
+  every: SubjectInformationPermissionWhereInput
+  none: SubjectInformationPermissionWhereInput
+  some: SubjectInformationPermissionWhereInput
+}
+
+enum SubjectInformationPermissionType {
   DELETE_SUBJECT_INFORMATION
   READ_SUBJECT_INFORMATION
   UPDATE_SUBJECT_INFORMATION
+}
+
+input SubjectInformationPermissionWhereInput {
+  AND: [SubjectInformationPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [SubjectInformationPermissionWhereInput!]
+  objects: SubjectInformationFilter
+  OR: [SubjectInformationPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: SubjectInformationPermissionType
+  updatedAt: DateTimeFilter
+}
+
+input SubjectInformationWhereInput {
+  AND: [SubjectInformationWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [SubjectInformationWhereInput!]
+  OR: [SubjectInformationWhereInput!]
+  permissions: SubjectInformationPermissionFilter
+  subject: SubjectWhereInput
+  subtitle: NullableStringFilter
+  title: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input SubjectInformationWhereUniqueInput {
@@ -592,12 +1069,18 @@ type SubjectPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
-  type: SubjectPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
+  type: SubjectPermissionType!
   updatedAt: DateTime!
 }
 
-enum SubjectPermissionTypeEnum {
+input SubjectPermissionFilter {
+  every: SubjectPermissionWhereInput
+  none: SubjectPermissionWhereInput
+  some: SubjectPermissionWhereInput
+}
+
+enum SubjectPermissionType {
   CREATE_NOTE
   CREATE_POST
   CREATE_SUBJECT_INFORMATION
@@ -606,8 +1089,42 @@ enum SubjectPermissionTypeEnum {
   UPDATE_SUBJECT
 }
 
+input SubjectPermissionWhereInput {
+  AND: [SubjectPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [SubjectPermissionWhereInput!]
+  objects: SubjectFilter
+  OR: [SubjectPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: SubjectPermissionType
+  updatedAt: DateTimeFilter
+}
+
 input SubjectPostsOrderByInput {
   createdAt: OrderByArg
+}
+
+input SubjectWhereInput {
+  AND: [SubjectWhereInput!]
+  code: StringFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  department: DepartmentWhereInput
+  description: StringFilter
+  id: StringFilter
+  informations: SubjectInformationFilter
+  language: LanguageWhereInput
+  name: StringFilter
+  NOT: [SubjectWhereInput!]
+  notes: NoteFilter
+  OR: [SubjectWhereInput!]
+  permissions: SubjectPermissionFilter
+  posts: PostFilter
+  students: UserFilter
+  teachers: UserFilter
+  updatedAt: DateTimeFilter
 }
 
 input SubjectWhereUniqueInput {
@@ -630,7 +1147,7 @@ type Suggestion {
   deletedAt: DateTime
   delta: String!
   id: ID!
-  likers(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 
   """Number of likes on the suggestion"""
   likesCount: Int!
@@ -639,16 +1156,28 @@ type Suggestion {
   updatedAt: DateTime!
 }
 
+input SuggestionFilter {
+  every: SuggestionWhereInput
+  none: SuggestionWhereInput
+  some: SuggestionWhereInput
+}
+
 type SuggestionPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  type: SuggestionPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Suggestion!]!
+  type: SuggestionPermissionType!
   updatedAt: DateTime!
 }
 
-enum SuggestionPermissionTypeEnum {
+input SuggestionPermissionFilter {
+  every: SuggestionPermissionWhereInput
+  none: SuggestionPermissionWhereInput
+  some: SuggestionPermissionWhereInput
+}
+
+enum SuggestionPermissionType {
   APPROVE_SUGGESTION
   DELETE_SUGGESTION
   READ_SUGGESTION
@@ -656,8 +1185,39 @@ enum SuggestionPermissionTypeEnum {
   UPDATE_SUGGESTION
 }
 
+input SuggestionPermissionWhereInput {
+  AND: [SuggestionPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [SuggestionPermissionWhereInput!]
+  objects: SuggestionFilter
+  OR: [SuggestionPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: SuggestionPermissionType
+  updatedAt: DateTimeFilter
+}
+
 input SuggestionsInput {
   noteID: ID
+}
+
+input SuggestionWhereInput {
+  AND: [SuggestionWhereInput!]
+  approvedAt: NullableDateTimeFilter
+  approvedBy: UserWhereInput
+  author: UserWhereInput
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  delta: StringFilter
+  id: StringFilter
+  likers: UserFilter
+  NOT: [SuggestionWhereInput!]
+  note: NoteWhereInput
+  OR: [SuggestionWhereInput!]
+  permissions: SuggestionPermissionFilter
+  rejectedAt: NullableDateTimeFilter
+  updatedAt: DateTimeFilter
 }
 
 input SuggestionWhereUniqueInput {
@@ -691,7 +1251,7 @@ input UpdateNoteInput {
   content: String
   contentHTML: String
   description: String
-  noteCategory: NoteCategoryEnum
+  noteCategory: NoteCategory
   number: Int
   title: String
 }
@@ -732,22 +1292,22 @@ input UpdateUserInput {
 }
 
 type User {
-  approvedSuggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
+  approvedSuggestions(after: ID, before: ID, first: Int, last: Int, skip: Int): [Suggestion!]!
   createdAt: DateTime!
   deletedAt: DateTime
-  departments(after: String, before: String, first: Int, last: Int, skip: Int): [Department!]
+  departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
   email: String!
   firstName: String!
   fullName: String!
   id: ID!
   identifier: String!
-  institutes(after: String, before: String, first: Int, last: Int, skip: Int): [Institute!]
+  institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
   lastName: String!
-  likedNotes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
-  likedPostComments(after: String, before: String, first: Int, last: Int, skip: Int): [PostComment!]
-  noteComments(after: String, before: String, first: Int, last: Int, skip: Int): [NoteComment!]
-  noteHighlights(after: String, before: String, first: Int, last: Int, skip: Int): [NoteHighlight!]
-  notes(after: String, before: String, first: Int, last: Int, skip: Int): [Note!]
+  likedNotes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
+  likedPostComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
+  noteComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
+  noteHighlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
+  notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   password: String!
   passwordToken: PasswordToken
   phoneNumber: String
@@ -755,10 +1315,32 @@ type User {
   preferredLanguage: Language
   profilePictureURL: String
   role: UserRole!
-  studiedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
-  suggestions(after: String, before: String, first: Int, last: Int, skip: Int): [Suggestion!]
-  teachedSubjects(after: String, before: String, first: Int, last: Int, skip: Int): [Subject!]
+  studiedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
+  suggestions(after: ID, before: ID, first: Int, last: Int, skip: Int): [Suggestion!]!
+  teachedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   updatedAt: DateTime!
+}
+
+input UserFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
+}
+
+input UserGroupFilter {
+  every: UserGroupWhereInput
+  none: UserGroupWhereInput
+  some: UserGroupWhereInput
+}
+
+input UserGroupWhereInput {
+  AND: [UserGroupWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [UserGroupWhereInput!]
+  OR: [UserGroupWhereInput!]
+  permissions: PermissionFilter
+  users: UserFilter
 }
 
 """Input of login"""
@@ -771,14 +1353,33 @@ type UserPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  type: UserPermissionTypeEnum!
+  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+  type: UserPermissionType!
   updatedAt: DateTime!
 }
 
-enum UserPermissionTypeEnum {
+input UserPermissionFilter {
+  every: UserPermissionWhereInput
+  none: UserPermissionWhereInput
+  some: UserPermissionWhereInput
+}
+
+enum UserPermissionType {
   DELETE_USER
   UPDATE_USER
+}
+
+input UserPermissionWhereInput {
+  AND: [UserPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [UserPermissionWhereInput!]
+  objects: UserFilter
+  OR: [UserPermissionWhereInput!]
+  permissions: PermissionFilter
+  type: UserPermissionType
+  updatedAt: DateTimeFilter
 }
 
 type UserRole {
@@ -786,14 +1387,70 @@ type UserRole {
   deletedAt: DateTime
   id: ID!
   name: String!
-  type: UserRoleTypeEnum!
+  type: UserRoleType!
   updatedAt: DateTime!
 }
 
-enum UserRoleTypeEnum {
+enum UserRoleType {
   ADMIN
   PROFESSOR
   USER
+}
+
+input UserRoleWhereInput {
+  AND: [UserRoleWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [UserRoleWhereInput!]
+  OR: [UserRoleWhereInput!]
+  type: UserRoleType
+  updatedAt: DateTimeFilter
+  users: UserFilter
+}
+
+input UserWhereInput {
+  activationToken: ActivationTokenWhereInput
+  AND: [UserWhereInput!]
+  approvedSuggestions: SuggestionFilter
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  departments: DepartmentFilter
+  email: StringFilter
+  firstName: StringFilter
+  groups: UserGroupFilter
+  id: StringFilter
+  identifier: StringFilter
+  institutes: InstituteFilter
+  isActive: BooleanFilter
+  lastName: StringFilter
+  likedNoteComments: NoteCommentFilter
+  likedNotes: NoteFilter
+  likedPostComments: PostCommentFilter
+  likedPosts: PostFilter
+  likedSuggestions: SuggestionFilter
+  NOT: [UserWhereInput!]
+  noteComments: NoteCommentFilter
+  noteHighlights: NoteHighlightFilter
+  notes: NoteFilter
+  OR: [UserWhereInput!]
+  password: StringFilter
+  passwordToken: PasswordTokenWhereInput
+  permissions: PermissionFilter
+  phoneNumber: NullableStringFilter
+  position: NullableStringFilter
+  postComments: PostCommentFilter
+  posts: PostFilter
+  preferredLanguage: LanguageWhereInput
+  profilePictureURL: NullableStringFilter
+  ResetPasswordToken: ResetPasswordTokenWhereInput
+  role: UserRoleWhereInput
+  studiedSubjects: SubjectFilter
+  suggestions: SuggestionFilter
+  teachedSubjects: SubjectFilter
+  updatedAt: DateTimeFilter
+  userPermissions: UserPermissionFilter
 }
 
 input UserWhereUniqueInput {

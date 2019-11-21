@@ -11,30 +11,19 @@ export const hasSubjectPermission = async ({
   subjectID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.subjectPermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              subjectPermission: {
-                objects: { some: { id: subjectID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          subjectPermission: { type: permission, objects: { some: { id: subjectID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };
 
 export const addSubjectPermission = async ({
@@ -57,7 +46,7 @@ export const addSubjectPermission = async ({
             id: subjectID,
           },
         },
-        permission: {
+        permissions: {
           create: {
             users: {
               connect: {

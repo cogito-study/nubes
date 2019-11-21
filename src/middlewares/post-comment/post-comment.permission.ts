@@ -11,30 +11,19 @@ export const hasPostCommentPermission = async ({
   postCommentID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.postCommentPermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              postCommentPermission: {
-                objects: { some: { id: postCommentID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          postCommentPermission: { type: permission, objects: { some: { id: postCommentID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };
 
 export const addPostCommentPermission = async ({
@@ -57,7 +46,7 @@ export const addPostCommentPermission = async ({
             id: postCommentID,
           },
         },
-        permission: {
+        permissions: {
           create: {
             users: {
               connect: {

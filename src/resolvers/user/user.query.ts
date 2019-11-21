@@ -34,22 +34,19 @@ export const UserQuery = extendType({
         token: stringArg(),
       },
       resolve: async (_, { token }, ctx) => {
-        try {
-          const activationToken = await ctx.photon.activationTokens.findOne({
-            where: { token },
-            include: { user: true },
-          });
-          return activationToken.user;
-        } catch {
-          try {
-            const resetPasswordToken = await ctx.photon.resetPasswordTokens.findOne({
-              where: { token },
-            });
-            return await ctx.photon.users.findOne({ where: { email: resetPasswordToken.email } });
-          } catch {
-            throw new ApolloError(__('invalid_token'));
-          }
-        }
+        const activationToken = await ctx.photon.activationTokens.findOne({
+          where: { token },
+          include: { user: true },
+        });
+        if (activationToken !== null) return activationToken.user;
+
+        const resetPasswordToken = await ctx.photon.resetPasswordTokens.findOne({
+          where: { token },
+        });
+        if (resetPasswordToken !== null)
+          await ctx.photon.users.findOne({ where: { email: resetPasswordToken.email } });
+
+        throw new ApolloError(__('invalid_token'));
       },
     });
   },

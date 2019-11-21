@@ -11,28 +11,17 @@ export const hasNoteHighlightPermission = async ({
   noteHighlightID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.noteHighlightPermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              noteHighlightPermission: {
-                objects: { some: { id: noteHighlightID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          noteHighlightPermission: { type: permission, objects: { some: { id: noteHighlightID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };

@@ -9,7 +9,7 @@ export const CreateNoteInput = inputObjectType({
     t.string('contentHTML', { required: true });
     t.int('number', { required: true });
     t.string('description');
-    t.field('noteCategory', { type: 'NoteCategoryEnum', required: true });
+    t.field('noteCategory', { type: 'NoteCategory', required: true });
     t.field('subject', { type: 'ConnectRelation', required: true });
   },
 });
@@ -23,6 +23,6 @@ export const UpdateNoteInput = inputObjectType({
     t.string('contentHTML');
     t.int('number');
     t.string('description');
-    t.field('noteCategory', { type: 'NoteCategoryEnum' });
+    t.field('noteCategory', { type: 'NoteCategory' });
   },
 });

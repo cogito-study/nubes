@@ -34,16 +34,12 @@ export const users = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  try {
-    const user = await context.photon.users.findOne({
-      where: { id: getUserID(context) },
-      include: {
-        role: true,
-      },
-    });
-    if (user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
-  } catch {
-    throw new ForbiddenError(__('no_permission'));
-  }
+  const user = await context.photon.users.findOne({
+    where: { id: getUserID(context) },
+    include: {
+      role: true,
+    },
+  });
+  if (user && user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
   throw new ForbiddenError(__('no_permission'));
 };

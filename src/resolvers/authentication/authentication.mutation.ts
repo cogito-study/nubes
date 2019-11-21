@@ -1,5 +1,4 @@
 import { extendType } from 'nexus';
-import { catchNotExistError } from '../../utils';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
 import { EmailTemplateType, randomFounder, sendEmail } from '../../utils/email';
 import {
@@ -23,20 +22,17 @@ export const AuthenticationMutation = extendType({
         data: UserLoginInput.asArg({ required: true }),
       },
       resolve: async (_, { data: { email, password } }, ctx) => {
-        try {
-          const user = await ctx.photon.users.findOne({ where: { email } });
+        const user = await ctx.photon.users.findOne({ where: { email } });
+        if (user === null) throw new Error('Invalid email or password');
 
-          const isValidPassword = await comparePasswords(password, user.password);
-          if (!isValidPassword) throw new Error('Invalid email or password');
-          if (!user.isActive) throw new Error('Inactive user tried to log in');
+        const isValidPassword = await comparePasswords(password, user.password);
+        if (!isValidPassword) throw new Error('Invalid email or password');
+        if (!user.isActive) throw new Error('Inactive user tried to log in');
 
-          return {
-            token: generateJWToken(user.id),
-            user,
-          };
-        } catch {
-          throw new Error('Invalid email or password');
-        }
+        return {
+          token: generateJWToken(user.id),
+          user,
+        };
       },
     });
 
@@ -47,31 +43,24 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { email } }, ctx) => {
         const token = generateToken();
-        try {
-          const passwordToken = await ctx.photon.resetPasswordTokens.findOne({
-            where: { email },
+        let passwordToken = await ctx.photon.resetPasswordTokens.findOne({
+          where: { email },
+        });
+        if (passwordToken === null) {
+          passwordToken = await ctx.photon.resetPasswordTokens.create({
+            data: { email, token },
           });
-
+        } else {
           checkTokenGenerationFrequency(passwordToken);
-
-          await ctx.photon.resetPasswordTokens.update({
-            where: { email },
-            data: { createdAt: new Date() },
-          });
-        } catch (error) {
-          error = catchNotExistError(error);
-          if (!error) {
-            await ctx.photon.resetPasswordTokens.create({
-              data: { email, token },
-            });
-          } else {
-            throw error;
-          }
         }
 
-        try {
-          const user = await ctx.photon.users.findOne({ where: { email } });
+        await ctx.photon.resetPasswordTokens.update({
+          where: { email },
+          data: { createdAt: new Date() },
+        });
 
+        const user = await ctx.photon.users.findOne({ where: { email } });
+        if (user !== null) {
           try {
             sendEmail(
               { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
@@ -83,10 +72,8 @@ export const AuthenticationMutation = extendType({
           } catch {
             throw new Error('Failed to send forgot password email!');
           }
-          return 'Done';
-        } catch {
-          return 'Done';
         }
+        return 'Done';
       },
     });
 
@@ -96,41 +83,38 @@ export const AuthenticationMutation = extendType({
         data: ActivateUserInput.asArg({ required: true }),
       },
       resolve: async (_, { data: { token, password } }, ctx) => {
-        try {
-          const activationToken = await ctx.photon.activationTokens.findOne({
-            where: {
-              token,
-            },
-            include: {
-              user: true,
-            },
-          });
+        const activationToken = await ctx.photon.activationTokens.findOne({
+          where: {
+            token,
+          },
+          include: {
+            user: true,
+          },
+        });
+        if (activationToken === null) throw new Error('Token not found');
 
-          checkTokenExpiration(activationToken, 'activate');
+        checkTokenExpiration(activationToken, 'activate');
 
-          const user = await ctx.photon.users.update({
-            where: {
-              email: activationToken.user.email,
-            },
-            data: {
-              isActive: true,
-              password: await hashPassword(password),
-            },
-          });
+        const user = await ctx.photon.users.update({
+          where: {
+            email: activationToken.user.email,
+          },
+          data: {
+            isActive: true,
+            password: await hashPassword(password),
+          },
+        });
 
-          await ctx.photon.activationTokens.delete({
-            where: {
-              token,
-            },
-          });
+        await ctx.photon.activationTokens.delete({
+          where: {
+            token,
+          },
+        });
 
-          return {
-            token: generateJWToken(user.id),
-            user,
-          };
-        } catch {
-          throw new Error('Token not found');
-        }
+        return {
+          token: generateJWToken(user.id),
+          user,
+        };
       },
     });
 
@@ -140,37 +124,33 @@ export const AuthenticationMutation = extendType({
         data: ResetPasswordInput.asArg({ required: true }),
       },
       resolve: async (_, { data: { token, password } }, ctx) => {
-        try {
-          const resetPasswordToken = await ctx.photon.resetPasswordTokens.findOne({
-            where: {
-              token,
-            },
-          });
+        const resetPasswordToken = await ctx.photon.resetPasswordTokens.findOne({
+          where: {
+            token,
+          },
+        });
+        if (resetPasswordToken === null) throw new Error('Token not found');
+        checkTokenExpiration(resetPasswordToken, 'resetPassword');
 
-          checkTokenExpiration(resetPasswordToken, 'resetPassword');
+        const user = await ctx.photon.users.update({
+          where: {
+            email: resetPasswordToken.email,
+          },
+          data: {
+            password: await hashPassword(password),
+          },
+        });
 
-          const user = await ctx.photon.users.update({
-            where: {
-              email: resetPasswordToken.email,
-            },
-            data: {
-              password: await hashPassword(password),
-            },
-          });
+        await ctx.photon.resetPasswordTokens.delete({
+          where: {
+            token,
+          },
+        });
 
-          await ctx.photon.resetPasswordTokens.delete({
-            where: {
-              token,
-            },
-          });
-
-          return {
-            token: generateJWToken(user.id),
-            user: user,
-          };
-        } catch (error) {
-          throw new Error('Token not found');
-        }
+        return {
+          token: generateJWToken(user.id),
+          user: user,
+        };
       },
     });
   },

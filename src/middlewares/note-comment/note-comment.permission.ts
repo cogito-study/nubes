@@ -11,28 +11,17 @@ export const hasNoteCommentPermission = async ({
   noteCommentID: string;
   context: Context;
 }) => {
-  try {
-    const permissions = await context.photon.noteCommentPermissions.findMany({
-      where: {
-        AND: [
-          { type: permission },
-          {
-            permission: {
-              noteCommentPermission: {
-                objects: { some: { id: noteCommentID } },
-              },
-            },
-          },
-          {
-            permission: {
-              users: { some: { id: getUserID(context) } },
-            },
-          },
-        ],
-      },
-    });
-    return permissions.length !== 0;
-  } catch (error) {
-    return false;
-  }
+  const permissions = await context.photon.permissions.findMany({
+    where: {
+      AND: [
+        {
+          noteCommentPermission: { type: permission, objects: { some: { id: noteCommentID } } },
+        },
+        {
+          users: { some: { id: getUserID(context) } },
+        },
+      ],
+    },
+  });
+  return permissions.length !== 0;
 };

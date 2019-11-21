@@ -1,4 +1,4 @@
-import { nexusPrismaPlugin } from '@generated/nexus-prisma';
+import { nexusPrismaPlugin } from 'nexus-prisma';
 import { Photon } from '@generated/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
 import { config } from 'dotenv';
@@ -21,7 +21,8 @@ const nexusPrisma = nexusPrismaPlugin({
 });
 
 const schema = makeSchema({
-  types: [allTypes, nexusPrisma],
+  types: [allTypes],
+  plugins: [nexusPrisma],
   outputs: {
     typegen: join(__dirname, '../generated/nexus-typegen.ts'),
     schema: join(__dirname, '/schema.graphql'),
