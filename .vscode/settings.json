@@ -1,6 +1,9 @@
 {
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
   "editor.tabSize": 2,
   "eslint.validate": [
     {
@@ -15,7 +18,8 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "javascript.format.enable": false,
-  "tslint.enable": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "cSpell.words": ["middlewares"]
+  "cSpell.words": [
+    "middlewares"
+  ]
 }
