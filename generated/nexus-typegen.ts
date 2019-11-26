@@ -1181,6 +1181,7 @@ export interface NexusGenFieldTypes {
     institute: NexusGenRootTypes['Institute']; // Institute!
     leader: NexusGenRootTypes['User']; // User!
     name: string; // String!
+    permissions: NexusGenEnums['DepartmentPermissionType'][]; // [DepartmentPermissionType!]!
     subjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     updatedAt: any; // DateTime!
   };
@@ -1200,6 +1201,7 @@ export interface NexusGenFieldTypes {
     departments: NexusGenRootTypes['Department'][]; // [Department!]!
     id: string; // ID!
     name: string; // String!
+    permissions: NexusGenEnums['InstitutePermissionType'][]; // [InstitutePermissionType!]!
     updatedAt: any; // DateTime!
     users: NexusGenRootTypes['User'][]; // [User!]!
   };
@@ -1282,6 +1284,7 @@ export interface NexusGenFieldTypes {
     likesCount: number; // Int!
     noteCategory: NexusGenEnums['NoteCategory']; // NoteCategory!
     number: number; // Int!
+    permissions: NexusGenEnums['NotePermissionType'][]; // [NotePermissionType!]!
     subject: NexusGenRootTypes['Subject']; // Subject!
     title: string; // String!
     updatedAt: any; // DateTime!
@@ -1295,6 +1298,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     likers: NexusGenRootTypes['User'][]; // [User!]!
     likesCount: number; // Int!
+    permissions: NexusGenEnums['NoteCommentPermissionType'][]; // [NoteCommentPermissionType!]!
     thread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     threadReply: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     updatedAt: any; // DateTime!
@@ -1389,6 +1393,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     likers: NexusGenRootTypes['User'][]; // [User!]!
     likesCount: number; // Int!
+    permissions: NexusGenEnums['PostPermissionType'][]; // [PostPermissionType!]!
     subject: NexusGenRootTypes['Subject']; // Subject!
     updatedAt: any; // DateTime!
   };
@@ -1401,6 +1406,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     likers: NexusGenRootTypes['User'][]; // [User!]!
     likesCount: number; // Int!
+    permissions: NexusGenEnums['PostCommentPermissionType'][]; // [PostCommentPermissionType!]!
     post: NexusGenRootTypes['Post']; // Post!
     updatedAt: any; // DateTime!
   };
@@ -1464,6 +1470,7 @@ export interface NexusGenFieldTypes {
     language: NexusGenRootTypes['Language']; // Language!
     name: string; // String!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!
+    permissions: NexusGenEnums['SubjectPermissionType'][]; // [SubjectPermissionType!]!
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     students: NexusGenRootTypes['User'][]; // [User!]!
     teachers: NexusGenRootTypes['User'][]; // [User!]!
@@ -1475,6 +1482,7 @@ export interface NexusGenFieldTypes {
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
+    permissions: NexusGenEnums['SubjectInformationPermissionType'][]; // [SubjectInformationPermissionType!]!
     subject: NexusGenRootTypes['Subject']; // Subject!
     subtitle: string | null; // String
     title: string; // String!
@@ -1517,6 +1525,7 @@ export interface NexusGenFieldTypes {
     likers: NexusGenRootTypes['User'][]; // [User!]!
     likesCount: number; // Int!
     note: NexusGenRootTypes['Note']; // Note!
+    permissions: NexusGenEnums['SuggestionPermissionType'][]; // [SuggestionPermissionType!]!
     rejectedAt: any | null; // DateTime
     updatedAt: any; // DateTime!
   };
@@ -1548,6 +1557,7 @@ export interface NexusGenFieldTypes {
     noteHighlights: NexusGenRootTypes['NoteHighlight'][]; // [NoteHighlight!]!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!
     password: string; // String!
+    permissions: NexusGenEnums['UserPermissionType'][]; // [UserPermissionType!]!
     phoneNumber: string | null; // String
     position: string | null; // String
     preferredLanguage: NexusGenRootTypes['Language'] | null; // Language
