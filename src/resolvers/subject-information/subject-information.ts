@@ -24,7 +24,7 @@ export const SubjectInformation = objectType({
             type: true,
           },
         });
-        return await permissions.map((p) => p.type);
+        return permissions.map((p) => p.type);
       },
     });
 
