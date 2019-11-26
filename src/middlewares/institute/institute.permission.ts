@@ -1,4 +1,4 @@
-import { InstitutePermissionType } from '@generated/photon';
+import { InstitutePermissionType, User } from '@generated/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 
@@ -24,4 +24,38 @@ export const hasInstitutePermission = async ({
     },
   });
   return permissions.length !== 0;
+};
+
+export const addInstitutePermission = async ({
+  permission,
+  users,
+  instituteID,
+  context,
+}: {
+  permission: InstitutePermissionType;
+  users: Array<User>;
+  instituteID: string;
+  context: Context;
+}) => {
+  users.forEach(async (user) => {
+    await context.photon.institutePermissions.create({
+      data: {
+        type: permission,
+        objects: {
+          connect: {
+            id: instituteID,
+          },
+        },
+        permission: {
+          create: {
+            users: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        },
+      },
+    });
+  });
 };

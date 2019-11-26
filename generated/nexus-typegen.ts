@@ -100,6 +100,13 @@ export interface NexusGenInputs {
     delta: string; // String!
     note: NexusGenInputs['ConnectRelation']; // ConnectRelation!
   }
+  CreateUserInput: { // input type
+    email: string; // String!
+    firstName: string; // String!
+    identifier: string; // String!
+    lastName: string; // String!
+    role: string; // String!
+  }
   DateTimeFilter: { // input type
     equals?: any | null; // DateTime
     gt?: any | null; // DateTime
@@ -540,6 +547,9 @@ export interface NexusGenInputs {
     token?: NexusGenInputs['StringFilter'] | null; // StringFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
   }
+  SendActivationEmailsInput: { // input type
+    ids: string[]; // [String!]!
+  }
   StringFilter: { // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
@@ -714,6 +724,10 @@ export interface NexusGenInputs {
   UpdatePostInput: { // input type
     content?: string | null; // String
   }
+  UpdateProfileInput: { // input type
+    email?: string | null; // String
+    password?: string | null; // String
+  }
   UpdateSubjectInformationInput: { // input type
     content?: string | null; // String
     subtitle?: string | null; // String
@@ -729,7 +743,11 @@ export interface NexusGenInputs {
   }
   UpdateUserInput: { // input type
     email?: string | null; // String
-    password?: string | null; // String
+    firstName?: string | null; // String
+    identifier?: string | null; // String
+    lastName?: string | null; // String
+    position?: string | null; // String
+    studiedSubjects?: string[] | null; // [String!]
   }
   UserFilter: { // input type
     every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -919,6 +937,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   CreateSubjectInformationInput: NexusGenInputs['CreateSubjectInformationInput'];
   CreateSubjectInput: NexusGenInputs['CreateSubjectInput'];
   CreateSuggestionInput: NexusGenInputs['CreateSuggestionInput'];
+  CreateUserInput: NexusGenInputs['CreateUserInput'];
   DateTimeFilter: NexusGenInputs['DateTimeFilter'];
   DepartmentFilter: NexusGenInputs['DepartmentFilter'];
   DepartmentPermissionFilter: NexusGenInputs['DepartmentPermissionFilter'];
@@ -972,6 +991,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   QueryUsersWhereInput: NexusGenInputs['QueryUsersWhereInput'];
   ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   ResetPasswordTokenWhereInput: NexusGenInputs['ResetPasswordTokenWhereInput'];
+  SendActivationEmailsInput: NexusGenInputs['SendActivationEmailsInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   SubjectFilter: NexusGenInputs['SubjectFilter'];
   SubjectInformationFilter: NexusGenInputs['SubjectInformationFilter'];
@@ -997,6 +1017,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateNoteInput: NexusGenInputs['UpdateNoteInput'];
   UpdatePostCommentInput: NexusGenInputs['UpdatePostCommentInput'];
   UpdatePostInput: NexusGenInputs['UpdatePostInput'];
+  UpdateProfileInput: NexusGenInputs['UpdateProfileInput'];
   UpdateSubjectInformationInput: NexusGenInputs['UpdateSubjectInformationInput'];
   UpdateSubjectInput: NexusGenInputs['UpdateSubjectInput'];
   UpdateSuggestionInput: NexusGenInputs['UpdateSuggestionInput'];
@@ -1094,6 +1115,7 @@ export interface NexusGenFieldTypes {
     createSubject: NexusGenRootTypes['Subject']; // Subject!
     createSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     createSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    createUser: NexusGenRootTypes['User']; // User!
     deleteDepartment: NexusGenRootTypes['Department']; // Department!
     deleteInstitute: NexusGenRootTypes['Institute']; // Institute!
     deleteNote: NexusGenRootTypes['Note']; // Note!
@@ -1112,6 +1134,7 @@ export interface NexusGenFieldTypes {
     login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    sendActivationEmails: NexusGenRootTypes['User'][]; // [User!]!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
     updateNote: NexusGenRootTypes['Note']; // Note!
@@ -1119,6 +1142,7 @@ export interface NexusGenFieldTypes {
     updateNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updatePostComment: NexusGenRootTypes['PostComment']; // PostComment!
+    updateProfile: NexusGenRootTypes['User']; // User!
     updateSubject: NexusGenRootTypes['Subject']; // Subject!
     updateSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     updateSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
@@ -1269,6 +1293,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     activeSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     department: NexusGenRootTypes['Department'] | null; // Department
+    departments: NexusGenRootTypes['Department'][]; // [Department!]!
     institute: NexusGenRootTypes['Institute'] | null; // Institute
     institutes: NexusGenRootTypes['Institute'][]; // [Institute!]!
     language: NexusGenRootTypes['Language'] | null; // Language
@@ -1282,6 +1307,7 @@ export interface NexusGenFieldTypes {
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     subject: NexusGenRootTypes['Subject'] | null; // Subject
     subjectInformation: NexusGenRootTypes['SubjectInformation'] | null; // SubjectInformation
+    subjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     suggestion: NexusGenRootTypes['Suggestion'] | null; // Suggestion
     user: NexusGenRootTypes['User'] | null; // User
     userInfo: NexusGenRootTypes['User'] | null; // User
@@ -1300,6 +1326,7 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     id: string; // ID!
     informations: NexusGenRootTypes['SubjectInformation'][]; // [SubjectInformation!]!
+    language: NexusGenRootTypes['Language']; // Language!
     name: string; // String!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
@@ -1492,6 +1519,9 @@ export interface NexusGenArgTypes {
     createSuggestion: { // args
       data: NexusGenInputs['CreateSuggestionInput']; // CreateSuggestionInput!
     }
+    createUser: { // args
+      data: NexusGenInputs['CreateUserInput']; // CreateUserInput!
+    }
     deleteDepartment: { // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     }
@@ -1546,6 +1576,9 @@ export interface NexusGenArgTypes {
     resetPassword: { // args
       data: NexusGenInputs['ResetPasswordInput']; // ResetPasswordInput!
     }
+    sendActivationEmails: { // args
+      data: NexusGenInputs['SendActivationEmailsInput']; // SendActivationEmailsInput!
+    }
     updateDepartment: { // args
       data: NexusGenInputs['UpdateDepartmentInput']; // UpdateDepartmentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
@@ -1572,6 +1605,10 @@ export interface NexusGenArgTypes {
     }
     updatePostComment: { // args
       data: NexusGenInputs['UpdatePostCommentInput']; // UpdatePostCommentInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    }
+    updateProfile: { // args
+      data: NexusGenInputs['UpdateProfileInput']; // UpdateProfileInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     }
     updateSubject: { // args
@@ -1728,6 +1765,13 @@ export interface NexusGenArgTypes {
     department: { // args
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
     }
+    departments: { // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
     institute: { // args
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
     }
@@ -1768,6 +1812,13 @@ export interface NexusGenArgTypes {
     }
     subjectInformation: { // args
       where: NexusGenInputs['SubjectInformationWhereUniqueInput']; // SubjectInformationWhereUniqueInput!
+    }
+    subjects: { // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
     suggestion: { // args
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
@@ -1972,7 +2023,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "ActivationToken" | "AuthenticationPayload" | "Department" | "DepartmentPermission" | "Institute" | "InstitutePermission" | "Language" | "Mutation" | "Note" | "NoteComment" | "NoteCommentPermission" | "NoteCommentThread" | "NoteCommentThreadPermission" | "NoteHighlight" | "NoteHighlightPermission" | "NotePermission" | "PasswordToken" | "Permission" | "Post" | "PostComment" | "PostCommentPermission" | "PostPermission" | "Query" | "ResetPasswordToken" | "Subject" | "SubjectInformation" | "SubjectInformationPermission" | "SubjectPermission" | "Subscription" | "Suggestion" | "SuggestionPermission" | "User" | "UserPermission" | "UserRole";
 
-export type NexusGenInputNames = "ActivateUserInput" | "ActivationTokenWhereInput" | "BooleanFilter" | "ConnectRelation" | "CreateDepartmentInput" | "CreateInstituteInput" | "CreateNoteCommentInput" | "CreateNoteCommentThreadInput" | "CreateNoteHighlightInput" | "CreateNoteInput" | "CreatePostCommentInput" | "CreatePostInput" | "CreateSubjectInformationInput" | "CreateSubjectInput" | "CreateSuggestionInput" | "DateTimeFilter" | "DepartmentFilter" | "DepartmentPermissionFilter" | "DepartmentPermissionWhereInput" | "DepartmentWhereInput" | "DepartmentWhereUniqueInput" | "ForgotPasswordInput" | "ImageUploadInput" | "InstituteFilter" | "InstitutePermissionFilter" | "InstitutePermissionWhereInput" | "InstituteWhereInput" | "InstituteWhereUniqueInput" | "IntFilter" | "LanguageWhereInput" | "LanguageWhereUniqueInput" | "NoteCommentFilter" | "NoteCommentPermissionFilter" | "NoteCommentPermissionWhereInput" | "NoteCommentThreadFilter" | "NoteCommentThreadPermissionFilter" | "NoteCommentThreadPermissionWhereInput" | "NoteCommentThreadWhereInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentWhereInput" | "NoteCommentWhereUniqueInput" | "NoteFilter" | "NoteHighlightFilter" | "NoteHighlightPermissionFilter" | "NoteHighlightPermissionWhereInput" | "NoteHighlightWhereInput" | "NoteHighlightWhereUniqueInput" | "NotePermissionFilter" | "NotePermissionWhereInput" | "NoteWhereInput" | "NoteWhereUniqueInput" | "NullableDateTimeFilter" | "NullableStringFilter" | "PasswordTokenWhereInput" | "PermissionFilter" | "PermissionWhereInput" | "PostCommentFilter" | "PostCommentPermissionFilter" | "PostCommentPermissionWhereInput" | "PostCommentWhereInput" | "PostCommentWhereUniqueInput" | "PostFilter" | "PostPermissionFilter" | "PostPermissionWhereInput" | "PostWhereInput" | "QueryUsersWhereInput" | "ResetPasswordInput" | "ResetPasswordTokenWhereInput" | "StringFilter" | "SubjectFilter" | "SubjectInformationFilter" | "SubjectInformationPermissionFilter" | "SubjectInformationPermissionWhereInput" | "SubjectInformationWhereInput" | "SubjectInformationWhereUniqueInput" | "SubjectPermissionFilter" | "SubjectPermissionWhereInput" | "SubjectPostsOrderByInput" | "SubjectWhereInput" | "SubjectWhereUniqueInput" | "SuggestionFilter" | "SuggestionPermissionFilter" | "SuggestionPermissionWhereInput" | "SuggestionWhereInput" | "SuggestionWhereUniqueInput" | "SuggestionsInput" | "UpdateDepartmentInput" | "UpdateInstituteInput" | "UpdateNoteCommentInput" | "UpdateNoteHighlightInput" | "UpdateNoteInput" | "UpdatePostCommentInput" | "UpdatePostInput" | "UpdateSubjectInformationInput" | "UpdateSubjectInput" | "UpdateSuggestionInput" | "UpdateUserInput" | "UserFilter" | "UserGroupFilter" | "UserGroupWhereInput" | "UserLoginInput" | "UserPermissionFilter" | "UserPermissionWhereInput" | "UserRoleWhereInput" | "UserWhereInput" | "UserWhereUniqueInput" | "WhereUniqueInput";
+export type NexusGenInputNames = "ActivateUserInput" | "ActivationTokenWhereInput" | "BooleanFilter" | "ConnectRelation" | "CreateDepartmentInput" | "CreateInstituteInput" | "CreateNoteCommentInput" | "CreateNoteCommentThreadInput" | "CreateNoteHighlightInput" | "CreateNoteInput" | "CreatePostCommentInput" | "CreatePostInput" | "CreateSubjectInformationInput" | "CreateSubjectInput" | "CreateSuggestionInput" | "CreateUserInput" | "DateTimeFilter" | "DepartmentFilter" | "DepartmentPermissionFilter" | "DepartmentPermissionWhereInput" | "DepartmentWhereInput" | "DepartmentWhereUniqueInput" | "ForgotPasswordInput" | "ImageUploadInput" | "InstituteFilter" | "InstitutePermissionFilter" | "InstitutePermissionWhereInput" | "InstituteWhereInput" | "InstituteWhereUniqueInput" | "IntFilter" | "LanguageWhereInput" | "LanguageWhereUniqueInput" | "NoteCommentFilter" | "NoteCommentPermissionFilter" | "NoteCommentPermissionWhereInput" | "NoteCommentThreadFilter" | "NoteCommentThreadPermissionFilter" | "NoteCommentThreadPermissionWhereInput" | "NoteCommentThreadWhereInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentWhereInput" | "NoteCommentWhereUniqueInput" | "NoteFilter" | "NoteHighlightFilter" | "NoteHighlightPermissionFilter" | "NoteHighlightPermissionWhereInput" | "NoteHighlightWhereInput" | "NoteHighlightWhereUniqueInput" | "NotePermissionFilter" | "NotePermissionWhereInput" | "NoteWhereInput" | "NoteWhereUniqueInput" | "NullableDateTimeFilter" | "NullableStringFilter" | "PasswordTokenWhereInput" | "PermissionFilter" | "PermissionWhereInput" | "PostCommentFilter" | "PostCommentPermissionFilter" | "PostCommentPermissionWhereInput" | "PostCommentWhereInput" | "PostCommentWhereUniqueInput" | "PostFilter" | "PostPermissionFilter" | "PostPermissionWhereInput" | "PostWhereInput" | "QueryUsersWhereInput" | "ResetPasswordInput" | "ResetPasswordTokenWhereInput" | "SendActivationEmailsInput" | "StringFilter" | "SubjectFilter" | "SubjectInformationFilter" | "SubjectInformationPermissionFilter" | "SubjectInformationPermissionWhereInput" | "SubjectInformationWhereInput" | "SubjectInformationWhereUniqueInput" | "SubjectPermissionFilter" | "SubjectPermissionWhereInput" | "SubjectPostsOrderByInput" | "SubjectWhereInput" | "SubjectWhereUniqueInput" | "SuggestionFilter" | "SuggestionPermissionFilter" | "SuggestionPermissionWhereInput" | "SuggestionWhereInput" | "SuggestionWhereUniqueInput" | "SuggestionsInput" | "UpdateDepartmentInput" | "UpdateInstituteInput" | "UpdateNoteCommentInput" | "UpdateNoteHighlightInput" | "UpdateNoteInput" | "UpdatePostCommentInput" | "UpdatePostInput" | "UpdateProfileInput" | "UpdateSubjectInformationInput" | "UpdateSubjectInput" | "UpdateSuggestionInput" | "UpdateUserInput" | "UserFilter" | "UserGroupFilter" | "UserGroupWhereInput" | "UserLoginInput" | "UserPermissionFilter" | "UserPermissionWhereInput" | "UserRoleWhereInput" | "UserWhereInput" | "UserWhereUniqueInput" | "WhereUniqueInput";
 
 export type NexusGenEnumNames = "DepartmentPermissionType" | "InstitutePermissionType" | "NoteCategory" | "NoteCommentPermissionType" | "NoteCommentThreadPermissionType" | "NoteHighlightPermissionType" | "NotePermissionType" | "OrderByArg" | "PostCommentPermissionType" | "PostPermissionType" | "SubjectInformationPermissionType" | "SubjectPermissionType" | "SuggestionPermissionType" | "UserPermissionType" | "UserRoleType";
 

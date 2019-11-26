@@ -1,25 +1,11 @@
 import { extendType } from 'nexus';
-import { CreateDepartmentInput, UpdateDepartmentInput } from './department.input';
+import { UpdateDepartmentInput } from './department.input';
 import { WhereUniqueInput } from '../input';
 import { optionalConnect } from '../../utils';
 
 export const DepartmentMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.field('createDepartment', {
-      type: 'Department',
-      args: { data: CreateDepartmentInput.asArg({ required: true }) },
-      resolve: (_, { data: { institute, leader, ...rest } }, ctx) => {
-        return ctx.photon.departments.create({
-          data: {
-            leader: { connect: leader },
-            institute: { connect: institute },
-            ...rest,
-          },
-        });
-      },
-    });
-
     t.field('updateDepartment', {
       type: 'Department',
       args: {

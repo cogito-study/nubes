@@ -1,14 +1,15 @@
-import { nexusPrismaPlugin } from 'nexus-prisma';
 import { Photon } from '@generated/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
 import { config } from 'dotenv';
 import { applyMiddleware } from 'graphql-middleware';
 import { makeSchema } from 'nexus';
+import { nexusPrismaPlugin } from 'nexus-prisma';
 import { join, resolve } from 'path';
 import { middlewares } from './middlewares';
 import * as allTypes from './resolvers';
 import { Context } from './types';
 import { validateJWToken } from './utils/authentication';
+
 config({ path: resolve(__dirname, '../.env') });
 
 const pubsub = new PubSub();

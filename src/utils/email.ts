@@ -16,12 +16,15 @@ export enum EmailTemplateType {
 }
 
 export const sendEmail = (
-  sender: EmailWithName,
   to: EmailWithName[],
   tags: string[],
   params: object,
   template: EmailTemplateType,
 ) => {
+  const sender = {
+    email: 'welcome@cogito.study',
+    name: `${randomFounder()} from Cogito`,
+  };
   const options: UrlOptions & Options = {
     method: 'POST',
     url: 'https://api.sendinblue.com/v3/smtp/email',

@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
-import { EmailTemplateType, randomFounder, sendEmail } from '../../utils/email';
+import { EmailTemplateType, sendEmail } from '../../utils/email';
 import {
   checkTokenExpiration,
   checkTokenGenerationFrequency,
@@ -63,7 +63,6 @@ export const AuthenticationMutation = extendType({
         if (user !== null) {
           try {
             sendEmail(
-              { email: 'welcome@cogito.study', name: `${randomFounder()} from Cogito` },
               [{ email, name: user.firstName }],
               ['Welcome'],
               { link: `${process.env.MINERVA_URL}/register?token=${token}&id=${user.id}` },

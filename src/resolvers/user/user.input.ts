@@ -1,8 +1,8 @@
 import { inputObjectType } from 'nexus';
 
-export const UpdateUserInput = inputObjectType({
-  name: 'UpdateUserInput',
-  description: 'Input of update user',
+export const UpdateProfileInput = inputObjectType({
+  name: 'UpdateProfileInput',
+  description: "Input of update user's profile",
   definition(t) {
     t.string('email');
     t.string('password');

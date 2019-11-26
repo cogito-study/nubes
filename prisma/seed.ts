@@ -42,8 +42,6 @@ async function main() {
     },
   });
 
-  if (process.env.NODE_ENV === 'production') return;
-
   const user = await photon.users.create({
     data: {
       email: 'user@example.org',
@@ -83,6 +81,8 @@ async function main() {
       },
     },
   });
+
+  if (process.env.NODE_ENV === 'production') return;
   const professor = await photon.users.create({
     data: {
       email: 'professor@example.org',
@@ -166,7 +166,11 @@ async function main() {
             },
           },
         });
-        for (let indexOfSubjectInformation = 0; indexOfSubjectInformation < 3; indexOfSubjectInformation++) {
+        for (
+          let indexOfSubjectInformation = 0;
+          indexOfSubjectInformation < 3;
+          indexOfSubjectInformation++
+        ) {
           let subjectInformation = await photon.subjectInformations.create({
             data: {
               title: faker.random.words(3),
