@@ -3,15 +3,13 @@
  * Do not make changes to this file directly
  */
 
-import * as ctx from "../src/types"
-import * as photon from "@generated/photon"
-
-
+import * as ctx from '../src/types';
+import * as photon from '@prisma/photon';
 
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
-    crud: NexusPrisma<TypeName, 'crud'>
-    model: NexusPrisma<TypeName, 'model'>
+    crud: NexusPrisma<TypeName, 'crud'>;
+    model: NexusPrisma<TypeName, 'model'>;
   }
 }
 
@@ -20,11 +18,13 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  ActivateUserInput: { // input type
+  ActivateUserInput: {
+    // input type
     password: string; // String!
     token: string; // String!
-  }
-  ActivationTokenWhereInput: { // input type
+  };
+  ActivationTokenWhereInput: {
+    // input type
     AND?: NexusGenInputs['ActivationTokenWhereInput'][] | null; // [ActivationTokenWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -32,40 +32,48 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['ActivationTokenWhereInput'][] | null; // [ActivationTokenWhereInput!]
     token?: NexusGenInputs['StringFilter'] | null; // StringFilter
     user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-  }
-  BooleanFilter: { // input type
+  };
+  BooleanFilter: {
+    // input type
     equals?: boolean | null; // Boolean
     not?: boolean | null; // Boolean
-  }
-  ConnectRelation: { // input type
+  };
+  ConnectRelation: {
+    // input type
     id: string; // ID!
-  }
-  CreateDepartmentInput: { // input type
+  };
+  CreateDepartmentInput: {
+    // input type
     description: string; // String!
     institute: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     leader: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     name: string; // String!
-  }
-  CreateInstituteInput: { // input type
+  };
+  CreateInstituteInput: {
+    // input type
     name: string; // String!
-  }
-  CreateNoteCommentInput: { // input type
+  };
+  CreateNoteCommentInput: {
+    // input type
     author: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     content: string; // String!
     name: string; // String!
-  }
-  CreateNoteCommentThreadInput: { // input type
+  };
+  CreateNoteCommentThreadInput: {
+    // input type
     comment: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     name: string; // String!
     note: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     position: string; // String!
-  }
-  CreateNoteHighlightInput: { // input type
+  };
+  CreateNoteHighlightInput: {
+    // input type
     note: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     position: string; // String!
     user: NexusGenInputs['ConnectRelation']; // ConnectRelation!
-  }
-  CreateNoteInput: { // input type
+  };
+  CreateNoteInput: {
+    // input type
     content: string; // String!
     contentHTML: string; // String!
     description?: string | null; // String
@@ -73,41 +81,48 @@ export interface NexusGenInputs {
     number: number; // Int!
     subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     title: string; // String!
-  }
-  CreatePostCommentInput: { // input type
+  };
+  CreatePostCommentInput: {
+    // input type
     content: string; // String!
     name: string; // String!
     post: NexusGenInputs['ConnectRelation']; // ConnectRelation!
-  }
-  CreatePostInput: { // input type
+  };
+  CreatePostInput: {
+    // input type
     content: string; // String!
     subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
-  }
-  CreateSubjectInformationInput: { // input type
+  };
+  CreateSubjectInformationInput: {
+    // input type
     content: string; // String!
     subject: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     subtitle?: string | null; // String
     title: string; // String!
-  }
-  CreateSubjectInput: { // input type
+  };
+  CreateSubjectInput: {
+    // input type
     code: string; // String!
     department: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     description: string; // String!
     language: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     name: string; // String!
-  }
-  CreateSuggestionInput: { // input type
+  };
+  CreateSuggestionInput: {
+    // input type
     delta: string; // String!
     note: NexusGenInputs['ConnectRelation']; // ConnectRelation!
-  }
-  CreateUserInput: { // input type
+  };
+  CreateUserInput: {
+    // input type
     email: string; // String!
     firstName: string; // String!
     identifier: string; // String!
     lastName: string; // String!
     role: string; // String!
-  }
-  DateTimeFilter: { // input type
+  };
+  DateTimeFilter: {
+    // input type
     equals?: any | null; // DateTime
     gt?: any | null; // DateTime
     gte?: any | null; // DateTime
@@ -116,18 +131,21 @@ export interface NexusGenInputs {
     lte?: any | null; // DateTime
     not?: any | null; // DateTime
     notIn?: any[] | null; // [DateTime!]
-  }
-  DepartmentFilter: { // input type
+  };
+  DepartmentFilter: {
+    // input type
     every?: NexusGenInputs['DepartmentWhereInput'] | null; // DepartmentWhereInput
     none?: NexusGenInputs['DepartmentWhereInput'] | null; // DepartmentWhereInput
     some?: NexusGenInputs['DepartmentWhereInput'] | null; // DepartmentWhereInput
-  }
-  DepartmentPermissionFilter: { // input type
+  };
+  DepartmentPermissionFilter: {
+    // input type
     every?: NexusGenInputs['DepartmentPermissionWhereInput'] | null; // DepartmentPermissionWhereInput
     none?: NexusGenInputs['DepartmentPermissionWhereInput'] | null; // DepartmentPermissionWhereInput
     some?: NexusGenInputs['DepartmentPermissionWhereInput'] | null; // DepartmentPermissionWhereInput
-  }
-  DepartmentPermissionWhereInput: { // input type
+  };
+  DepartmentPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['DepartmentPermissionWhereInput'][] | null; // [DepartmentPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -138,8 +156,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['DepartmentPermissionType'] | null; // DepartmentPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  DepartmentWhereInput: { // input type
+  };
+  DepartmentWhereInput: {
+    // input type
     AND?: NexusGenInputs['DepartmentWhereInput'][] | null; // [DepartmentWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -153,28 +172,34 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['DepartmentPermissionFilter'] | null; // DepartmentPermissionFilter
     subjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  DepartmentWhereUniqueInput: { // input type
+  };
+  DepartmentWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  ForgotPasswordInput: { // input type
+  };
+  ForgotPasswordInput: {
+    // input type
     email?: string | null; // String
-  }
-  ImageUploadInput: { // input type
+  };
+  ImageUploadInput: {
+    // input type
     extension: string; // String!
     file: string; // String!
-  }
-  InstituteFilter: { // input type
+  };
+  InstituteFilter: {
+    // input type
     every?: NexusGenInputs['InstituteWhereInput'] | null; // InstituteWhereInput
     none?: NexusGenInputs['InstituteWhereInput'] | null; // InstituteWhereInput
     some?: NexusGenInputs['InstituteWhereInput'] | null; // InstituteWhereInput
-  }
-  InstitutePermissionFilter: { // input type
+  };
+  InstitutePermissionFilter: {
+    // input type
     every?: NexusGenInputs['InstitutePermissionWhereInput'] | null; // InstitutePermissionWhereInput
     none?: NexusGenInputs['InstitutePermissionWhereInput'] | null; // InstitutePermissionWhereInput
     some?: NexusGenInputs['InstitutePermissionWhereInput'] | null; // InstitutePermissionWhereInput
-  }
-  InstitutePermissionWhereInput: { // input type
+  };
+  InstitutePermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['InstitutePermissionWhereInput'][] | null; // [InstitutePermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -185,8 +210,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['InstitutePermissionType'] | null; // InstitutePermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  InstituteWhereInput: { // input type
+  };
+  InstituteWhereInput: {
+    // input type
     AND?: NexusGenInputs['InstituteWhereInput'][] | null; // [InstituteWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -198,11 +224,13 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['InstitutePermissionFilter'] | null; // InstitutePermissionFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  InstituteWhereUniqueInput: { // input type
+  };
+  InstituteWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  IntFilter: { // input type
+  };
+  IntFilter: {
+    // input type
     equals?: number | null; // Int
     gt?: number | null; // Int
     gte?: number | null; // Int
@@ -211,8 +239,9 @@ export interface NexusGenInputs {
     lte?: number | null; // Int
     not?: number | null; // Int
     notIn?: number[] | null; // [Int!]
-  }
-  LanguageWhereInput: { // input type
+  };
+  LanguageWhereInput: {
+    // input type
     AND?: NexusGenInputs['LanguageWhereInput'][] | null; // [LanguageWhereInput!]
     code?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -221,22 +250,26 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['LanguageWhereInput'][] | null; // [LanguageWhereInput!]
     subjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  LanguageWhereUniqueInput: { // input type
+  };
+  LanguageWhereUniqueInput: {
+    // input type
     code?: string | null; // String
     id?: string | null; // ID
-  }
-  NoteCommentFilter: { // input type
+  };
+  NoteCommentFilter: {
+    // input type
     every?: NexusGenInputs['NoteCommentWhereInput'] | null; // NoteCommentWhereInput
     none?: NexusGenInputs['NoteCommentWhereInput'] | null; // NoteCommentWhereInput
     some?: NexusGenInputs['NoteCommentWhereInput'] | null; // NoteCommentWhereInput
-  }
-  NoteCommentPermissionFilter: { // input type
+  };
+  NoteCommentPermissionFilter: {
+    // input type
     every?: NexusGenInputs['NoteCommentPermissionWhereInput'] | null; // NoteCommentPermissionWhereInput
     none?: NexusGenInputs['NoteCommentPermissionWhereInput'] | null; // NoteCommentPermissionWhereInput
     some?: NexusGenInputs['NoteCommentPermissionWhereInput'] | null; // NoteCommentPermissionWhereInput
-  }
-  NoteCommentPermissionWhereInput: { // input type
+  };
+  NoteCommentPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteCommentPermissionWhereInput'][] | null; // [NoteCommentPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -247,18 +280,21 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['NoteCommentPermissionType'] | null; // NoteCommentPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteCommentThreadFilter: { // input type
+  };
+  NoteCommentThreadFilter: {
+    // input type
     every?: NexusGenInputs['NoteCommentThreadWhereInput'] | null; // NoteCommentThreadWhereInput
     none?: NexusGenInputs['NoteCommentThreadWhereInput'] | null; // NoteCommentThreadWhereInput
     some?: NexusGenInputs['NoteCommentThreadWhereInput'] | null; // NoteCommentThreadWhereInput
-  }
-  NoteCommentThreadPermissionFilter: { // input type
+  };
+  NoteCommentThreadPermissionFilter: {
+    // input type
     every?: NexusGenInputs['NoteCommentThreadPermissionWhereInput'] | null; // NoteCommentThreadPermissionWhereInput
     none?: NexusGenInputs['NoteCommentThreadPermissionWhereInput'] | null; // NoteCommentThreadPermissionWhereInput
     some?: NexusGenInputs['NoteCommentThreadPermissionWhereInput'] | null; // NoteCommentThreadPermissionWhereInput
-  }
-  NoteCommentThreadPermissionWhereInput: { // input type
+  };
+  NoteCommentThreadPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteCommentThreadPermissionWhereInput'][] | null; // [NoteCommentThreadPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -269,8 +305,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['NoteCommentThreadPermissionType'] | null; // NoteCommentThreadPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteCommentThreadWhereInput: { // input type
+  };
+  NoteCommentThreadWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteCommentThreadWhereInput'][] | null; // [NoteCommentThreadWhereInput!]
     comment?: NexusGenInputs['NoteCommentWhereInput'] | null; // NoteCommentWhereInput
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -283,11 +320,13 @@ export interface NexusGenInputs {
     position?: NexusGenInputs['StringFilter'] | null; // StringFilter
     replies?: NexusGenInputs['NoteCommentFilter'] | null; // NoteCommentFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteCommentThreadWhereUniqueInput: { // input type
+  };
+  NoteCommentThreadWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  NoteCommentWhereInput: { // input type
+  };
+  NoteCommentWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteCommentWhereInput'][] | null; // [NoteCommentWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     content?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -301,26 +340,31 @@ export interface NexusGenInputs {
     thread?: NexusGenInputs['NoteCommentThreadWhereInput'] | null; // NoteCommentThreadWhereInput
     threadReply?: NexusGenInputs['NoteCommentThreadWhereInput'] | null; // NoteCommentThreadWhereInput
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteCommentWhereUniqueInput: { // input type
+  };
+  NoteCommentWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  NoteFilter: { // input type
+  };
+  NoteFilter: {
+    // input type
     every?: NexusGenInputs['NoteWhereInput'] | null; // NoteWhereInput
     none?: NexusGenInputs['NoteWhereInput'] | null; // NoteWhereInput
     some?: NexusGenInputs['NoteWhereInput'] | null; // NoteWhereInput
-  }
-  NoteHighlightFilter: { // input type
+  };
+  NoteHighlightFilter: {
+    // input type
     every?: NexusGenInputs['NoteHighlightWhereInput'] | null; // NoteHighlightWhereInput
     none?: NexusGenInputs['NoteHighlightWhereInput'] | null; // NoteHighlightWhereInput
     some?: NexusGenInputs['NoteHighlightWhereInput'] | null; // NoteHighlightWhereInput
-  }
-  NoteHighlightPermissionFilter: { // input type
+  };
+  NoteHighlightPermissionFilter: {
+    // input type
     every?: NexusGenInputs['NoteHighlightPermissionWhereInput'] | null; // NoteHighlightPermissionWhereInput
     none?: NexusGenInputs['NoteHighlightPermissionWhereInput'] | null; // NoteHighlightPermissionWhereInput
     some?: NexusGenInputs['NoteHighlightPermissionWhereInput'] | null; // NoteHighlightPermissionWhereInput
-  }
-  NoteHighlightPermissionWhereInput: { // input type
+  };
+  NoteHighlightPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteHighlightPermissionWhereInput'][] | null; // [NoteHighlightPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -331,8 +375,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['NoteHighlightPermissionType'] | null; // NoteHighlightPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteHighlightWhereInput: { // input type
+  };
+  NoteHighlightWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteHighlightWhereInput'][] | null; // [NoteHighlightWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -344,16 +389,19 @@ export interface NexusGenInputs {
     position?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-  }
-  NoteHighlightWhereUniqueInput: { // input type
+  };
+  NoteHighlightWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  NotePermissionFilter: { // input type
+  };
+  NotePermissionFilter: {
+    // input type
     every?: NexusGenInputs['NotePermissionWhereInput'] | null; // NotePermissionWhereInput
     none?: NexusGenInputs['NotePermissionWhereInput'] | null; // NotePermissionWhereInput
     some?: NexusGenInputs['NotePermissionWhereInput'] | null; // NotePermissionWhereInput
-  }
-  NotePermissionWhereInput: { // input type
+  };
+  NotePermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['NotePermissionWhereInput'][] | null; // [NotePermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -364,8 +412,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['NotePermissionType'] | null; // NotePermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteWhereInput: { // input type
+  };
+  NoteWhereInput: {
+    // input type
     AND?: NexusGenInputs['NoteWhereInput'][] | null; // [NoteWhereInput!]
     authors?: NexusGenInputs['UserFilter'] | null; // UserFilter
     commentThreads?: NexusGenInputs['NoteCommentThreadFilter'] | null; // NoteCommentThreadFilter
@@ -386,11 +435,13 @@ export interface NexusGenInputs {
     suggestions?: NexusGenInputs['SuggestionFilter'] | null; // SuggestionFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  NoteWhereUniqueInput: { // input type
+  };
+  NoteWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  NullableDateTimeFilter: { // input type
+  };
+  NullableDateTimeFilter: {
+    // input type
     equals?: any | null; // DateTime
     gt?: any | null; // DateTime
     gte?: any | null; // DateTime
@@ -399,8 +450,9 @@ export interface NexusGenInputs {
     lte?: any | null; // DateTime
     not?: any | null; // DateTime
     notIn?: any[] | null; // [DateTime!]
-  }
-  NullableStringFilter: { // input type
+  };
+  NullableStringFilter: {
+    // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
     equals?: string | null; // String
@@ -412,8 +464,9 @@ export interface NexusGenInputs {
     not?: string | null; // String
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
-  }
-  PasswordTokenWhereInput: { // input type
+  };
+  PasswordTokenWhereInput: {
+    // input type
     AND?: NexusGenInputs['PasswordTokenWhereInput'][] | null; // [PasswordTokenWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -423,13 +476,15 @@ export interface NexusGenInputs {
     token?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-  }
-  PermissionFilter: { // input type
+  };
+  PermissionFilter: {
+    // input type
     every?: NexusGenInputs['PermissionWhereInput'] | null; // PermissionWhereInput
     none?: NexusGenInputs['PermissionWhereInput'] | null; // PermissionWhereInput
     some?: NexusGenInputs['PermissionWhereInput'] | null; // PermissionWhereInput
-  }
-  PermissionWhereInput: { // input type
+  };
+  PermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['PermissionWhereInput'][] | null; // [PermissionWhereInput!]
     departmentPermission?: NexusGenInputs['DepartmentPermissionWhereInput'] | null; // DepartmentPermissionWhereInput
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -448,18 +503,21 @@ export interface NexusGenInputs {
     userGroups?: NexusGenInputs['UserGroupFilter'] | null; // UserGroupFilter
     userPermission?: NexusGenInputs['UserPermissionWhereInput'] | null; // UserPermissionWhereInput
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  PostCommentFilter: { // input type
+  };
+  PostCommentFilter: {
+    // input type
     every?: NexusGenInputs['PostCommentWhereInput'] | null; // PostCommentWhereInput
     none?: NexusGenInputs['PostCommentWhereInput'] | null; // PostCommentWhereInput
     some?: NexusGenInputs['PostCommentWhereInput'] | null; // PostCommentWhereInput
-  }
-  PostCommentPermissionFilter: { // input type
+  };
+  PostCommentPermissionFilter: {
+    // input type
     every?: NexusGenInputs['PostCommentPermissionWhereInput'] | null; // PostCommentPermissionWhereInput
     none?: NexusGenInputs['PostCommentPermissionWhereInput'] | null; // PostCommentPermissionWhereInput
     some?: NexusGenInputs['PostCommentPermissionWhereInput'] | null; // PostCommentPermissionWhereInput
-  }
-  PostCommentPermissionWhereInput: { // input type
+  };
+  PostCommentPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['PostCommentPermissionWhereInput'][] | null; // [PostCommentPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -470,8 +528,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['PostCommentPermissionType'] | null; // PostCommentPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  PostCommentWhereInput: { // input type
+  };
+  PostCommentWhereInput: {
+    // input type
     AND?: NexusGenInputs['PostCommentWhereInput'][] | null; // [PostCommentWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     content?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -484,21 +543,25 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PostCommentPermissionFilter'] | null; // PostCommentPermissionFilter
     post?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  PostCommentWhereUniqueInput: { // input type
+  };
+  PostCommentWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  PostFilter: { // input type
+  };
+  PostFilter: {
+    // input type
     every?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     none?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     some?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
-  }
-  PostPermissionFilter: { // input type
+  };
+  PostPermissionFilter: {
+    // input type
     every?: NexusGenInputs['PostPermissionWhereInput'] | null; // PostPermissionWhereInput
     none?: NexusGenInputs['PostPermissionWhereInput'] | null; // PostPermissionWhereInput
     some?: NexusGenInputs['PostPermissionWhereInput'] | null; // PostPermissionWhereInput
-  }
-  PostPermissionWhereInput: { // input type
+  };
+  PostPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['PostPermissionWhereInput'][] | null; // [PostPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -509,8 +572,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['PostPermissionType'] | null; // PostPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  PostWhereInput: { // input type
+  };
+  PostWhereInput: {
+    // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null; // [PostWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     comments?: NexusGenInputs['PostCommentFilter'] | null; // PostCommentFilter
@@ -524,8 +588,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PostPermissionFilter'] | null; // PostPermissionFilter
     subject?: NexusGenInputs['SubjectWhereInput'] | null; // SubjectWhereInput
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  QueryUsersWhereInput: { // input type
+  };
+  QueryUsersWhereInput: {
+    // input type
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     firstName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -533,12 +598,14 @@ export interface NexusGenInputs {
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     role?: NexusGenInputs['UserRoleWhereInput'] | null; // UserRoleWhereInput
-  }
-  ResetPasswordInput: { // input type
+  };
+  ResetPasswordInput: {
+    // input type
     password: string; // String!
     token: string; // String!
-  }
-  ResetPasswordTokenWhereInput: { // input type
+  };
+  ResetPasswordTokenWhereInput: {
+    // input type
     AND?: NexusGenInputs['ResetPasswordTokenWhereInput'][] | null; // [ResetPasswordTokenWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -546,11 +613,13 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['ResetPasswordTokenWhereInput'][] | null; // [ResetPasswordTokenWhereInput!]
     token?: NexusGenInputs['StringFilter'] | null; // StringFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  SendActivationEmailsInput: { // input type
+  };
+  SendActivationEmailsInput: {
+    // input type
     ids: string[]; // [String!]!
-  }
-  StringFilter: { // input type
+  };
+  StringFilter: {
+    // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
     equals?: string | null; // String
@@ -562,23 +631,27 @@ export interface NexusGenInputs {
     not?: string | null; // String
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
-  }
-  SubjectFilter: { // input type
+  };
+  SubjectFilter: {
+    // input type
     every?: NexusGenInputs['SubjectWhereInput'] | null; // SubjectWhereInput
     none?: NexusGenInputs['SubjectWhereInput'] | null; // SubjectWhereInput
     some?: NexusGenInputs['SubjectWhereInput'] | null; // SubjectWhereInput
-  }
-  SubjectInformationFilter: { // input type
+  };
+  SubjectInformationFilter: {
+    // input type
     every?: NexusGenInputs['SubjectInformationWhereInput'] | null; // SubjectInformationWhereInput
     none?: NexusGenInputs['SubjectInformationWhereInput'] | null; // SubjectInformationWhereInput
     some?: NexusGenInputs['SubjectInformationWhereInput'] | null; // SubjectInformationWhereInput
-  }
-  SubjectInformationPermissionFilter: { // input type
+  };
+  SubjectInformationPermissionFilter: {
+    // input type
     every?: NexusGenInputs['SubjectInformationPermissionWhereInput'] | null; // SubjectInformationPermissionWhereInput
     none?: NexusGenInputs['SubjectInformationPermissionWhereInput'] | null; // SubjectInformationPermissionWhereInput
     some?: NexusGenInputs['SubjectInformationPermissionWhereInput'] | null; // SubjectInformationPermissionWhereInput
-  }
-  SubjectInformationPermissionWhereInput: { // input type
+  };
+  SubjectInformationPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['SubjectInformationPermissionWhereInput'][] | null; // [SubjectInformationPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -589,8 +662,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['SubjectInformationPermissionType'] | null; // SubjectInformationPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SubjectInformationWhereInput: { // input type
+  };
+  SubjectInformationWhereInput: {
+    // input type
     AND?: NexusGenInputs['SubjectInformationWhereInput'][] | null; // [SubjectInformationWhereInput!]
     content?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -603,16 +677,19 @@ export interface NexusGenInputs {
     subtitle?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SubjectInformationWhereUniqueInput: { // input type
+  };
+  SubjectInformationWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  SubjectPermissionFilter: { // input type
+  };
+  SubjectPermissionFilter: {
+    // input type
     every?: NexusGenInputs['SubjectPermissionWhereInput'] | null; // SubjectPermissionWhereInput
     none?: NexusGenInputs['SubjectPermissionWhereInput'] | null; // SubjectPermissionWhereInput
     some?: NexusGenInputs['SubjectPermissionWhereInput'] | null; // SubjectPermissionWhereInput
-  }
-  SubjectPermissionWhereInput: { // input type
+  };
+  SubjectPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['SubjectPermissionWhereInput'][] | null; // [SubjectPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -623,11 +700,13 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['SubjectPermissionType'] | null; // SubjectPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SubjectPostsOrderByInput: { // input type
+  };
+  SubjectPostsOrderByInput: {
+    // input type
     createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
-  }
-  SubjectWhereInput: { // input type
+  };
+  SubjectWhereInput: {
+    // input type
     AND?: NexusGenInputs['SubjectWhereInput'][] | null; // [SubjectWhereInput!]
     code?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -646,22 +725,26 @@ export interface NexusGenInputs {
     students?: NexusGenInputs['UserFilter'] | null; // UserFilter
     teachers?: NexusGenInputs['UserFilter'] | null; // UserFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SubjectWhereUniqueInput: { // input type
+  };
+  SubjectWhereUniqueInput: {
+    // input type
     code?: string | null; // String
     id?: string | null; // ID
-  }
-  SuggestionFilter: { // input type
+  };
+  SuggestionFilter: {
+    // input type
     every?: NexusGenInputs['SuggestionWhereInput'] | null; // SuggestionWhereInput
     none?: NexusGenInputs['SuggestionWhereInput'] | null; // SuggestionWhereInput
     some?: NexusGenInputs['SuggestionWhereInput'] | null; // SuggestionWhereInput
-  }
-  SuggestionPermissionFilter: { // input type
+  };
+  SuggestionPermissionFilter: {
+    // input type
     every?: NexusGenInputs['SuggestionPermissionWhereInput'] | null; // SuggestionPermissionWhereInput
     none?: NexusGenInputs['SuggestionPermissionWhereInput'] | null; // SuggestionPermissionWhereInput
     some?: NexusGenInputs['SuggestionPermissionWhereInput'] | null; // SuggestionPermissionWhereInput
-  }
-  SuggestionPermissionWhereInput: { // input type
+  };
+  SuggestionPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['SuggestionPermissionWhereInput'][] | null; // [SuggestionPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -672,8 +755,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['SuggestionPermissionType'] | null; // SuggestionPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SuggestionWhereInput: { // input type
+  };
+  SuggestionWhereInput: {
+    // input type
     AND?: NexusGenInputs['SuggestionWhereInput'][] | null; // [SuggestionWhereInput!]
     approvedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
     approvedBy?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -689,77 +773,94 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['SuggestionPermissionFilter'] | null; // SuggestionPermissionFilter
     rejectedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  SuggestionWhereUniqueInput: { // input type
+  };
+  SuggestionWhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
-  SuggestionsInput: { // input type
+  };
+  SuggestionsInput: {
+    // input type
     noteID?: string | null; // ID
-  }
-  UpdateDepartmentInput: { // input type
+  };
+  UpdateDepartmentInput: {
+    // input type
     description?: string | null; // String
     leader?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
     name?: string | null; // String
-  }
-  UpdateInstituteInput: { // input type
+  };
+  UpdateInstituteInput: {
+    // input type
     name?: string | null; // String
-  }
-  UpdateNoteCommentInput: { // input type
+  };
+  UpdateNoteCommentInput: {
+    // input type
     content?: string | null; // String
-  }
-  UpdateNoteHighlightInput: { // input type
+  };
+  UpdateNoteHighlightInput: {
+    // input type
     position?: string | null; // String
-  }
-  UpdateNoteInput: { // input type
+  };
+  UpdateNoteInput: {
+    // input type
     content?: string | null; // String
     contentHTML?: string | null; // String
     description?: string | null; // String
     noteCategory?: NexusGenEnums['NoteCategory'] | null; // NoteCategory
     number?: number | null; // Int
     title?: string | null; // String
-  }
-  UpdatePostCommentInput: { // input type
+  };
+  UpdatePostCommentInput: {
+    // input type
     content?: string | null; // String
-  }
-  UpdatePostInput: { // input type
+  };
+  UpdatePostInput: {
+    // input type
     content?: string | null; // String
-  }
-  UpdateProfileInput: { // input type
+  };
+  UpdateProfileInput: {
+    // input type
     email?: string | null; // String
     password?: string | null; // String
-  }
-  UpdateSubjectInformationInput: { // input type
+  };
+  UpdateSubjectInformationInput: {
+    // input type
     content?: string | null; // String
     subtitle?: string | null; // String
     title?: string | null; // String
-  }
-  UpdateSubjectInput: { // input type
+  };
+  UpdateSubjectInput: {
+    // input type
     code?: string | null; // String
     description?: string | null; // String
     name?: string | null; // String
-  }
-  UpdateSuggestionInput: { // input type
+  };
+  UpdateSuggestionInput: {
+    // input type
     delta?: string | null; // String
-  }
-  UpdateUserInput: { // input type
+  };
+  UpdateUserInput: {
+    // input type
     email?: string | null; // String
     firstName?: string | null; // String
     identifier?: string | null; // String
     lastName?: string | null; // String
     position?: string | null; // String
     studiedSubjects?: string[] | null; // [String!]
-  }
-  UserFilter: { // input type
+  };
+  UserFilter: {
+    // input type
     every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     none?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     some?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-  }
-  UserGroupFilter: { // input type
+  };
+  UserGroupFilter: {
+    // input type
     every?: NexusGenInputs['UserGroupWhereInput'] | null; // UserGroupWhereInput
     none?: NexusGenInputs['UserGroupWhereInput'] | null; // UserGroupWhereInput
     some?: NexusGenInputs['UserGroupWhereInput'] | null; // UserGroupWhereInput
-  }
-  UserGroupWhereInput: { // input type
+  };
+  UserGroupWhereInput: {
+    // input type
     AND?: NexusGenInputs['UserGroupWhereInput'][] | null; // [UserGroupWhereInput!]
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -767,17 +868,20 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['UserGroupWhereInput'][] | null; // [UserGroupWhereInput!]
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  UserLoginInput: { // input type
+  };
+  UserLoginInput: {
+    // input type
     email: string; // String!
     password: string; // String!
-  }
-  UserPermissionFilter: { // input type
+  };
+  UserPermissionFilter: {
+    // input type
     every?: NexusGenInputs['UserPermissionWhereInput'] | null; // UserPermissionWhereInput
     none?: NexusGenInputs['UserPermissionWhereInput'] | null; // UserPermissionWhereInput
     some?: NexusGenInputs['UserPermissionWhereInput'] | null; // UserPermissionWhereInput
-  }
-  UserPermissionWhereInput: { // input type
+  };
+  UserPermissionWhereInput: {
+    // input type
     AND?: NexusGenInputs['UserPermissionWhereInput'][] | null; // [UserPermissionWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -788,8 +892,9 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['PermissionFilter'] | null; // PermissionFilter
     type?: NexusGenEnums['UserPermissionType'] | null; // UserPermissionType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-  }
-  UserRoleWhereInput: { // input type
+  };
+  UserRoleWhereInput: {
+    // input type
     AND?: NexusGenInputs['UserRoleWhereInput'][] | null; // [UserRoleWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -800,8 +905,9 @@ export interface NexusGenInputs {
     type?: NexusGenEnums['UserRoleType'] | null; // UserRoleType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
-  }
-  UserWhereInput: { // input type
+  };
+  UserWhereInput: {
+    // input type
     activationToken?: NexusGenInputs['ActivationTokenWhereInput'] | null; // ActivationTokenWhereInput
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     approvedSuggestions?: NexusGenInputs['SuggestionFilter'] | null; // SuggestionFilter
@@ -842,40 +948,43 @@ export interface NexusGenInputs {
     teachedSubjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     userPermissions?: NexusGenInputs['UserPermissionFilter'] | null; // UserPermissionFilter
-  }
-  UserWhereUniqueInput: { // input type
+  };
+  UserWhereUniqueInput: {
+    // input type
     email?: string | null; // String
     id?: string | null; // ID
-  }
-  WhereUniqueInput: { // input type
+  };
+  WhereUniqueInput: {
+    // input type
     id?: string | null; // ID
-  }
+  };
 }
 
 export interface NexusGenEnums {
-  DepartmentPermissionType: photon.DepartmentPermissionType
-  InstitutePermissionType: photon.InstitutePermissionType
-  NoteCategory: photon.NoteCategory
-  NoteCommentPermissionType: photon.NoteCommentPermissionType
-  NoteCommentThreadPermissionType: photon.NoteCommentThreadPermissionType
-  NoteHighlightPermissionType: photon.NoteHighlightPermissionType
-  NotePermissionType: photon.NotePermissionType
-  OrderByArg: photon.OrderByArg
-  PostCommentPermissionType: photon.PostCommentPermissionType
-  PostPermissionType: photon.PostPermissionType
-  SubjectInformationPermissionType: photon.SubjectInformationPermissionType
-  SubjectPermissionType: photon.SubjectPermissionType
-  SuggestionPermissionType: photon.SuggestionPermissionType
-  UserPermissionType: photon.UserPermissionType
-  UserRoleType: photon.UserRoleType
+  DepartmentPermissionType: photon.DepartmentPermissionType;
+  InstitutePermissionType: photon.InstitutePermissionType;
+  NoteCategory: photon.NoteCategory;
+  NoteCommentPermissionType: photon.NoteCommentPermissionType;
+  NoteCommentThreadPermissionType: photon.NoteCommentThreadPermissionType;
+  NoteHighlightPermissionType: photon.NoteHighlightPermissionType;
+  NotePermissionType: photon.NotePermissionType;
+  OrderByArg: photon.OrderByArg;
+  PostCommentPermissionType: photon.PostCommentPermissionType;
+  PostPermissionType: photon.PostPermissionType;
+  SubjectInformationPermissionType: photon.SubjectInformationPermissionType;
+  SubjectPermissionType: photon.SubjectPermissionType;
+  SuggestionPermissionType: photon.SuggestionPermissionType;
+  UserPermissionType: photon.UserPermissionType;
+  UserRoleType: photon.UserRoleType;
 }
 
 export interface NexusGenRootTypes {
   ActivationToken: photon.ActivationToken;
-  AuthenticationPayload: { // root type
+  AuthenticationPayload: {
+    // root type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
-  }
+  };
   Department: photon.Department;
   DepartmentPermission: photon.DepartmentPermission;
   Institute: photon.Institute;
@@ -902,12 +1011,13 @@ export interface NexusGenRootTypes {
   SubjectInformation: photon.SubjectInformation;
   SubjectInformationPermission: photon.SubjectInformationPermission;
   SubjectPermission: photon.SubjectPermission;
-  Subscription: { // root type
+  Subscription: {
+    // root type
     approvedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createdSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     rejectedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     updatedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
-  }
+  };
   Suggestion: photon.Suggestion;
   SuggestionPermission: photon.SuggestionPermission;
   User: photon.User;
@@ -1050,17 +1160,20 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  ActivationToken: { // field return type
+  ActivationToken: {
+    // field return type
     createdAt: any; // DateTime!
     id: string; // ID!
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
-  }
-  AuthenticationPayload: { // field return type
+  };
+  AuthenticationPayload: {
+    // field return type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
-  }
-  Department: { // field return type
+  };
+  Department: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     description: string; // String!
@@ -1070,16 +1183,18 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     subjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     updatedAt: any; // DateTime!
-  }
-  DepartmentPermission: { // field return type
+  };
+  DepartmentPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Department'][]; // [Department!]!
     type: NexusGenEnums['DepartmentPermissionType']; // DepartmentPermissionType!
     updatedAt: any; // DateTime!
-  }
-  Institute: { // field return type
+  };
+  Institute: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     departments: NexusGenRootTypes['Department'][]; // [Department!]!
@@ -1087,21 +1202,24 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     updatedAt: any; // DateTime!
     users: NexusGenRootTypes['User'][]; // [User!]!
-  }
-  InstitutePermission: { // field return type
+  };
+  InstitutePermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Institute'][]; // [Institute!]!
     type: NexusGenEnums['InstitutePermissionType']; // InstitutePermissionType!
     updatedAt: any; // DateTime!
-  }
-  Language: { // field return type
+  };
+  Language: {
+    // field return type
     code: string; // String!
     id: string; // ID!
     name: string; // String!
-  }
-  Mutation: { // field return type
+  };
+  Mutation: {
+    // field return type
     activateUser: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createDepartment: NexusGenRootTypes['Department']; // Department!
@@ -1148,8 +1266,9 @@ export interface NexusGenFieldTypes {
     updateSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     updateUser: NexusGenRootTypes['User']; // User!
     uploadImage: string; // String!
-  }
-  Note: { // field return type
+  };
+  Note: {
+    // field return type
     authors: NexusGenRootTypes['User'][]; // [User!]!
     commentThreads: NexusGenRootTypes['NoteCommentThread'][]; // [NoteCommentThread!]!
     content: string; // String!
@@ -1166,8 +1285,9 @@ export interface NexusGenFieldTypes {
     subject: NexusGenRootTypes['Subject']; // Subject!
     title: string; // String!
     updatedAt: any; // DateTime!
-  }
-  NoteComment: { // field return type
+  };
+  NoteComment: {
+    // field return type
     author: NexusGenRootTypes['User']; // User!
     content: string; // String!
     createdAt: any; // DateTime!
@@ -1178,16 +1298,18 @@ export interface NexusGenFieldTypes {
     thread: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     threadReply: NexusGenRootTypes['NoteCommentThread'] | null; // NoteCommentThread
     updatedAt: any; // DateTime!
-  }
-  NoteCommentPermission: { // field return type
+  };
+  NoteCommentPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['NoteComment'][]; // [NoteComment!]!
     type: NexusGenEnums['NoteCommentPermissionType']; // NoteCommentPermissionType!
     updatedAt: any; // DateTime!
-  }
-  NoteCommentThread: { // field return type
+  };
+  NoteCommentThread: {
+    // field return type
     comment: NexusGenRootTypes['NoteComment']; // NoteComment!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
@@ -1196,16 +1318,18 @@ export interface NexusGenFieldTypes {
     position: string; // String!
     replies: NexusGenRootTypes['NoteComment'][]; // [NoteComment!]!
     updatedAt: any; // DateTime!
-  }
-  NoteCommentThreadPermission: { // field return type
+  };
+  NoteCommentThreadPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['NoteCommentThread'][]; // [NoteCommentThread!]!
     type: NexusGenEnums['NoteCommentThreadPermissionType']; // NoteCommentThreadPermissionType!
     updatedAt: any; // DateTime!
-  }
-  NoteHighlight: { // field return type
+  };
+  NoteHighlight: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
@@ -1213,32 +1337,36 @@ export interface NexusGenFieldTypes {
     position: string; // String!
     updatedAt: any; // DateTime!
     user: NexusGenRootTypes['User']; // User!
-  }
-  NoteHighlightPermission: { // field return type
+  };
+  NoteHighlightPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['NoteHighlight'][]; // [NoteHighlight!]!
     type: NexusGenEnums['NoteHighlightPermissionType']; // NoteHighlightPermissionType!
     updatedAt: any; // DateTime!
-  }
-  NotePermission: { // field return type
+  };
+  NotePermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Note'][]; // [Note!]!
     type: NexusGenEnums['NotePermissionType']; // NotePermissionType!
     updatedAt: any; // DateTime!
-  }
-  PasswordToken: { // field return type
+  };
+  PasswordToken: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     token: string; // String!
     updatedAt: any; // DateTime!
     user: NexusGenRootTypes['User']; // User!
-  }
-  Permission: { // field return type
+  };
+  Permission: {
+    // field return type
     departmentPermission: NexusGenRootTypes['DepartmentPermission'] | null; // DepartmentPermission
     id: string; // ID!
     institutePermission: NexusGenRootTypes['InstitutePermission'] | null; // InstitutePermission
@@ -1250,8 +1378,9 @@ export interface NexusGenFieldTypes {
     subjectPermission: NexusGenRootTypes['SubjectPermission'] | null; // SubjectPermission
     suggestionPermission: NexusGenRootTypes['SuggestionPermission'] | null; // SuggestionPermission
     userPermission: NexusGenRootTypes['UserPermission'] | null; // UserPermission
-  }
-  Post: { // field return type
+  };
+  Post: {
+    // field return type
     author: NexusGenRootTypes['User']; // User!
     comments: NexusGenRootTypes['PostComment'][]; // [PostComment!]!
     content: string; // String!
@@ -1262,8 +1391,9 @@ export interface NexusGenFieldTypes {
     likesCount: number; // Int!
     subject: NexusGenRootTypes['Subject']; // Subject!
     updatedAt: any; // DateTime!
-  }
-  PostComment: { // field return type
+  };
+  PostComment: {
+    // field return type
     author: NexusGenRootTypes['User']; // User!
     content: string; // String!
     createdAt: any; // DateTime!
@@ -1273,24 +1403,27 @@ export interface NexusGenFieldTypes {
     likesCount: number; // Int!
     post: NexusGenRootTypes['Post']; // Post!
     updatedAt: any; // DateTime!
-  }
-  PostCommentPermission: { // field return type
+  };
+  PostCommentPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['PostComment'][]; // [PostComment!]!
     type: NexusGenEnums['PostCommentPermissionType']; // PostCommentPermissionType!
     updatedAt: any; // DateTime!
-  }
-  PostPermission: { // field return type
+  };
+  PostPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Post'][]; // [Post!]!
     type: NexusGenEnums['PostPermissionType']; // PostPermissionType!
     updatedAt: any; // DateTime!
-  }
-  Query: { // field return type
+  };
+  Query: {
+    // field return type
     activeSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     department: NexusGenRootTypes['Department'] | null; // Department
     departments: NexusGenRootTypes['Department'][]; // [Department!]!
@@ -1312,13 +1445,15 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
     userInfo: NexusGenRootTypes['User'] | null; // User
     users: NexusGenRootTypes['User'][]; // [User!]!
-  }
-  ResetPasswordToken: { // field return type
+  };
+  ResetPasswordToken: {
+    // field return type
     createdAt: any; // DateTime!
     email: string; // ID!
     token: string; // String!
-  }
-  Subject: { // field return type
+  };
+  Subject: {
+    // field return type
     code: string; // String!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
@@ -1333,8 +1468,9 @@ export interface NexusGenFieldTypes {
     students: NexusGenRootTypes['User'][]; // [User!]!
     teachers: NexusGenRootTypes['User'][]; // [User!]!
     updatedAt: any; // DateTime!
-  }
-  SubjectInformation: { // field return type
+  };
+  SubjectInformation: {
+    // field return type
     content: string; // String!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
@@ -1343,30 +1479,34 @@ export interface NexusGenFieldTypes {
     subtitle: string | null; // String
     title: string; // String!
     updatedAt: any; // DateTime!
-  }
-  SubjectInformationPermission: { // field return type
+  };
+  SubjectInformationPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['SubjectInformation'][]; // [SubjectInformation!]!
     type: NexusGenEnums['SubjectInformationPermissionType']; // SubjectInformationPermissionType!
     updatedAt: any; // DateTime!
-  }
-  SubjectPermission: { // field return type
+  };
+  SubjectPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     type: NexusGenEnums['SubjectPermissionType']; // SubjectPermissionType!
     updatedAt: any; // DateTime!
-  }
-  Subscription: { // field return type
+  };
+  Subscription: {
+    // field return type
     approvedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createdSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     rejectedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     updatedSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
-  }
-  Suggestion: { // field return type
+  };
+  Suggestion: {
+    // field return type
     approvedAt: any | null; // DateTime
     approvedBy: NexusGenRootTypes['User'] | null; // User
     author: NexusGenRootTypes['User']; // User!
@@ -1379,16 +1519,18 @@ export interface NexusGenFieldTypes {
     note: NexusGenRootTypes['Note']; // Note!
     rejectedAt: any | null; // DateTime
     updatedAt: any; // DateTime!
-  }
-  SuggestionPermission: { // field return type
+  };
+  SuggestionPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     type: NexusGenEnums['SuggestionPermissionType']; // SuggestionPermissionType!
     updatedAt: any; // DateTime!
-  }
-  User: { // field return type
+  };
+  User: {
+    // field return type
     approvedSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
@@ -1415,620 +1557,890 @@ export interface NexusGenFieldTypes {
     suggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     teachedSubjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     updatedAt: any; // DateTime!
-  }
-  UserPermission: { // field return type
+  };
+  UserPermission: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     objects: NexusGenRootTypes['User'][]; // [User!]!
     type: NexusGenEnums['UserPermissionType']; // UserPermissionType!
     updatedAt: any; // DateTime!
-  }
-  UserRole: { // field return type
+  };
+  UserRole: {
+    // field return type
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     id: string; // ID!
     name: string; // String!
     type: NexusGenEnums['UserRoleType']; // UserRoleType!
     updatedAt: any; // DateTime!
-  }
+  };
 }
 
 export interface NexusGenArgTypes {
   Department: {
-    subjects: { // args
+    subjects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   DepartmentPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   Institute: {
-    departments: { // args
+    departments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    users: { // args
+    };
+    users: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   InstitutePermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   Mutation: {
-    activateUser: { // args
+    activateUser: {
+      // args
       data: NexusGenInputs['ActivateUserInput']; // ActivateUserInput!
-    }
-    approveSuggestion: { // args
+    };
+    approveSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    createDepartment: { // args
+    };
+    createDepartment: {
+      // args
       data: NexusGenInputs['CreateDepartmentInput']; // CreateDepartmentInput!
-    }
-    createInstitute: { // args
+    };
+    createInstitute: {
+      // args
       data: NexusGenInputs['CreateInstituteInput']; // CreateInstituteInput!
-    }
-    createNote: { // args
+    };
+    createNote: {
+      // args
       data: NexusGenInputs['CreateNoteInput']; // CreateNoteInput!
-    }
-    createNoteComment: { // args
+    };
+    createNoteComment: {
+      // args
       data: NexusGenInputs['CreateNoteCommentInput']; // CreateNoteCommentInput!
-    }
-    createNoteCommentThread: { // args
+    };
+    createNoteCommentThread: {
+      // args
       data: NexusGenInputs['CreateNoteCommentThreadInput']; // CreateNoteCommentThreadInput!
-    }
-    createNoteHighlight: { // args
+    };
+    createNoteHighlight: {
+      // args
       data: NexusGenInputs['CreateNoteHighlightInput']; // CreateNoteHighlightInput!
-    }
-    createPost: { // args
+    };
+    createPost: {
+      // args
       data: NexusGenInputs['CreatePostInput']; // CreatePostInput!
-    }
-    createPostComment: { // args
+    };
+    createPostComment: {
+      // args
       data: NexusGenInputs['CreatePostCommentInput']; // CreatePostCommentInput!
-    }
-    createSubject: { // args
+    };
+    createSubject: {
+      // args
       data: NexusGenInputs['CreateSubjectInput']; // CreateSubjectInput!
-    }
-    createSubjectInformation: { // args
+    };
+    createSubjectInformation: {
+      // args
       data: NexusGenInputs['CreateSubjectInformationInput']; // CreateSubjectInformationInput!
-    }
-    createSuggestion: { // args
+    };
+    createSuggestion: {
+      // args
       data: NexusGenInputs['CreateSuggestionInput']; // CreateSuggestionInput!
-    }
-    createUser: { // args
+    };
+    createUser: {
+      // args
       data: NexusGenInputs['CreateUserInput']; // CreateUserInput!
-    }
-    deleteDepartment: { // args
+    };
+    deleteDepartment: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteInstitute: { // args
+    };
+    deleteInstitute: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteNote: { // args
+    };
+    deleteNote: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteNoteComment: { // args
+    };
+    deleteNoteComment: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteNoteCommentThread: { // args
+    };
+    deleteNoteCommentThread: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteNoteHighlight: { // args
+    };
+    deleteNoteHighlight: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deletePost: { // args
+    };
+    deletePost: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deletePostComment: { // args
+    };
+    deletePostComment: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteSubject: { // args
+    };
+    deleteSubject: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteSubjectInformation: { // args
+    };
+    deleteSubjectInformation: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteSuggestion: { // args
+    };
+    deleteSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    deleteUser: { // args
+    };
+    deleteUser: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    dislikePost: { // args
+    };
+    dislikePost: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    forgotPassword: { // args
+    };
+    forgotPassword: {
+      // args
       data: NexusGenInputs['ForgotPasswordInput']; // ForgotPasswordInput!
-    }
-    likePost: { // args
+    };
+    likePost: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    login: { // args
+    };
+    login: {
+      // args
       data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
-    }
-    rejectSuggestion: { // args
+    };
+    rejectSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    resetPassword: { // args
+    };
+    resetPassword: {
+      // args
       data: NexusGenInputs['ResetPasswordInput']; // ResetPasswordInput!
-    }
-    sendActivationEmails: { // args
+    };
+    sendActivationEmails: {
+      // args
       data: NexusGenInputs['SendActivationEmailsInput']; // SendActivationEmailsInput!
-    }
-    updateDepartment: { // args
+    };
+    updateDepartment: {
+      // args
       data: NexusGenInputs['UpdateDepartmentInput']; // UpdateDepartmentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateInstitute: { // args
+    };
+    updateInstitute: {
+      // args
       data: NexusGenInputs['UpdateInstituteInput']; // UpdateInstituteInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateNote: { // args
+    };
+    updateNote: {
+      // args
       data: NexusGenInputs['UpdateNoteInput']; // UpdateNoteInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateNoteComment: { // args
+    };
+    updateNoteComment: {
+      // args
       data: NexusGenInputs['UpdateNoteCommentInput']; // UpdateNoteCommentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateNoteHighlight: { // args
+    };
+    updateNoteHighlight: {
+      // args
       data: NexusGenInputs['UpdateNoteHighlightInput']; // UpdateNoteHighlightInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updatePost: { // args
+    };
+    updatePost: {
+      // args
       data: NexusGenInputs['UpdatePostInput']; // UpdatePostInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updatePostComment: { // args
+    };
+    updatePostComment: {
+      // args
       data: NexusGenInputs['UpdatePostCommentInput']; // UpdatePostCommentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateProfile: { // args
+    };
+    updateProfile: {
+      // args
       data: NexusGenInputs['UpdateProfileInput']; // UpdateProfileInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateSubject: { // args
+    };
+    updateSubject: {
+      // args
       data: NexusGenInputs['UpdateSubjectInput']; // UpdateSubjectInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateSubjectInformation: { // args
+    };
+    updateSubjectInformation: {
+      // args
       data: NexusGenInputs['UpdateSubjectInformationInput']; // UpdateSubjectInformationInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateSuggestion: { // args
+    };
+    updateSuggestion: {
+      // args
       data: NexusGenInputs['UpdateSuggestionInput']; // UpdateSuggestionInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updateUser: { // args
+    };
+    updateUser: {
+      // args
       data: NexusGenInputs['UpdateUserInput']; // UpdateUserInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    uploadImage: { // args
+    };
+    uploadImage: {
+      // args
       data: NexusGenInputs['ImageUploadInput']; // ImageUploadInput!
-    }
-  }
+    };
+  };
   Note: {
-    authors: { // args
+    authors: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    commentThreads: { // args
+    };
+    commentThreads: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    highlights: { // args
+    };
+    highlights: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    likers: { // args
+    };
+    likers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NoteComment: {
-    likers: { // args
+    likers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NoteCommentPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NoteCommentThread: {
-    replies: { // args
+    replies: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NoteCommentThreadPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NoteHighlightPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   NotePermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   Post: {
-    comments: { // args
+    comments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    likers: { // args
+    };
+    likers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   PostComment: {
-    likers: { // args
+    likers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   PostCommentPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   PostPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   Query: {
-    activeSuggestions: { // args
+    activeSuggestions: {
+      // args
       where: NexusGenInputs['SuggestionsInput']; // SuggestionsInput!
-    }
-    department: { // args
+    };
+    department: {
+      // args
       where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
-    }
-    departments: { // args
+    };
+    departments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    institute: { // args
+    };
+    institute: {
+      // args
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
-    }
-    institutes: { // args
+    };
+    institutes: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    language: { // args
+    };
+    language: {
+      // args
       where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
-    }
-    languages: { // args
+    };
+    languages: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    note: { // args
+    };
+    note: {
+      // args
       where: NexusGenInputs['NoteWhereUniqueInput']; // NoteWhereUniqueInput!
-    }
-    noteComment: { // args
+    };
+    noteComment: {
+      // args
       where: NexusGenInputs['NoteCommentWhereUniqueInput']; // NoteCommentWhereUniqueInput!
-    }
-    noteCommentThread: { // args
+    };
+    noteCommentThread: {
+      // args
       where: NexusGenInputs['NoteCommentThreadWhereUniqueInput']; // NoteCommentThreadWhereUniqueInput!
-    }
-    noteHighlight: { // args
+    };
+    noteHighlight: {
+      // args
       where: NexusGenInputs['NoteHighlightWhereUniqueInput']; // NoteHighlightWhereUniqueInput!
-    }
-    postComment: { // args
+    };
+    postComment: {
+      // args
       where: NexusGenInputs['PostCommentWhereUniqueInput']; // PostCommentWhereUniqueInput!
-    }
-    subject: { // args
+    };
+    subject: {
+      // args
       where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
-    }
-    subjectInformation: { // args
+    };
+    subjectInformation: {
+      // args
       where: NexusGenInputs['SubjectInformationWhereUniqueInput']; // SubjectInformationWhereUniqueInput!
-    }
-    subjects: { // args
+    };
+    subjects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    suggestion: { // args
+    };
+    suggestion: {
+      // args
       where: NexusGenInputs['SuggestionWhereUniqueInput']; // SuggestionWhereUniqueInput!
-    }
-    user: { // args
+    };
+    user: {
+      // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
-    }
-    userInfo: { // args
+    };
+    userInfo: {
+      // args
       token?: string | null; // String
-    }
-    users: { // args
+    };
+    users: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
       where?: NexusGenInputs['QueryUsersWhereInput'] | null; // QueryUsersWhereInput
-    }
-  }
+    };
+  };
   Subject: {
-    informations: { // args
+    informations: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    notes: { // args
+    };
+    notes: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    posts: { // args
+    };
+    posts: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       orderBy?: NexusGenInputs['SubjectPostsOrderByInput'] | null; // SubjectPostsOrderByInput
       skip?: number | null; // Int
-    }
-    students: { // args
+    };
+    students: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    teachers: { // args
+    };
+    teachers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   SubjectInformationPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   SubjectPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   Subscription: {
-    approvedSuggestion: { // args
+    approvedSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    createdSuggestion: { // args
+    };
+    createdSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    rejectedSuggestion: { // args
+    };
+    rejectedSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-    updatedSuggestion: { // args
+    };
+    updatedSuggestion: {
+      // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    }
-  }
+    };
+  };
   Suggestion: {
-    likers: { // args
+    likers: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   SuggestionPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   User: {
-    approvedSuggestions: { // args
+    approvedSuggestions: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    departments: { // args
+    };
+    departments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    institutes: { // args
+    };
+    institutes: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    likedNotes: { // args
+    };
+    likedNotes: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    likedPostComments: { // args
+    };
+    likedPostComments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    noteComments: { // args
+    };
+    noteComments: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    noteHighlights: { // args
+    };
+    noteHighlights: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    notes: { // args
+    };
+    notes: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    studiedSubjects: { // args
+    };
+    studiedSubjects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    suggestions: { // args
+    };
+    suggestions: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-    teachedSubjects: { // args
+    };
+    teachedSubjects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
   UserPermission: {
-    objects: { // args
+    objects: {
+      // args
       after?: string | null; // ID
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
-    }
-  }
+    };
+  };
 }
 
-export interface NexusGenAbstractResolveReturnTypes {
-}
+export interface NexusGenAbstractResolveReturnTypes {}
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "ActivationToken" | "AuthenticationPayload" | "Department" | "DepartmentPermission" | "Institute" | "InstitutePermission" | "Language" | "Mutation" | "Note" | "NoteComment" | "NoteCommentPermission" | "NoteCommentThread" | "NoteCommentThreadPermission" | "NoteHighlight" | "NoteHighlightPermission" | "NotePermission" | "PasswordToken" | "Permission" | "Post" | "PostComment" | "PostCommentPermission" | "PostPermission" | "Query" | "ResetPasswordToken" | "Subject" | "SubjectInformation" | "SubjectInformationPermission" | "SubjectPermission" | "Subscription" | "Suggestion" | "SuggestionPermission" | "User" | "UserPermission" | "UserRole";
+export type NexusGenObjectNames =
+  | 'ActivationToken'
+  | 'AuthenticationPayload'
+  | 'Department'
+  | 'DepartmentPermission'
+  | 'Institute'
+  | 'InstitutePermission'
+  | 'Language'
+  | 'Mutation'
+  | 'Note'
+  | 'NoteComment'
+  | 'NoteCommentPermission'
+  | 'NoteCommentThread'
+  | 'NoteCommentThreadPermission'
+  | 'NoteHighlight'
+  | 'NoteHighlightPermission'
+  | 'NotePermission'
+  | 'PasswordToken'
+  | 'Permission'
+  | 'Post'
+  | 'PostComment'
+  | 'PostCommentPermission'
+  | 'PostPermission'
+  | 'Query'
+  | 'ResetPasswordToken'
+  | 'Subject'
+  | 'SubjectInformation'
+  | 'SubjectInformationPermission'
+  | 'SubjectPermission'
+  | 'Subscription'
+  | 'Suggestion'
+  | 'SuggestionPermission'
+  | 'User'
+  | 'UserPermission'
+  | 'UserRole';
 
-export type NexusGenInputNames = "ActivateUserInput" | "ActivationTokenWhereInput" | "BooleanFilter" | "ConnectRelation" | "CreateDepartmentInput" | "CreateInstituteInput" | "CreateNoteCommentInput" | "CreateNoteCommentThreadInput" | "CreateNoteHighlightInput" | "CreateNoteInput" | "CreatePostCommentInput" | "CreatePostInput" | "CreateSubjectInformationInput" | "CreateSubjectInput" | "CreateSuggestionInput" | "CreateUserInput" | "DateTimeFilter" | "DepartmentFilter" | "DepartmentPermissionFilter" | "DepartmentPermissionWhereInput" | "DepartmentWhereInput" | "DepartmentWhereUniqueInput" | "ForgotPasswordInput" | "ImageUploadInput" | "InstituteFilter" | "InstitutePermissionFilter" | "InstitutePermissionWhereInput" | "InstituteWhereInput" | "InstituteWhereUniqueInput" | "IntFilter" | "LanguageWhereInput" | "LanguageWhereUniqueInput" | "NoteCommentFilter" | "NoteCommentPermissionFilter" | "NoteCommentPermissionWhereInput" | "NoteCommentThreadFilter" | "NoteCommentThreadPermissionFilter" | "NoteCommentThreadPermissionWhereInput" | "NoteCommentThreadWhereInput" | "NoteCommentThreadWhereUniqueInput" | "NoteCommentWhereInput" | "NoteCommentWhereUniqueInput" | "NoteFilter" | "NoteHighlightFilter" | "NoteHighlightPermissionFilter" | "NoteHighlightPermissionWhereInput" | "NoteHighlightWhereInput" | "NoteHighlightWhereUniqueInput" | "NotePermissionFilter" | "NotePermissionWhereInput" | "NoteWhereInput" | "NoteWhereUniqueInput" | "NullableDateTimeFilter" | "NullableStringFilter" | "PasswordTokenWhereInput" | "PermissionFilter" | "PermissionWhereInput" | "PostCommentFilter" | "PostCommentPermissionFilter" | "PostCommentPermissionWhereInput" | "PostCommentWhereInput" | "PostCommentWhereUniqueInput" | "PostFilter" | "PostPermissionFilter" | "PostPermissionWhereInput" | "PostWhereInput" | "QueryUsersWhereInput" | "ResetPasswordInput" | "ResetPasswordTokenWhereInput" | "SendActivationEmailsInput" | "StringFilter" | "SubjectFilter" | "SubjectInformationFilter" | "SubjectInformationPermissionFilter" | "SubjectInformationPermissionWhereInput" | "SubjectInformationWhereInput" | "SubjectInformationWhereUniqueInput" | "SubjectPermissionFilter" | "SubjectPermissionWhereInput" | "SubjectPostsOrderByInput" | "SubjectWhereInput" | "SubjectWhereUniqueInput" | "SuggestionFilter" | "SuggestionPermissionFilter" | "SuggestionPermissionWhereInput" | "SuggestionWhereInput" | "SuggestionWhereUniqueInput" | "SuggestionsInput" | "UpdateDepartmentInput" | "UpdateInstituteInput" | "UpdateNoteCommentInput" | "UpdateNoteHighlightInput" | "UpdateNoteInput" | "UpdatePostCommentInput" | "UpdatePostInput" | "UpdateProfileInput" | "UpdateSubjectInformationInput" | "UpdateSubjectInput" | "UpdateSuggestionInput" | "UpdateUserInput" | "UserFilter" | "UserGroupFilter" | "UserGroupWhereInput" | "UserLoginInput" | "UserPermissionFilter" | "UserPermissionWhereInput" | "UserRoleWhereInput" | "UserWhereInput" | "UserWhereUniqueInput" | "WhereUniqueInput";
+export type NexusGenInputNames =
+  | 'ActivateUserInput'
+  | 'ActivationTokenWhereInput'
+  | 'BooleanFilter'
+  | 'ConnectRelation'
+  | 'CreateDepartmentInput'
+  | 'CreateInstituteInput'
+  | 'CreateNoteCommentInput'
+  | 'CreateNoteCommentThreadInput'
+  | 'CreateNoteHighlightInput'
+  | 'CreateNoteInput'
+  | 'CreatePostCommentInput'
+  | 'CreatePostInput'
+  | 'CreateSubjectInformationInput'
+  | 'CreateSubjectInput'
+  | 'CreateSuggestionInput'
+  | 'CreateUserInput'
+  | 'DateTimeFilter'
+  | 'DepartmentFilter'
+  | 'DepartmentPermissionFilter'
+  | 'DepartmentPermissionWhereInput'
+  | 'DepartmentWhereInput'
+  | 'DepartmentWhereUniqueInput'
+  | 'ForgotPasswordInput'
+  | 'ImageUploadInput'
+  | 'InstituteFilter'
+  | 'InstitutePermissionFilter'
+  | 'InstitutePermissionWhereInput'
+  | 'InstituteWhereInput'
+  | 'InstituteWhereUniqueInput'
+  | 'IntFilter'
+  | 'LanguageWhereInput'
+  | 'LanguageWhereUniqueInput'
+  | 'NoteCommentFilter'
+  | 'NoteCommentPermissionFilter'
+  | 'NoteCommentPermissionWhereInput'
+  | 'NoteCommentThreadFilter'
+  | 'NoteCommentThreadPermissionFilter'
+  | 'NoteCommentThreadPermissionWhereInput'
+  | 'NoteCommentThreadWhereInput'
+  | 'NoteCommentThreadWhereUniqueInput'
+  | 'NoteCommentWhereInput'
+  | 'NoteCommentWhereUniqueInput'
+  | 'NoteFilter'
+  | 'NoteHighlightFilter'
+  | 'NoteHighlightPermissionFilter'
+  | 'NoteHighlightPermissionWhereInput'
+  | 'NoteHighlightWhereInput'
+  | 'NoteHighlightWhereUniqueInput'
+  | 'NotePermissionFilter'
+  | 'NotePermissionWhereInput'
+  | 'NoteWhereInput'
+  | 'NoteWhereUniqueInput'
+  | 'NullableDateTimeFilter'
+  | 'NullableStringFilter'
+  | 'PasswordTokenWhereInput'
+  | 'PermissionFilter'
+  | 'PermissionWhereInput'
+  | 'PostCommentFilter'
+  | 'PostCommentPermissionFilter'
+  | 'PostCommentPermissionWhereInput'
+  | 'PostCommentWhereInput'
+  | 'PostCommentWhereUniqueInput'
+  | 'PostFilter'
+  | 'PostPermissionFilter'
+  | 'PostPermissionWhereInput'
+  | 'PostWhereInput'
+  | 'QueryUsersWhereInput'
+  | 'ResetPasswordInput'
+  | 'ResetPasswordTokenWhereInput'
+  | 'SendActivationEmailsInput'
+  | 'StringFilter'
+  | 'SubjectFilter'
+  | 'SubjectInformationFilter'
+  | 'SubjectInformationPermissionFilter'
+  | 'SubjectInformationPermissionWhereInput'
+  | 'SubjectInformationWhereInput'
+  | 'SubjectInformationWhereUniqueInput'
+  | 'SubjectPermissionFilter'
+  | 'SubjectPermissionWhereInput'
+  | 'SubjectPostsOrderByInput'
+  | 'SubjectWhereInput'
+  | 'SubjectWhereUniqueInput'
+  | 'SuggestionFilter'
+  | 'SuggestionPermissionFilter'
+  | 'SuggestionPermissionWhereInput'
+  | 'SuggestionWhereInput'
+  | 'SuggestionWhereUniqueInput'
+  | 'SuggestionsInput'
+  | 'UpdateDepartmentInput'
+  | 'UpdateInstituteInput'
+  | 'UpdateNoteCommentInput'
+  | 'UpdateNoteHighlightInput'
+  | 'UpdateNoteInput'
+  | 'UpdatePostCommentInput'
+  | 'UpdatePostInput'
+  | 'UpdateProfileInput'
+  | 'UpdateSubjectInformationInput'
+  | 'UpdateSubjectInput'
+  | 'UpdateSuggestionInput'
+  | 'UpdateUserInput'
+  | 'UserFilter'
+  | 'UserGroupFilter'
+  | 'UserGroupWhereInput'
+  | 'UserLoginInput'
+  | 'UserPermissionFilter'
+  | 'UserPermissionWhereInput'
+  | 'UserRoleWhereInput'
+  | 'UserWhereInput'
+  | 'UserWhereUniqueInput'
+  | 'WhereUniqueInput';
 
-export type NexusGenEnumNames = "DepartmentPermissionType" | "InstitutePermissionType" | "NoteCategory" | "NoteCommentPermissionType" | "NoteCommentThreadPermissionType" | "NoteHighlightPermissionType" | "NotePermissionType" | "OrderByArg" | "PostCommentPermissionType" | "PostPermissionType" | "SubjectInformationPermissionType" | "SubjectPermissionType" | "SuggestionPermissionType" | "UserPermissionType" | "UserRoleType";
+export type NexusGenEnumNames =
+  | 'DepartmentPermissionType'
+  | 'InstitutePermissionType'
+  | 'NoteCategory'
+  | 'NoteCommentPermissionType'
+  | 'NoteCommentThreadPermissionType'
+  | 'NoteHighlightPermissionType'
+  | 'NotePermissionType'
+  | 'OrderByArg'
+  | 'PostCommentPermissionType'
+  | 'PostPermissionType'
+  | 'SubjectInformationPermissionType'
+  | 'SubjectPermissionType'
+  | 'SuggestionPermissionType'
+  | 'UserPermissionType'
+  | 'UserRoleType';
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = 'Boolean' | 'DateTime' | 'Float' | 'ID' | 'Int' | 'String';
 
 export type NexusGenUnionNames = never;
 
@@ -2046,19 +2458,23 @@ export interface NexusGenTypes {
   interfaceNames: NexusGenInterfaceNames;
   scalarNames: NexusGenScalarNames;
   unionNames: NexusGenUnionNames;
-  allInputTypes: NexusGenTypes['inputNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['scalarNames'];
-  allOutputTypes: NexusGenTypes['objectNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['unionNames'] | NexusGenTypes['interfaceNames'] | NexusGenTypes['scalarNames'];
-  allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes']
+  allInputTypes:
+    | NexusGenTypes['inputNames']
+    | NexusGenTypes['enumNames']
+    | NexusGenTypes['scalarNames'];
+  allOutputTypes:
+    | NexusGenTypes['objectNames']
+    | NexusGenTypes['enumNames']
+    | NexusGenTypes['unionNames']
+    | NexusGenTypes['interfaceNames']
+    | NexusGenTypes['scalarNames'];
+  allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes'];
   abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
   abstractResolveReturn: NexusGenAbstractResolveReturnTypes;
 }
 
-
 declare global {
-  interface NexusGenPluginTypeConfig<TypeName extends string> {
-  }
-  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
-  }
-  interface NexusGenPluginSchemaConfig {
-  }
+  interface NexusGenPluginTypeConfig<TypeName extends string> {}
+  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {}
+  interface NexusGenPluginSchemaConfig {}
 }

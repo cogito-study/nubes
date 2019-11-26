@@ -1,4 +1,4 @@
-import { User, UserPermissionType } from '@generated/photon';
+import { User, UserPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 

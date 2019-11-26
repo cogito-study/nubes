@@ -1,4 +1,4 @@
-import { User } from '@generated/photon';
+import { User } from '@prisma/photon';
 import { extendType } from 'nexus';
 import { EmailTemplateType, sendEmail } from '../../utils/email';
 import { generateToken } from '../../utils/token';

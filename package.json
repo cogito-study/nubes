@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@google-cloud/storage": "3.3.1",
+    "@prisma/photon": "2.0.0-preview017",
     "apollo-server": "2.9.8",
     "bcrypt": "3.0.6",
     "date-fns": "2.7.0",
@@ -31,7 +32,7 @@
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-graphql": "3.0.3",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.0",
     "faker": "4.1.0",
     "husky": "3.0.9",

@@ -1,5 +1,5 @@
 import { PubSub } from 'apollo-server';
-import { Photon } from '@generated/photon';
+import { Photon } from '@prisma/photon';
 
 export interface Context {
   pubsub: PubSub;

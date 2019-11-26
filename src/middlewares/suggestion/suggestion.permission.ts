@@ -1,4 +1,4 @@
-import { SuggestionPermissionType, User } from '@generated/photon';
+import { SuggestionPermissionType, User } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 

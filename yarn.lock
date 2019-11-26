@@ -266,6 +266,11 @@
     terminal-link "^1.3.0"
     wtfnode "0.8.0"
 
+"@prisma/photon@^2.0.0-preview017":
+  version "2.0.0-preview017"
+  resolved "https://registry.yarnpkg.com/@prisma/photon/-/photon-2.0.0-preview017.tgz#2b2ef8bfc63ce393ed0e4149976a7833dd123b95"
+  integrity sha512-O/SGsJoQ/3+eRLVLJMyRhzHa+TFZFBtUYkA9m88Y7vA8/4DslSzCGcY43P9Um5LHOa8Po4GGEBrJcCHyz62HLw==
+
 "@prisma/sdk@^0.0.23":
   version "0.0.23"
   resolved "https://registry.yarnpkg.com/@prisma/sdk/-/sdk-0.0.23.tgz#1a38cae94f907e266577c6078e8ef6a443cf979f"
