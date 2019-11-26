@@ -4769,10 +4769,10 @@ prisma-datamodel@1.36.0-test.2, prisma-datamodel@^1.36.0-test.2:
     pluralize "^7.0.0"
     popsicle "10"
 
-prisma2@2.0.0-preview016.2:
-  version "2.0.0-preview016.2"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview016.2.tgz#36f3e9cf8f1e44215df4ab9347033b32563d21d0"
-  integrity sha512-K/xnzfpuAiISUGAkqEAvVXRfMe6DyJWTT0Nk8xaTspc3ymm3nU35PR49DeqX839WMTb5tXLnzyi3hgi+074Jwg==
+prisma2@2.0.0-preview017:
+  version "2.0.0-preview017"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview017.tgz#1e5bcbf52569d98c98577eb6bff93d536374aa52"
+  integrity sha512-YSFWLtnhO/5qodTjWCw0kiJjRh+7iRY22mdvvYMcq7hjmK9d7/cmc7gkTYv6aBAMRYgbkBDsjLCrOy16pmenlQ==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

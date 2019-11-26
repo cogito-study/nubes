@@ -37,7 +37,7 @@
     "husky": "3.0.9",
     "lint-staged": "9.4.3",
     "prettier": "1.19.1",
-    "prisma2": "2.0.0-preview016.2",
+    "prisma2": "2.0.0-preview017",
     "request": "2.88.0",
     "stream": "0.0.2",
     "ts-node": "8.5.2",
