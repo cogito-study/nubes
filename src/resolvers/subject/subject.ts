@@ -14,6 +14,7 @@ export const Subject = objectType({
     t.model.informations({ type: 'SubjectInformation' });
     t.model.notes({ type: 'Note' });
     t.model.posts({ type: 'Post', ordering: { createdAt: true } });
+    t.model.language({ type: 'Language' });
 
     t.model.createdAt();
     t.model.updatedAt();

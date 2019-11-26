@@ -1,3 +1,4 @@
+export * from './admin';
 export * from './department';
 export * from './institute';
 export * from './language';

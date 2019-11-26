@@ -121,6 +121,15 @@ input CreateSuggestionInput {
   note: ConnectRelation!
 }
 
+"""Input of create user"""
+input CreateUserInput {
+  email: String!
+  firstName: String!
+  identifier: String!
+  lastName: String!
+  role: String!
+}
+
 scalar DateTime
 
 input DateTimeFilter {
@@ -333,6 +342,7 @@ type Mutation {
   createSubject(data: CreateSubjectInput!): Subject!
   createSubjectInformation(data: CreateSubjectInformationInput!): SubjectInformation!
   createSuggestion(data: CreateSuggestionInput!): Suggestion!
+  createUser(data: CreateUserInput!): User!
   deleteDepartment(where: WhereUniqueInput!): Department!
   deleteInstitute(where: WhereUniqueInput!): Institute!
   deleteNote(where: WhereUniqueInput!): Note!
@@ -351,6 +361,7 @@ type Mutation {
   login(data: UserLoginInput!): AuthenticationPayload!
   rejectSuggestion(where: WhereUniqueInput!): Suggestion!
   resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
+  sendActivationEmails(data: SendActivationEmailsInput!): [User!]!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
   updateNote(data: UpdateNoteInput!, where: WhereUniqueInput!): Note!
@@ -358,6 +369,7 @@ type Mutation {
   updateNoteHighlight(data: UpdateNoteHighlightInput!, where: WhereUniqueInput!): NoteHighlight!
   updatePost(data: UpdatePostInput!, where: WhereUniqueInput!): Post!
   updatePostComment(data: UpdatePostCommentInput!, where: WhereUniqueInput!): PostComment!
+  updateProfile(data: UpdateProfileInput!, where: WhereUniqueInput!): User!
   updateSubject(data: UpdateSubjectInput!, where: WhereUniqueInput!): Subject!
   updateSubjectInformation(data: UpdateSubjectInformationInput!, where: WhereUniqueInput!): SubjectInformation!
   updateSuggestion(data: UpdateSuggestionInput!, where: WhereUniqueInput!): Suggestion!
@@ -908,6 +920,7 @@ input PostWhereInput {
 type Query {
   activeSuggestions(where: SuggestionsInput!): [Suggestion!]!
   department(where: DepartmentWhereUniqueInput!): Department
+  departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
   language(where: LanguageWhereUniqueInput!): Language
@@ -921,6 +934,7 @@ type Query {
   posts: [Post!]!
   subject(where: SubjectWhereUniqueInput!): Subject
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
+  subjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
   user(where: UserWhereUniqueInput!): User
   userInfo(token: String): User
@@ -959,6 +973,11 @@ input ResetPasswordTokenWhereInput {
   users: UserFilter
 }
 
+"""Input of activation emails"""
+input SendActivationEmailsInput {
+  ids: [String!]!
+}
+
 input StringFilter {
   contains: String
   endsWith: String
@@ -981,6 +1000,7 @@ type Subject {
   description: String!
   id: ID!
   informations(after: ID, before: ID, first: Int, last: Int, skip: Int): [SubjectInformation!]!
+  language: Language!
   name: String!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   posts(after: ID, before: ID, first: Int, last: Int, orderBy: SubjectPostsOrderByInput, skip: Int): [Post!]!
@@ -1266,6 +1286,12 @@ input UpdatePostInput {
   content: String
 }
 
+"""Input of update user's profile"""
+input UpdateProfileInput {
+  email: String
+  password: String
+}
+
 """Input of update subject information"""
 input UpdateSubjectInformationInput {
   content: String
@@ -1288,7 +1314,11 @@ input UpdateSuggestionInput {
 """Input of update user"""
 input UpdateUserInput {
   email: String
-  password: String
+  firstName: String
+  identifier: String
+  lastName: String
+  position: String
+  studiedSubjects: [String!]
 }
 
 type User {
