@@ -37,25 +37,26 @@ export const addSuggestionPermission = async ({
   suggestionID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.suggestionPermissions.create({
-      data: {
-        type: permission,
-        objects: {
-          connect: {
-            id: suggestionID,
-          },
+  const mappedUsers = users.map((user) => {
+    return {
+      id: user.id,
+    };
+  });
+  await context.photon.suggestionPermissions.create({
+    data: {
+      type: permission,
+      objects: {
+        connect: {
+          id: suggestionID,
         },
-        permissions: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+      },
+      permissions: {
+        create: {
+          users: {
+            connect: mappedUsers,
           },
         },
       },
-    });
+    },
   });
 };

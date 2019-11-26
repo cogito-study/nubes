@@ -196,12 +196,13 @@ model UserRole {
 }
 
 model DepartmentPermission {
-  id        String                   @default(cuid()) @id @unique
-  type      DepartmentPermissionType
-  objects   Department[]             @relation
-  createdAt DateTime                 @default(now())
-  updatedAt DateTime                 @updatedAt
-  deletedAt DateTime?
+  id         String                   @default(cuid()) @id @unique
+  type       DepartmentPermissionType
+  permission Permission               @relation(name: "PermissionDepartmentPermission")
+  objects    Department[]             @relation
+  createdAt  DateTime                 @default(now())
+  updatedAt  DateTime                 @updatedAt
+  deletedAt  DateTime?
 }
 
 enum DepartmentPermissionType {
@@ -210,12 +211,13 @@ enum DepartmentPermissionType {
 }
 
 model InstitutePermission {
-  id        String                  @default(cuid()) @id @unique
-  type      InstitutePermissionType
-  objects   Institute[]             @relation
-  createdAt DateTime                @default(now())
-  updatedAt DateTime                @updatedAt
-  deletedAt DateTime?
+  id         String                  @default(cuid()) @id @unique
+  type       InstitutePermissionType
+  permission Permission              @relation(name: "PermissionInstitutePermission")
+  objects    Institute[]             @relation
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @updatedAt
+  deletedAt  DateTime?
 }
 
 enum InstitutePermissionType {
@@ -224,12 +226,13 @@ enum InstitutePermissionType {
 }
 
 model NoteCommentPermission {
-  id        String                    @default(cuid()) @id @unique
-  type      NoteCommentPermissionType
-  objects   NoteComment[]             @relation
-  createdAt DateTime                  @default(now())
-  updatedAt DateTime                  @updatedAt
-  deletedAt DateTime?
+  id         String                    @default(cuid()) @id @unique
+  type       NoteCommentPermissionType
+  permission Permission                @relation(name: "PermissionNoteCommentPermission")
+  objects    NoteComment[]             @relation
+  createdAt  DateTime                  @default(now())
+  updatedAt  DateTime                  @updatedAt
+  deletedAt  DateTime?
 }
 
 enum NoteCommentPermissionType {
@@ -238,12 +241,13 @@ enum NoteCommentPermissionType {
 }
 
 model NoteCommentThreadPermission {
-  id        String                          @default(cuid()) @id @unique
-  type      NoteCommentThreadPermissionType
-  objects   NoteCommentThread[]             @relation
-  createdAt DateTime                        @default(now())
-  updatedAt DateTime                        @updatedAt
-  deletedAt DateTime?
+  id         String                          @default(cuid()) @id @unique
+  type       NoteCommentThreadPermissionType
+  permission Permission                      @relation(name: "PermissionNoteCommentThreadPermission")
+  objects    NoteCommentThread[]             @relation
+  createdAt  DateTime                        @default(now())
+  updatedAt  DateTime                        @updatedAt
+  deletedAt  DateTime?
 }
 
 enum NoteCommentThreadPermissionType {
@@ -252,12 +256,13 @@ enum NoteCommentThreadPermissionType {
 }
 
 model NoteHighlightPermission {
-  id        String                      @default(cuid()) @id @unique
-  type      NoteHighlightPermissionType
-  objects   NoteHighlight[]             @relation
-  createdAt DateTime                    @default(now())
-  updatedAt DateTime                    @updatedAt
-  deletedAt DateTime?
+  id         String                      @default(cuid()) @id @unique
+  type       NoteHighlightPermissionType
+  permission Permission                  @relation(name: "PermissionNoteHighlightPermission")
+  objects    NoteHighlight[]             @relation
+  createdAt  DateTime                    @default(now())
+  updatedAt  DateTime                    @updatedAt
+  deletedAt  DateTime?
 }
 
 enum NoteHighlightPermissionType {
@@ -266,12 +271,13 @@ enum NoteHighlightPermissionType {
 }
 
 model NotePermission {
-  id        String             @default(cuid()) @id @unique
-  type      NotePermissionType
-  objects   Note[]             @relation
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  deletedAt DateTime?
+  id         String             @default(cuid()) @id @unique
+  type       NotePermissionType
+  permission Permission         @relation(name: "PermissionNotePermission")
+  objects    Note[]             @relation
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  deletedAt  DateTime?
 }
 
 enum NotePermissionType {
@@ -285,25 +291,26 @@ model Permission {
   id                           String                        @default(cuid()) @id @unique
   userGroups                   UserGroup[]                   @relation(name: "UserGroupPermissions")
   users                        User[]                        @relation
-  departmentPermission         DepartmentPermission?         @relation
-  institutePermission          InstitutePermission?          @relation
-  notePermission               NotePermission?               @relation
-  noteCommentPermission        NoteCommentPermission?        @relation
-  noteCommentThreadPermission  NoteCommentThreadPermission?  @relation
-  noteHighlightPermission      NoteHighlightPermission?      @relation
-  subjectPermission            SubjectPermission?            @relation
-  subjectInformationPermission SubjectInformationPermission? @relation
-  suggestionPermission         SuggestionPermission?         @relation
-  userPermission               UserPermission?               @relation
+  departmentPermission         DepartmentPermission?         @relation(name: "PermissionDepartmentPermission")
+  institutePermission          InstitutePermission?          @relation(name: "PermissionInstitutePermission")
+  notePermission               NotePermission?               @relation(name: "PermissionNotePermission")
+  noteCommentPermission        NoteCommentPermission?        @relation(name: "PermissionNoteCommentPermission")
+  noteCommentThreadPermission  NoteCommentThreadPermission?  @relation(name: "PermissionNoteCommentThreadPermission")
+  noteHighlightPermission      NoteHighlightPermission?      @relation(name: "PermissionNoteHighlightPermission")
+  subjectPermission            SubjectPermission?            @relation(name: "PermissionSubjectPermission")
+  subjectInformationPermission SubjectInformationPermission? @relation(name: "PermissionSubjectInformationPermission")
+  suggestionPermission         SuggestionPermission?         @relation(name: "PermissionSuggestionPermission")
+  userPermission               UserPermission?               @relation(name: "PermissionUserPermission")
 }
 
 model SubjectPermission {
-  id        String                @default(cuid()) @id @unique
-  type      SubjectPermissionType
-  objects   Subject[]             @relation
-  createdAt DateTime              @default(now())
-  updatedAt DateTime              @updatedAt
-  deletedAt DateTime?
+  id         String                @default(cuid()) @id @unique
+  type       SubjectPermissionType
+  permission Permission            @relation(name: "PermissionSubjectPermission")
+  objects    Subject[]             @relation
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+  deletedAt  DateTime?
 }
 
 enum SubjectPermissionType {
@@ -312,12 +319,13 @@ enum SubjectPermissionType {
 }
 
 model SubjectInformationPermission {
-  id        String                           @default(cuid()) @id @unique
-  type      SubjectInformationPermissionType
-  objects   SubjectInformation[]             @relation
-  createdAt DateTime                         @default(now())
-  updatedAt DateTime                         @updatedAt
-  deletedAt DateTime?
+  id         String                           @default(cuid()) @id @unique
+  type       SubjectInformationPermissionType
+  permission Permission                       @relation(name: "PermissionSubjectInformationPermission")
+  objects    SubjectInformation[]             @relation
+  createdAt  DateTime                         @default(now())
+  updatedAt  DateTime                         @updatedAt
+  deletedAt  DateTime?
 }
 
 enum SubjectInformationPermissionType {
@@ -325,12 +333,13 @@ enum SubjectInformationPermissionType {
 }
 
 model SuggestionPermission {
-  id        String                   @default(cuid()) @id @unique
-  type      SuggestionPermissionType
-  objects   Suggestion[]             @relation
-  createdAt DateTime                 @default(now())
-  updatedAt DateTime                 @updatedAt
-  deletedAt DateTime?
+  id         String                   @default(cuid()) @id @unique
+  type       SuggestionPermissionType
+  permission Permission               @relation(name: "PermissionSuggestionPermission")
+  objects    Suggestion[]             @relation
+  createdAt  DateTime                 @default(now())
+  updatedAt  DateTime                 @updatedAt
+  deletedAt  DateTime?
 }
 
 enum SuggestionPermissionType {
@@ -339,12 +348,13 @@ enum SuggestionPermissionType {
 }
 
 model UserPermission {
-  id        String             @default(cuid()) @id @unique
-  type      UserPermissionType
-  objects   User[]             @relation
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  deletedAt DateTime?
+  id         String             @default(cuid()) @id @unique
+  type       UserPermissionType
+  permission Permission         @relation(name: "PermissionUserPermission")
+  objects    User[]             @relation
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  deletedAt  DateTime?
 }
 
 enum UserPermissionType {

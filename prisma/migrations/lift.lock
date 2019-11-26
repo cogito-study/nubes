@@ -25,3 +25,4 @@
 20191107153638-add-social-feed
 20191107162237-fix-post-comment-permission-type
 20191108162617-rename-liked-comments-field
+20191126160846-fix-permissions-relation

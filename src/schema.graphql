@@ -1339,7 +1339,6 @@ type User {
   noteHighlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   password: String!
-  passwordToken: PasswordToken
   phoneNumber: String
   position: String
   preferredLanguage: Language

@@ -37,25 +37,26 @@ export const addDepartmentPermission = async ({
   departmentID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.departmentPermissions.create({
-      data: {
-        type: permission,
-        objects: {
-          connect: {
-            id: departmentID,
-          },
+  const mappedUsers = users.map((user) => {
+    return {
+      id: user.id,
+    };
+  });
+  await context.photon.departmentPermissions.create({
+    data: {
+      type: permission,
+      objects: {
+        connect: {
+          id: departmentID,
         },
-        permissions: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+      },
+      permissions: {
+        create: {
+          users: {
+            connect: mappedUsers,
           },
         },
       },
-    });
+    },
   });
 };

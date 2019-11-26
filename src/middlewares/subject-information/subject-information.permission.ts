@@ -40,25 +40,26 @@ export const addSubjectInformationPermission = async ({
   subjectInformationID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.subjectInformationPermissions.create({
-      data: {
-        type: permission,
-        objects: {
-          connect: {
-            id: subjectInformationID,
-          },
+  const mappedUsers = users.map((user) => {
+    return {
+      id: user.id,
+    };
+  });
+  await context.photon.subjectInformationPermissions.create({
+    data: {
+      type: permission,
+      objects: {
+        connect: {
+          id: subjectInformationID,
         },
-        permissions: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+      },
+      permissions: {
+        create: {
+          users: {
+            connect: mappedUsers,
           },
         },
       },
-    });
+    },
   });
 };
