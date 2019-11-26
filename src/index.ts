@@ -1,4 +1,4 @@
-import { Photon } from '@generated/photon';
+import { Photon } from '@prisma/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
 import { config } from 'dotenv';
 import { applyMiddleware } from 'graphql-middleware';
@@ -31,7 +31,7 @@ const schema = makeSchema({
   typegenAutoConfig: {
     sources: [
       {
-        source: '@generated/photon',
+        source: '@prisma/photon',
         alias: 'photon',
       },
       {

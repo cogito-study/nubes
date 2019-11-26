@@ -1,4 +1,4 @@
-import { NoteCommentPermissionType } from '@generated/photon';
+import { NoteCommentPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 

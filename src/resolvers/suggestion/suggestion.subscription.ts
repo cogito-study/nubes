@@ -1,4 +1,4 @@
-import { Suggestion } from '@generated/photon';
+import { Suggestion } from '@prisma/photon';
 import { ApolloError, withFilter } from 'apollo-server';
 import { extendType } from 'nexus';
 import { Context } from './../../types';

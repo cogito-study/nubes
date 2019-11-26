@@ -151,6 +151,7 @@ type Department {
   institute: Institute!
   leader: User!
   name: String!
+  permissions: [DepartmentPermissionType!]!
   subjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   updatedAt: DateTime!
 }
@@ -233,6 +234,7 @@ type Institute {
   departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
   id: ID!
   name: String!
+  permissions: [InstitutePermissionType!]!
   updatedAt: DateTime!
   users(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 }
@@ -393,6 +395,7 @@ type Note {
   likesCount: Int!
   noteCategory: NoteCategory!
   number: Int!
+  permissions: [NotePermissionType!]!
   subject: Subject!
   title: String!
   updatedAt: DateTime!
@@ -413,6 +416,7 @@ type NoteComment {
 
   """Number of likes on the note comment"""
   likesCount: Int!
+  permissions: [NoteCommentPermissionType!]!
   thread: NoteCommentThread
   threadReply: NoteCommentThread
   updatedAt: DateTime!
@@ -783,6 +787,7 @@ type Post {
 
   """Number of likes on the post"""
   likesCount: Int!
+  permissions: [PostPermissionType!]!
   subject: Subject!
   updatedAt: DateTime!
 }
@@ -797,6 +802,7 @@ type PostComment {
 
   """Number of likes on the postComment"""
   likesCount: Int!
+  permissions: [PostCommentPermissionType!]!
   post: Post!
   updatedAt: DateTime!
 }
@@ -1003,6 +1009,7 @@ type Subject {
   language: Language!
   name: String!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
+  permissions: [SubjectPermissionType!]!
   posts(after: ID, before: ID, first: Int, last: Int, orderBy: SubjectPostsOrderByInput, skip: Int): [Post!]!
   students(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
   teachers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
@@ -1020,6 +1027,7 @@ type SubjectInformation {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
+  permissions: [SubjectInformationPermissionType!]!
   subject: Subject!
   subtitle: String
   title: String!
@@ -1172,6 +1180,7 @@ type Suggestion {
   """Number of likes on the suggestion"""
   likesCount: Int!
   note: Note!
+  permissions: [SuggestionPermissionType!]!
   rejectedAt: DateTime
   updatedAt: DateTime!
 }
@@ -1339,6 +1348,7 @@ type User {
   noteHighlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   password: String!
+  permissions: [UserPermissionType!]!
   phoneNumber: String
   position: String
   preferredLanguage: Language

@@ -1,7 +1,7 @@
+import { UserInclude } from '@prisma/photon';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { Context } from '../types';
-import { UserInclude } from '@generated/photon';
 
 interface JWToken {
   userID: string;

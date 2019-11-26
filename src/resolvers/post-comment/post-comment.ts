@@ -33,7 +33,7 @@ export const PostComment = objectType({
             type: true,
           },
         });
-        return await permissions.map((p) => p.type);
+        return permissions.map((p) => p.type);
       },
     });
 
