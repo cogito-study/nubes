@@ -1,4 +1,4 @@
-import { UserPermissionType, User } from '@generated/photon';
+import { User, UserPermissionType } from '@generated/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 
@@ -37,25 +37,26 @@ export const addUserPermission = async ({
   userID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.userPermissions.create({
-      data: {
-        type: permission,
-        objects: {
-          connect: {
-            id: userID,
-          },
+  const mappedUsers = users.map((user) => {
+    return {
+      id: user.id,
+    };
+  });
+  await context.photon.userPermissions.create({
+    data: {
+      type: permission,
+      objects: {
+        connect: {
+          id: userID,
         },
-        permissions: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+      },
+      permissions: {
+        create: {
+          users: {
+            connect: mappedUsers,
           },
         },
       },
-    });
+    },
   });
 };

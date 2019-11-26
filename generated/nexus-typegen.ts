@@ -1406,7 +1406,6 @@ export interface NexusGenFieldTypes {
     noteHighlights: NexusGenRootTypes['NoteHighlight'][]; // [NoteHighlight!]!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!
     password: string; // String!
-    passwordToken: NexusGenRootTypes['PasswordToken'] | null; // PasswordToken
     phoneNumber: string | null; // String
     position: string | null; // String
     preferredLanguage: NexusGenRootTypes['Language'] | null; // Language

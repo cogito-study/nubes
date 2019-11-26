@@ -1,4 +1,5 @@
 import { objectType } from 'nexus';
+import { getUserID } from '../../utils/authentication';
 
 export const Suggestion = objectType({
   name: 'Suggestion',
@@ -13,6 +14,23 @@ export const Suggestion = objectType({
     t.model.note({ type: 'Note' });
     t.model.author({ type: 'User' });
     t.model.approvedBy({ type: 'User' });
+
+    t.field('permissions', {
+      type: 'SuggestionPermissionType',
+      list: true,
+      resolve: async ({ id }, args, context) => {
+        const permissions = await context.photon.suggestionPermissions.findMany({
+          where: {
+            objects: { some: { id } },
+            permissions: { some: { users: { some: { id: getUserID(context) } } } },
+          },
+          select: {
+            type: true,
+          },
+        });
+        return await permissions.map((p) => p.type);
+      },
+    });
 
     t.field('likesCount', {
       type: 'Int',

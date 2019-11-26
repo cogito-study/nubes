@@ -37,25 +37,26 @@ export const addPostCommentPermission = async ({
   postCommentID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.postCommentPermissions.create({
-      data: {
-        type: permission,
-        objects: {
-          connect: {
-            id: postCommentID,
-          },
+  const mappedUsers = users.map((user) => {
+    return {
+      id: user.id,
+    };
+  });
+  await context.photon.postCommentPermissions.create({
+    data: {
+      type: permission,
+      objects: {
+        connect: {
+          id: postCommentID,
         },
-        permissions: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+      },
+      permissions: {
+        create: {
+          users: {
+            connect: mappedUsers,
           },
         },
       },
-    });
+    },
   });
 };

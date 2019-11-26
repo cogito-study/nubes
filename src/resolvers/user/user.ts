@@ -1,5 +1,6 @@
 import { __ } from 'i18n';
 import { objectType } from 'nexus';
+import { getUserID } from '../../utils/authentication';
 
 export const User = objectType({
   name: 'User',
@@ -19,6 +20,24 @@ export const User = objectType({
         return __('full_name', { firstName, lastName });
       },
     });
+
+    t.field('permissions', {
+      type: 'UserPermissionType',
+      list: true,
+      resolve: async ({ id }, args, context) => {
+        const permissions = await context.photon.userPermissions.findMany({
+          where: {
+            objects: { some: { id } },
+            permissions: { some: { users: { some: { id: getUserID(context) } } } },
+          },
+          select: {
+            type: true,
+          },
+        });
+        return await permissions.map((p) => p.type);
+      },
+    });
+
     t.model.role({ type: 'UserRole' });
     t.model.notes({ type: 'Note' });
     t.model.noteHighlights({ type: 'NoteHighlight' });

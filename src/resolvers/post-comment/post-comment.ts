@@ -1,4 +1,5 @@
 import { objectType } from 'nexus';
+import { getUserID } from '../../utils/authentication';
 
 export const PostComment = objectType({
   name: 'PostComment',
@@ -16,6 +17,23 @@ export const PostComment = objectType({
       resolve: async ({ id }, args, context) => {
         const likers = await context.photon.postComments.findOne({ where: { id } }).likers();
         return likers.length;
+      },
+    });
+
+    t.field('permissions', {
+      type: 'PostCommentPermissionType',
+      list: true,
+      resolve: async ({ id }, args, context) => {
+        const permissions = await context.photon.postCommentPermissions.findMany({
+          where: {
+            objects: { some: { id } },
+            permissions: { some: { users: { some: { id: getUserID(context) } } } },
+          },
+          select: {
+            type: true,
+          },
+        });
+        return await permissions.map((p) => p.type);
       },
     });
 
