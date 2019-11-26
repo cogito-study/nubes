@@ -6,6 +6,7 @@ COPY package.json /usr/src/server/package.json
 COPY yarn.lock /usr/src/server/yarn.lock
 COPY . /usr/src/server
 RUN npm install -g prisma2 --unsafe-perm
+RUN npm install -g concurrently --unsafe-perm
 RUN yarn install
 COPY . /usr/src/server
-CMD prisma2 lift up && yarn run start
+CMD prisma2 lift up && concurrently "yarn run start" "prisma2 studio"
