@@ -8,6 +8,7 @@ services:
       - postgres
     ports:
       - '${SERVER_PORT}:4000'
+      - '${STUDIO_PORT}:5555'
     environment:
       POSTGRESQL_URL: ${POSTGRESQL_URL}
       APP_SECRET: ${APP_SECRET}

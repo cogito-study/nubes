@@ -1,5 +1,5 @@
-import { objectType } from 'nexus';
 import { __ } from 'i18n';
+import { objectType } from 'nexus';
 
 export const User = objectType({
   name: 'User',
@@ -29,7 +29,6 @@ export const User = objectType({
     t.model.likedNotes({ type: 'Note' });
     t.model.noteComments({ type: 'NoteComment' });
     t.model.likedPostComments({ type: 'PostComment' });
-    t.model.passwordToken({ type: 'PasswordToken' });
     t.model.departments({ type: 'Department' });
     t.model.institutes({ type: 'Institute' });
     t.model.preferredLanguage({ type: 'Language' });
