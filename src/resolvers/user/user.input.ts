@@ -4,7 +4,8 @@ export const UpdateProfileInput = inputObjectType({
   name: 'UpdateProfileInput',
   description: "Input of update user's profile",
   definition(t) {
-    t.string('email');
-    t.string('password');
+    t.string('email', { nullable: true });
+    t.string('oldPassword', { nullable: true });
+    t.string('newPassword', { nullable: true });
   },
 });

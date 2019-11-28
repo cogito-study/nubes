@@ -20,7 +20,7 @@ export const getUserID = (context: Context) => {
   }
 };
 
-export const getCurrentUser = async (ctx: Context, include: UserInclude) => {
+export const getCurrentUser = async (ctx: Context, include?: UserInclude) => {
   return await ctx.photon.users.findOne({ where: { id: getUserID(ctx) }, include });
 };
 

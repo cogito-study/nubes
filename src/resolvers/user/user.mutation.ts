@@ -1,8 +1,9 @@
 import { extendType } from 'nexus';
-import { UpdateProfileInput } from './user.input';
+import { comparePasswords, getCurrentUser } from '../../utils/authentication';
 import { WhereUniqueInput } from '../input';
+import { UpdateProfileInput } from './user.input';
 
-//logout
+// TODO: logout
 export const UserMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
@@ -12,10 +13,26 @@ export const UserMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
         data: UpdateProfileInput.asArg({ required: true }),
       },
-      resolve: (_, { where, data }, ctx) => {
-        return ctx.photon.users.update({
+      resolve: async (_, { where, data: { email, oldPassword, newPassword } }, ctx) => {
+        const user = await getCurrentUser(ctx);
+        if (user === null) throw new Error(`User doesn't exist`);
+
+        if (oldPassword) {
+          const isValidPassword = await comparePasswords(oldPassword, user.password);
+          if (!isValidPassword) throw new Error('The old password is not correct');
+
+          return await ctx.photon.users.update({
+            where,
+            data: {
+              email,
+              password: newPassword,
+            },
+          });
+        }
+
+        return await ctx.photon.users.update({
           where,
-          data,
+          data: { email },
         });
       },
     });
