@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@google-cloud/storage": "3.3.1",
-    "@prisma/photon": "2.0.0-preview017",
+    "@prisma/photon": "2.0.0-preview017.2",
     "apollo-server": "2.9.8",
     "bcrypt": "3.0.6",
     "date-fns": "2.7.0",
