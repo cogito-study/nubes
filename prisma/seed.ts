@@ -1,4 +1,4 @@
-import { Photon } from '@generated/photon';
+import { Photon } from '@prisma/photon';
 import { config } from 'dotenv';
 import * as faker from 'faker';
 import { resolve } from 'path';
@@ -67,16 +67,12 @@ async function main() {
   photon.userPermissions.create({
     data: {
       type: 'UPDATE_USER',
-      permissions: {
-        create: {
-          users: {
-            connect: {
-              id: admin.id,
-            },
-          },
+      users: {
+        connect: {
+          id: admin.id,
         },
       },
-      objects: {
+      object: {
         connect: { id: admin.id },
       },
     },
@@ -130,16 +126,12 @@ async function main() {
       photon.departmentPermissions.create({
         data: {
           type: 'UPDATE_DEPARTMENT',
-          permissions: {
-            create: {
-              users: {
-                connect: {
-                  id: admin.id,
-                },
-              },
+          users: {
+            connect: {
+              id: admin.id,
             },
           },
-          objects: {
+          object: {
             connect: { id: department.id },
           },
         },
@@ -200,16 +192,12 @@ async function main() {
           photon.notePermissions.create({
             data: {
               type: 'UPDATE_NOTE',
-              permissions: {
-                create: {
-                  users: {
-                    connect: {
-                      id: admin.id,
-                    },
-                  },
+              users: {
+                connect: {
+                  id: admin.id,
                 },
               },
-              objects: {
+              object: {
                 connect: { id: note.id },
               },
             },

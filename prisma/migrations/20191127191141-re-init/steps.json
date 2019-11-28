@@ -1,0 +1,4704 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateEnum",
+      "enum": "NoteCategory",
+      "values": [
+        "NOTE",
+        "CASE_STUDY"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "UserRoleType",
+      "values": [
+        "USER",
+        "ADMIN",
+        "PROFESSOR"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "DepartmentPermissionType",
+      "values": [
+        "UPDATE_DEPARTMENT",
+        "READ_DEPARTMENT",
+        "DELETE_DEPARTMENT",
+        "CREATE_SUBJECT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "InstitutePermissionType",
+      "values": [
+        "UPDATE_INSTITUTE",
+        "DELETE_INSTITUTE",
+        "CREATE_DEPARTMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "NoteCommentPermissionType",
+      "values": [
+        "UPDATE_NOTE_COMMENT",
+        "DELETE_NOTE_COMMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "NoteCommentThreadPermissionType",
+      "values": [
+        "DELETE_NOTE_COMMENT_THREAD"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "NoteHighlightPermissionType",
+      "values": [
+        "UPDATE_NOTE_HIGHLIGHT",
+        "DELETE_NOTE_HIGHLIGHT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "NotePermissionType",
+      "values": [
+        "READ_NOTE",
+        "UPDATE_NOTE",
+        "DELETE_NOTE",
+        "CREATE_SUGGESTION"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "PostCommentPermissionType",
+      "values": [
+        "UPDATE_POSTCOMMENT",
+        "DELETE_POSTCOMMENT",
+        "READ_POSTCOMMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "PostPermissionType",
+      "values": [
+        "CREATE_POSTCOMMENT",
+        "UPDATE_POST",
+        "DELETE_POST",
+        "READ_POST"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "SubjectPermissionType",
+      "values": [
+        "CREATE_POST",
+        "CREATE_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT",
+        "DELETE_SUBJECT",
+        "READ_SUBJECT",
+        "CREATE_NOTE"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "SubjectInformationPermissionType",
+      "values": [
+        "READ_SUBJECT_INFORMATION",
+        "UPDATE_SUBJECT_INFORMATION",
+        "DELETE_SUBJECT_INFORMATION"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "SuggestionPermissionType",
+      "values": [
+        "UPDATE_SUGGESTION",
+        "READ_SUGGESTION",
+        "DELETE_SUGGESTION",
+        "APPROVE_SUGGESTION",
+        "REJECT_SUGGESTION"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "UserPermissionType",
+      "values": [
+        "UPDATE_USER",
+        "DELETE_USER"
+      ]
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Department"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "description",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "leader",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "leader",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "leader",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentLeader\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "subjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "subjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "subjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentSubjects\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "institute",
+      "type": "Institute",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "institute",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "institute",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentInstitute\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "permissions",
+      "type": "DepartmentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Institute"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "departments",
+      "type": "Department",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "departments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "departments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentInstitute\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "permissions",
+      "type": "InstitutePermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstitutePermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Language"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Language",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "field": "code",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "code",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Language",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserPrefferedLanguage\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Language",
+      "field": "subjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Language",
+      "field": "subjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Language",
+      "field": "subjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectLanguage\""
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Note"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "contentHTML",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "title",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "number",
+      "type": "Int",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "description",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "noteCategory",
+      "type": "NoteCategory",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "suggestions",
+      "type": "Suggestion",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "suggestions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "suggestions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteSuggestions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "commentThreads",
+      "type": "NoteCommentThread",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "commentThreads",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "commentThreads",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreads\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "authors",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "authors",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "authors",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteAuthors\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "likers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "likers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "likers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "highlights",
+      "type": "NoteHighlight",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "highlights",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "highlights",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlights\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "subject",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "subject",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectNotes\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "permissions",
+      "type": "NotePermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NotePermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Note",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Note",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Note",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteComment"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "author",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "author",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "author",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "likers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "likers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "likers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "thread",
+      "type": "NoteCommentThread",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "thread",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "thread",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadComment\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "threadReply",
+      "type": "NoteCommentThread",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "threadReply",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "threadReply",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadReplies\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "permissions",
+      "type": "NoteCommentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteComment",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteComment",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteComment",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteCommentThread"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "position",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "comment",
+      "type": "NoteComment",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "comment",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "comment",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadComment\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "replies",
+      "type": "NoteComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "replies",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "replies",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadReplies\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "note",
+      "type": "Note",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "note",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "note",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreads\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "permissions",
+      "type": "NoteCommentThreadPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThread",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThread",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThread",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteHighlight"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlight",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "position",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "user",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "user",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlight",
+      "field": "user",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserNoteHighlights\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "note",
+      "type": "Note",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "note",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlight",
+      "field": "note",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlights\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "permissions",
+      "type": "NoteHighlightPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlight",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlightPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlight",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlight",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlight",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "PasswordToken"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PasswordToken",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "token",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "token",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "user",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "user",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PasswordToken",
+      "field": "user",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PasswordTokenUser\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PasswordToken",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PasswordToken",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PasswordToken",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Subject"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "code",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "code",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "description",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "department",
+      "type": "Department",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "department",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "department",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentSubjects\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "teachers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "teachers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "teachers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectTeachers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "students",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "students",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "students",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectStudents\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "informations",
+      "type": "SubjectInformation",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "informations",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "informations",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "notes",
+      "type": "Note",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "notes",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "notes",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectNotes\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "posts",
+      "type": "Post",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "posts",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "posts",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPosts\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "language",
+      "type": "Language",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "language",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "language",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectLanguage\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "permissions",
+      "type": "SubjectPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "SubjectInformation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformation",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "title",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "subtitle",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "subject",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformation",
+      "field": "subject",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "permissions",
+      "type": "SubjectInformationPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformation",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformationPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformation",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformation",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformation",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Suggestion"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "delta",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "approvedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "rejectedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "likers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "likers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "likers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "approvedBy",
+      "type": "User",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "approvedBy",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "approvedBy",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionApprovedBy\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "note",
+      "type": "Note",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "note",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "note",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteSuggestions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "author",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "author",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "author",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "permissions",
+      "type": "SuggestionPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Suggestion",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Suggestion",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Suggestion",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "User"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "email",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "email",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "profilePictureURL",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "firstName",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "lastName",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "phoneNumber",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "identifier",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "position",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "activationToken",
+      "type": "ActivationToken",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "ResetPasswordToken",
+      "type": "ResetPasswordToken",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "isActive",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "isActive",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "isActive",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "role",
+      "type": "UserRole",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "role",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "role",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserRole\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "notes",
+      "type": "Note",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "notes",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "notes",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteAuthors\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "noteHighlights",
+      "type": "NoteHighlight",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "noteHighlights",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "noteHighlights",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserNoteHighlights\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "suggestions",
+      "type": "Suggestion",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "suggestions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "suggestions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "approvedSuggestions",
+      "type": "Suggestion",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "approvedSuggestions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "approvedSuggestions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionApprovedBy\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "teachedSubjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "teachedSubjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "teachedSubjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectTeachers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "studiedSubjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "studiedSubjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "studiedSubjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectStudents\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "likedNotes",
+      "type": "Note",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "likedNotes",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "likedNotes",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "noteComments",
+      "type": "NoteComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "noteComments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "noteComments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "postComments",
+      "type": "PostComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "postComments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "postComments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "likedNoteComments",
+      "type": "NoteComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "likedNoteComments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "likedNoteComments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "likedPostComments",
+      "type": "PostComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "likedPostComments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "likedPostComments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"CommentLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "likedPosts",
+      "type": "Post",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "likedPosts",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "likedPosts",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "posts",
+      "type": "Post",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "posts",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "posts",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "likedSuggestions",
+      "type": "Suggestion",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "likedSuggestions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "likedSuggestions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "passwordToken",
+      "type": "PasswordToken",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "passwordToken",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "passwordToken",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PasswordTokenUser\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "departments",
+      "type": "Department",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "departments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "departments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentLeader\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "institutes",
+      "type": "Institute",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "institutes",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "institutes",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "preferredLanguage",
+      "type": "Language",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "preferredLanguage",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "preferredLanguage",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserPrefferedLanguage\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "userPermissions",
+      "type": "UserPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "userPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "userPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserUserPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Post"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "author",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "author",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "author",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "subject",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "subject",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPosts\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "likers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "likers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "likers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "comments",
+      "type": "PostComment",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "comments",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "comments",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPostComments\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "permissions",
+      "type": "PostPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Post",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Post",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "PostComment"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "author",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "author",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "author",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentAuthor\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "post",
+      "type": "Post",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "post",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "post",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPostComments\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "likers",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "likers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "likers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"CommentLikers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "permissions",
+      "type": "PostCommentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostComment",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostComment",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "ActivationToken"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ActivationToken",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "ActivationToken",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ActivationToken",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ActivationToken",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "field": "user",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "field": "token",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ActivationToken",
+      "field": "token",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ActivationToken",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ActivationToken",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "ActivationToken",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "ResetPasswordToken"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "field": "email",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ResetPasswordToken",
+      "field": "email",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "ResetPasswordToken",
+      "field": "email",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ResetPasswordToken",
+      "field": "email",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ResetPasswordToken",
+      "field": "email",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "field": "token",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ResetPasswordToken",
+      "field": "token",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ResetPasswordToken",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "ResetPasswordToken",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "ResetPasswordToken",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "UserRole"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserRole",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "type",
+      "type": "UserRoleType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserRole",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserRole\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserRole",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserRole",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserRole",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "DepartmentPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "type",
+      "type": "DepartmentPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "object",
+      "type": "Department",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "InstitutePermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstitutePermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "type",
+      "type": "InstitutePermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "object",
+      "type": "Institute",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstitutePermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstitutePermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstitutePermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstitutePermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstitutePermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteCommentPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "type",
+      "type": "NoteCommentPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "object",
+      "type": "NoteComment",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteCommentThreadPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThreadPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "type",
+      "type": "NoteCommentThreadPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "object",
+      "type": "NoteCommentThread",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThreadPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThreadPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteCommentThreadPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteCommentThreadPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NoteHighlightPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlightPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "type",
+      "type": "NoteHighlightPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "object",
+      "type": "NoteHighlight",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlightPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlightPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlightPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NoteHighlightPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NoteHighlightPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "NotePermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NotePermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "type",
+      "type": "NotePermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "object",
+      "type": "Note",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NotePermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NotePermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NotePermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "NotePermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "NotePermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "PostCommentPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostCommentPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "type",
+      "type": "PostCommentPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "object",
+      "type": "PostComment",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostCommentPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostCommentPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostCommentPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostCommentPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "PostPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "type",
+      "type": "PostPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "object",
+      "type": "Post",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "PostPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "SubjectPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "type",
+      "type": "SubjectPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "object",
+      "type": "Subject",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "SubjectInformationPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformationPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "type",
+      "type": "SubjectInformationPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "object",
+      "type": "SubjectInformation",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformationPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformationPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformationPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SubjectInformationPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SubjectInformationPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "SuggestionPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SuggestionPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "type",
+      "type": "SuggestionPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "object",
+      "type": "Suggestion",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SuggestionPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SuggestionPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "SuggestionPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SuggestionPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "UserPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "type",
+      "type": "UserPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "object",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserUserPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "UserPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "UserPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    }
+  ]
+}

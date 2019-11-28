@@ -11,16 +11,11 @@ export const hasInstitutePermission = async ({
   instituteID: string;
   context: Context;
 }) => {
-  const permissions = await context.photon.permissions.findMany({
+  const permissions = await context.photon.institutePermissions.findMany({
     where: {
-      AND: [
-        {
-          institutePermission: { type: permission, objects: { some: { id: instituteID } } },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: instituteID },
+      users: { some: { id: getUserID(context) } },
     },
   });
   return permissions.length !== 0;
@@ -41,18 +36,14 @@ export const addInstitutePermission = async ({
     await context.photon.institutePermissions.create({
       data: {
         type: permission,
-        objects: {
+        object: {
           connect: {
             id: instituteID,
           },
         },
-        permission: {
-          create: {
-            users: {
-              connect: {
-                id: user.id,
-              },
-            },
+        users: {
+          connect: {
+            id: user.id,
           },
         },
       },

@@ -166,7 +166,7 @@ type DepartmentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
+  object: Department!
   type: DepartmentPermissionType!
   updatedAt: DateTime!
 }
@@ -190,11 +190,11 @@ input DepartmentPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [DepartmentPermissionWhereInput!]
-  objects: DepartmentFilter
+  object: DepartmentWhereInput
   OR: [DepartmentPermissionWhereInput!]
-  permissions: PermissionFilter
   type: DepartmentPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input DepartmentWhereInput {
@@ -249,7 +249,7 @@ type InstitutePermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
+  object: Institute!
   type: InstitutePermissionType!
   updatedAt: DateTime!
 }
@@ -272,11 +272,11 @@ input InstitutePermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [InstitutePermissionWhereInput!]
-  objects: InstituteFilter
+  object: InstituteWhereInput
   OR: [InstitutePermissionWhereInput!]
-  permissions: PermissionFilter
   type: InstitutePermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input InstituteWhereInput {
@@ -432,7 +432,7 @@ type NoteCommentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
+  object: NoteComment!
   type: NoteCommentPermissionType!
   updatedAt: DateTime!
 }
@@ -454,11 +454,11 @@ input NoteCommentPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [NoteCommentPermissionWhereInput!]
-  objects: NoteCommentFilter
+  object: NoteCommentWhereInput
   OR: [NoteCommentPermissionWhereInput!]
-  permissions: PermissionFilter
   type: NoteCommentPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 type NoteCommentThread {
@@ -482,7 +482,7 @@ type NoteCommentThreadPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteCommentThread!]!
+  object: NoteCommentThread!
   type: NoteCommentThreadPermissionType!
   updatedAt: DateTime!
 }
@@ -503,11 +503,11 @@ input NoteCommentThreadPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [NoteCommentThreadPermissionWhereInput!]
-  objects: NoteCommentThreadFilter
+  object: NoteCommentThreadWhereInput
   OR: [NoteCommentThreadPermissionWhereInput!]
-  permissions: PermissionFilter
   type: NoteCommentThreadPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input NoteCommentThreadWhereInput {
@@ -575,7 +575,7 @@ type NoteHighlightPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
+  object: NoteHighlight!
   type: NoteHighlightPermissionType!
   updatedAt: DateTime!
 }
@@ -597,11 +597,11 @@ input NoteHighlightPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [NoteHighlightPermissionWhereInput!]
-  objects: NoteHighlightFilter
+  object: NoteHighlightWhereInput
   OR: [NoteHighlightPermissionWhereInput!]
-  permissions: PermissionFilter
   type: NoteHighlightPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input NoteHighlightWhereInput {
@@ -626,7 +626,7 @@ type NotePermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
+  object: Note!
   type: NotePermissionType!
   updatedAt: DateTime!
 }
@@ -650,11 +650,11 @@ input NotePermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [NotePermissionWhereInput!]
-  objects: NoteFilter
+  object: NoteWhereInput
   OR: [NotePermissionWhereInput!]
-  permissions: PermissionFilter
   type: NotePermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input NoteWhereInput {
@@ -735,47 +735,6 @@ input PasswordTokenWhereInput {
   user: UserWhereInput
 }
 
-type Permission {
-  departmentPermission: DepartmentPermission
-  id: ID!
-  institutePermission: InstitutePermission
-  noteCommentPermission: NoteCommentPermission
-  noteCommentThreadPermission: NoteCommentThreadPermission
-  noteHighlightPermission: NoteHighlightPermission
-  notePermission: NotePermission
-  subjectInformationPermission: SubjectInformationPermission
-  subjectPermission: SubjectPermission
-  suggestionPermission: SuggestionPermission
-  userPermission: UserPermission
-}
-
-input PermissionFilter {
-  every: PermissionWhereInput
-  none: PermissionWhereInput
-  some: PermissionWhereInput
-}
-
-input PermissionWhereInput {
-  AND: [PermissionWhereInput!]
-  departmentPermission: DepartmentPermissionWhereInput
-  id: StringFilter
-  institutePermission: InstitutePermissionWhereInput
-  NOT: [PermissionWhereInput!]
-  noteCommentPermission: NoteCommentPermissionWhereInput
-  noteCommentThreadPermission: NoteCommentThreadPermissionWhereInput
-  noteHighlightPermission: NoteHighlightPermissionWhereInput
-  notePermission: NotePermissionWhereInput
-  OR: [PermissionWhereInput!]
-  postCommentPermission: PostCommentPermissionWhereInput
-  postPermission: PostPermissionWhereInput
-  subjectInformationPermission: SubjectInformationPermissionWhereInput
-  subjectPermission: SubjectPermissionWhereInput
-  suggestionPermission: SuggestionPermissionWhereInput
-  userGroups: UserGroupFilter
-  userPermission: UserPermissionWhereInput
-  users: UserFilter
-}
-
 type Post {
   author: User!
   comments(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
@@ -817,7 +776,7 @@ type PostCommentPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
+  object: PostComment!
   type: PostCommentPermissionType!
   updatedAt: DateTime!
 }
@@ -840,11 +799,11 @@ input PostCommentPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [PostCommentPermissionWhereInput!]
-  objects: PostCommentFilter
+  object: PostCommentWhereInput
   OR: [PostCommentPermissionWhereInput!]
-  permissions: PermissionFilter
   type: PostCommentPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input PostCommentWhereInput {
@@ -876,7 +835,7 @@ type PostPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Post!]!
+  object: Post!
   type: PostPermissionType!
   updatedAt: DateTime!
 }
@@ -900,11 +859,11 @@ input PostPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [PostPermissionWhereInput!]
-  objects: PostFilter
+  object: PostWhereInput
   OR: [PostPermissionWhereInput!]
-  permissions: PermissionFilter
   type: PostPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input PostWhereInput {
@@ -1044,7 +1003,7 @@ type SubjectInformationPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [SubjectInformation!]!
+  object: SubjectInformation!
   type: SubjectInformationPermissionType!
   updatedAt: DateTime!
 }
@@ -1067,11 +1026,11 @@ input SubjectInformationPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [SubjectInformationPermissionWhereInput!]
-  objects: SubjectInformationFilter
+  object: SubjectInformationWhereInput
   OR: [SubjectInformationPermissionWhereInput!]
-  permissions: PermissionFilter
   type: SubjectInformationPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input SubjectInformationWhereInput {
@@ -1097,7 +1056,7 @@ type SubjectPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
+  object: Subject!
   type: SubjectPermissionType!
   updatedAt: DateTime!
 }
@@ -1123,11 +1082,11 @@ input SubjectPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [SubjectPermissionWhereInput!]
-  objects: SubjectFilter
+  object: SubjectWhereInput
   OR: [SubjectPermissionWhereInput!]
-  permissions: PermissionFilter
   type: SubjectPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input SubjectPostsOrderByInput {
@@ -1195,7 +1154,7 @@ type SuggestionPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Suggestion!]!
+  object: Suggestion!
   type: SuggestionPermissionType!
   updatedAt: DateTime!
 }
@@ -1220,11 +1179,11 @@ input SuggestionPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [SuggestionPermissionWhereInput!]
-  objects: SuggestionFilter
+  object: SuggestionWhereInput
   OR: [SuggestionPermissionWhereInput!]
-  permissions: PermissionFilter
   type: SuggestionPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 input SuggestionsInput {
@@ -1366,22 +1325,6 @@ input UserFilter {
   some: UserWhereInput
 }
 
-input UserGroupFilter {
-  every: UserGroupWhereInput
-  none: UserGroupWhereInput
-  some: UserGroupWhereInput
-}
-
-input UserGroupWhereInput {
-  AND: [UserGroupWhereInput!]
-  id: StringFilter
-  name: StringFilter
-  NOT: [UserGroupWhereInput!]
-  OR: [UserGroupWhereInput!]
-  permissions: PermissionFilter
-  users: UserFilter
-}
-
 """Input of login"""
 input UserLoginInput {
   email: String!
@@ -1392,7 +1335,7 @@ type UserPermission {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
-  objects(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+  object: User!
   type: UserPermissionType!
   updatedAt: DateTime!
 }
@@ -1414,11 +1357,11 @@ input UserPermissionWhereInput {
   deletedAt: NullableDateTimeFilter
   id: StringFilter
   NOT: [UserPermissionWhereInput!]
-  objects: UserFilter
+  object: UserWhereInput
   OR: [UserPermissionWhereInput!]
-  permissions: PermissionFilter
   type: UserPermissionType
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 type UserRole {
@@ -1455,12 +1398,13 @@ input UserWhereInput {
   approvedSuggestions: SuggestionFilter
   createdAt: DateTimeFilter
   deletedAt: NullableDateTimeFilter
+  departmentPermission: DepartmentPermissionWhereInput
   departments: DepartmentFilter
   email: StringFilter
   firstName: StringFilter
-  groups: UserGroupFilter
   id: StringFilter
   identifier: StringFilter
+  institutePermission: InstitutePermissionWhereInput
   institutes: InstituteFilter
   isActive: BooleanFilter
   lastName: StringFilter
@@ -1470,25 +1414,34 @@ input UserWhereInput {
   likedPosts: PostFilter
   likedSuggestions: SuggestionFilter
   NOT: [UserWhereInput!]
+  noteCommentPermission: NoteCommentPermissionWhereInput
   noteComments: NoteCommentFilter
+  noteCommentThreadPermission: NoteCommentThreadPermissionWhereInput
+  noteHighlightPermission: NoteHighlightPermissionWhereInput
   noteHighlights: NoteHighlightFilter
+  notePermission: NotePermissionWhereInput
   notes: NoteFilter
   OR: [UserWhereInput!]
   password: StringFilter
   passwordToken: PasswordTokenWhereInput
-  permissions: PermissionFilter
   phoneNumber: NullableStringFilter
   position: NullableStringFilter
+  postCommentPermission: PostCommentPermissionWhereInput
   postComments: PostCommentFilter
+  postPermission: PostPermissionWhereInput
   posts: PostFilter
   preferredLanguage: LanguageWhereInput
   profilePictureURL: NullableStringFilter
   ResetPasswordToken: ResetPasswordTokenWhereInput
   role: UserRoleWhereInput
   studiedSubjects: SubjectFilter
+  subjectInformationPermission: SubjectInformationPermissionWhereInput
+  subjectPermission: SubjectPermissionWhereInput
+  suggestionPermission: SuggestionPermissionWhereInput
   suggestions: SuggestionFilter
   teachedSubjects: SubjectFilter
   updatedAt: DateTimeFilter
+  userPermission: UserPermissionWhereInput
   userPermissions: UserPermissionFilter
 }
 

@@ -11,16 +11,11 @@ export const hasSuggestionPermission = async ({
   suggestionID: string;
   context: Context;
 }) => {
-  const permissions = await context.photon.permissions.findMany({
+  const permissions = await context.photon.suggestionPermissions.findMany({
     where: {
-      AND: [
-        {
-          suggestionPermission: { type: permission, objects: { some: { id: suggestionID } } },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: suggestionID },
+      users: { some: { id: getUserID(context) } },
     },
   });
   return permissions.length !== 0;
@@ -45,17 +40,13 @@ export const addSuggestionPermission = async ({
   await context.photon.suggestionPermissions.create({
     data: {
       type: permission,
-      objects: {
+      object: {
         connect: {
           id: suggestionID,
         },
       },
-      permissions: {
-        create: {
-          users: {
-            connect: mappedUsers,
-          },
-        },
+      users: {
+        connect: mappedUsers,
       },
     },
   });

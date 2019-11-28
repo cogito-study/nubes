@@ -11,19 +11,11 @@ export const hasNoteCommentThreadPermission = async ({
   noteCommentThreadID: string;
   context: Context;
 }) => {
-  const permissions = await context.photon.permissions.findMany({
+  const permissions = await context.photon.noteCommentThreadPermissions.findMany({
     where: {
-      AND: [
-        {
-          noteCommentThreadPermission: {
-            type: permission,
-            objects: { some: { id: noteCommentThreadID } },
-          },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: noteCommentThreadID },
+      users: { some: { id: getUserID(context) } },
     },
   });
   return permissions.length !== 0;
