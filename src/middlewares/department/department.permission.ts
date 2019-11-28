@@ -11,16 +11,11 @@ export const hasDepartmentPermission = async ({
   departmentID: string;
   context: Context;
 }) => {
-  const permissions = await context.photon.permissions.findMany({
+  const permissions = await context.photon.departmentPermissions.findMany({
     where: {
-      AND: [
-        {
-          departmentPermission: { type: permission, objects: { some: { id: departmentID } } },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: departmentID },
+      users: { some: { id: getUserID(context) } },
     },
   });
   return permissions.length !== 0;
@@ -45,17 +40,13 @@ export const addDepartmentPermission = async ({
   await context.photon.departmentPermissions.create({
     data: {
       type: permission,
-      objects: {
+      object: {
         connect: {
           id: departmentID,
         },
       },
-      permissions: {
-        create: {
-          users: {
-            connect: mappedUsers,
-          },
-        },
+      users: {
+        connect: mappedUsers,
       },
     },
   });

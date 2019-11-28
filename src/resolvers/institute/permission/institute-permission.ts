@@ -6,7 +6,7 @@ export const InstitutePermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.objects({ type: 'Institute' });
+    t.model.object({ type: 'Institute' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

@@ -16,11 +16,8 @@ export const Institute = objectType({
       resolve: async ({ id }, args, context) => {
         const permissions = await context.photon.institutePermissions.findMany({
           where: {
-            objects: { some: { id } },
-            permissions: { some: { users: { some: { id: getUserID(context) } } } },
-          },
-          select: {
-            type: true,
+            object: { id },
+            users: { some: { id: getUserID(context) } },
           },
         });
         return permissions.map((p) => p.type);

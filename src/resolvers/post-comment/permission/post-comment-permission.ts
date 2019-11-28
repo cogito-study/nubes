@@ -6,7 +6,7 @@ export const PostCommentPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.objects({ type: 'PostComment' });
+    t.model.object({ type: 'PostComment' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

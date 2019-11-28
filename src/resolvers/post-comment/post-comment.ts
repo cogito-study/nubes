@@ -26,8 +26,8 @@ export const PostComment = objectType({
       resolve: async ({ id }, args, context) => {
         const permissions = await context.photon.postCommentPermissions.findMany({
           where: {
-            objects: { some: { id } },
-            permissions: { some: { users: { some: { id: getUserID(context) } } } },
+            object: { id },
+            users: { some: { id: getUserID(context) } },
           },
           select: {
             type: true,

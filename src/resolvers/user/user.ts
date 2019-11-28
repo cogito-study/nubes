@@ -27,8 +27,8 @@ export const User = objectType({
       resolve: async ({ id }, args, context) => {
         const permissions = await context.photon.userPermissions.findMany({
           where: {
-            objects: { some: { id } },
-            permissions: { some: { users: { some: { id: getUserID(context) } } } },
+            object: { id },
+            users: { some: { id: getUserID(context) } },
           },
           select: {
             type: true,

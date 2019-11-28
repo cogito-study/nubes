@@ -6,7 +6,7 @@ export const NoteCommentPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.objects({ type: 'NoteComment' });
+    t.model.object({ type: 'NoteComment' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

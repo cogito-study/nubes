@@ -6,7 +6,7 @@ export const DepartmentPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.objects({ type: 'Department' });
+    t.model.object({ type: 'Department' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

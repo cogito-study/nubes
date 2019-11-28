@@ -6,7 +6,7 @@ export const SuggestionPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.objects({ type: 'Suggestion' });
+    t.model.object({ type: 'Suggestion' });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();
