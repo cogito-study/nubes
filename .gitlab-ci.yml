@@ -2,9 +2,7 @@ image: node:lts
 
 stages:
   - dependencies-install
-  - lint
   - build
-  - test
   - deploy
   - apollo
 
@@ -19,20 +17,10 @@ dependencies-install:
   script:
     - npx yarn install
 
-lint:
-  stage: lint
-  script:
-    - npx yarn lint
-
 build:
   stage: build
   script:
     - npx yarn build
-
-testing:
-  stage: test
-  script:
-    - echo "to be implemented"
 
 deploy-staging:
   image: alpine
