@@ -1,9 +1,15 @@
 import { extendType } from 'nexus';
-import { comparePasswords, getCurrentUser } from '../../utils/authentication';
+import { comparePasswords, getCurrentUser, hashPassword } from '../../utils/authentication';
 import { WhereUniqueInput } from '../input';
 import { UpdateProfileInput } from './user.input';
 
-// TODO: logout
+/**
+ * 1. change preferred language
+ * 2. logout
+ * 3. send email after  changing
+ *     - password
+ *     - email
+ */
 export const UserMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
@@ -25,7 +31,7 @@ export const UserMutation = extendType({
             where,
             data: {
               email,
-              password: newPassword,
+              password: await hashPassword(newPassword),
             },
           });
         }
