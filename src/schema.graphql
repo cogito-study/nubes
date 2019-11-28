@@ -1257,7 +1257,8 @@ input UpdatePostInput {
 """Input of update user's profile"""
 input UpdateProfileInput {
   email: String
-  password: String
+  newPassword: String
+  oldPassword: String
 }
 
 """Input of update subject information"""

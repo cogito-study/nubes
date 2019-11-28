@@ -793,7 +793,8 @@ export interface NexusGenInputs {
   UpdateProfileInput: {
     // input type
     email?: string | null; // String
-    password?: string | null; // String
+    newPassword?: string | null; // String
+    oldPassword?: string | null; // String
   };
   UpdateSubjectInformationInput: {
     // input type
