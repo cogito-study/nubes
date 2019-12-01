@@ -16,11 +16,15 @@ dependencies-install:
     name: all
   script:
     - npx yarn install
+  except:
+    - /^renovate\/.*$/
 
 build:
   stage: build
   script:
     - npx yarn build
+  except:
+    - /^renovate\/.*$/
 
 deploy-staging:
   image: alpine
