@@ -795,6 +795,7 @@ export interface NexusGenInputs {
     email?: string | null; // String
     newPassword?: string | null; // String
     oldPassword?: string | null; // String
+    preferredLanguage?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
   };
   UpdateSubjectInformationInput: {
     // input type
