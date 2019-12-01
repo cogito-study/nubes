@@ -1259,6 +1259,7 @@ input UpdateProfileInput {
   email: String
   newPassword: String
   oldPassword: String
+  preferredLanguage: ConnectRelation
 }
 
 """Input of update subject information"""
