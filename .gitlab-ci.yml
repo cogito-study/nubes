@@ -9,6 +9,7 @@ stages:
 cache:
   paths:
     - node_modules/
+    - generated/
 
 dependencies-install:
   stage: dependencies-install

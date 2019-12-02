@@ -4,6 +4,7 @@ import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
+import { hasDepartmentPermission } from '../department/department.permission';
 import { addInstitutePermission } from '../institute/institute.permission';
 
 export const createInstitute = async (
