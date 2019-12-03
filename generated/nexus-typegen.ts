@@ -49,8 +49,18 @@ export interface NexusGenInputs {
     leader: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     name: string; // String!
   };
+  CreateFacultyInput: {
+    // input type
+    institute: NexusGenInputs['ConnectRelation']; // ConnectRelation!
+    name: string; // String!
+  };
   CreateInstituteInput: {
     // input type
+    name: string; // String!
+  };
+  CreateMajorInput: {
+    // input type
+    faculty: NexusGenInputs['ConnectRelation']; // ConnectRelation!
     name: string; // String!
   };
   CreateNoteCommentInput: {
@@ -177,6 +187,45 @@ export interface NexusGenInputs {
     // input type
     id?: string | null; // ID
   };
+  FacultyFilter: {
+    // input type
+    every?: NexusGenInputs['FacultyWhereInput'] | null; // FacultyWhereInput
+    none?: NexusGenInputs['FacultyWhereInput'] | null; // FacultyWhereInput
+    some?: NexusGenInputs['FacultyWhereInput'] | null; // FacultyWhereInput
+  };
+  FacultyPermissionFilter: {
+    // input type
+    every?: NexusGenInputs['FacultyPermissionWhereInput'] | null; // FacultyPermissionWhereInput
+    none?: NexusGenInputs['FacultyPermissionWhereInput'] | null; // FacultyPermissionWhereInput
+    some?: NexusGenInputs['FacultyPermissionWhereInput'] | null; // FacultyPermissionWhereInput
+  };
+  FacultyPermissionWhereInput: {
+    // input type
+    AND?: NexusGenInputs['FacultyPermissionWhereInput'][] | null; // [FacultyPermissionWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['FacultyPermissionWhereInput'][] | null; // [FacultyPermissionWhereInput!]
+    object?: NexusGenInputs['FacultyWhereInput'] | null; // FacultyWhereInput
+    OR?: NexusGenInputs['FacultyPermissionWhereInput'][] | null; // [FacultyPermissionWhereInput!]
+    type?: NexusGenEnums['FacultyPermissionType'] | null; // FacultyPermissionType
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    users?: NexusGenInputs['UserFilter'] | null; // UserFilter
+  };
+  FacultyWhereInput: {
+    // input type
+    AND?: NexusGenInputs['FacultyWhereInput'][] | null; // [FacultyWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    institute?: NexusGenInputs['InstituteWhereInput'] | null; // InstituteWhereInput
+    majors?: NexusGenInputs['MajorFilter'] | null; // MajorFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['FacultyWhereInput'][] | null; // [FacultyWhereInput!]
+    OR?: NexusGenInputs['FacultyWhereInput'][] | null; // [FacultyWhereInput!]
+    permissions?: NexusGenInputs['FacultyPermissionFilter'] | null; // FacultyPermissionFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  };
   ForgotPasswordInput: {
     // input type
     email?: string | null; // String
@@ -217,6 +266,7 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
     departments?: NexusGenInputs['DepartmentFilter'] | null; // DepartmentFilter
+    faculties?: NexusGenInputs['FacultyFilter'] | null; // FacultyFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['InstituteWhereInput'][] | null; // [InstituteWhereInput!]
@@ -255,6 +305,45 @@ export interface NexusGenInputs {
     // input type
     code?: string | null; // String
     id?: string | null; // ID
+  };
+  MajorFilter: {
+    // input type
+    every?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
+    none?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
+    some?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
+  };
+  MajorPermissionFilter: {
+    // input type
+    every?: NexusGenInputs['MajorPermissionWhereInput'] | null; // MajorPermissionWhereInput
+    none?: NexusGenInputs['MajorPermissionWhereInput'] | null; // MajorPermissionWhereInput
+    some?: NexusGenInputs['MajorPermissionWhereInput'] | null; // MajorPermissionWhereInput
+  };
+  MajorPermissionWhereInput: {
+    // input type
+    AND?: NexusGenInputs['MajorPermissionWhereInput'][] | null; // [MajorPermissionWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['MajorPermissionWhereInput'][] | null; // [MajorPermissionWhereInput!]
+    object?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
+    OR?: NexusGenInputs['MajorPermissionWhereInput'][] | null; // [MajorPermissionWhereInput!]
+    type?: NexusGenEnums['MajorPermissionType'] | null; // MajorPermissionType
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    users?: NexusGenInputs['UserFilter'] | null; // UserFilter
+  };
+  MajorWhereInput: {
+    // input type
+    AND?: NexusGenInputs['MajorWhereInput'][] | null; // [MajorWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
+    faculty?: NexusGenInputs['FacultyWhereInput'] | null; // FacultyWhereInput
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['MajorWhereInput'][] | null; // [MajorWhereInput!]
+    OR?: NexusGenInputs['MajorWhereInput'][] | null; // [MajorWhereInput!]
+    permissions?: NexusGenInputs['MajorPermissionFilter'] | null; // MajorPermissionFilter
+    subjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   };
   NoteCommentFilter: {
     // input type
@@ -689,6 +778,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     informations?: NexusGenInputs['SubjectInformationFilter'] | null; // SubjectInformationFilter
     language?: NexusGenInputs['LanguageWhereInput'] | null; // LanguageWhereInput
+    majors?: NexusGenInputs['MajorFilter'] | null; // MajorFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['SubjectWhereInput'][] | null; // [SubjectWhereInput!]
     notes?: NexusGenInputs['NoteFilter'] | null; // NoteFilter
@@ -761,7 +851,15 @@ export interface NexusGenInputs {
     leader?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
     name?: string | null; // String
   };
+  UpdateFacultyInput: {
+    // input type
+    name?: string | null; // String
+  };
   UpdateInstituteInput: {
+    // input type
+    name?: string | null; // String
+  };
+  UpdateMajorInput: {
     // input type
     name?: string | null; // String
   };
@@ -875,6 +973,7 @@ export interface NexusGenInputs {
     departmentPermission?: NexusGenInputs['DepartmentPermissionWhereInput'] | null; // DepartmentPermissionWhereInput
     departments?: NexusGenInputs['DepartmentFilter'] | null; // DepartmentFilter
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    facultyPermission?: NexusGenInputs['FacultyPermissionWhereInput'] | null; // FacultyPermissionWhereInput
     firstName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -887,6 +986,7 @@ export interface NexusGenInputs {
     likedPostComments?: NexusGenInputs['PostCommentFilter'] | null; // PostCommentFilter
     likedPosts?: NexusGenInputs['PostFilter'] | null; // PostFilter
     likedSuggestions?: NexusGenInputs['SuggestionFilter'] | null; // SuggestionFilter
+    majorPermission?: NexusGenInputs['MajorPermissionWhereInput'] | null; // MajorPermissionWhereInput
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     noteCommentPermission?: NexusGenInputs['NoteCommentPermissionWhereInput'] | null; // NoteCommentPermissionWhereInput
     noteComments?: NexusGenInputs['NoteCommentFilter'] | null; // NoteCommentFilter
@@ -931,7 +1031,9 @@ export interface NexusGenInputs {
 
 export interface NexusGenEnums {
   DepartmentPermissionType: photon.DepartmentPermissionType;
+  FacultyPermissionType: photon.FacultyPermissionType;
   InstitutePermissionType: photon.InstitutePermissionType;
+  MajorPermissionType: photon.MajorPermissionType;
   NoteCategory: photon.NoteCategory;
   NoteCommentPermissionType: photon.NoteCommentPermissionType;
   NoteCommentThreadPermissionType: photon.NoteCommentThreadPermissionType;
@@ -956,9 +1058,13 @@ export interface NexusGenRootTypes {
   };
   Department: photon.Department;
   DepartmentPermission: photon.DepartmentPermission;
+  Faculty: photon.Faculty;
+  FacultyPermission: photon.FacultyPermission;
   Institute: photon.Institute;
   InstitutePermission: photon.InstitutePermission;
   Language: photon.Language;
+  Major: photon.Major;
+  MajorPermission: photon.MajorPermission;
   Mutation: {};
   Note: photon.Note;
   NoteComment: photon.NoteComment;
@@ -1005,7 +1111,9 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   BooleanFilter: NexusGenInputs['BooleanFilter'];
   ConnectRelation: NexusGenInputs['ConnectRelation'];
   CreateDepartmentInput: NexusGenInputs['CreateDepartmentInput'];
+  CreateFacultyInput: NexusGenInputs['CreateFacultyInput'];
   CreateInstituteInput: NexusGenInputs['CreateInstituteInput'];
+  CreateMajorInput: NexusGenInputs['CreateMajorInput'];
   CreateNoteCommentInput: NexusGenInputs['CreateNoteCommentInput'];
   CreateNoteCommentThreadInput: NexusGenInputs['CreateNoteCommentThreadInput'];
   CreateNoteHighlightInput: NexusGenInputs['CreateNoteHighlightInput'];
@@ -1022,6 +1130,10 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   DepartmentPermissionWhereInput: NexusGenInputs['DepartmentPermissionWhereInput'];
   DepartmentWhereInput: NexusGenInputs['DepartmentWhereInput'];
   DepartmentWhereUniqueInput: NexusGenInputs['DepartmentWhereUniqueInput'];
+  FacultyFilter: NexusGenInputs['FacultyFilter'];
+  FacultyPermissionFilter: NexusGenInputs['FacultyPermissionFilter'];
+  FacultyPermissionWhereInput: NexusGenInputs['FacultyPermissionWhereInput'];
+  FacultyWhereInput: NexusGenInputs['FacultyWhereInput'];
   ForgotPasswordInput: NexusGenInputs['ForgotPasswordInput'];
   ImageUploadInput: NexusGenInputs['ImageUploadInput'];
   InstituteFilter: NexusGenInputs['InstituteFilter'];
@@ -1032,6 +1144,10 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   IntFilter: NexusGenInputs['IntFilter'];
   LanguageWhereInput: NexusGenInputs['LanguageWhereInput'];
   LanguageWhereUniqueInput: NexusGenInputs['LanguageWhereUniqueInput'];
+  MajorFilter: NexusGenInputs['MajorFilter'];
+  MajorPermissionFilter: NexusGenInputs['MajorPermissionFilter'];
+  MajorPermissionWhereInput: NexusGenInputs['MajorPermissionWhereInput'];
+  MajorWhereInput: NexusGenInputs['MajorWhereInput'];
   NoteCommentFilter: NexusGenInputs['NoteCommentFilter'];
   NoteCommentPermissionFilter: NexusGenInputs['NoteCommentPermissionFilter'];
   NoteCommentPermissionWhereInput: NexusGenInputs['NoteCommentPermissionWhereInput'];
@@ -1087,7 +1203,9 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SuggestionWhereUniqueInput: NexusGenInputs['SuggestionWhereUniqueInput'];
   SuggestionsInput: NexusGenInputs['SuggestionsInput'];
   UpdateDepartmentInput: NexusGenInputs['UpdateDepartmentInput'];
+  UpdateFacultyInput: NexusGenInputs['UpdateFacultyInput'];
   UpdateInstituteInput: NexusGenInputs['UpdateInstituteInput'];
+  UpdateMajorInput: NexusGenInputs['UpdateMajorInput'];
   UpdateNoteCommentInput: NexusGenInputs['UpdateNoteCommentInput'];
   UpdateNoteHighlightInput: NexusGenInputs['UpdateNoteHighlightInput'];
   UpdateNoteInput: NexusGenInputs['UpdateNoteInput'];
@@ -1107,7 +1225,9 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   WhereUniqueInput: NexusGenInputs['WhereUniqueInput'];
   DepartmentPermissionType: NexusGenEnums['DepartmentPermissionType'];
+  FacultyPermissionType: NexusGenEnums['FacultyPermissionType'];
   InstitutePermissionType: NexusGenEnums['InstitutePermissionType'];
+  MajorPermissionType: NexusGenEnums['MajorPermissionType'];
   NoteCategory: NexusGenEnums['NoteCategory'];
   NoteCommentPermissionType: NexusGenEnums['NoteCommentPermissionType'];
   NoteCommentThreadPermissionType: NexusGenEnums['NoteCommentThreadPermissionType'];
@@ -1158,6 +1278,26 @@ export interface NexusGenFieldTypes {
     type: NexusGenEnums['DepartmentPermissionType']; // DepartmentPermissionType!
     updatedAt: any; // DateTime!
   };
+  Faculty: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    institute: NexusGenRootTypes['Institute']; // Institute!
+    majors: NexusGenRootTypes['Major'][]; // [Major!]!
+    name: string; // String!
+    permissions: NexusGenEnums['FacultyPermissionType'][]; // [FacultyPermissionType!]!
+    updatedAt: any; // DateTime!
+  };
+  FacultyPermission: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    object: NexusGenRootTypes['Faculty']; // Faculty!
+    type: NexusGenEnums['FacultyPermissionType']; // FacultyPermissionType!
+    updatedAt: any; // DateTime!
+  };
   Institute: {
     // field return type
     createdAt: any; // DateTime!
@@ -1184,12 +1324,34 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     name: string; // String!
   };
+  Major: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    faculty: NexusGenRootTypes['Faculty']; // Faculty!
+    id: string; // ID!
+    name: string; // String!
+    permissions: NexusGenEnums['MajorPermissionType'][]; // [MajorPermissionType!]!
+    subjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
+    updatedAt: any; // DateTime!
+  };
+  MajorPermission: {
+    // field return type
+    createdAt: any; // DateTime!
+    deletedAt: any | null; // DateTime
+    id: string; // ID!
+    object: NexusGenRootTypes['Major']; // Major!
+    type: NexusGenEnums['MajorPermissionType']; // MajorPermissionType!
+    updatedAt: any; // DateTime!
+  };
   Mutation: {
     // field return type
     activateUser: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createDepartment: NexusGenRootTypes['Department']; // Department!
+    createFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     createInstitute: NexusGenRootTypes['Institute']; // Institute!
+    createMajor: NexusGenRootTypes['Major']; // Major!
     createNote: NexusGenRootTypes['Note']; // Note!
     createNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     createNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
@@ -1201,7 +1363,9 @@ export interface NexusGenFieldTypes {
     createSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createUser: NexusGenRootTypes['User']; // User!
     deleteDepartment: NexusGenRootTypes['Department']; // Department!
+    deleteFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     deleteInstitute: NexusGenRootTypes['Institute']; // Institute!
+    deleteMajor: NexusGenRootTypes['Major']; // Major!
     deleteNote: NexusGenRootTypes['Note']; // Note!
     deleteNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     deleteNoteCommentThread: NexusGenRootTypes['NoteCommentThread']; // NoteCommentThread!
@@ -1220,7 +1384,9 @@ export interface NexusGenFieldTypes {
     resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
     sendActivationEmails: NexusGenRootTypes['User'][]; // [User!]!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
+    updateFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
+    updateMajor: NexusGenRootTypes['Major']; // Major!
     updateNote: NexusGenRootTypes['Note']; // Note!
     updateNoteComment: NexusGenRootTypes['NoteComment']; // NoteComment!
     updateNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
@@ -1383,10 +1549,12 @@ export interface NexusGenFieldTypes {
     activeSuggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     department: NexusGenRootTypes['Department'] | null; // Department
     departments: NexusGenRootTypes['Department'][]; // [Department!]!
+    faculties: NexusGenRootTypes['Faculty'][]; // [Faculty!]!
     institute: NexusGenRootTypes['Institute'] | null; // Institute
     institutes: NexusGenRootTypes['Institute'][]; // [Institute!]!
     language: NexusGenRootTypes['Language'] | null; // Language
     languages: NexusGenRootTypes['Language'][]; // [Language!]!
+    majors: NexusGenRootTypes['Major'][]; // [Major!]!
     me: NexusGenRootTypes['User']; // User!
     note: NexusGenRootTypes['Note'] | null; // Note
     noteComment: NexusGenRootTypes['NoteComment'] | null; // NoteComment
@@ -1549,6 +1717,16 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
   };
+  Faculty: {
+    majors: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
   Institute: {
     departments: {
       // args
@@ -1559,6 +1737,16 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
     };
     users: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+  };
+  Major: {
+    subjects: {
       // args
       after?: string | null; // ID
       before?: string | null; // ID
@@ -1580,9 +1768,17 @@ export interface NexusGenArgTypes {
       // args
       data: NexusGenInputs['CreateDepartmentInput']; // CreateDepartmentInput!
     };
+    createFaculty: {
+      // args
+      data: NexusGenInputs['CreateFacultyInput']; // CreateFacultyInput!
+    };
     createInstitute: {
       // args
       data: NexusGenInputs['CreateInstituteInput']; // CreateInstituteInput!
+    };
+    createMajor: {
+      // args
+      data: NexusGenInputs['CreateMajorInput']; // CreateMajorInput!
     };
     createNote: {
       // args
@@ -1628,7 +1824,15 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    deleteFaculty: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     deleteInstitute: {
+      // args
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    deleteMajor: {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
@@ -1705,9 +1909,19 @@ export interface NexusGenArgTypes {
       data: NexusGenInputs['UpdateDepartmentInput']; // UpdateDepartmentInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    updateFaculty: {
+      // args
+      data: NexusGenInputs['UpdateFacultyInput']; // UpdateFacultyInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     updateInstitute: {
       // args
       data: NexusGenInputs['UpdateInstituteInput']; // UpdateInstituteInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    updateMajor: {
+      // args
+      data: NexusGenInputs['UpdateMajorInput']; // UpdateMajorInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
     updateNote: {
@@ -1864,6 +2078,14 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
+    faculties: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
     institute: {
       // args
       where: NexusGenInputs['InstituteWhereUniqueInput']; // InstituteWhereUniqueInput!
@@ -1881,6 +2103,14 @@ export interface NexusGenArgTypes {
       where: NexusGenInputs['LanguageWhereUniqueInput']; // LanguageWhereUniqueInput!
     };
     languages: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    majors: {
       // args
       after?: string | null; // ID
       before?: string | null; // ID
@@ -2118,9 +2348,13 @@ export type NexusGenObjectNames =
   | 'AuthenticationPayload'
   | 'Department'
   | 'DepartmentPermission'
+  | 'Faculty'
+  | 'FacultyPermission'
   | 'Institute'
   | 'InstitutePermission'
   | 'Language'
+  | 'Major'
+  | 'MajorPermission'
   | 'Mutation'
   | 'Note'
   | 'NoteComment'
@@ -2154,7 +2388,9 @@ export type NexusGenInputNames =
   | 'BooleanFilter'
   | 'ConnectRelation'
   | 'CreateDepartmentInput'
+  | 'CreateFacultyInput'
   | 'CreateInstituteInput'
+  | 'CreateMajorInput'
   | 'CreateNoteCommentInput'
   | 'CreateNoteCommentThreadInput'
   | 'CreateNoteHighlightInput'
@@ -2171,6 +2407,10 @@ export type NexusGenInputNames =
   | 'DepartmentPermissionWhereInput'
   | 'DepartmentWhereInput'
   | 'DepartmentWhereUniqueInput'
+  | 'FacultyFilter'
+  | 'FacultyPermissionFilter'
+  | 'FacultyPermissionWhereInput'
+  | 'FacultyWhereInput'
   | 'ForgotPasswordInput'
   | 'ImageUploadInput'
   | 'InstituteFilter'
@@ -2181,6 +2421,10 @@ export type NexusGenInputNames =
   | 'IntFilter'
   | 'LanguageWhereInput'
   | 'LanguageWhereUniqueInput'
+  | 'MajorFilter'
+  | 'MajorPermissionFilter'
+  | 'MajorPermissionWhereInput'
+  | 'MajorWhereInput'
   | 'NoteCommentFilter'
   | 'NoteCommentPermissionFilter'
   | 'NoteCommentPermissionWhereInput'
@@ -2236,7 +2480,9 @@ export type NexusGenInputNames =
   | 'SuggestionWhereUniqueInput'
   | 'SuggestionsInput'
   | 'UpdateDepartmentInput'
+  | 'UpdateFacultyInput'
   | 'UpdateInstituteInput'
+  | 'UpdateMajorInput'
   | 'UpdateNoteCommentInput'
   | 'UpdateNoteHighlightInput'
   | 'UpdateNoteInput'
@@ -2258,7 +2504,9 @@ export type NexusGenInputNames =
 
 export type NexusGenEnumNames =
   | 'DepartmentPermissionType'
+  | 'FacultyPermissionType'
   | 'InstitutePermissionType'
+  | 'MajorPermissionType'
   | 'NoteCategory'
   | 'NoteCommentPermissionType'
   | 'NoteCommentThreadPermissionType'

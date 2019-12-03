@@ -47,8 +47,20 @@ input CreateDepartmentInput {
   name: String!
 }
 
+"""Input of create faculty"""
+input CreateFacultyInput {
+  institute: ConnectRelation!
+  name: String!
+}
+
 """Input of create institute"""
 input CreateInstituteInput {
+  name: String!
+}
+
+"""Input of create major"""
+input CreateMajorInput {
+  faculty: ConnectRelation!
   name: String!
 }
 
@@ -217,6 +229,71 @@ input DepartmentWhereUniqueInput {
   id: ID
 }
 
+type Faculty {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  institute: Institute!
+  majors(after: ID, before: ID, first: Int, last: Int, skip: Int): [Major!]!
+  name: String!
+  permissions: [FacultyPermissionType!]!
+  updatedAt: DateTime!
+}
+
+input FacultyFilter {
+  every: FacultyWhereInput
+  none: FacultyWhereInput
+  some: FacultyWhereInput
+}
+
+type FacultyPermission {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  object: Faculty!
+  type: FacultyPermissionType!
+  updatedAt: DateTime!
+}
+
+input FacultyPermissionFilter {
+  every: FacultyPermissionWhereInput
+  none: FacultyPermissionWhereInput
+  some: FacultyPermissionWhereInput
+}
+
+enum FacultyPermissionType {
+  DELETE_FACULTY
+  READ_FACULTY
+  UPDATE_FACULTY
+}
+
+input FacultyPermissionWhereInput {
+  AND: [FacultyPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [FacultyPermissionWhereInput!]
+  object: FacultyWhereInput
+  OR: [FacultyPermissionWhereInput!]
+  type: FacultyPermissionType
+  updatedAt: DateTimeFilter
+  users: UserFilter
+}
+
+input FacultyWhereInput {
+  AND: [FacultyWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  institute: InstituteWhereInput
+  majors: MajorFilter
+  name: StringFilter
+  NOT: [FacultyWhereInput!]
+  OR: [FacultyWhereInput!]
+  permissions: FacultyPermissionFilter
+  updatedAt: DateTimeFilter
+}
+
 """Input of forgot password"""
 input ForgotPasswordInput {
   email: String
@@ -284,6 +361,7 @@ input InstituteWhereInput {
   createdAt: DateTimeFilter
   deletedAt: NullableDateTimeFilter
   departments: DepartmentFilter
+  faculties: FacultyFilter
   id: StringFilter
   name: StringFilter
   NOT: [InstituteWhereInput!]
@@ -330,11 +408,78 @@ input LanguageWhereUniqueInput {
   id: ID
 }
 
+type Major {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  faculty: Faculty!
+  id: ID!
+  name: String!
+  permissions: [MajorPermissionType!]!
+  subjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
+  updatedAt: DateTime!
+}
+
+input MajorFilter {
+  every: MajorWhereInput
+  none: MajorWhereInput
+  some: MajorWhereInput
+}
+
+type MajorPermission {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  object: Major!
+  type: MajorPermissionType!
+  updatedAt: DateTime!
+}
+
+input MajorPermissionFilter {
+  every: MajorPermissionWhereInput
+  none: MajorPermissionWhereInput
+  some: MajorPermissionWhereInput
+}
+
+enum MajorPermissionType {
+  DELETE_MAJOR
+  READ_MAJOR
+  UPDATE_MAJOR
+}
+
+input MajorPermissionWhereInput {
+  AND: [MajorPermissionWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  id: StringFilter
+  NOT: [MajorPermissionWhereInput!]
+  object: MajorWhereInput
+  OR: [MajorPermissionWhereInput!]
+  type: MajorPermissionType
+  updatedAt: DateTimeFilter
+  users: UserFilter
+}
+
+input MajorWhereInput {
+  AND: [MajorWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  faculty: FacultyWhereInput
+  id: StringFilter
+  name: StringFilter
+  NOT: [MajorWhereInput!]
+  OR: [MajorWhereInput!]
+  permissions: MajorPermissionFilter
+  subjects: SubjectFilter
+  updatedAt: DateTimeFilter
+}
+
 type Mutation {
   activateUser(data: ActivateUserInput!): AuthenticationPayload!
   approveSuggestion(where: WhereUniqueInput!): Suggestion!
   createDepartment(data: CreateDepartmentInput!): Department!
+  createFaculty(data: CreateFacultyInput!): Faculty!
   createInstitute(data: CreateInstituteInput!): Institute!
+  createMajor(data: CreateMajorInput!): Major!
   createNote(data: CreateNoteInput!): Note!
   createNoteComment(data: CreateNoteCommentInput!): NoteComment!
   createNoteCommentThread(data: CreateNoteCommentThreadInput!): NoteCommentThread!
@@ -346,7 +491,9 @@ type Mutation {
   createSuggestion(data: CreateSuggestionInput!): Suggestion!
   createUser(data: CreateUserInput!): User!
   deleteDepartment(where: WhereUniqueInput!): Department!
+  deleteFaculty(where: WhereUniqueInput!): Faculty!
   deleteInstitute(where: WhereUniqueInput!): Institute!
+  deleteMajor(where: WhereUniqueInput!): Major!
   deleteNote(where: WhereUniqueInput!): Note!
   deleteNoteComment(where: WhereUniqueInput!): NoteComment!
   deleteNoteCommentThread(where: WhereUniqueInput!): NoteCommentThread!
@@ -365,7 +512,9 @@ type Mutation {
   resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
   sendActivationEmails(data: SendActivationEmailsInput!): [User!]!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
+  updateFaculty(data: UpdateFacultyInput!, where: WhereUniqueInput!): Faculty!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
+  updateMajor(data: UpdateMajorInput!, where: WhereUniqueInput!): Major!
   updateNote(data: UpdateNoteInput!, where: WhereUniqueInput!): Note!
   updateNoteComment(data: UpdateNoteCommentInput!, where: WhereUniqueInput!): NoteComment!
   updateNoteHighlight(data: UpdateNoteHighlightInput!, where: WhereUniqueInput!): NoteHighlight!
@@ -886,10 +1035,12 @@ type Query {
   activeSuggestions(where: SuggestionsInput!): [Suggestion!]!
   department(where: DepartmentWhereUniqueInput!): Department
   departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
+  faculties(after: ID, before: ID, first: Int, last: Int, skip: Int): [Faculty!]!
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
   language(where: LanguageWhereUniqueInput!): Language
   languages(after: ID, before: ID, first: Int, last: Int, skip: Int): [Language!]!
+  majors(after: ID, before: ID, first: Int, last: Int, skip: Int): [Major!]!
   me: User!
   note(where: NoteWhereUniqueInput!): Note
   noteComment(where: NoteCommentWhereUniqueInput!): NoteComment
@@ -1103,6 +1254,7 @@ input SubjectWhereInput {
   id: StringFilter
   informations: SubjectInformationFilter
   language: LanguageWhereInput
+  majors: MajorFilter
   name: StringFilter
   NOT: [SubjectWhereInput!]
   notes: NoteFilter
@@ -1219,8 +1371,18 @@ input UpdateDepartmentInput {
   name: String
 }
 
+"""Input of update faculty"""
+input UpdateFacultyInput {
+  name: String
+}
+
 """Input of update institute"""
 input UpdateInstituteInput {
+  name: String
+}
+
+"""Input of update major"""
+input UpdateMajorInput {
   name: String
 }
 
@@ -1403,6 +1565,7 @@ input UserWhereInput {
   departmentPermission: DepartmentPermissionWhereInput
   departments: DepartmentFilter
   email: StringFilter
+  facultyPermission: FacultyPermissionWhereInput
   firstName: StringFilter
   id: StringFilter
   identifier: StringFilter
@@ -1415,6 +1578,7 @@ input UserWhereInput {
   likedPostComments: PostCommentFilter
   likedPosts: PostFilter
   likedSuggestions: SuggestionFilter
+  majorPermission: MajorPermissionWhereInput
   NOT: [UserWhereInput!]
   noteCommentPermission: NoteCommentPermissionWhereInput
   noteComments: NoteCommentFilter
