@@ -120,6 +120,83 @@ deploy-production:
     - ssh-add ~/.ssh/id_rsa
   script:
     - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USERNAME@$HOST "
+      COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      POSTGRESQL_URL=${POSTGRESQL_URL}
+      APP_SECRET=${APP_SECRET}
+      SIB_API_KEY=${SIB_API_KEY}
+      GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      GOOGLE_CLOUD_PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}
+      GOOGLE_CLOUD_BUCKET_NAME=${GOOGLE_CLOUD_BUCKET_NAME}
+      GOOGLE_TYPE=${GOOGLE_TYPE}
+      GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
+      GOOGLE_PRIVATE_KEY_ID=${GOOGLE_PRIVATE_KEY_ID}
+      GOOGLE_PRIVATE_KEY=${GOOGLE_PRIVATE_KEY}
+      GOOGLE_CLIENT_EMAIL=${GOOGLE_CLIENT_EMAIL}
+      GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      GOOGLE_AUTH_URI=${GOOGLE_AUTH_URI}
+      GOOGLE_TOKEN_URI=${GOOGLE_TOKEN_URI}
+      GOOGLE_AUTH_PROVIDER=${GOOGLE_AUTH_PROVIDER}
+      GOOGLE_CLIENT_CERT_URL=${GOOGLE_CLIENT_CERT_URL}
+      cd $DIRECTORY && git pull && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-sote:
+  image: alpine
+  stage: deploy
+  environment:
+    name: sote
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USERNAME@$HOST "
+      COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      POSTGRESQL_URL=${POSTGRESQL_URL}
+      APP_SECRET=${APP_SECRET}
+      SIB_API_KEY=${SIB_API_KEY}
+      GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      GOOGLE_CLOUD_PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}
+      GOOGLE_CLOUD_BUCKET_NAME=${GOOGLE_CLOUD_BUCKET_NAME}
+      GOOGLE_TYPE=${GOOGLE_TYPE}
+      GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
+      GOOGLE_PRIVATE_KEY_ID=${GOOGLE_PRIVATE_KEY_ID}
+      GOOGLE_PRIVATE_KEY=${GOOGLE_PRIVATE_KEY}
+      GOOGLE_CLIENT_EMAIL=${GOOGLE_CLIENT_EMAIL}
+      GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      GOOGLE_AUTH_URI=${GOOGLE_AUTH_URI}
+      GOOGLE_TOKEN_URI=${GOOGLE_TOKEN_URI}
+      GOOGLE_AUTH_PROVIDER=${GOOGLE_AUTH_PROVIDER}
+      GOOGLE_CLIENT_CERT_URL=${GOOGLE_CLIENT_CERT_URL}
+      cd $DIRECTORY && git pull && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-unesco:
+  image: alpine
+  stage: deploy
+  environment:
+    name: unesco
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USERNAME@$HOST "
+      COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
       POSTGRESQL_URL=${POSTGRESQL_URL}
       APP_SECRET=${APP_SECRET}
       SERVER_PORT=${SERVER_PORT}
