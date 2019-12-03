@@ -24,10 +24,13 @@ export const MajorMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
         data: UpdateMajorInput.asArg({ required: true }),
       },
-      resolve: (_, { where, data }, ctx) => {
+      resolve: (_, { where, data: { faculty, ...rest } }, ctx) => {
         return ctx.photon.majors.update({
           where,
-          data,
+          data: {
+            faculty: { connect: faculty },
+            ...rest,
+          },
         });
       },
     });

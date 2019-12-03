@@ -24,10 +24,15 @@ export const FacultyMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
         data: UpdateFacultyInput.asArg({ required: true }),
       },
-      resolve: (_, { where, data }, ctx) => {
+      resolve: (_, { where, data: { institute, ...rest } }, ctx) => {
         return ctx.photon.faculties.update({
           where,
-          data,
+          data: {
+            institute: {
+              connect: institute,
+            },
+            ...rest,
+          },
         });
       },
     });

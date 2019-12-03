@@ -14,5 +14,7 @@ export const UpdateFacultyInput = inputObjectType({
   description: 'Input of update faculty',
   definition(t) {
     t.string('name');
+    t.field('institute', { type: 'ConnectRelation' });
+    t.field('major', { type: 'ConnectOrDisconnectRelation' });
   },
 });

@@ -38,6 +38,11 @@ export interface NexusGenInputs {
     equals?: boolean | null; // Boolean
     not?: boolean | null; // Boolean
   };
+  ConnectOrDisconnectRelation: {
+    // input type
+    connect?: NexusGenInputs['ConnectRelation'][] | null; // [ConnectRelation!]
+    disconnect?: NexusGenInputs['ConnectRelation'][] | null; // [ConnectRelation!]
+  };
   ConnectRelation: {
     // input type
     id: string; // ID!
@@ -853,15 +858,21 @@ export interface NexusGenInputs {
   };
   UpdateFacultyInput: {
     // input type
+    institute?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
+    major?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
     name?: string | null; // String
   };
   UpdateInstituteInput: {
     // input type
+    departments?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
+    faculties?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
     name?: string | null; // String
   };
   UpdateMajorInput: {
     // input type
+    faculty?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
     name?: string | null; // String
+    subjects?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
   };
   UpdateNoteCommentInput: {
     // input type
@@ -906,6 +917,8 @@ export interface NexusGenInputs {
     code?: string | null; // String
     description?: string | null; // String
     name?: string | null; // String
+    students?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
+    teachers?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
   };
   UpdateSuggestionInput: {
     // input type
@@ -1109,6 +1122,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ActivateUserInput: NexusGenInputs['ActivateUserInput'];
   ActivationTokenWhereInput: NexusGenInputs['ActivationTokenWhereInput'];
   BooleanFilter: NexusGenInputs['BooleanFilter'];
+  ConnectOrDisconnectRelation: NexusGenInputs['ConnectOrDisconnectRelation'];
   ConnectRelation: NexusGenInputs['ConnectRelation'];
   CreateDepartmentInput: NexusGenInputs['CreateDepartmentInput'];
   CreateFacultyInput: NexusGenInputs['CreateFacultyInput'];
@@ -2386,6 +2400,7 @@ export type NexusGenInputNames =
   | 'ActivateUserInput'
   | 'ActivationTokenWhereInput'
   | 'BooleanFilter'
+  | 'ConnectOrDisconnectRelation'
   | 'ConnectRelation'
   | 'CreateDepartmentInput'
   | 'CreateFacultyInput'

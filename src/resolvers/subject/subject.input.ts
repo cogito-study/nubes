@@ -7,5 +7,7 @@ export const UpdateSubjectInput = inputObjectType({
     t.string('code');
     t.string('name');
     t.string('description');
+    t.field('students', { type: 'ConnectOrDisconnectRelation' });
+    t.field('teachers', { type: 'ConnectOrDisconnectRelation' });
   },
 });
