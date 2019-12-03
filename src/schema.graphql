@@ -35,6 +35,11 @@ input BooleanFilter {
   not: Boolean
 }
 
+input ConnectOrDisconnectRelation {
+  connect: [ConnectRelation!]
+  disconnect: [ConnectRelation!]
+}
+
 input ConnectRelation {
   id: ID!
 }
@@ -1373,17 +1378,23 @@ input UpdateDepartmentInput {
 
 """Input of update faculty"""
 input UpdateFacultyInput {
+  institute: ConnectRelation
+  major: ConnectOrDisconnectRelation
   name: String
 }
 
 """Input of update institute"""
 input UpdateInstituteInput {
+  departments: ConnectOrDisconnectRelation
+  faculties: ConnectOrDisconnectRelation
   name: String
 }
 
 """Input of update major"""
 input UpdateMajorInput {
+  faculty: ConnectRelation
   name: String
+  subjects: ConnectOrDisconnectRelation
 }
 
 """Input of update note comment"""
@@ -1436,6 +1447,8 @@ input UpdateSubjectInput {
   code: String
   description: String
   name: String
+  students: ConnectOrDisconnectRelation
+  teachers: ConnectOrDisconnectRelation
 }
 
 """Input of update suggestion"""

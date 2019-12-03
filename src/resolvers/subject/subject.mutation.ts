@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { UpdateSubjectInput } from './subject.input';
 import { WhereUniqueInput } from '../input';
+import { UpdateSubjectInput } from './subject.input';
 
 export const SubjectMutation = extendType({
   type: 'Mutation',
@@ -11,10 +11,14 @@ export const SubjectMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
         data: UpdateSubjectInput.asArg({ required: true }),
       },
-      resolve: (_, { where, data }, ctx) => {
+      resolve: (_, { where, data: { students, teachers, ...rest } }, ctx) => {
         return ctx.photon.subjects.update({
           where,
-          data,
+          data: {
+            students,
+            teachers,
+            ...rest,
+          },
         });
       },
     });

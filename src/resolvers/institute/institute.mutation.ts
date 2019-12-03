@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { CreateInstituteInput, UpdateInstituteInput } from './institute.input';
 import { WhereUniqueInput } from '../input';
+import { CreateInstituteInput, UpdateInstituteInput } from './institute.input';
 
 export const InstituteMutation = extendType({
   type: 'Mutation',

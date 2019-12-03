@@ -16,6 +16,14 @@ export const ConnectRelation = inputObjectType({
   },
 });
 
+export const ConnectOrDisconnectRelation = inputObjectType({
+  name: 'ConnectOrDisconnectRelation',
+  definition(t) {
+    t.field('connect', { type: 'ConnectRelation', list: true });
+    t.field('disconnect', { type: 'ConnectRelation', list: true });
+  },
+});
+
 export const WhereUniqueInput = inputObjectType({
   name: 'WhereUniqueInput',
   description: 'Unique input',

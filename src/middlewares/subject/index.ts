@@ -1,4 +1,4 @@
-import { updateSubject, createNote, deleteSubject } from './subject.authorization';
+import { createNote, deleteSubject, updateSubject } from './subject.authorization';
 
 export const subjectMiddlewares = {
   Mutation: {
