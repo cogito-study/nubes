@@ -9,7 +9,7 @@ import { Context } from '../../types';
 export const userLoginInputValidator = async (
   resolve: FieldResolver<'Mutation', 'login'>,
   parent: {},
-  args: { data: NexusGenInputs['UserLoginInput'] },
+  args: { data: NexusGenInputs['LoginUserInput'] },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

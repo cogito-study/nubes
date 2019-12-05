@@ -1,6 +1,6 @@
-import { User } from '@prisma/photon';
 import { extendType } from 'nexus';
 import { EmailTemplateType, sendEmail } from '../../utils/email';
+import { Environment } from '../../utils/environment';
 import { generateToken } from '../../utils/token';
 import { WhereUniqueInput } from '../input';
 import {
@@ -85,32 +85,29 @@ export const AdminMutation = extendType({
     });
 
     t.field('sendActivationEmails', {
-      type: 'User',
-      list: true,
+      type: 'Boolean',
       args: { data: SendActivationEmailsInput.asArg({ required: true }) },
       resolve: async (_, { data: { ids } }, ctx) => {
-        const users = Array<User>();
-        ids.forEach(async (id: string) => {
-          const token = generateToken();
-          const user = await ctx.photon.users.findOne({ where: { id }, include: { role: true } });
-          users.push(user);
-          const activationToken = await ctx.photon.activationTokens.create({
-            data: { token, user: { connect: { id } } },
-          });
-          sendEmail(
-            [{ email: user.email }],
-            ['Welcome'],
-            {
-              link: `${process.env.MINERVA_URL}/register?token=${token}&id=${user.id}`,
-              token: activationToken.token,
-              name: user.firstName,
-            },
-            user.role.name == 'USER'
-              ? EmailTemplateType.StudentRegistration
-              : EmailTemplateType.ProfessorRegistration,
-          );
-        });
-        return users;
+        await Promise.all(
+          ids.map(async (id: string) => {
+            const user = await ctx.photon.users.findOne({ where: { id }, include: { role: true } });
+            const activationToken = await ctx.photon.activationTokens.create({
+              data: { token: generateToken(), user: { connect: { id } } },
+            });
+
+            sendEmail({
+              to: { email: user.email, name: user.firstName },
+              params: { link: Environment.activateInvitationLink(activationToken.token) },
+              tags: ['Welcome'],
+              template:
+                user.role.name == 'USER'
+                  ? EmailTemplateType.StudentInviteActivation
+                  : EmailTemplateType.ProfessorInviteActivation,
+            });
+          }),
+        );
+
+        return true;
       },
     });
   },

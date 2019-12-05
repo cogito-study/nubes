@@ -2,6 +2,7 @@ import { UserInclude } from '@prisma/photon';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { Context } from '../types';
+import { Environment } from './environment';
 
 interface JWToken {
   userID: string;
@@ -10,7 +11,7 @@ interface JWToken {
 }
 
 export const validateJWToken = (token: string): JWToken =>
-  verify(token.replace('Bearer ', '').replace(/"/g, ''), process.env.APP_SECRET) as JWToken;
+  verify(token.replace('Bearer ', '').replace(/"/g, ''), Environment.secret) as JWToken;
 
 export const getUserID = (context: Context) => {
   const Authorization = context.req.headers.authorization;
@@ -25,7 +26,7 @@ export const getCurrentUser = async (ctx: Context, include?: UserInclude) => {
 };
 
 export const generateJWToken = (userID: string, options = {}) =>
-  sign({ userID }, process.env.APP_SECRET, options);
+  sign({ userID }, Environment.secret, options);
 
 export const hashPassword = async (password: string) => await hash(password, 10);
 

@@ -2,6 +2,7 @@ import { Photon } from '@prisma/photon';
 import { config } from 'dotenv';
 import * as faker from 'faker';
 import { resolve } from 'path';
+import { Environment } from '../src/utils/environment';
 config({ path: resolve(__dirname, '../.env') });
 // TODO: Refactor when prisma2 supports seed
 const photon = new Photon();
@@ -78,7 +79,7 @@ async function main() {
     },
   });
 
-  if (process.env.NODE_ENV === 'production') return;
+  if (Environment.nodeEnv === 'production') return;
   const professor = await photon.users.create({
     data: {
       email: 'professor@example.org',

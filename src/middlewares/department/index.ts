@@ -1,6 +1,7 @@
-import { createSubject, updateDepartment, deleteDepartment } from './department.authorization';
+import { Middleware } from '../types';
+import { createSubject, deleteDepartment, updateDepartment } from './department.authorization';
 
-export const departmentMiddlewares = {
+export const departmentMiddlewares: Middleware = {
   Mutation: {
     createSubject,
     updateDepartment,

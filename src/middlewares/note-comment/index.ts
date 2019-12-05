@@ -1,6 +1,7 @@
-import { updateNoteComment, deleteNoteComment } from './note-comment.authorization';
+import { Middleware } from '../types';
+import { deleteNoteComment, updateNoteComment } from './note-comment.authorization';
 
-export const noteCommentMiddlewares = {
+export const noteCommentMiddlewares: Middleware = {
   Mutation: {
     updateNoteComment,
     deleteNoteComment,

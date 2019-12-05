@@ -1,11 +1,12 @@
+import { Middleware } from '../types';
 import {
   createDepartment,
-  updateInstitute,
   deleteInstitute,
   institutes,
+  updateInstitute,
 } from './institute.authorization';
 
-export const instituteMiddlewares = {
+export const instituteMiddlewares: Middleware = {
   Mutation: {
     createDepartment,
     updateInstitute,

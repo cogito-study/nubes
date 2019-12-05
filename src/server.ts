@@ -2,6 +2,7 @@ import { Photon } from '@prisma/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
 import { schema } from './schema';
 import { validateJWToken } from './utils/authentication';
+import { Environment } from './utils/environment';
 
 const pubsub = new PubSub();
 const photon = new Photon({
@@ -15,8 +16,6 @@ const server = new ApolloServer({
       if (connectionParams.authToken) {
         return new Promise((resolve, reject) => {
           const token = validateJWToken(connectionParams.authToken);
-
-          console.log('token', token);
 
           // TODO: Localize
           token ? resolve(token.userID) : reject(new Error('Invalid auth token!'));
@@ -33,8 +32,8 @@ const server = new ApolloServer({
       pubsub,
     };
   },
-  playground: process.env.NODE_ENV === 'development',
-  debug: process.env.NODE_ENV === 'development',
+  playground: Environment.nodeEnv === 'development',
+  debug: Environment.nodeEnv === 'development',
 });
 
 server.listen().then(({ url, subscriptionsUrl }) => {

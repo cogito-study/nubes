@@ -1,9 +1,10 @@
+import { ForbiddenError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
 import { getUserID } from '../../utils/authentication';
-import { ForbiddenError } from 'apollo-server';
-import { __ } from 'i18n';
+import { Middleware } from '../types';
 
 const requireLogin = async (
   resolve: FieldResolver<'any', 'any'>,
@@ -19,7 +20,7 @@ const requireLogin = async (
   throw new ForbiddenError(__('unauthenticated'));
 };
 
-export const authenticationMiddlewares = {
+export const authenticationMiddlewares: Middleware = {
   Mutation: {
     uploadImage: requireLogin,
     createDepartment: requireLogin,
