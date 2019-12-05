@@ -18,9 +18,14 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  ActivateUserInput: {
+  ActivateInvitationInput: {
     // input type
     password: string; // String!
+    token: string; // String!
+  };
+  ActivateRegistrationInput: {
+    // input type
+    subjectIDs: string[]; // [String!]!
     token: string; // String!
   };
   ActivationTokenWhereInput: {
@@ -310,6 +315,11 @@ export interface NexusGenInputs {
     // input type
     code?: string | null; // String
     id?: string | null; // ID
+  };
+  LoginUserInput: {
+    // input type
+    email: string; // String!
+    password: string; // String!
   };
   MajorFilter: {
     // input type
@@ -660,11 +670,19 @@ export interface NexusGenInputs {
     // input type
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     firstName?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    identifier?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     role?: NexusGenInputs['UserRoleWhereInput'] | null; // UserRoleWhereInput
+  };
+  RegisterUserInput: {
+    // input type
+    email: string; // String!
+    firstName: string; // String!
+    lastName: string; // String!
+    password: string; // String!
+    preferredLanguage?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
   };
   ResetPasswordInput: {
     // input type
@@ -939,11 +957,6 @@ export interface NexusGenInputs {
     none?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     some?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
   };
-  UserLoginInput: {
-    // input type
-    email: string; // String!
-    password: string; // String!
-  };
   UserPermissionFilter: {
     // input type
     every?: NexusGenInputs['UserPermissionWhereInput'] | null; // UserPermissionWhereInput
@@ -989,7 +1002,7 @@ export interface NexusGenInputs {
     facultyPermissions?: NexusGenInputs['FacultyPermissionFilter'] | null; // FacultyPermissionFilter
     firstName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    identifier?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    identifier?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     institutePermissions?: NexusGenInputs['InstitutePermissionFilter'] | null; // InstitutePermissionFilter
     institutes?: NexusGenInputs['InstituteFilter'] | null; // InstituteFilter
     isActive?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
@@ -1036,6 +1049,11 @@ export interface NexusGenInputs {
     email?: string | null; // String
     id?: string | null; // ID
   };
+  ValidateTokenInput: {
+    // input type
+    token: string; // String!
+    type: NexusGenEnums['TokenType']; // TokenType!
+  };
   WhereUniqueInput: {
     // input type
     id?: string | null; // ID
@@ -1058,6 +1076,7 @@ export interface NexusGenEnums {
   SubjectInformationPermissionType: photon.SubjectInformationPermissionType;
   SubjectPermissionType: photon.SubjectPermissionType;
   SuggestionPermissionType: photon.SuggestionPermissionType;
+  TokenType: 'ACTIVATION' | 'RESET_PASSWORD';
   UserPermissionType: photon.UserPermissionType;
   UserRoleType: photon.UserRoleType;
 }
@@ -1119,7 +1138,8 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  ActivateUserInput: NexusGenInputs['ActivateUserInput'];
+  ActivateInvitationInput: NexusGenInputs['ActivateInvitationInput'];
+  ActivateRegistrationInput: NexusGenInputs['ActivateRegistrationInput'];
   ActivationTokenWhereInput: NexusGenInputs['ActivationTokenWhereInput'];
   BooleanFilter: NexusGenInputs['BooleanFilter'];
   ConnectOrDisconnectRelation: NexusGenInputs['ConnectOrDisconnectRelation'];
@@ -1158,6 +1178,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   IntFilter: NexusGenInputs['IntFilter'];
   LanguageWhereInput: NexusGenInputs['LanguageWhereInput'];
   LanguageWhereUniqueInput: NexusGenInputs['LanguageWhereUniqueInput'];
+  LoginUserInput: NexusGenInputs['LoginUserInput'];
   MajorFilter: NexusGenInputs['MajorFilter'];
   MajorPermissionFilter: NexusGenInputs['MajorPermissionFilter'];
   MajorPermissionWhereInput: NexusGenInputs['MajorPermissionWhereInput'];
@@ -1195,6 +1216,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   PostPermissionWhereInput: NexusGenInputs['PostPermissionWhereInput'];
   PostWhereInput: NexusGenInputs['PostWhereInput'];
   QueryUsersWhereInput: NexusGenInputs['QueryUsersWhereInput'];
+  RegisterUserInput: NexusGenInputs['RegisterUserInput'];
   ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   ResetPasswordTokenWhereInput: NexusGenInputs['ResetPasswordTokenWhereInput'];
   SendActivationEmailsInput: NexusGenInputs['SendActivationEmailsInput'];
@@ -1231,12 +1253,12 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateSuggestionInput: NexusGenInputs['UpdateSuggestionInput'];
   UpdateUserInput: NexusGenInputs['UpdateUserInput'];
   UserFilter: NexusGenInputs['UserFilter'];
-  UserLoginInput: NexusGenInputs['UserLoginInput'];
   UserPermissionFilter: NexusGenInputs['UserPermissionFilter'];
   UserPermissionWhereInput: NexusGenInputs['UserPermissionWhereInput'];
   UserRoleWhereInput: NexusGenInputs['UserRoleWhereInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  ValidateTokenInput: NexusGenInputs['ValidateTokenInput'];
   WhereUniqueInput: NexusGenInputs['WhereUniqueInput'];
   DepartmentPermissionType: NexusGenEnums['DepartmentPermissionType'];
   FacultyPermissionType: NexusGenEnums['FacultyPermissionType'];
@@ -1253,6 +1275,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectInformationPermissionType: NexusGenEnums['SubjectInformationPermissionType'];
   SubjectPermissionType: NexusGenEnums['SubjectPermissionType'];
   SuggestionPermissionType: NexusGenEnums['SuggestionPermissionType'];
+  TokenType: NexusGenEnums['TokenType'];
   UserPermissionType: NexusGenEnums['UserPermissionType'];
   UserRoleType: NexusGenEnums['UserRoleType'];
 }
@@ -1360,7 +1383,8 @@ export interface NexusGenFieldTypes {
   };
   Mutation: {
     // field return type
-    activateUser: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    activateInvitation: boolean; // Boolean!
+    activateRegistration: boolean; // Boolean!
     approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     createDepartment: NexusGenRootTypes['Department']; // Department!
     createFaculty: NexusGenRootTypes['Faculty']; // Faculty!
@@ -1391,12 +1415,13 @@ export interface NexusGenFieldTypes {
     deleteSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     deleteUser: NexusGenRootTypes['User']; // User!
     dislikePost: NexusGenRootTypes['Post']; // Post!
-    forgotPassword: string; // String!
+    forgotPassword: boolean; // Boolean!
     likePost: NexusGenRootTypes['Post']; // Post!
     login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
+    register: boolean; // Boolean!
     rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
-    resetPassword: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
-    sendActivationEmails: NexusGenRootTypes['User'][]; // [User!]!
+    resetPassword: boolean; // Boolean!
+    sendActivationEmails: boolean; // Boolean!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
     updateFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
@@ -1412,6 +1437,7 @@ export interface NexusGenFieldTypes {
     updateSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     updateUser: NexusGenRootTypes['User']; // User!
     uploadImage: string; // String!
+    validateToken: boolean; // Boolean!
   };
   Note: {
     // field return type
@@ -1680,7 +1706,7 @@ export interface NexusGenFieldTypes {
     firstName: string; // String!
     fullName: string; // String!
     id: string; // ID!
-    identifier: string; // String!
+    identifier: string | null; // String
     institutes: NexusGenRootTypes['Institute'][]; // [Institute!]!
     lastName: string; // String!
     likedNotes: NexusGenRootTypes['Note'][]; // [Note!]!
@@ -1694,7 +1720,7 @@ export interface NexusGenFieldTypes {
     position: string | null; // String
     preferredLanguage: NexusGenRootTypes['Language'] | null; // Language
     profilePictureURL: string | null; // String
-    role: NexusGenRootTypes['UserRole']; // UserRole!
+    role: NexusGenRootTypes['UserRole'] | null; // UserRole
     studiedSubjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     suggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     teachedSubjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
@@ -1770,9 +1796,13 @@ export interface NexusGenArgTypes {
     };
   };
   Mutation: {
-    activateUser: {
+    activateInvitation: {
       // args
-      data: NexusGenInputs['ActivateUserInput']; // ActivateUserInput!
+      data: NexusGenInputs['ActivateInvitationInput']; // ActivateInvitationInput!
+    };
+    activateRegistration: {
+      // args
+      data: NexusGenInputs['ActivateRegistrationInput']; // ActivateRegistrationInput!
     };
     approveSuggestion: {
       // args
@@ -1904,7 +1934,11 @@ export interface NexusGenArgTypes {
     };
     login: {
       // args
-      data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
+      data: NexusGenInputs['LoginUserInput']; // LoginUserInput!
+    };
+    register: {
+      // args
+      data: NexusGenInputs['RegisterUserInput']; // RegisterUserInput!
     };
     rejectSuggestion: {
       // args
@@ -1991,6 +2025,10 @@ export interface NexusGenArgTypes {
     uploadImage: {
       // args
       data: NexusGenInputs['ImageUploadInput']; // ImageUploadInput!
+    };
+    validateToken: {
+      // args
+      data?: NexusGenInputs['ValidateTokenInput'] | null; // ValidateTokenInput
     };
   };
   Note: {
@@ -2397,7 +2435,8 @@ export type NexusGenObjectNames =
   | 'UserRole';
 
 export type NexusGenInputNames =
-  | 'ActivateUserInput'
+  | 'ActivateInvitationInput'
+  | 'ActivateRegistrationInput'
   | 'ActivationTokenWhereInput'
   | 'BooleanFilter'
   | 'ConnectOrDisconnectRelation'
@@ -2436,6 +2475,7 @@ export type NexusGenInputNames =
   | 'IntFilter'
   | 'LanguageWhereInput'
   | 'LanguageWhereUniqueInput'
+  | 'LoginUserInput'
   | 'MajorFilter'
   | 'MajorPermissionFilter'
   | 'MajorPermissionWhereInput'
@@ -2473,6 +2513,7 @@ export type NexusGenInputNames =
   | 'PostPermissionWhereInput'
   | 'PostWhereInput'
   | 'QueryUsersWhereInput'
+  | 'RegisterUserInput'
   | 'ResetPasswordInput'
   | 'ResetPasswordTokenWhereInput'
   | 'SendActivationEmailsInput'
@@ -2509,12 +2550,12 @@ export type NexusGenInputNames =
   | 'UpdateSuggestionInput'
   | 'UpdateUserInput'
   | 'UserFilter'
-  | 'UserLoginInput'
   | 'UserPermissionFilter'
   | 'UserPermissionWhereInput'
   | 'UserRoleWhereInput'
   | 'UserWhereInput'
   | 'UserWhereUniqueInput'
+  | 'ValidateTokenInput'
   | 'WhereUniqueInput';
 
 export type NexusGenEnumNames =
@@ -2533,6 +2574,7 @@ export type NexusGenEnumNames =
   | 'SubjectInformationPermissionType'
   | 'SubjectPermissionType'
   | 'SuggestionPermissionType'
+  | 'TokenType'
   | 'UserPermissionType'
   | 'UserRoleType';
 

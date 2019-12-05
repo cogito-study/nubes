@@ -3,10 +3,10 @@ import { FieldResolver } from 'nexus';
 import { NexusGenArgTypes } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 
-export const noteInputValidation = async (
-  resolve: FieldResolver<'Query', 'note'>,
+export const registerInputValidation = async (
+  resolve: FieldResolver<'Mutation', 'register'>,
   parent: {},
-  args: NexusGenArgTypes['Query']['note'],
+  args: NexusGenArgTypes['Mutation']['register'],
   context: Context,
   info: GraphQLResolveInfo,
 ) => {

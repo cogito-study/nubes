@@ -2,9 +2,15 @@
 ### Do not make changes to this file directly
 
 
-"""Input of activation user"""
-input ActivateUserInput {
+"""Input of invite activation"""
+input ActivateInvitationInput {
   password: String!
+  token: String!
+}
+
+"""Input of register activation"""
+input ActivateRegistrationInput {
+  subjectIDs: [String!]!
   token: String!
 }
 
@@ -413,6 +419,12 @@ input LanguageWhereUniqueInput {
   id: ID
 }
 
+"""Input of login"""
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
 type Major {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -479,7 +491,8 @@ input MajorWhereInput {
 }
 
 type Mutation {
-  activateUser(data: ActivateUserInput!): AuthenticationPayload!
+  activateInvitation(data: ActivateInvitationInput!): Boolean!
+  activateRegistration(data: ActivateRegistrationInput!): Boolean!
   approveSuggestion(where: WhereUniqueInput!): Suggestion!
   createDepartment(data: CreateDepartmentInput!): Department!
   createFaculty(data: CreateFacultyInput!): Faculty!
@@ -510,12 +523,13 @@ type Mutation {
   deleteSuggestion(where: WhereUniqueInput!): Suggestion!
   deleteUser(where: WhereUniqueInput!): User!
   dislikePost(where: WhereUniqueInput!): Post!
-  forgotPassword(data: ForgotPasswordInput!): String!
+  forgotPassword(data: ForgotPasswordInput!): Boolean!
   likePost(where: WhereUniqueInput!): Post!
-  login(data: UserLoginInput!): AuthenticationPayload!
+  login(data: LoginUserInput!): AuthenticationPayload!
+  register(data: RegisterUserInput!): Boolean!
   rejectSuggestion(where: WhereUniqueInput!): Suggestion!
-  resetPassword(data: ResetPasswordInput!): AuthenticationPayload!
-  sendActivationEmails(data: SendActivationEmailsInput!): [User!]!
+  resetPassword(data: ResetPasswordInput!): Boolean!
+  sendActivationEmails(data: SendActivationEmailsInput!): Boolean!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
   updateFaculty(data: UpdateFacultyInput!, where: WhereUniqueInput!): Faculty!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
@@ -531,6 +545,7 @@ type Mutation {
   updateSuggestion(data: UpdateSuggestionInput!, where: WhereUniqueInput!): Suggestion!
   updateUser(data: UpdateUserInput!, where: WhereUniqueInput!): User!
   uploadImage(data: ImageUploadInput!): String!
+  validateToken(data: ValidateTokenInput): Boolean!
 }
 
 type Note {
@@ -1065,11 +1080,20 @@ type Query {
 input QueryUsersWhereInput {
   email: StringFilter
   firstName: StringFilter
-  identifier: StringFilter
+  identifier: NullableStringFilter
   isActive: BooleanFilter
   lastName: StringFilter
   phoneNumber: NullableStringFilter
   role: UserRoleWhereInput
+}
+
+"""Input of register"""
+input RegisterUserInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  preferredLanguage: ConnectRelation
 }
 
 """Input of reset password"""
@@ -1369,6 +1393,11 @@ input SuggestionWhereUniqueInput {
   id: ID
 }
 
+enum TokenType {
+  ACTIVATION
+  RESET_PASSWORD
+}
+
 """Input of update department"""
 input UpdateDepartmentInput {
   description: String
@@ -1475,7 +1504,7 @@ type User {
   firstName: String!
   fullName: String!
   id: ID!
-  identifier: String!
+  identifier: String
   institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
   lastName: String!
   likedNotes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
@@ -1489,7 +1518,7 @@ type User {
   position: String
   preferredLanguage: Language
   profilePictureURL: String
-  role: UserRole!
+  role: UserRole
   studiedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   suggestions(after: ID, before: ID, first: Int, last: Int, skip: Int): [Suggestion!]!
   teachedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
@@ -1500,12 +1529,6 @@ input UserFilter {
   every: UserWhereInput
   none: UserWhereInput
   some: UserWhereInput
-}
-
-"""Input of login"""
-input UserLoginInput {
-  email: String!
-  password: String!
 }
 
 type UserPermission {
@@ -1581,7 +1604,7 @@ input UserWhereInput {
   facultyPermissions: FacultyPermissionFilter
   firstName: StringFilter
   id: StringFilter
-  identifier: StringFilter
+  identifier: NullableStringFilter
   institutePermissions: InstitutePermissionFilter
   institutes: InstituteFilter
   isActive: BooleanFilter
@@ -1627,6 +1650,11 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   email: String
   id: ID
+}
+
+input ValidateTokenInput {
+  token: String!
+  type: TokenType!
 }
 
 """Unique input"""

@@ -3,3 +3,4 @@ export * from './authentication-payload';
 export * from './authentication.input';
 export * from './authentication.mutation';
 export * from './reset-password-token';
+export * from './token-type';

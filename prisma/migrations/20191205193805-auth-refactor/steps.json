@@ -1,0 +1,17 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "field": "identifier",
+      "arity": "optional"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "field": "role",
+      "arity": "optional"
+    }
+  ]
+}

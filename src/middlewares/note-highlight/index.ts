@@ -1,6 +1,7 @@
-import { updateNoteHighlight, deleteNoteHighlight } from './note-highlight.authorization';
+import { Middleware } from '../types';
+import { deleteNoteHighlight, updateNoteHighlight } from './note-highlight.authorization';
 
-export const noteHighlightMiddlewares = {
+export const noteHighlightMiddlewares: Middleware = {
   Mutation: {
     updateNoteHighlight,
     deleteNoteHighlight,
