@@ -1575,14 +1575,14 @@ input UserWhereInput {
   approvedSuggestions: SuggestionFilter
   createdAt: DateTimeFilter
   deletedAt: NullableDateTimeFilter
-  departmentPermission: DepartmentPermissionWhereInput
+  departmentPermissions: DepartmentPermissionFilter
   departments: DepartmentFilter
   email: StringFilter
-  facultyPermission: FacultyPermissionWhereInput
+  facultyPermissions: FacultyPermissionFilter
   firstName: StringFilter
   id: StringFilter
   identifier: StringFilter
-  institutePermission: InstitutePermissionWhereInput
+  institutePermissions: InstitutePermissionFilter
   institutes: InstituteFilter
   isActive: BooleanFilter
   lastName: StringFilter
@@ -1591,36 +1591,36 @@ input UserWhereInput {
   likedPostComments: PostCommentFilter
   likedPosts: PostFilter
   likedSuggestions: SuggestionFilter
-  majorPermission: MajorPermissionWhereInput
+  majorPermissions: MajorPermissionFilter
   NOT: [UserWhereInput!]
-  noteCommentPermission: NoteCommentPermissionWhereInput
+  noteCommentPermissions: NoteCommentPermissionFilter
   noteComments: NoteCommentFilter
-  noteCommentThreadPermission: NoteCommentThreadPermissionWhereInput
-  noteHighlightPermission: NoteHighlightPermissionWhereInput
+  noteCommentThreadPermissions: NoteCommentThreadPermissionFilter
+  noteHighlightPermissions: NoteHighlightPermissionFilter
   noteHighlights: NoteHighlightFilter
-  notePermission: NotePermissionWhereInput
+  notePermissions: NotePermissionFilter
   notes: NoteFilter
   OR: [UserWhereInput!]
   password: StringFilter
   passwordToken: PasswordTokenWhereInput
+  permissions: UserPermissionFilter
   phoneNumber: NullableStringFilter
   position: NullableStringFilter
-  postCommentPermission: PostCommentPermissionWhereInput
+  postCommentPermissions: PostCommentPermissionFilter
   postComments: PostCommentFilter
-  postPermission: PostPermissionWhereInput
+  postPermissions: PostPermissionFilter
   posts: PostFilter
   preferredLanguage: LanguageWhereInput
   profilePictureURL: NullableStringFilter
   ResetPasswordToken: ResetPasswordTokenWhereInput
   role: UserRoleWhereInput
   studiedSubjects: SubjectFilter
-  subjectInformationPermission: SubjectInformationPermissionWhereInput
-  subjectPermission: SubjectPermissionWhereInput
-  suggestionPermission: SuggestionPermissionWhereInput
+  subjectInformationPermissions: SubjectInformationPermissionFilter
+  subjectPermissions: SubjectPermissionFilter
+  suggestionPermissions: SuggestionPermissionFilter
   suggestions: SuggestionFilter
   teachedSubjects: SubjectFilter
   updatedAt: DateTimeFilter
-  userPermission: UserPermissionWhereInput
   userPermissions: UserPermissionFilter
 }
 
