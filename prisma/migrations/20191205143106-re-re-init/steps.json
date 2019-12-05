@@ -30,11 +30,29 @@
     },
     {
       "stepType": "CreateEnum",
+      "enum": "FacultyPermissionType",
+      "values": [
+        "UPDATE_FACULTY",
+        "READ_FACULTY",
+        "DELETE_FACULTY"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
       "enum": "InstitutePermissionType",
       "values": [
         "UPDATE_INSTITUTE",
         "DELETE_INSTITUTE",
         "CREATE_DEPARTMENT"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "enum": "MajorPermissionType",
+      "values": [
+        "UPDATE_MAJOR",
+        "READ_MAJOR",
+        "DELETE_MAJOR"
       ]
     },
     {
@@ -307,6 +325,154 @@
     },
     {
       "stepType": "CreateModel",
+      "model": "Faculty"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "institute",
+      "type": "Institute",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "institute",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "institute",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteFaculties\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "majors",
+      "type": "Major",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "majors",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "majors",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyMajors\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "permissions",
+      "type": "FacultyPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
       "model": "Institute"
     },
     {
@@ -348,6 +514,27 @@
       "field": "name",
       "type": "String",
       "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "faculties",
+      "type": "Faculty",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "faculties",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "faculties",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteFaculties\""
     },
     {
       "stepType": "CreateField",
@@ -551,6 +738,154 @@
       "directive": "relation",
       "argument": "name",
       "value": "\"SubjectLanguage\""
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Major"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "faculty",
+      "type": "Faculty",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "faculty",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "faculty",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyMajors\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "subjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "subjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "subjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorSubjects\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "permissions",
+      "type": "MajorPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
     },
     {
       "stepType": "CreateModel",
@@ -1652,6 +1987,27 @@
     {
       "stepType": "CreateField",
       "model": "Subject",
+      "field": "majors",
+      "type": "Major",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "majors",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "majors",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorSubjects\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
       "field": "permissions",
       "type": "SubjectPermission",
       "arity": "list"
@@ -2592,6 +2948,279 @@
     {
       "stepType": "CreateField",
       "model": "User",
+      "field": "departmentPermissions",
+      "type": "DepartmentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "departmentPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "departmentPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "facultyPermissions",
+      "type": "FacultyPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "facultyPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "facultyPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "institutePermissions",
+      "type": "InstitutePermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "institutePermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "institutePermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstitutePermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "majorPermissions",
+      "type": "MajorPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "majorPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "majorPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "notePermissions",
+      "type": "NotePermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "notePermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "notePermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NotePermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "noteCommentPermissions",
+      "type": "NoteCommentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "noteCommentPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "noteCommentPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "noteCommentThreadPermissions",
+      "type": "NoteCommentThreadPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "noteCommentThreadPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "noteCommentThreadPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "noteHighlightPermissions",
+      "type": "NoteHighlightPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "noteHighlightPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "noteHighlightPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlightPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "postPermissions",
+      "type": "PostPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "postPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "postPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "postCommentPermissions",
+      "type": "PostCommentPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "postCommentPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "postCommentPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "subjectPermissions",
+      "type": "SubjectPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "subjectPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "subjectPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "subjectInformationPermissions",
+      "type": "SubjectInformationPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "subjectInformationPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "subjectInformationPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformationPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "suggestionPermissions",
+      "type": "SuggestionPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "suggestionPermissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "suggestionPermissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
       "field": "userPermissions",
       "type": "UserPermission",
       "arity": "list"
@@ -2608,7 +3237,28 @@
       "field": "userPermissions",
       "directive": "relation",
       "argument": "name",
-      "value": "\"UserUserPermissions\""
+      "value": "\"UserPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "permissions",
+      "type": "UserPermission",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "permissions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "permissions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserPermissions\""
     },
     {
       "stepType": "CreateField",
@@ -3330,6 +3980,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentPermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "DepartmentPermission",
       "field": "object",
@@ -3393,6 +4051,133 @@
     },
     {
       "stepType": "CreateModel",
+      "model": "FacultyPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "type",
+      "type": "FacultyPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "object",
+      "type": "Faculty",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
       "model": "InstitutePermission"
     },
     {
@@ -3447,6 +4232,14 @@
       "model": "InstitutePermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstitutePermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstitutePermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -3512,6 +4305,133 @@
     },
     {
       "stepType": "CreateModel",
+      "model": "MajorPermission"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorPermission",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "type",
+      "type": "MajorPermissionType",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorPermissionUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "object",
+      "type": "Major",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "object",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorPermission",
+      "field": "object",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorPermissions\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorPermission",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorPermission",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorPermission",
+      "field": "deletedAt",
+      "type": "DateTime",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateModel",
       "model": "NoteCommentPermission"
     },
     {
@@ -3566,6 +4486,14 @@
       "model": "NoteCommentPermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentPermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -3687,6 +4615,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteCommentThreadPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteCommentThreadPermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "NoteCommentThreadPermission",
       "field": "object",
@@ -3804,6 +4740,14 @@
       "model": "NoteHighlightPermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NoteHighlightPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NoteHighlightPermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -3925,6 +4869,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "NotePermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"NotePermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "NotePermission",
       "field": "object",
@@ -4042,6 +4994,14 @@
       "model": "PostCommentPermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostCommentPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostCommentPermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -4163,6 +5123,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "PostPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"PostPermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "PostPermission",
       "field": "object",
@@ -4280,6 +5248,14 @@
       "model": "SubjectPermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectPermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -4401,6 +5377,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SubjectInformationPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectInformationPermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "SubjectInformationPermission",
       "field": "object",
@@ -4518,6 +5502,14 @@
       "model": "SuggestionPermission",
       "field": "users",
       "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "SuggestionPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SuggestionPermissionUsers\""
     },
     {
       "stepType": "CreateField",
@@ -4639,6 +5631,14 @@
       "directive": "relation"
     },
     {
+      "stepType": "CreateDirectiveArgument",
+      "model": "UserPermission",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserPermissionUsers\""
+    },
+    {
       "stepType": "CreateField",
       "model": "UserPermission",
       "field": "object",
@@ -4657,7 +5657,7 @@
       "field": "object",
       "directive": "relation",
       "argument": "name",
-      "value": "\"UserUserPermissions\""
+      "value": "\"UserPermissions\""
     },
     {
       "stepType": "CreateField",

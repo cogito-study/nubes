@@ -216,10 +216,26 @@ model User {
   departments         Department[]        @relation(name: "DepartmentLeader")
   institutes          Institute[]         @relation(name: "InstituteUsers")
   preferredLanguage   Language?           @relation(name: "UserPrefferedLanguage")
-  userPermissions     UserPermission[]    @relation(name: "UserUserPermissions")
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  deletedAt           DateTime?
+
+  departmentPermissions         DepartmentPermission[]         @relation(name: "DepartmentPermissionUsers")
+  facultyPermissions            FacultyPermission[]            @relation(name: "FacultyPermissionUsers")
+  institutePermissions          InstitutePermission[]          @relation(name: "InstitutePermissionUsers")
+  majorPermissions              MajorPermission[]              @relation(name: "MajorPermissionUsers")
+  notePermissions               NotePermission[]               @relation(name: "NotePermissionUsers")
+  noteCommentPermissions        NoteCommentPermission[]        @relation(name: "NoteCommentPermissionUsers")
+  noteCommentThreadPermissions  NoteCommentThreadPermission[]  @relation(name: "NoteCommentThreadPermissionUsers")
+  noteHighlightPermissions      NoteHighlightPermission[]      @relation(name: "NoteHighlightPermissionUsers")
+  postPermissions               PostPermission[]               @relation(name: "PostPermissionUsers")
+  postCommentPermissions        PostCommentPermission[]        @relation(name: "PostCommentPermissionUsers")
+  subjectPermissions            SubjectPermission[]            @relation(name: "SubjectPermissionUsers")
+  subjectInformationPermissions SubjectInformationPermission[] @relation(name: "SubjectInformationPermissionUsers")
+  suggestionPermissions         SuggestionPermission[]         @relation(name: "SuggestionPermissionUsers")
+  userPermissions               UserPermission[]               @relation(name: "UserPermissionUsers")
+  permissions                   UserPermission[]               @relation(name: "UserPermissions")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model Post {
@@ -273,7 +289,7 @@ model UserRole {
 model DepartmentPermission {
   id        String                   @default(cuid()) @id @unique
   type      DepartmentPermissionType
-  users     User[]                   @relation
+  users     User[]                   @relation(name: "DepartmentPermissionUsers")
   object    Department               @relation(name: "DepartmentPermissions")
   createdAt DateTime                 @default(now())
   updatedAt DateTime                 @updatedAt
@@ -290,7 +306,7 @@ enum DepartmentPermissionType {
 model FacultyPermission {
   id        String                @default(cuid()) @id @unique
   type      FacultyPermissionType
-  users     User[]                @relation
+  users     User[]                @relation(name: "FacultyPermissionUsers")
   object    Faculty               @relation(name: "FacultyPermissions")
   createdAt DateTime              @default(now())
   updatedAt DateTime              @updatedAt
@@ -306,7 +322,7 @@ enum FacultyPermissionType {
 model InstitutePermission {
   id        String                  @default(cuid()) @id @unique
   type      InstitutePermissionType
-  users     User[]                  @relation
+  users     User[]                  @relation(name: "InstitutePermissionUsers")
   object    Institute               @relation(name: "InstitutePermissions")
   createdAt DateTime                @default(now())
   updatedAt DateTime                @updatedAt
@@ -322,7 +338,7 @@ enum InstitutePermissionType {
 model MajorPermission {
   id        String              @default(cuid()) @id @unique
   type      MajorPermissionType
-  users     User[]              @relation
+  users     User[]              @relation(name: "MajorPermissionUsers")
   object    Major               @relation(name: "MajorPermissions")
   createdAt DateTime            @default(now())
   updatedAt DateTime            @updatedAt
@@ -338,7 +354,7 @@ enum MajorPermissionType {
 model NoteCommentPermission {
   id        String                    @default(cuid()) @id @unique
   type      NoteCommentPermissionType
-  users     User[]                    @relation
+  users     User[]                    @relation(name: "NoteCommentPermissionUsers")
   object    NoteComment               @relation(name: "NoteCommentPermissions")
   createdAt DateTime                  @default(now())
   updatedAt DateTime                  @updatedAt
@@ -353,7 +369,7 @@ enum NoteCommentPermissionType {
 model NoteCommentThreadPermission {
   id        String                          @default(cuid()) @id @unique
   type      NoteCommentThreadPermissionType
-  users     User[]                          @relation
+  users     User[]                          @relation(name: "NoteCommentThreadPermissionUsers")
   object    NoteCommentThread               @relation(name: "NoteCommentThreadPermissions")
   createdAt DateTime                        @default(now())
   updatedAt DateTime                        @updatedAt
@@ -367,7 +383,7 @@ enum NoteCommentThreadPermissionType {
 model NoteHighlightPermission {
   id        String                      @default(cuid()) @id @unique
   type      NoteHighlightPermissionType
-  users     User[]                      @relation
+  users     User[]                      @relation(name: "NoteHighlightPermissionUsers")
   object    NoteHighlight               @relation(name: "NoteHighlightPermissions")
   createdAt DateTime                    @default(now())
   updatedAt DateTime                    @updatedAt
@@ -382,7 +398,7 @@ enum NoteHighlightPermissionType {
 model NotePermission {
   id        String             @default(cuid()) @id @unique
   type      NotePermissionType
-  users     User[]             @relation
+  users     User[]             @relation(name: "NotePermissionUsers")
   object    Note               @relation(name: "NotePermissions")
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
@@ -399,7 +415,7 @@ enum NotePermissionType {
 model PostCommentPermission {
   id        String                    @default(cuid()) @id @unique
   type      PostCommentPermissionType
-  users     User[]                    @relation
+  users     User[]                    @relation(name: "PostCommentPermissionUsers")
   object    PostComment               @relation(name: "PostCommentPermissions")
   createdAt DateTime                  @default(now())
   updatedAt DateTime                  @updatedAt
@@ -415,7 +431,7 @@ enum PostCommentPermissionType {
 model PostPermission {
   id        String             @default(cuid()) @id @unique
   type      PostPermissionType
-  users     User[]             @relation
+  users     User[]             @relation(name: "PostPermissionUsers")
   object    Post               @relation(name: "PostPermissions")
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
@@ -432,7 +448,7 @@ enum PostPermissionType {
 model SubjectPermission {
   id        String                @default(cuid()) @id @unique
   type      SubjectPermissionType
-  users     User[]                @relation
+  users     User[]                @relation(name: "SubjectPermissionUsers")
   object    Subject               @relation(name: "SubjectPermissions")
   createdAt DateTime              @default(now())
   updatedAt DateTime              @updatedAt
@@ -451,7 +467,7 @@ enum SubjectPermissionType {
 model SubjectInformationPermission {
   id        String                           @default(cuid()) @id @unique
   type      SubjectInformationPermissionType
-  users     User[]                           @relation
+  users     User[]                           @relation(name: "SubjectInformationPermissionUsers")
   object    SubjectInformation               @relation(name: "SubjectInformationPermissions")
   createdAt DateTime                         @default(now())
   updatedAt DateTime                         @updatedAt
@@ -467,7 +483,7 @@ enum SubjectInformationPermissionType {
 model SuggestionPermission {
   id        String                   @default(cuid()) @id @unique
   type      SuggestionPermissionType
-  users     User[]                   @relation
+  users     User[]                   @relation(name: "SuggestionPermissionUsers")
   object    Suggestion               @relation(name: "SuggestionPermissions")
   createdAt DateTime                 @default(now())
   updatedAt DateTime                 @updatedAt
@@ -485,8 +501,8 @@ enum SuggestionPermissionType {
 model UserPermission {
   id        String             @default(cuid()) @id @unique
   type      UserPermissionType
-  users     User[]             @relation
-  object    User               @relation(name: "UserUserPermissions")
+  users     User[]             @relation(name: "UserPermissionUsers")
+  object    User               @relation(name: "UserPermissions")
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
   deletedAt DateTime?
