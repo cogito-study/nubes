@@ -57,8 +57,6 @@ export const authenticationMiddlewares: Middleware = {
     department: requireLogin,
     institute: requireLogin,
     institutes: requireLogin,
-    language: requireLogin,
-    languages: requireLogin,
     note: requireLogin,
     noteComment: requireLogin,
     noteCommentThread: requireLogin,
