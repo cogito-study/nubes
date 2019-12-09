@@ -322,6 +322,10 @@ export interface NexusGenInputs {
     email: string; // String!
     password: string; // String!
   };
+  MajorByTokenInput: {
+    // input type
+    token: string; // String!
+  };
   MajorFilter: {
     // input type
     every?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
@@ -1182,6 +1186,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   LanguageWhereInput: NexusGenInputs['LanguageWhereInput'];
   LanguageWhereUniqueInput: NexusGenInputs['LanguageWhereUniqueInput'];
   LoginUserInput: NexusGenInputs['LoginUserInput'];
+  MajorByTokenInput: NexusGenInputs['MajorByTokenInput'];
   MajorFilter: NexusGenInputs['MajorFilter'];
   MajorPermissionFilter: NexusGenInputs['MajorPermissionFilter'];
   MajorPermissionWhereInput: NexusGenInputs['MajorPermissionWhereInput'];
@@ -1599,6 +1604,7 @@ export interface NexusGenFieldTypes {
     institutesByToken: NexusGenRootTypes['Institute'][]; // [Institute!]!
     language: NexusGenRootTypes['Language'] | null; // Language
     languages: NexusGenRootTypes['Language'][]; // [Language!]!
+    majorByToken: NexusGenRootTypes['Major'] | null; // Major
     majors: NexusGenRootTypes['Major'][]; // [Major!]!
     me: NexusGenRootTypes['User']; // User!
     note: NexusGenRootTypes['Note'] | null; // Note
@@ -2180,6 +2186,11 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     };
+    majorByToken: {
+      // args
+      data?: NexusGenInputs['MajorByTokenInput'] | null; // MajorByTokenInput
+      where?: NexusGenInputs['WhereUniqueInput'] | null; // WhereUniqueInput
+    };
     majors: {
       // args
       after?: string | null; // ID
@@ -2494,6 +2505,7 @@ export type NexusGenInputNames =
   | 'LanguageWhereInput'
   | 'LanguageWhereUniqueInput'
   | 'LoginUserInput'
+  | 'MajorByTokenInput'
   | 'MajorFilter'
   | 'MajorPermissionFilter'
   | 'MajorPermissionWhereInput'

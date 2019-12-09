@@ -18,3 +18,10 @@ export const UpdateMajorInput = inputObjectType({
     t.field('subjects', { type: 'ConnectOrDisconnectRelation' });
   },
 });
+
+export const MajorByTokenInput = inputObjectType({
+  name: 'MajorByTokenInput',
+  definition(t) {
+    t.string('token', { required: true });
+  },
+});

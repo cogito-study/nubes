@@ -438,6 +438,10 @@ type Major {
   updatedAt: DateTime!
 }
 
+input MajorByTokenInput {
+  token: String!
+}
+
 input MajorFilter {
   every: MajorWhereInput
   none: MajorWhereInput
@@ -1064,6 +1068,7 @@ type Query {
   institutesByToken(token: String!): [Institute!]!
   language(where: LanguageWhereUniqueInput!): Language
   languages(after: ID, before: ID, first: Int, last: Int, skip: Int): [Language!]!
+  majorByToken(data: MajorByTokenInput, where: WhereUniqueInput): Major
   majors(after: ID, before: ID, first: Int, last: Int, skip: Int): [Major!]!
   me: User!
   note(where: NoteWhereUniqueInput!): Note
