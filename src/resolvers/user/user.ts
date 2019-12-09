@@ -39,6 +39,7 @@ export const User = objectType({
     });
 
     t.model.role({ type: 'UserRole' });
+    t.model.major({ type: 'Major' });
     t.model.notes({ type: 'Note' });
     t.model.noteHighlights({ type: 'NoteHighlight' });
     t.model.suggestions({ type: 'Suggestion' });

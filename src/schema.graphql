@@ -10,7 +10,8 @@ input ActivateInvitationInput {
 
 """Input of register activation"""
 input ActivateRegistrationInput {
-  subjectIDs: [String!]!
+  major: ConnectRelation!
+  subjects: [ConnectRelation!]!
   token: String!
 }
 
@@ -489,6 +490,7 @@ input MajorWhereInput {
   permissions: MajorPermissionFilter
   subjects: SubjectFilter
   updatedAt: DateTimeFilter
+  users: UserFilter
 }
 
 type Mutation {
@@ -1511,6 +1513,7 @@ type User {
   lastName: String!
   likedNotes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   likedPostComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
+  major: Major
   noteComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
   noteHighlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
@@ -1616,6 +1619,7 @@ input UserWhereInput {
   likedPostComments: PostCommentFilter
   likedPosts: PostFilter
   likedSuggestions: SuggestionFilter
+  major: MajorWhereInput
   majorPermissions: MajorPermissionFilter
   NOT: [UserWhereInput!]
   noteCommentPermissions: NoteCommentPermissionFilter

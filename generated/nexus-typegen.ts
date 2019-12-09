@@ -25,7 +25,8 @@ export interface NexusGenInputs {
   };
   ActivateRegistrationInput: {
     // input type
-    subjectIDs: string[]; // [String!]!
+    major: NexusGenInputs['ConnectRelation']; // ConnectRelation!
+    subjects: NexusGenInputs['ConnectRelation'][]; // [ConnectRelation!]!
     token: string; // String!
   };
   ActivationTokenWhereInput: {
@@ -359,6 +360,7 @@ export interface NexusGenInputs {
     permissions?: NexusGenInputs['MajorPermissionFilter'] | null; // MajorPermissionFilter
     subjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    users?: NexusGenInputs['UserFilter'] | null; // UserFilter
   };
   NoteCommentFilter: {
     // input type
@@ -1012,6 +1014,7 @@ export interface NexusGenInputs {
     likedPostComments?: NexusGenInputs['PostCommentFilter'] | null; // PostCommentFilter
     likedPosts?: NexusGenInputs['PostFilter'] | null; // PostFilter
     likedSuggestions?: NexusGenInputs['SuggestionFilter'] | null; // SuggestionFilter
+    major?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
     majorPermissions?: NexusGenInputs['MajorPermissionFilter'] | null; // MajorPermissionFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     noteCommentPermissions?: NexusGenInputs['NoteCommentPermissionFilter'] | null; // NoteCommentPermissionFilter
@@ -1713,6 +1716,7 @@ export interface NexusGenFieldTypes {
     lastName: string; // String!
     likedNotes: NexusGenRootTypes['Note'][]; // [Note!]!
     likedPostComments: NexusGenRootTypes['PostComment'][]; // [PostComment!]!
+    major: NexusGenRootTypes['Major'] | null; // Major
     noteComments: NexusGenRootTypes['NoteComment'][]; // [NoteComment!]!
     noteHighlights: NexusGenRootTypes['NoteHighlight'][]; // [NoteHighlight!]!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!

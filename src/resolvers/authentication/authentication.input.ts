@@ -43,7 +43,8 @@ export const ActivateRegistrationInput = inputObjectType({
   description: 'Input of register activation',
   definition(t) {
     t.string('token', { required: true });
-    t.string('subjectIDs', { list: true, required: true });
+    t.field('subjects', { type: 'ConnectRelation', list: true, required: true });
+    t.field('major', { type: 'ConnectRelation', required: true });
   },
 });
 

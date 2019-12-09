@@ -86,20 +86,20 @@ export const AuthenticationMutation = extendType({
       args: {
         data: ActivateRegistrationInput.asArg({ required: true }),
       },
-      resolve: async (_, { data: { token, subjectIDs } }, context) => {
+      resolve: async (_, { data: { token, subjects, major } }, context) => {
         const tokenValidation = await validateToken({ token, type: 'ACTIVATION', context });
         if (tokenValidation === null) throw new AuthenticationError('Invalid or expired token');
 
         if (tokenValidation.type === 'ACTIVATION') {
           try {
-            const subjectConnectIDs = subjectIDs.map((id) => ({ id }));
             await context.photon.users.update({
               where: {
                 id: tokenValidation.activationToken.user.id,
               },
               data: {
                 isActive: true,
-                studiedSubjects: { connect: subjectConnectIDs },
+                studiedSubjects: { connect: subjects },
+                major: { connect: major },
               },
             });
 

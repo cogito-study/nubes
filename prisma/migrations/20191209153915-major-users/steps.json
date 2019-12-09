@@ -1,0 +1,47 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "major",
+      "type": "Major",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "major",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "major",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorUsers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "users",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "users",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "users",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorUsers\""
+    }
+  ]
+}
