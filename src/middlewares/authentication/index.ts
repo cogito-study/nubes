@@ -13,11 +13,17 @@ const requireLogin = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  const user = await context.photon.users.findOne({
-    where: { id: getUserID(context) },
-  });
-  if (user !== null) return await resolve(parent, args, context, info);
-  throw new ForbiddenError(__('unauthenticated'));
+  const id = getUserID(context);
+  if (!id) {
+    throw new ForbiddenError(__('unauthenticated'));
+  }
+
+  const user = await context.photon.users.findOne({ where: { id } });
+  if (!user) {
+    throw new ForbiddenError(__('unauthenticated'));
+  }
+
+  return await resolve(parent, args, context, info);
 };
 
 export const authenticationMiddlewares: Middleware = {
