@@ -9,6 +9,7 @@ export const Institute = objectType({
 
     t.model.departments({ type: 'Department' });
     t.model.users({ type: 'User' });
+    t.model.faculties({ type: 'Faculty' });
 
     t.field('permissions', {
       type: 'InstitutePermissionType',

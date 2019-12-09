@@ -320,6 +320,7 @@ type Institute {
   createdAt: DateTime!
   deletedAt: DateTime
   departments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Department!]!
+  faculties(after: ID, before: ID, first: Int, last: Int, skip: Int): [Faculty!]!
   id: ID!
   name: String!
   permissions: [InstitutePermissionType!]!
@@ -1058,6 +1059,7 @@ type Query {
   faculties(after: ID, before: ID, first: Int, last: Int, skip: Int): [Faculty!]!
   institute(where: InstituteWhereUniqueInput!): Institute
   institutes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Institute!]!
+  institutesByToken(token: String!): [Institute!]!
   language(where: LanguageWhereUniqueInput!): Language
   languages(after: ID, before: ID, first: Int, last: Int, skip: Int): [Language!]!
   majors(after: ID, before: ID, first: Int, last: Int, skip: Int): [Major!]!

@@ -1340,6 +1340,7 @@ export interface NexusGenFieldTypes {
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
     departments: NexusGenRootTypes['Department'][]; // [Department!]!
+    faculties: NexusGenRootTypes['Faculty'][]; // [Faculty!]!
     id: string; // ID!
     name: string; // String!
     permissions: NexusGenEnums['InstitutePermissionType'][]; // [InstitutePermissionType!]!
@@ -1592,6 +1593,7 @@ export interface NexusGenFieldTypes {
     faculties: NexusGenRootTypes['Faculty'][]; // [Faculty!]!
     institute: NexusGenRootTypes['Institute'] | null; // Institute
     institutes: NexusGenRootTypes['Institute'][]; // [Institute!]!
+    institutesByToken: NexusGenRootTypes['Institute'][]; // [Institute!]!
     language: NexusGenRootTypes['Language'] | null; // Language
     languages: NexusGenRootTypes['Language'][]; // [Language!]!
     majors: NexusGenRootTypes['Major'][]; // [Major!]!
@@ -1769,6 +1771,14 @@ export interface NexusGenArgTypes {
   };
   Institute: {
     departments: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    faculties: {
       // args
       after?: string | null; // ID
       before?: string | null; // ID
@@ -2149,6 +2159,10 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
+    };
+    institutesByToken: {
+      // args
+      token: string; // String!
     };
     language: {
       // args
