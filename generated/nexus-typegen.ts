@@ -1555,6 +1555,7 @@ export interface NexusGenFieldTypes {
     content: string; // String!
     createdAt: any; // DateTime!
     deletedAt: any | null; // DateTime
+    hasLikedPost: boolean; // Boolean!
     id: string; // ID!
     likers: NexusGenRootTypes['User'][]; // [User!]!
     likesCount: number; // Int!

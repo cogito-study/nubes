@@ -917,6 +917,9 @@ type Post {
   content: String!
   createdAt: DateTime!
   deletedAt: DateTime
+
+  """Whether the logged in user liked a post before"""
+  hasLikedPost: Boolean!
   id: ID!
   likers(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
 

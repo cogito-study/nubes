@@ -11,6 +11,19 @@ export const Post = objectType({
     t.model.subject({ type: 'Subject' });
     t.model.comments({ type: 'PostComment' });
 
+    t.field('hasLikedPost', {
+      type: 'Boolean',
+      description: 'Whether the logged in user liked a post before',
+      resolve: async ({ id }, args, context) => {
+        const likers = await context.photon.posts
+          .findOne({ where: { id } })
+          .likers({ select: { id: true } });
+        const userID = getUserID(context);
+
+        return likers.map((liker) => liker.id).includes(userID);
+      },
+    });
+
     t.field('likesCount', {
       type: 'Int',
       description: 'Number of likes on the post',
