@@ -44,6 +44,19 @@ export interface NexusGenInputs {
     equals?: boolean | null; // Boolean
     not?: boolean | null; // Boolean
   };
+  ChangeEmailInput: {
+    // input type
+    email: string; // String!
+  };
+  ChangePasswordInput: {
+    // input type
+    newPassword: string; // String!
+    oldPassword: string; // String!
+  };
+  ChangePreferredLanguageInput: {
+    // input type
+    preferredLanguage: NexusGenInputs['ConnectRelation']; // ConnectRelation!
+  };
   ConnectOrDisconnectRelation: {
     // input type
     connect?: NexusGenInputs['ConnectRelation'][] | null; // [ConnectRelation!]
@@ -923,13 +936,6 @@ export interface NexusGenInputs {
     // input type
     content?: string | null; // String
   };
-  UpdateProfileInput: {
-    // input type
-    email?: string | null; // String
-    newPassword?: string | null; // String
-    oldPassword?: string | null; // String
-    preferredLanguage?: NexusGenInputs['ConnectRelation'] | null; // ConnectRelation
-  };
   UpdateSubjectInformationInput: {
     // input type
     content?: string | null; // String
@@ -1149,6 +1155,9 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ActivateRegistrationInput: NexusGenInputs['ActivateRegistrationInput'];
   ActivationTokenWhereInput: NexusGenInputs['ActivationTokenWhereInput'];
   BooleanFilter: NexusGenInputs['BooleanFilter'];
+  ChangeEmailInput: NexusGenInputs['ChangeEmailInput'];
+  ChangePasswordInput: NexusGenInputs['ChangePasswordInput'];
+  ChangePreferredLanguageInput: NexusGenInputs['ChangePreferredLanguageInput'];
   ConnectOrDisconnectRelation: NexusGenInputs['ConnectOrDisconnectRelation'];
   ConnectRelation: NexusGenInputs['ConnectRelation'];
   CreateDepartmentInput: NexusGenInputs['CreateDepartmentInput'];
@@ -1255,7 +1264,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateNoteInput: NexusGenInputs['UpdateNoteInput'];
   UpdatePostCommentInput: NexusGenInputs['UpdatePostCommentInput'];
   UpdatePostInput: NexusGenInputs['UpdatePostInput'];
-  UpdateProfileInput: NexusGenInputs['UpdateProfileInput'];
   UpdateSubjectInformationInput: NexusGenInputs['UpdateSubjectInformationInput'];
   UpdateSubjectInput: NexusGenInputs['UpdateSubjectInput'];
   UpdateSuggestionInput: NexusGenInputs['UpdateSuggestionInput'];
@@ -1395,6 +1403,9 @@ export interface NexusGenFieldTypes {
     activateInvitation: boolean; // Boolean!
     activateRegistration: boolean; // Boolean!
     approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
+    changeEmail: NexusGenRootTypes['User']; // User!
+    changePassword: NexusGenRootTypes['User']; // User!
+    changePreferredLanguage: NexusGenRootTypes['User']; // User!
     createDepartment: NexusGenRootTypes['Department']; // Department!
     createFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     createInstitute: NexusGenRootTypes['Institute']; // Institute!
@@ -1440,7 +1451,6 @@ export interface NexusGenFieldTypes {
     updateNoteHighlight: NexusGenRootTypes['NoteHighlight']; // NoteHighlight!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updatePostComment: NexusGenRootTypes['PostComment']; // PostComment!
-    updateProfile: NexusGenRootTypes['User']; // User!
     updateSubject: NexusGenRootTypes['Subject']; // Subject!
     updateSubjectInformation: NexusGenRootTypes['SubjectInformation']; // SubjectInformation!
     updateSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
@@ -1829,6 +1839,21 @@ export interface NexusGenArgTypes {
       // args
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
+    changeEmail: {
+      // args
+      data: NexusGenInputs['ChangeEmailInput']; // ChangeEmailInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    changePassword: {
+      // args
+      data: NexusGenInputs['ChangePasswordInput']; // ChangePasswordInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
+    changePreferredLanguage: {
+      // args
+      data: NexusGenInputs['ChangePreferredLanguageInput']; // ChangePreferredLanguageInput!
+      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+    };
     createDepartment: {
       // args
       data: NexusGenInputs['CreateDepartmentInput']; // CreateDepartmentInput!
@@ -2016,11 +2041,6 @@ export interface NexusGenArgTypes {
     updatePostComment: {
       // args
       data: NexusGenInputs['UpdatePostCommentInput']; // UpdatePostCommentInput!
-      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
-    };
-    updateProfile: {
-      // args
-      data: NexusGenInputs['UpdateProfileInput']; // UpdateProfileInput!
       where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
     };
     updateSubject: {
@@ -2469,6 +2489,9 @@ export type NexusGenInputNames =
   | 'ActivateRegistrationInput'
   | 'ActivationTokenWhereInput'
   | 'BooleanFilter'
+  | 'ChangeEmailInput'
+  | 'ChangePasswordInput'
+  | 'ChangePreferredLanguageInput'
   | 'ConnectOrDisconnectRelation'
   | 'ConnectRelation'
   | 'CreateDepartmentInput'
@@ -2575,7 +2598,6 @@ export type NexusGenInputNames =
   | 'UpdateNoteInput'
   | 'UpdatePostCommentInput'
   | 'UpdatePostInput'
-  | 'UpdateProfileInput'
   | 'UpdateSubjectInformationInput'
   | 'UpdateSubjectInput'
   | 'UpdateSuggestionInput'

@@ -42,6 +42,20 @@ input BooleanFilter {
   not: Boolean
 }
 
+input ChangeEmailInput {
+  email: String!
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+"""Input of update user's profile"""
+input ChangePreferredLanguageInput {
+  preferredLanguage: ConnectRelation!
+}
+
 input ConnectOrDisconnectRelation {
   connect: [ConnectRelation!]
   disconnect: [ConnectRelation!]
@@ -501,6 +515,9 @@ type Mutation {
   activateInvitation(data: ActivateInvitationInput!): Boolean!
   activateRegistration(data: ActivateRegistrationInput!): Boolean!
   approveSuggestion(where: WhereUniqueInput!): Suggestion!
+  changeEmail(data: ChangeEmailInput!, where: WhereUniqueInput!): User!
+  changePassword(data: ChangePasswordInput!, where: WhereUniqueInput!): User!
+  changePreferredLanguage(data: ChangePreferredLanguageInput!, where: WhereUniqueInput!): User!
   createDepartment(data: CreateDepartmentInput!): Department!
   createFaculty(data: CreateFacultyInput!): Faculty!
   createInstitute(data: CreateInstituteInput!): Institute!
@@ -546,7 +563,6 @@ type Mutation {
   updateNoteHighlight(data: UpdateNoteHighlightInput!, where: WhereUniqueInput!): NoteHighlight!
   updatePost(data: UpdatePostInput!, where: WhereUniqueInput!): Post!
   updatePostComment(data: UpdatePostCommentInput!, where: WhereUniqueInput!): PostComment!
-  updateProfile(data: UpdateProfileInput!, where: WhereUniqueInput!): User!
   updateSubject(data: UpdateSubjectInput!, where: WhereUniqueInput!): Subject!
   updateSubjectInformation(data: UpdateSubjectInformationInput!, where: WhereUniqueInput!): SubjectInformation!
   updateSuggestion(data: UpdateSuggestionInput!, where: WhereUniqueInput!): Suggestion!
@@ -1466,14 +1482,6 @@ input UpdatePostCommentInput {
 """Input of update post"""
 input UpdatePostInput {
   content: String
-}
-
-"""Input of update user's profile"""
-input UpdateProfileInput {
-  email: String
-  newPassword: String
-  oldPassword: String
-  preferredLanguage: ConnectRelation
 }
 
 """Input of update subject information"""
