@@ -122,6 +122,8 @@ export const createSubjectInformation = async (
     });
     return subjectInformation;
   }
+
+  throw new ForbiddenError(__('no_permission'));
 };
 export const createPost = async (
   resolve: FieldResolver<'Mutation', 'createPost'>,
@@ -165,6 +167,8 @@ export const createPost = async (
     });
     return response;
   }
+
+  throw new ForbiddenError(__('no_permission'));
 };
 
 // eslint-disable-next-line complexity
