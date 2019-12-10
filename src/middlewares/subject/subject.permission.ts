@@ -1,4 +1,4 @@
-import { SubjectPermissionType, User } from '@prisma/photon';
+import { SubjectPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 
@@ -27,12 +27,12 @@ export const hasSubjectPermission = async ({
 export const addSubjectPermission = async ({
   permission,
   users,
-  subjectID,
+  subjects,
   context,
 }: {
   permission: SubjectPermissionType;
-  users: Array<User>;
-  subjectID: string;
+  users: Array<{ id: string }>;
+  subjects: Array<{ id: string }>;
   context: Context;
 }) => {
   const mappedUsers = users.map((user) => {
@@ -40,17 +40,73 @@ export const addSubjectPermission = async ({
       id: user.id,
     };
   });
-  await context.photon.subjectPermissions.create({
-    data: {
-      type: permission,
-      object: {
-        connect: {
-          id: subjectID,
+  await Promise.all(
+    subjects.map(async (subject) => {
+      await context.photon.subjectPermissions.create({
+        data: {
+          type: permission,
+          object: {
+            connect: subject,
+          },
+          users: {
+            connect: mappedUsers,
+          },
         },
-      },
-      users: {
-        connect: mappedUsers,
-      },
-    },
-  });
+      });
+    }),
+  );
+};
+
+export const addSubjectPermissions = async ({
+  permissions,
+  users,
+  subjects,
+  context,
+}: {
+  permissions: Array<SubjectPermissionType>;
+  users: Array<{ id: string }>;
+  subjects: Array<{ id: string }>;
+  context: Context;
+}) => {
+  await Promise.all(
+    permissions.map(
+      async (permission) => await addSubjectPermission({ permission, users, subjects, context }),
+    ),
+  );
+};
+
+export const deleteSubjectPermission = async ({
+  users,
+  subjects,
+  context,
+}: {
+  users: Array<{ id: string }>;
+  subjects: Array<{ id: string }>;
+  context: Context;
+}) => {
+  await Promise.all(
+    subjects.map(async (subject) => {
+      await Promise.all(
+        users.map(async (user) => {
+          const permissions = await context.photon.subjectPermissions.findMany({
+            where: {
+              object: subject,
+              users: {
+                some: user,
+              },
+            },
+            include: { users: true },
+          });
+          await Promise.all(
+            permissions.map(async (permission) => {
+              await context.photon.subjectPermissions.update({
+                where: { id: permission.id },
+                data: { users: { disconnect: user } },
+              });
+            }),
+          );
+        }),
+      );
+    }),
+  );
 };

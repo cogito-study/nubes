@@ -550,7 +550,7 @@ type Mutation {
   forgotPassword(data: ForgotPasswordInput!): Boolean!
   likePost(where: WhereUniqueInput!): Post!
   login(data: LoginUserInput!): AuthenticationPayload!
-  register(data: RegisterUserInput!): Boolean!
+  register(data: RegisterUserInput!): User!
   rejectSuggestion(where: WhereUniqueInput!): Suggestion!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendActivationEmails(data: SendActivationEmailsInput!): Boolean!
@@ -1174,6 +1174,7 @@ type Subject {
   id: ID!
   informations(after: ID, before: ID, first: Int, last: Int, skip: Int): [SubjectInformation!]!
   language: Language!
+  moderators(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
   name: String!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   permissions: [SubjectPermissionType!]!
@@ -1312,6 +1313,7 @@ input SubjectWhereInput {
   informations: SubjectInformationFilter
   language: LanguageWhereInput
   majors: MajorFilter
+  moderators: UserFilter
   name: StringFilter
   NOT: [SubjectWhereInput!]
   notes: NoteFilter
@@ -1495,6 +1497,7 @@ input UpdateSubjectInformationInput {
 input UpdateSubjectInput {
   code: String
   description: String
+  moderators: ConnectOrDisconnectRelation
   name: String
   students: ConnectOrDisconnectRelation
   teachers: ConnectOrDisconnectRelation
@@ -1569,6 +1572,7 @@ input UserPermissionFilter {
 
 enum UserPermissionType {
   DELETE_USER
+  UPDATE_PROFILE
   UPDATE_USER
 }
 
@@ -1637,6 +1641,7 @@ input UserWhereInput {
   likedSuggestions: SuggestionFilter
   major: MajorWhereInput
   majorPermissions: MajorPermissionFilter
+  moderatedSubjects: SubjectFilter
   NOT: [UserWhereInput!]
   noteCommentPermissions: NoteCommentPermissionFilter
   noteComments: NoteCommentFilter

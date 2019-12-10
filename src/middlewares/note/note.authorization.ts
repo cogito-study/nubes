@@ -1,11 +1,12 @@
+import { ForbiddenError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
+import { subjectPermissions } from '../permissions';
+import { addSuggestionPermissions } from '../suggestion/suggestion.permission';
 import { hasNotePermission } from './note.permission';
-import { ForbiddenError } from 'apollo-server';
-import { __ } from 'i18n';
-import { addSuggestionPermission } from '../suggestion/suggestion.permission';
 
 export const createSuggestion = async (
   resolve: FieldResolver<'Mutation', 'createSuggestion'>,
@@ -43,39 +44,22 @@ export const createSuggestion = async (
       include: {
         teachers: true,
         students: true,
+        moderators: true,
       },
       where: {
         id: note.subject.id,
       },
     });
-    addSuggestionPermission({
-      permission: 'APPROVE_SUGGESTION',
-      users: subject.teachers,
-      suggestionID: suggestion.id,
+    addSuggestionPermissions({
+      permissions: subjectPermissions.notes.suggestions.permissions.teachers,
+      users: [...subject.teachers, ...subject.moderators],
+      suggestions: [suggestion],
       context,
     });
-    addSuggestionPermission({
-      permission: 'REJECT_SUGGESTION',
-      users: subject.teachers,
-      suggestionID: suggestion.id,
-      context,
-    });
-    addSuggestionPermission({
-      permission: 'UPDATE_SUGGESTION',
-      users: [suggestion.author],
-      suggestionID: suggestion.id,
-      context,
-    });
-    addSuggestionPermission({
-      permission: 'READ_SUGGESTION',
-      users: [...subject.students, ...subject.teachers],
-      suggestionID: suggestion.id,
-      context,
-    });
-    addSuggestionPermission({
-      permission: 'DELETE_SUGGESTION',
-      users: [suggestion.author, ...subject.teachers],
-      suggestionID: suggestion.id,
+    addSuggestionPermissions({
+      permissions: subjectPermissions.notes.suggestions.permissions.students,
+      users: subject.students,
+      suggestions: [suggestion],
       context,
     });
     return suggestion;

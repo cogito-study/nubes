@@ -38,7 +38,7 @@ export const AuthenticationMutation = extendType({
     });
 
     t.field('register', {
-      type: 'Boolean',
+      type: 'User',
       args: {
         data: RegisterUserInput.asArg({ required: true }),
       },
@@ -74,7 +74,7 @@ export const AuthenticationMutation = extendType({
             });
           }
 
-          return true;
+          return user;
         } catch (error) {
           throw new AuthenticationError('Unable to create user');
         }

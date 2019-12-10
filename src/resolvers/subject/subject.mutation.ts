@@ -11,12 +11,13 @@ export const SubjectMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
         data: UpdateSubjectInput.asArg({ required: true }),
       },
-      resolve: (_, { where, data: { students, teachers, ...rest } }, ctx) => {
+      resolve: (_, { where, data: { students, teachers, moderators, ...rest } }, ctx) => {
         return ctx.photon.subjects.update({
           where,
           data: {
             students,
             teachers,
+            moderators,
             ...rest,
           },
         });

@@ -1,4 +1,4 @@
-import { User, UserPermissionType } from '@prisma/photon';
+import { UserPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 
@@ -34,7 +34,7 @@ export const addUserPermission = async ({
   context,
 }: {
   permission: UserPermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   userID: string;
   context: Context;
 }) => {

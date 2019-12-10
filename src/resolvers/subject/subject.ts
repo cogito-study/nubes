@@ -10,6 +10,7 @@ export const Subject = objectType({
     t.model.description();
 
     t.model.department({ type: 'Department' });
+    t.model.moderators({ type: 'User' });
     t.model.teachers({ type: 'User' });
     t.model.students({ type: 'User' });
     t.model.informations({ type: 'SubjectInformation' });

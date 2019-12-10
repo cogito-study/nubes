@@ -1,6 +1,6 @@
 import { adminMiddlewares } from './admin';
-import { departmentMiddlewares } from './department';
 import { authenticationMiddlewares } from './authentication';
+import { departmentMiddlewares } from './department';
 import { i18nInitMiddleware } from './i18n';
 import { instituteMiddlewares } from './institute';
 import { noteMiddlewares } from './note';

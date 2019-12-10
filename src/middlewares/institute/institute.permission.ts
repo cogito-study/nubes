@@ -32,21 +32,23 @@ export const addInstitutePermission = async ({
   instituteID: string;
   context: Context;
 }) => {
-  users.forEach(async (user) => {
-    await context.photon.institutePermissions.create({
-      data: {
-        type: permission,
-        object: {
-          connect: {
-            id: instituteID,
+  await Promise.all(
+    users.map(async (user) => {
+      await context.photon.institutePermissions.create({
+        data: {
+          type: permission,
+          object: {
+            connect: {
+              id: instituteID,
+            },
+          },
+          users: {
+            connect: {
+              id: user.id,
+            },
           },
         },
-        users: {
-          connect: {
-            id: user.id,
-          },
-        },
-      },
-    });
-  });
+      });
+    }),
+  );
 };

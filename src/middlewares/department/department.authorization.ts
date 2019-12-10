@@ -4,8 +4,9 @@ import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
+import { subjectPermissions } from '../permissions';
+import { addSubjectPermissions } from '../subject/subject.permission';
 import { hasDepartmentPermission } from './department.permission';
-import { addSubjectPermission } from '../subject/subject.permission';
 
 export const createSubject = async (
   resolve: FieldResolver<'Mutation', 'createSubject'>,
@@ -25,46 +26,24 @@ export const createSubject = async (
     const subject = await context.photon.subjects.findOne({
       include: {
         teachers: true,
+        moderators: true,
+        students: true,
       },
       where: {
         id: await response.id,
       },
     });
 
-    addSubjectPermission({
-      permission: 'CREATE_NOTE',
-      users: subject.teachers,
-      subjectID: subject.id,
+    addSubjectPermissions({
+      permissions: subjectPermissions.permissions.teachers,
+      users: [...subject.teachers, ...subject.moderators],
+      subjects: [subject],
       context,
     });
-    addSubjectPermission({
-      permission: 'CREATE_POST',
-      users: subject.teachers,
-      subjectID: subject.id,
-      context,
-    });
-    addSubjectPermission({
-      permission: 'UPDATE_SUBJECT',
-      users: subject.teachers,
-      subjectID: subject.id,
-      context,
-    });
-    addSubjectPermission({
-      permission: 'DELETE_SUBJECT',
-      users: subject.teachers,
-      subjectID: subject.id,
-      context,
-    });
-    addSubjectPermission({
-      permission: 'READ_SUBJECT',
-      users: subject.teachers,
-      subjectID: subject.id,
-      context,
-    });
-    addSubjectPermission({
-      permission: 'CREATE_SUBJECT_INFORMATION',
-      users: subject.teachers,
-      subjectID: subject.id,
+    addSubjectPermissions({
+      permissions: subjectPermissions.permissions.students,
+      users: subject.students,
+      subjects: [subject],
       context,
     });
 
