@@ -1,0 +1,48 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "moderatedSubjects",
+      "type": "Subject",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "moderatedSubjects",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "moderatedSubjects",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectModerators\""
+    },
+
+    {
+      "stepType": "CreateField",
+      "model": "Subject",
+      "field": "moderators",
+      "type": "User",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Subject",
+      "field": "moderators",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Subject",
+      "field": "moderators",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"SubjectModerators\""
+    }
+  ]
+}

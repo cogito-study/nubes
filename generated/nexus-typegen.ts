@@ -821,6 +821,7 @@ export interface NexusGenInputs {
     informations?: NexusGenInputs['SubjectInformationFilter'] | null; // SubjectInformationFilter
     language?: NexusGenInputs['LanguageWhereInput'] | null; // LanguageWhereInput
     majors?: NexusGenInputs['MajorFilter'] | null; // MajorFilter
+    moderators?: NexusGenInputs['UserFilter'] | null; // UserFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['SubjectWhereInput'][] | null; // [SubjectWhereInput!]
     notes?: NexusGenInputs['NoteFilter'] | null; // NoteFilter
@@ -946,6 +947,7 @@ export interface NexusGenInputs {
     // input type
     code?: string | null; // String
     description?: string | null; // String
+    moderators?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
     name?: string | null; // String
     students?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
     teachers?: NexusGenInputs['ConnectOrDisconnectRelation'] | null; // ConnectOrDisconnectRelation
@@ -1026,6 +1028,7 @@ export interface NexusGenInputs {
     likedSuggestions?: NexusGenInputs['SuggestionFilter'] | null; // SuggestionFilter
     major?: NexusGenInputs['MajorWhereInput'] | null; // MajorWhereInput
     majorPermissions?: NexusGenInputs['MajorPermissionFilter'] | null; // MajorPermissionFilter
+    moderatedSubjects?: NexusGenInputs['SubjectFilter'] | null; // SubjectFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     noteCommentPermissions?: NexusGenInputs['NoteCommentPermissionFilter'] | null; // NoteCommentPermissionFilter
     noteComments?: NexusGenInputs['NoteCommentFilter'] | null; // NoteCommentFilter
@@ -1438,7 +1441,7 @@ export interface NexusGenFieldTypes {
     forgotPassword: boolean; // Boolean!
     likePost: NexusGenRootTypes['Post']; // Post!
     login: NexusGenRootTypes['AuthenticationPayload']; // AuthenticationPayload!
-    register: boolean; // Boolean!
+    register: NexusGenRootTypes['User']; // User!
     rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     resetPassword: boolean; // Boolean!
     sendActivationEmails: boolean; // Boolean!
@@ -1648,6 +1651,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     informations: NexusGenRootTypes['SubjectInformation'][]; // [SubjectInformation!]!
     language: NexusGenRootTypes['Language']; // Language!
+    moderators: NexusGenRootTypes['User'][]; // [User!]!
     name: string; // String!
     notes: NexusGenRootTypes['Note'][]; // [Note!]!
     permissions: NexusGenEnums['SubjectPermissionType'][]; // [SubjectPermissionType!]!
@@ -2280,6 +2284,14 @@ export interface NexusGenArgTypes {
   };
   Subject: {
     informations: {
+      // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    };
+    moderators: {
       // args
       after?: string | null; // ID
       before?: string | null; // ID

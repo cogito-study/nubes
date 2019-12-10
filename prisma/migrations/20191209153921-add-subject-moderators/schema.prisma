@@ -1,5 +1,5 @@
 datasource postgres {
-  url      = env("POSTGRESQL_URL")
+  url      = "***"
   provider = "postgres"
 }
 
@@ -514,6 +514,5 @@ model UserPermission {
 
 enum UserPermissionType {
   UPDATE_USER
-  UPDATE_PROFILE
   DELETE_USER
 }

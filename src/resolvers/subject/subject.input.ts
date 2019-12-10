@@ -9,5 +9,6 @@ export const UpdateSubjectInput = inputObjectType({
     t.string('description');
     t.field('students', { type: 'ConnectOrDisconnectRelation' });
     t.field('teachers', { type: 'ConnectOrDisconnectRelation' });
+    t.field('moderators', { type: 'ConnectOrDisconnectRelation' });
   },
 });
