@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server';
 import { extendType } from 'nexus';
-import { validateToken } from '../../utils/token';
+import { validateActivationToken } from '../../utils/token';
 
 export const MajorQuery = extendType({
   type: 'Query',
@@ -11,7 +11,7 @@ export const MajorQuery = extendType({
       nullable: true,
       args: { data: 'MajorByTokenInput', where: 'WhereUniqueInput' },
       resolve: async (_, { data: { token }, where }, context) => {
-        const activationToken = await validateToken({ token, type: 'ACTIVATION', context });
+        const activationToken = await validateActivationToken({ token, context });
         if (activationToken === null) throw new AuthenticationError('Invalid or expired token');
 
         return await context.photon.majors.findOne({ where });
