@@ -1,7 +1,7 @@
 import { AuthenticationError } from 'apollo-server';
 import { extendType } from 'nexus';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
-import { EmailTemplateType, sendEmail } from '../../utils/email';
+import { sendEmail } from '../../utils/email';
 import { Environment } from '../../utils/environment';
 import {
   generateResetPasswordToken,
@@ -61,6 +61,7 @@ export const AuthenticationMutation = extendType({
               password: await hashPassword(password),
               preferredLanguage: { connect: preferredLanguage },
             },
+            include: { preferredLanguage: true },
           });
 
           const activationToken = await context.photon.activationTokens.create({
@@ -72,10 +73,10 @@ export const AuthenticationMutation = extendType({
 
           if (activationToken) {
             sendEmail({
-              to: { email: user.email, name: user.firstName },
-              tags: ['Welcome'],
+              to: user.email,
               params: { link: Environment.activateRegistrationLink(activationToken.token) },
-              template: EmailTemplateType.RegisterActivation,
+              template: 'RegisterActivation',
+              preferredLanguage: user.preferredLanguage.code,
             });
           }
 
@@ -166,15 +167,18 @@ export const AuthenticationMutation = extendType({
         data: ForgotPasswordInput.asArg({ required: true }),
       },
       resolve: async (_, { data: { email } }, context) => {
-        const user = await context.photon.users.findOne({ where: { email } });
+        const user = await context.photon.users.findOne({
+          where: { email },
+          include: { preferredLanguage: true },
+        });
         if (user !== null) {
           const resetPasswordToken = await generateResetPasswordToken({ email, context });
 
           sendEmail({
-            to: { email: user.email, name: user.firstName },
-            tags: ['Reset Password'],
+            to: user.email,
             params: { link: Environment.resetPasswordLink(resetPasswordToken.token) },
-            template: EmailTemplateType.StudentForgotPassword,
+            template: 'ForgotPassword',
+            preferredLanguage: user.preferredLanguage.code,
           });
           return true;
         }

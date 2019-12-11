@@ -1,5 +1,5 @@
 import { extendType } from 'nexus';
-import { EmailTemplateType, sendEmail } from '../../utils/email';
+import { sendEmail } from '../../utils/email';
 import { Environment } from '../../utils/environment';
 import { generateToken } from '../../utils/token';
 import { WhereUniqueInput } from '../input';
@@ -90,19 +90,19 @@ export const AdminMutation = extendType({
       resolve: async (_, { data: { ids } }, ctx) => {
         await Promise.all(
           ids.map(async (id: string) => {
-            const user = await ctx.photon.users.findOne({ where: { id }, include: { role: true } });
+            const user = await ctx.photon.users.findOne({
+              where: { id },
+              include: { role: true, preferredLanguage: true },
+            });
             const activationToken = await ctx.photon.activationTokens.create({
               data: { token: generateToken(), user: { connect: { id } } },
             });
 
             sendEmail({
-              to: { email: user.email, name: user.firstName },
+              to: user.email,
               params: { link: Environment.activateInvitationLink(activationToken.token) },
-              tags: ['Welcome'],
-              template:
-                user.role.name == 'USER'
-                  ? EmailTemplateType.StudentInviteActivation
-                  : EmailTemplateType.ProfessorInviteActivation,
+              template: 'RegisterActivation',
+              preferredLanguage: user.preferredLanguage.code,
             });
           }),
         );

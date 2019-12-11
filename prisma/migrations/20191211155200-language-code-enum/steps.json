@@ -1,0 +1,16 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateEnum",
+      "enum": "LanguageCode",
+      "values": ["hu", "en"]
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Language",
+      "field": "code",
+      "type": "LanguageCode"
+    }
+  ]
+}
