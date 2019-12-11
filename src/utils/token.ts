@@ -38,32 +38,26 @@ const checkTokenGenerationFrequency = (token: { createdAt: Date }) => {
 
 type ValidateTokenOptions = {
   token: string;
-  type: NexusGenEnums['TokenType'];
   context: Context;
 };
 
-// eslint-disable-next-line complexity
-export const validateToken = async ({ token, type, context }: ValidateTokenOptions) => {
-  switch (type) {
-    case 'ACTIVATION':
-      const activationToken = await context.photon.activationTokens.findOne({
-        where: { token },
-        include: { user: true },
-      });
-      if (activationToken === null) return null;
-      return hasTokenExpired({ token: activationToken, type: 'ACTIVATION' })
-        ? null
-        : { activationToken, type };
+export const validateResetPasswordToken = async ({ token, context }: ValidateTokenOptions) => {
+  const resetPasswordToken = await context.photon.resetPasswordTokens.findOne({ where: { token } });
+  if (resetPasswordToken === null) return null;
 
-    case 'RESET_PASSWORD':
-      const resetPasswordToken = await context.photon.resetPasswordTokens.findOne({
-        where: { token },
-      });
-      if (resetPasswordToken === null) return null;
-      return hasTokenExpired({ token: resetPasswordToken, type: 'RESET_PASSWORD' })
-        ? null
-        : { resetPasswordToken, type };
-  }
+  return hasTokenExpired({ token: resetPasswordToken, type: 'RESET_PASSWORD' })
+    ? null
+    : resetPasswordToken;
+};
+
+export const validateActivationToken = async ({ token, context }: ValidateTokenOptions) => {
+  const activationToken = await context.photon.activationTokens.findOne({
+    where: { token },
+    include: { user: true },
+  });
+  if (activationToken === null) return null;
+
+  return hasTokenExpired({ token: activationToken, type: 'ACTIVATION' }) ? null : activationToken;
 };
 
 type GenerateResetPasswordTokenOptions = {
