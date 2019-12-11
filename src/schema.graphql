@@ -513,7 +513,7 @@ input MajorWhereInput {
 
 type Mutation {
   activateInvitation(data: ActivateInvitationInput!): Boolean!
-  activateRegistration(data: ActivateRegistrationInput!): Boolean!
+  activateRegistration(data: ActivateRegistrationInput!): User!
   approveSuggestion(where: WhereUniqueInput!): Suggestion!
   changeEmail(data: ChangeEmailInput!, where: WhereUniqueInput!): User!
   changePassword(data: ChangePasswordInput!, where: WhereUniqueInput!): User!

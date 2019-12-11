@@ -1404,7 +1404,7 @@ export interface NexusGenFieldTypes {
   Mutation: {
     // field return type
     activateInvitation: boolean; // Boolean!
-    activateRegistration: boolean; // Boolean!
+    activateRegistration: NexusGenRootTypes['User']; // User!
     approveSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     changeEmail: NexusGenRootTypes['User']; // User!
     changePassword: NexusGenRootTypes['User']; // User!

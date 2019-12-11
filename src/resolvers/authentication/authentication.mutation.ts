@@ -87,7 +87,7 @@ export const AuthenticationMutation = extendType({
     });
 
     t.field('activateRegistration', {
-      type: 'Boolean',
+      type: 'User',
       args: {
         data: ActivateRegistrationInput.asArg({ required: true }),
       },
@@ -96,7 +96,7 @@ export const AuthenticationMutation = extendType({
         if (activationToken === null) throw new AuthenticationError('Invalid or expired token');
 
         try {
-          await context.photon.users.update({
+          const user = await context.photon.users.update({
             where: {
               id: activationToken.user.id,
             },
@@ -108,11 +108,11 @@ export const AuthenticationMutation = extendType({
           });
 
           await context.photon.activationTokens.delete({ where: { token } });
+
+          return user;
         } catch {
           throw new AuthenticationError('Error happened while activating invitation');
         }
-
-        return true;
       },
     });
 
