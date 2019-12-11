@@ -7,5 +7,6 @@
     "other": "Please wait %s minutes"
   },
   "unauthenticated": "You need to login!",
-  "full_name": "{{firstName}} {{lastName}}"
+  "full_name": "{{firstName}} {{lastName}}",
+  "sender_name": "{{name}} from Cogito"
 }

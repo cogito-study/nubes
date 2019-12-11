@@ -1,49 +1,53 @@
+import { LanguageCode } from '@prisma/photon';
 import { ApolloError } from 'apollo-server';
+import { __ } from 'i18n';
 import { OptionsWithUrl, post } from 'request';
 import { Environment } from './environment';
 
 const randomFounder = () => ['Máté', 'Ádám', 'Kristóf'][Math.floor(Math.random() * 3)];
 
-export enum EmailTemplateType {
-  ProfessorInviteActivation = 9,
-  StudentInviteActivation = 5,
-  // TODO: Use only one forgot password template
-  ProfessorForgotPassword = 10,
-  StudentForgotPassword = 3,
-  // TODO: Create register templates in SIB
-  RegisterActivation = 9,
-}
+export type EmailTemplateType =
+  | 'ChangePassword'
+  | 'ChangeEmail'
+  | 'ForgotPassword'
+  | 'RegisterActivation';
 
-type SendEmailOptions = {
-  to: { email: string; name: string };
-  tags: string[];
-  params: { link: string };
-  template: EmailTemplateType;
+export type LocalizedEmailTemplateType = Record<EmailTemplateType, Record<LanguageCode, number>>;
+
+export const emailTemplates: LocalizedEmailTemplateType = {
+  ChangePassword: { hu: 11, en: 15 },
+  ChangeEmail: { hu: 14, en: 13 },
+  ForgotPassword: { hu: 16, en: 12 },
+  RegisterActivation: { hu: 17, en: 19 },
 };
 
-export const sendEmail = ({ to, tags, params, template }: SendEmailOptions) => {
+type SendEmailOptions = {
+  to: string;
+  params: { link: string };
+  template: EmailTemplateType;
+  preferredLanguage: LanguageCode;
+};
+
+export const sendEmail = ({ to, params, template, preferredLanguage }: SendEmailOptions) => {
   const sender = {
     email: 'welcome@cogito.study',
-    name: `${randomFounder()} from Cogito`,
+    name: __('sender_name', { name: randomFounder() }),
   };
   const options: OptionsWithUrl = {
     method: 'POST',
-    url: 'https://api.sendinblue.com/v3/smtp/email',
+    url: `https://api.sendinblue.com/v3/smtp/templates/${emailTemplates[template][preferredLanguage]}/send`,
     headers: {
       'Content-Type': 'application/json',
       'api-key': Environment.sendInBlueKey,
     },
     body: {
-      tags,
       sender,
-      to,
-      replyTo: { email: 'support@cogito.study' },
+      emailTo: [to],
+      replyTo: 'support@cogito.study',
       params,
-      template,
     },
     json: true,
   };
-
   post(options, (error) => {
     if (error) throw new ApolloError(error);
   });

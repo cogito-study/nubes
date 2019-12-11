@@ -7,5 +7,6 @@
     "other": "Kérlek várj %s percet"
   },
   "unauthenticated": "Jelentkezz be!",
-  "full_name": "{{lastName}} {{firstName}}"
+  "full_name": "{{lastName}} {{firstName}}",
+  "sender_name": "{{name}} a Cogito-tól"
 }

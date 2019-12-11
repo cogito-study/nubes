@@ -317,7 +317,7 @@ export interface NexusGenInputs {
   LanguageWhereInput: {
     // input type
     AND?: NexusGenInputs['LanguageWhereInput'][] | null; // [LanguageWhereInput!]
-    code?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    code?: NexusGenEnums['LanguageCode'] | null; // LanguageCode
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['LanguageWhereInput'][] | null; // [LanguageWhereInput!]
@@ -327,7 +327,7 @@ export interface NexusGenInputs {
   };
   LanguageWhereUniqueInput: {
     // input type
-    code?: string | null; // String
+    code?: NexusGenEnums['LanguageCode'] | null; // LanguageCode
     id?: string | null; // ID
   };
   LoginUserInput: {
@@ -1080,6 +1080,7 @@ export interface NexusGenEnums {
   DepartmentPermissionType: photon.DepartmentPermissionType;
   FacultyPermissionType: photon.FacultyPermissionType;
   InstitutePermissionType: photon.InstitutePermissionType;
+  LanguageCode: photon.LanguageCode;
   MajorPermissionType: photon.MajorPermissionType;
   NoteCategory: photon.NoteCategory;
   NoteCommentPermissionType: photon.NoteCommentPermissionType;
@@ -1282,6 +1283,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   DepartmentPermissionType: NexusGenEnums['DepartmentPermissionType'];
   FacultyPermissionType: NexusGenEnums['FacultyPermissionType'];
   InstitutePermissionType: NexusGenEnums['InstitutePermissionType'];
+  LanguageCode: NexusGenEnums['LanguageCode'];
   MajorPermissionType: NexusGenEnums['MajorPermissionType'];
   NoteCategory: NexusGenEnums['NoteCategory'];
   NoteCommentPermissionType: NexusGenEnums['NoteCommentPermissionType'];
@@ -1377,7 +1379,7 @@ export interface NexusGenFieldTypes {
   };
   Language: {
     // field return type
-    code: string; // String!
+    code: NexusGenEnums['LanguageCode']; // LanguageCode!
     id: string; // ID!
     name: string; // String!
   };
@@ -2627,6 +2629,7 @@ export type NexusGenEnumNames =
   | 'DepartmentPermissionType'
   | 'FacultyPermissionType'
   | 'InstitutePermissionType'
+  | 'LanguageCode'
   | 'MajorPermissionType'
   | 'NoteCategory'
   | 'NoteCommentPermissionType'
