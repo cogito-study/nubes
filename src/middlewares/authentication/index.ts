@@ -5,7 +5,7 @@ import { FieldResolver } from 'nexus';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
 import { Middleware } from '../types';
-import { register } from './authentication.authorization';
+import { activateRegistration, register } from './authentication.authorization';
 
 const requireLogin = async (
   resolve: FieldResolver<'any', 'any'>,
@@ -30,6 +30,7 @@ const requireLogin = async (
 export const authenticationMiddlewares: Middleware = {
   Mutation: {
     register,
+    activateRegistration,
     uploadImage: requireLogin,
     createDepartment: requireLogin,
     updateDepartment: requireLogin,
