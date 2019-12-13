@@ -18,6 +18,8 @@ export const i18nInitMiddleware = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
+  if (context.req == undefined) return await resolve(parent, args, context, info);
+
   const languages = await context.photon.languages.findMany();
   const availableLanguages = languages.map((language) => language.code);
   configure({
