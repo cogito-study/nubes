@@ -6,19 +6,19 @@ import { Context } from '../../types';
 
 const defaultLocale = 'en';
 
-const setLanguage = async (context: Context, availableLanguages: Array<string>) => {
-  const languageCode = context.req.headers.languagecode;
+const setLanguage = async (context: Context, availableLanguages: string[]) => {
+  const languageCode = context.req?.headers?.languagecode as string;
   availableLanguages.includes(languageCode) ? setLocale(languageCode) : setLocale(defaultLocale);
 };
 
-export const i18nInitMiddleware = async (
+const i18nInitMiddleware = async (
   resolve: FieldResolver<any, any>,
   parent: {},
   args: {},
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  if (context.req == undefined) return await resolve(parent, args, context, info);
+  if (context.req === undefined) return await resolve(parent, args, context, info);
 
   const languages = await context.photon.languages.findMany();
   const availableLanguages = languages.map((language) => language.code);
@@ -35,4 +35,9 @@ export const i18nInitMiddleware = async (
 
   setLanguage(context, availableLanguages);
   return await resolve(parent, args, context, info);
+};
+
+export const i18nMiddlewares = {
+  Mutation: i18nInitMiddleware,
+  Query: i18nInitMiddleware,
 };

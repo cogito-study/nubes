@@ -13,12 +13,14 @@ interface JWToken {
 export const validateJWToken = (token: string): JWToken =>
   verify(token.replace('Bearer ', '').replace(/"/g, ''), Environment.secret) as JWToken;
 
-export const getUserID = (context: Context) => {
-  const Authorization = context.req.headers.authorization;
+export const getUserID = (context: Context): string | undefined => {
+  const Authorization = context.req?.headers?.authorization;
   if (Authorization) {
     const verifiedToken = validateJWToken(Authorization);
     return verifiedToken && verifiedToken.userID;
   }
+
+  return context.userID;
 };
 
 export const getCurrentUser = async (ctx: Context, include?: UserInclude) => {

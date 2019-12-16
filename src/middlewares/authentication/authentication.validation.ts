@@ -10,8 +10,6 @@ export const registerInputValidation = async (
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
-  console.log('before', info);
   const result = await resolve(parent, args, context, info);
-  console.log('result', result);
   return result;
 };

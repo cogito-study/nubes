@@ -5,29 +5,37 @@ import { validateJWToken } from './utils/authentication';
 import { Environment } from './utils/environment';
 
 const pubsub = new PubSub();
-const photon = new Photon({
-  debug: true,
-});
+const photon = new Photon();
 
 const server = new ApolloServer({
   schema,
   subscriptions: {
-    onConnect: (connectionParams: { authToken?: string | null }) => {
+    onConnect: async (connectionParams: { authToken?: string | null }) => {
       if (connectionParams.authToken) {
-        return new Promise((resolve, reject) => {
+        const resolveToken = new Promise((resolve, reject) => {
           const token = validateJWToken(connectionParams.authToken);
 
           // TODO: Localize
-          token ? resolve(token.userID) : reject(new Error('Invalid auth token!'));
+          token ? resolve({ userID: token.userID }) : reject(new Error('Invalid auth token!'));
         });
+
+        return await resolveToken;
       }
       // TODO: Localize
       throw new Error('Missing auth token!');
     },
   },
-  context: (request) => {
+  context: async ({ req, connection }) => {
+    if (connection) {
+      return {
+        ...connection.context,
+        pubsub,
+        photon,
+      };
+    }
+
     return {
-      ...request,
+      req,
       photon,
       pubsub,
     };
