@@ -1,7 +1,7 @@
-import { publishSuggestionEvent } from './../suggestion.subscription';
 import Delta from 'quill-delta';
 import { Context } from '../../../types';
 import { getUserID } from '../../../utils/authentication';
+import { publishSuggestionEvent } from './../suggestion.subscription';
 import { isActiveSuggestion } from './is-active';
 
 export async function applySuggestion(suggestionId: string, ctx: Context) {

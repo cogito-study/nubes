@@ -1,8 +1,10 @@
-import { PubSub } from 'apollo-server';
 import { Photon } from '@prisma/photon';
+import { PubSub } from 'apollo-server';
+import { Request } from 'express';
 
 export interface Context {
   pubsub: PubSub;
   photon: Photon;
-  req: any;
+  req?: Request;
+  userID?: string;
 }

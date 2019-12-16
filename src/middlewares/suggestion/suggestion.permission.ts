@@ -32,11 +32,7 @@ export const addSuggestionPermission = async ({
   suggestions: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
+  const mappedUsers = users.map(({ id }) => ({ id }));
   await Promise.all(
     suggestions.map(async (suggestion) => {
       await context.photon.suggestionPermissions.create({
@@ -67,9 +63,11 @@ export const addSuggestionPermissions = async ({
   suggestions: Array<{ id: string }>;
   context: Context;
 }) => {
-  permissions.map(
-    async (permission) =>
-      await addSuggestionPermission({ permission, users, suggestions, context }),
+  await Promise.all(
+    permissions.map(
+      async (permission) =>
+        await addSuggestionPermission({ permission, users, suggestions, context }),
+    ),
   );
 };
 

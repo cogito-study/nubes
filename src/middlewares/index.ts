@@ -1,7 +1,7 @@
 import { adminMiddlewares } from './admin';
 import { authenticationMiddlewares } from './authentication';
 import { departmentMiddlewares } from './department';
-import { i18nInitMiddleware } from './i18n';
+import { i18nMiddlewares } from './i18n';
 import { instituteMiddlewares } from './institute';
 import { noteMiddlewares } from './note';
 import { noteCommentMiddlewares } from './note-comment';
@@ -16,7 +16,7 @@ export const middlewares = [
   adminMiddlewares,
   authenticationMiddlewares,
   departmentMiddlewares,
-  i18nInitMiddleware,
+  i18nMiddlewares,
   instituteMiddlewares,
   noteMiddlewares,
   noteCommentMiddlewares,

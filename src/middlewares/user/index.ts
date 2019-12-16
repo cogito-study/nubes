@@ -6,6 +6,7 @@ import {
   updateUser,
   users,
 } from './user.authorization';
+import { userLoginInputValidator } from './user.validation';
 
 export const userMiddlewares: Middleware = {
   Mutation: {
@@ -13,6 +14,7 @@ export const userMiddlewares: Middleware = {
     changeEmail,
     changePassword,
     changePreferredLanguage,
+    login: userLoginInputValidator,
   },
   Query: {
     users,
