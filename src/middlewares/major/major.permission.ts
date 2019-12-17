@@ -1,6 +1,7 @@
-import { MajorPermissionType, User } from '@prisma/photon';
+import { MajorPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasMajorPermission = async ({
   permission,
@@ -34,15 +35,10 @@ export const addMajorPermission = async ({
   context,
 }: {
   permission: MajorPermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   majorID: string;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await context.photon.majorPermissions.create({
     data: {
       type: permission,
@@ -52,7 +48,7 @@ export const addMajorPermission = async ({
         },
       },
       users: {
-        connect: mappedUsers,
+        connect: mapObjectsToIdentifiables(users),
       },
     },
   });

@@ -1,6 +1,7 @@
-import { PostCommentPermissionType, User } from '@prisma/photon';
+import { PostCommentPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasPostCommentPermission = async ({
   permission,
@@ -28,15 +29,10 @@ export const addPostCommentPermission = async ({
   context,
 }: {
   permission: PostCommentPermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   postCommentID: string;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await context.photon.postCommentPermissions.create({
     data: {
       type: permission,
@@ -46,7 +42,7 @@ export const addPostCommentPermission = async ({
         },
       },
       users: {
-        connect: mappedUsers,
+        connect: mapObjectsToIdentifiables(users),
       },
     },
   });

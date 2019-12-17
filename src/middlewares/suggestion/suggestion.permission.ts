@@ -1,6 +1,7 @@
 import { SuggestionPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasSuggestionPermission = async ({
   permission,
@@ -32,7 +33,6 @@ export const addSuggestionPermission = async ({
   suggestions: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map(({ id }) => ({ id }));
   await Promise.all(
     suggestions.map(async (suggestion) => {
       await context.photon.suggestionPermissions.create({
@@ -44,7 +44,7 @@ export const addSuggestionPermission = async ({
             },
           },
           users: {
-            connect: mappedUsers,
+            connect: mapObjectsToIdentifiables(users),
           },
         },
       });
@@ -88,7 +88,7 @@ export const deleteSuggestionPermission = async ({
             where: {
               object: suggestion,
               users: {
-                some: user,
+                some: { id: user.id },
               },
             },
             include: { users: true },
@@ -97,7 +97,7 @@ export const deleteSuggestionPermission = async ({
             permissions.map(async (permission) => {
               await context.photon.suggestionPermissions.update({
                 where: { id: permission.id },
-                data: { users: { disconnect: user } },
+                data: { users: { disconnect: { id: user.id } } },
               });
             }),
           );

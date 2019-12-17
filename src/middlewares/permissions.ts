@@ -44,7 +44,7 @@ export const subjectPermissions: {
       'CREATE_NOTE',
       'CREATE_SUBJECT_INFORMATION',
     ],
-    students: ['READ_SUBJECT'],
+    students: ['READ_SUBJECT', 'CREATE_POST'],
   },
   notes: {
     permissions: {

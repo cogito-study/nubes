@@ -1,6 +1,7 @@
-import { DepartmentPermissionType, User } from '@prisma/photon';
+import { DepartmentPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasDepartmentPermission = async ({
   permission,
@@ -28,15 +29,10 @@ export const addDepartmentPermission = async ({
   context,
 }: {
   permission: DepartmentPermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   departmentID: string;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await context.photon.departmentPermissions.create({
     data: {
       type: permission,
@@ -46,7 +42,7 @@ export const addDepartmentPermission = async ({
         },
       },
       users: {
-        connect: mappedUsers,
+        connect: mapObjectsToIdentifiables(users),
       },
     },
   });
