@@ -1,6 +1,7 @@
-import { InstitutePermissionType, User } from '@prisma/photon';
+import { InstitutePermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasInstitutePermission = async ({
   permission,
@@ -28,27 +29,21 @@ export const addInstitutePermission = async ({
   context,
 }: {
   permission: InstitutePermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   instituteID: string;
   context: Context;
 }) => {
-  await Promise.all(
-    users.map(async (user) => {
-      await context.photon.institutePermissions.create({
-        data: {
-          type: permission,
-          object: {
-            connect: {
-              id: instituteID,
-            },
-          },
-          users: {
-            connect: {
-              id: user.id,
-            },
-          },
+  await context.photon.institutePermissions.create({
+    data: {
+      type: permission,
+      object: {
+        connect: {
+          id: instituteID,
         },
-      });
-    }),
-  );
+      },
+      users: {
+        connect: mapObjectsToIdentifiables(users),
+      },
+    },
+  });
 };

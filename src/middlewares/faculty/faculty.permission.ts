@@ -1,6 +1,7 @@
-import { FacultyPermissionType, User } from '@prisma/photon';
+import { FacultyPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasFacultyPermission = async ({
   permission,
@@ -34,15 +35,10 @@ export const addFacultyPermission = async ({
   context,
 }: {
   permission: FacultyPermissionType;
-  users: Array<User>;
+  users: Array<{ id: string }>;
   facultyID: string;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await context.photon.facultyPermissions.create({
     data: {
       type: permission,
@@ -52,7 +48,7 @@ export const addFacultyPermission = async ({
         },
       },
       users: {
-        connect: mappedUsers,
+        connect: mapObjectsToIdentifiables(users),
       },
     },
   });

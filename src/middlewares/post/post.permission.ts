@@ -1,6 +1,7 @@
 import { PostPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasPostPermission = async ({
   permission,
@@ -38,23 +39,16 @@ export const addPostPermission = async ({
   posts: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await Promise.all(
-    posts.map(async (post) => {
+    posts.map(async ({ id }) => {
       await context.photon.postPermissions.create({
         data: {
           type: permission,
           object: {
-            connect: {
-              id: post.id,
-            },
+            connect: { id },
           },
           users: {
-            connect: mappedUsers,
+            connect: mapObjectsToIdentifiables(users),
           },
         },
       });
@@ -88,14 +82,14 @@ export const deletePostPermission = async ({
   context: Context;
 }) => {
   await Promise.all(
-    posts.map(async (post) => {
+    posts.map(async ({ id }) => {
       await Promise.all(
         users.map(async (user) => {
           const permissions = await context.photon.postPermissions.findMany({
             where: {
-              object: post,
+              object: { id },
               users: {
-                some: user,
+                some: { id: user.id },
               },
             },
             include: { users: true },
@@ -104,7 +98,7 @@ export const deletePostPermission = async ({
             permissions.map(async (permission) => {
               await context.photon.postPermissions.update({
                 where: { id: permission.id },
-                data: { users: { disconnect: user } },
+                data: { users: { disconnect: { id: user.id } } },
               });
             }),
           );

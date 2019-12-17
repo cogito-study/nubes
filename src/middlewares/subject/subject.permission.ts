@@ -1,6 +1,7 @@
 import { SubjectPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasSubjectPermission = async ({
   permission,
@@ -35,11 +36,6 @@ export const addSubjectPermission = async ({
   subjects: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await Promise.all(
     subjects.map(async (subject) => {
       await context.photon.subjectPermissions.create({
@@ -49,7 +45,7 @@ export const addSubjectPermission = async ({
             connect: subject,
           },
           users: {
-            connect: mappedUsers,
+            connect: mapObjectsToIdentifiables(users),
           },
         },
       });
@@ -85,14 +81,14 @@ export const deleteSubjectPermission = async ({
   context: Context;
 }) => {
   await Promise.all(
-    subjects.map(async (subject) => {
+    subjects.map(async ({ id }) => {
       await Promise.all(
         users.map(async (user) => {
           const permissions = await context.photon.subjectPermissions.findMany({
             where: {
-              object: subject,
+              object: { id },
               users: {
-                some: user,
+                some: { id: user.id },
               },
             },
             include: { users: true },
@@ -101,7 +97,7 @@ export const deleteSubjectPermission = async ({
             permissions.map(async (permission) => {
               await context.photon.subjectPermissions.update({
                 where: { id: permission.id },
-                data: { users: { disconnect: user } },
+                data: { users: { disconnect: { id: user.id } } },
               });
             }),
           );

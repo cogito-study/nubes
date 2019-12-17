@@ -1,6 +1,7 @@
 import { SubjectInformationPermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasSubjectInformationPermission = async ({
   permission,
@@ -32,23 +33,16 @@ export const addSubjectInformationPermission = async ({
   subjectInformations: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await Promise.all(
-    subjectInformations.map(async (subjectInformation) => {
+    subjectInformations.map(async ({ id }) => {
       await context.photon.subjectInformationPermissions.create({
         data: {
           type: permission,
           object: {
-            connect: {
-              id: subjectInformation.id,
-            },
+            connect: { id },
           },
           users: {
-            connect: mappedUsers,
+            connect: mapObjectsToIdentifiables(users),
           },
         },
       });
@@ -83,14 +77,14 @@ export const deleteSubjectInformationPermission = async ({
   context: Context;
 }) => {
   await Promise.all(
-    subjectInformations.map(async (subjectInformation) => {
+    subjectInformations.map(async ({ id }) => {
       await Promise.all(
         users.map(async (user) => {
           const permissions = await context.photon.subjectInformationPermissions.findMany({
             where: {
-              object: subjectInformation,
+              object: { id },
               users: {
-                some: user,
+                some: { id: user.id },
               },
             },
             include: { users: true },
@@ -99,7 +93,7 @@ export const deleteSubjectInformationPermission = async ({
             permissions.map(async (permission) => {
               await context.photon.subjectInformationPermissions.update({
                 where: { id: permission.id },
-                data: { users: { disconnect: user } },
+                data: { users: { disconnect: { id: user.id } } },
               });
             }),
           );

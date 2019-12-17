@@ -1,6 +1,7 @@
 import { NotePermissionType } from '@prisma/photon';
 import { Context } from '../../types';
 import { getUserID } from '../../utils/authentication';
+import { mapObjectsToIdentifiables } from '../../utils/permission';
 
 export const hasNotePermission = async ({
   permission,
@@ -32,21 +33,16 @@ export const addNotePermission = async ({
   notes: Array<{ id: string }>;
   context: Context;
 }) => {
-  const mappedUsers = users.map((user) => {
-    return {
-      id: user.id,
-    };
-  });
   await Promise.all(
-    notes.map(async (note) => {
+    notes.map(async ({ id }) => {
       await context.photon.notePermissions.create({
         data: {
           type: permission,
           object: {
-            connect: note,
+            connect: { id },
           },
           users: {
-            connect: mappedUsers,
+            connect: mapObjectsToIdentifiables(users),
           },
         },
       });
@@ -81,14 +77,14 @@ export const deleteNotePermission = async ({
   context: Context;
 }) => {
   await Promise.all(
-    notes.map(async (note) => {
+    notes.map(async ({ id }) => {
       await Promise.all(
         users.map(async (user) => {
           const permissions = await context.photon.notePermissions.findMany({
             where: {
-              object: note,
+              object: { id },
               users: {
-                some: user,
+                some: { id: user.id },
               },
             },
             include: { users: true },
@@ -97,7 +93,7 @@ export const deleteNotePermission = async ({
             permissions.map(async (permission) => {
               await context.photon.notePermissions.update({
                 where: { id: permission.id },
-                data: { users: { disconnect: user } },
+                data: { users: { disconnect: { id: user.id } } },
               });
             }),
           );
