@@ -12,7 +12,7 @@ export const MajorQuery = extendType({
       args: { data: 'MajorByTokenInput', where: 'WhereUniqueInput' },
       resolve: async (_, { data: { token }, where }, context) => {
         const activationToken = await validateActivationToken({ token, context });
-        if (activationToken === null) throw new AuthenticationError('Invalid or expired token');
+        if (activationToken === null) throw new AuthenticationError('__(invalid_expired_token)');
 
         return await context.photon.majors.findOne({ where });
       },

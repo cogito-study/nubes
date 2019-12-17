@@ -1,5 +1,6 @@
 import { Suggestion } from '@prisma/photon';
 import { ApolloError, withFilter } from 'apollo-server';
+import { __ } from 'i18n';
 import { extendType } from 'nexus';
 import { Context } from './../../types';
 import { WhereUniqueInput } from './../input';
@@ -32,7 +33,7 @@ const filteredIterator = (event: SuggestionEvent) => {
     (_, {}, ctx) => ctx.pubsub.asyncIterator(event),
     (payload, { where }) => {
       if (!payload[payloadToEvent[event]].note) {
-        throw new ApolloError('', 'Note is not included in published suggestion.');
+        throw new ApolloError('', __('suggestion_has_no_note'));
       }
       return payload[payloadToEvent[event]].note.id === where.id;
     },

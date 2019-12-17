@@ -1,12 +1,19 @@
 {
+  "invalid_expired_token": "Nem létező, vagy lejárt token",
+  "invalid_token": "Nem létező token",
   "token_expired": "Lejárt token",
-  "invalid_email": "Rossz e-mail formátum!",
-  "no_permission": "Nincs jogosultságod ehhez a művelethez!",
+  "invalid_email": "Nem megfelelő e-mail cím!",
+  "no_permission": "Nincs jogosultságod ehhez!",
+  "suggestion_has_no_note": "Nem tartozik jegyzet a leadni kívánt javaslathoz",
+  "user_no_exist": "Nem létező felhasználói profil",
+  "invalid_language": "Ehhez az ID-hoz nem tartozik nyelv!",
+  "existing_email": "Ez az e-mail cím már használatban van, kérlek próbáld meg egy másikkal!",
+
   "wait_%s_minutes": {
     "one": "Kérlek várj egy percet",
     "other": "Kérlek várj %s percet"
   },
-  "unauthenticated": "Jelentkezz be!",
+  "unauthenticated": "Előbb jelentkezz be!",
   "full_name": "{{lastName}} {{firstName}}",
   "sender_name": "{{name}} a Cogito-tól"
 }
