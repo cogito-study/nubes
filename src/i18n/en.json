@@ -1,7 +1,14 @@
 {
+  "invalid_expired_token": "Invalid or expired token",
+  "invalid_token": "Invalid token",
   "token_expired": "Token expired",
   "invalid_email": "Invalid email address!",
-  "no_permission": "You don't have permission!",
+  "no_permission": "You don't have permission to do this!",
+  "suggestion_has_no_note": "No note included to the published suggestion",
+  "user_no_exist": "User doesn't exist",
+  "invalid_language": "There's no language associated to this ID!",
+  "existing_email": "Email already in use, please choose another!",
+
   "wait_%s_minutes": {
     "one": "Please wait 1 minute",
     "other": "Please wait %s minutes"

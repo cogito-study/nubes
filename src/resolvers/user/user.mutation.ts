@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-server';
+import { __ } from 'i18n';
 import { extendType } from 'nexus';
 import { comparePasswords, getCurrentUser, hashPassword } from '../../utils/authentication';
 import { WhereUniqueInput } from '../input';
@@ -23,10 +24,10 @@ export const UserMutation = extendType({
       },
       resolve: async (_, { where, data: { oldPassword, newPassword } }, ctx) => {
         const user = await getCurrentUser(ctx);
-        if (user === null) throw new Error(`User doesn't exist`);
+        if (user === null) throw new Error(__('user_no_exist'));
 
         const isValidPassword = await comparePasswords(oldPassword, user.password);
-        if (!isValidPassword) throw new Error('The old password is not correct');
+        if (!isValidPassword) throw new Error(__('old_password_validation'));
 
         return await ctx.photon.users.update({
           where,
@@ -43,10 +44,10 @@ export const UserMutation = extendType({
       },
       resolve: async (_, { where, data: { email } }, ctx) => {
         const user = await getCurrentUser(ctx);
-        if (user === null) throw new Error(`User doesn't exist`);
+        if (user === null) throw new Error(__('user_no_exist'));
 
         if ((await ctx.photon.users.findOne({ where: { email } })) !== null)
-          throw new ApolloError('Email already in use, please choose another!');
+          throw new ApolloError(__('existing_email'));
 
         return await ctx.photon.users.update({
           where,
@@ -63,10 +64,10 @@ export const UserMutation = extendType({
       },
       resolve: async (_, { where, data: { preferredLanguage } }, ctx) => {
         const user = await getCurrentUser(ctx);
-        if (user === null) throw new Error(`User doesn't exist`);
+        if (user === null) throw new Error(__('user_no_exist'));
 
         if ((await ctx.photon.languages.findOne({ where: { id: preferredLanguage.id } })) === null)
-          throw new ApolloError(`There's no language with this id!`);
+          throw new ApolloError(__('invalid_language'));
 
         return await ctx.photon.users.update({
           where,

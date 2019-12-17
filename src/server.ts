@@ -1,5 +1,6 @@
 import { Photon } from '@prisma/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
+import { __ } from 'i18n';
 import { schema } from './schema';
 import { validateJWToken } from './utils/authentication';
 import { Environment } from './utils/environment';
@@ -16,7 +17,7 @@ const server = new ApolloServer({
           const token = validateJWToken(connectionParams.authToken);
 
           // TODO: Localize
-          token ? resolve({ userID: token.userID }) : reject(new Error('Invalid auth token!'));
+          token ? resolve({ userID: token.userID }) : reject(new Error(__('invalid_token')));
         });
 
         return await resolveToken;
