@@ -1,12 +1,16 @@
 import { Photon } from '@prisma/photon';
 import { ApolloServer, PubSub } from 'apollo-server';
+import { applyMiddleware } from 'graphql-middleware';
 import { __ } from 'i18n';
+import { middlewares } from './middlewares';
 import { schema } from './schema';
 import { validateJWToken } from './utils/authentication';
 import { Environment } from './utils/environment';
 
 const pubsub = new PubSub();
 const photon = new Photon();
+
+applyMiddleware(schema, ...middlewares);
 
 const server = new ApolloServer({
   schema,
@@ -15,15 +19,13 @@ const server = new ApolloServer({
       if (connectionParams.authToken) {
         const resolveToken = new Promise((resolve, reject) => {
           const token = validateJWToken(connectionParams.authToken);
-
-          // TODO: Localize
           token ? resolve({ userID: token.userID }) : reject(new Error(__('invalid_token')));
         });
 
         return await resolveToken;
       }
-      // TODO: Localize
-      throw new Error('Missing auth token!');
+
+      throw new Error(__('invalid_missing_token'));
     },
   },
   context: async ({ req, connection }) => {

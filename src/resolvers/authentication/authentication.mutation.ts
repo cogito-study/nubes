@@ -19,6 +19,7 @@ import {
   ValidateTokenInput,
 } from './authentication.input';
 
+// TODO: Localize
 export const AuthenticationMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
@@ -29,11 +30,18 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { email, password } }, context) => {
         const user = await context.photon.users.findOne({ where: { email } });
-        if (user === null) throw new AuthenticationError('Invalid email or password');
+        if (user === null) {
+          throw new AuthenticationError('Invalid email or password');
+        }
+
+        if (!user.isActive) {
+          throw new AuthenticationError('Inactive user tried to log in');
+        }
 
         const isValidPassword = await comparePasswords(password, user.password);
-        if (!isValidPassword) throw new AuthenticationError('Invalid email or password');
-        if (!user.isActive) throw new AuthenticationError('Inactive user tried to log in');
+        if (!isValidPassword) {
+          throw new AuthenticationError('Invalid email or password');
+        }
 
         return {
           token: generateJWToken(user.id),
