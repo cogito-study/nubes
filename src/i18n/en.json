@@ -1,20 +1,24 @@
 {
-  "invalid_expired_token": "Invalid or expired token",
-  "invalid_missing_token": "Invalid or missing token",
-  "invalid_token": "Invalid token",
-  "token_expired": "Token expired",
-  "invalid_email": "Invalid email address!",
-  "no_permission": "You don't have permission to do this!",
-  "suggestion_has_no_note": "No note included to the published suggestion",
-  "user_no_exist": "User doesn't exist",
-  "invalid_language": "There's no language associated to this ID!",
-  "existing_email": "Email already in use, please choose another!",
-
-  "wait_%s_minutes": {
-    "one": "Please wait 1 minute",
-    "other": "Please wait %s minutes"
-  },
-  "unauthenticated": "You need to login!",
+  "auth_activation_error": "Something bad happened while activating your registration..",
+  "auth_register_error": "Something bad happened while registering..",
+  "auth_reset_password_error": "Something bad happened while resetting your password..",
+  "format_invalid_email": "Invalid email address format!",
   "full_name": "{{firstName}} {{lastName}}",
-  "sender_name": "{{name}} from Cogito"
+  "inactive_user_login": "It looks you haven't activated your profile. Confirm your email and you can login!",
+  "internal_server_error": "Internal server error!",
+  "invalid_email_password": "The email or password you entered is not correct!",
+  "invalid_expired_token": "Invalid or expired token!",
+  "invalid_language": "There's no language associated to this ID!",
+  "invalid_token": "Invalid token!",
+  "no_permission": "You don't have permission to this operation!",
+  "sender_name": "{{name}} from Cogito",
+  "suggestion_has_no_note": "No note included to the published suggestion!",
+  "token_expired": "The provided token is expired!",
+  "unauthenticated": "Please log in first!",
+  "used_email": "This email address is used by somebody else, please choose another one!",
+  "user_no_exist": "User doesn't exist!",
+  "wait_%s_minutes": {
+    "one": "Please wait 1 minute!",
+    "other": "Please wait %s minutes!"
+  }
 }

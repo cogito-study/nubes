@@ -47,7 +47,7 @@ export const UserMutation = extendType({
         if (user === null) throw new Error(__('user_no_exist'));
 
         if ((await ctx.photon.users.findOne({ where: { email } })) !== null)
-          throw new ApolloError(__('existing_email'));
+          throw new ApolloError(__('used_email'));
 
         return await ctx.photon.users.update({
           where,

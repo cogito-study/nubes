@@ -1,12 +1,12 @@
+import { ForbiddenError } from 'apollo-server';
+import { GraphQLResolveInfo } from 'graphql';
+import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
-import { GraphQLResolveInfo } from 'graphql';
-import { hasInstitutePermission } from './institute.permission';
-import { ForbiddenError } from 'apollo-server';
-import { __ } from 'i18n';
 import { getUserID } from '../../utils/authentication';
 import { addDepartmentPermission } from '../department/department.permission';
+import { hasInstitutePermission } from './institute.permission';
 
 export const createDepartment = async (
   resolve: FieldResolver<'Mutation', 'createDepartment'>,
@@ -19,7 +19,7 @@ export const createDepartment = async (
     await hasInstitutePermission({
       permission: 'CREATE_DEPARTMENT',
       instituteID: args.data.institute.id,
-      context: context,
+      context,
     })
   ) {
     const response = await resolve(parent, args, context, info);

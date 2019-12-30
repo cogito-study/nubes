@@ -46,5 +46,5 @@ export const deleteNoteComment = async (
     return await resolve(parent, args, context, info);
   }
 
-  throw new Error('403');
+  throw new ForbiddenError(__('no_permission'));
 };

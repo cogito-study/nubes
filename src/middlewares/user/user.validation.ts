@@ -17,7 +17,7 @@ export const userLoginInputValidator = async (
     email: yup.string().email(),
   });
   const schemaIsValid = await schema.isValid(args.data);
-  if (!schemaIsValid) throw new UserInputError(__('invalid_email'));
+  if (!schemaIsValid) throw new UserInputError(__('format_invalid_email'));
 
   return await resolve(parent, args, context, info);
 };
