@@ -35,8 +35,11 @@ export const InstituteMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.institutes.delete({
+        return ctx.photon.institutes.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

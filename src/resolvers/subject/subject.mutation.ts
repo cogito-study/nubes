@@ -30,8 +30,11 @@ export const SubjectMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.subjects.delete({
+        return ctx.photon.subjects.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

@@ -82,8 +82,11 @@ export const UserMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.users.delete({
+        return ctx.photon.users.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

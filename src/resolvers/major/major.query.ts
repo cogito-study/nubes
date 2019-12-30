@@ -1,5 +1,7 @@
 import { AuthenticationError } from 'apollo-server';
 import { extendType } from 'nexus';
+import { NexusGenRootTypes } from '../../../generated/nexus-typegen';
+import { deleteSoftDeletedObjectFromResponse } from '../../utils/soft-delete';
 import { validateActivationToken } from '../../utils/token';
 
 export const MajorQuery = extendType({
@@ -14,7 +16,9 @@ export const MajorQuery = extendType({
         const activationToken = await validateActivationToken({ token, context });
         if (activationToken === null) throw new AuthenticationError('__(invalid_expired_token)');
 
-        return await context.photon.majors.findOne({ where });
+        return deleteSoftDeletedObjectFromResponse<NexusGenRootTypes['Major']>(
+          await context.photon.majors.findOne({ where }),
+        );
       },
     });
   },

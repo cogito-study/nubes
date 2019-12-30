@@ -41,8 +41,11 @@ export const MajorMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.majors.delete({
+        return ctx.photon.majors.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

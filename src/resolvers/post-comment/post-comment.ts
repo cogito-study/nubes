@@ -1,5 +1,7 @@
 import { objectType } from 'nexus';
+import { NexusGenRootTypes } from '../../../generated/nexus-typegen';
 import { getUserID } from '../../utils/authentication';
+import { deleteSoftDeletedObjectFromResponse } from '../../utils/soft-delete';
 
 export const PostComment = objectType({
   name: 'PostComment',
@@ -9,6 +11,17 @@ export const PostComment = objectType({
 
     t.model.author({ type: 'User' });
     t.model.post({ type: 'Post' });
+    t.field('post', {
+      type: 'Post',
+      nullable: true,
+      resolve: async ({ id }, args, context) => {
+        const postComment = await context.photon.postComments.findOne({
+          where: { id },
+          include: { post: true },
+        });
+        return deleteSoftDeletedObjectFromResponse<NexusGenRootTypes['Post']>(postComment.post);
+      },
+    });
     t.model.likers({ type: 'User' });
 
     t.field('likesCount', {

@@ -17,7 +17,11 @@ export const InstituteQuery = extendType({
         const activationToken = await validateActivationToken({ token, context });
         if (activationToken === null) throw new AuthenticationError(__('invalid_token'));
 
-        return await context.photon.institutes.findMany();
+        return await context.photon.institutes.findMany({
+          where: {
+            deletedAt: null,
+          },
+        });
       },
     });
   },

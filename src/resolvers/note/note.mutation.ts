@@ -38,8 +38,11 @@ export const NoteMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.notes.delete({
+        return ctx.photon.notes.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

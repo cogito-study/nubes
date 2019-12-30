@@ -17,6 +17,7 @@ export const PostQuery = extendType({
                 some: { id: getUserID(ctx) },
               },
             },
+            deletedAt: null,
           },
         });
         return posts;
