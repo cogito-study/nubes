@@ -9,12 +9,23 @@ export const Post = objectType({
     t.model.author({ type: 'User' });
     t.model.likers({ type: 'User' });
     t.model.subject({ type: 'Subject' });
-    t.model.comments({ type: 'PostComment' });
 
+    t.field('comments', {
+      type: 'PostComment',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.postComments.findMany({
+          where: {
+            post: { id },
+            deletedAt: null,
+          },
+        });
+      },
+    });
     t.field('hasLikedPost', {
       type: 'Boolean',
       description: 'Whether the logged in user liked a post before',
-      resolve: async ({ id }, args, context) => {
+      resolve: async ({ id }, _, context) => {
         const likers = await context.photon.posts
           .findOne({ where: { id } })
           .likers({ select: { id: true } });
@@ -41,6 +52,7 @@ export const Post = objectType({
           where: {
             object: { id },
             users: { some: { id: getUserID(context) } },
+            deletedAt: null,
           },
           select: {
             type: true,

@@ -1,7 +1,7 @@
 import { extendType } from 'nexus';
-import { UpdateDepartmentInput } from './department.input';
-import { WhereUniqueInput } from '../input';
 import { optionalConnect } from '../../utils';
+import { WhereUniqueInput } from '../input';
+import { UpdateDepartmentInput } from './department.input';
 
 export const DepartmentMutation = extendType({
   type: 'Mutation',
@@ -29,8 +29,11 @@ export const DepartmentMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.departments.delete({
+        return ctx.photon.departments.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

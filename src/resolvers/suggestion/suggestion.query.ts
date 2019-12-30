@@ -16,6 +16,7 @@ export const SuggestionQuery = extendType({
             note: {
               id: noteID,
             },
+            deletedAt: null,
           },
         });
 

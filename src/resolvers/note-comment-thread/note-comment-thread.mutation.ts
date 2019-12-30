@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { CreateNoteCommentThreadInput } from './note-comment-thread.input';
 import { WhereUniqueInput } from '../input';
+import { CreateNoteCommentThreadInput } from './note-comment-thread.input';
 
 export const NoteCommentThreadMutation = extendType({
   type: 'Mutation',
@@ -25,8 +25,11 @@ export const NoteCommentThreadMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.noteCommentThreads.delete({
+        return ctx.photon.noteCommentThreads.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

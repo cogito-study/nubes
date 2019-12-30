@@ -23,6 +23,7 @@ export const Suggestion = objectType({
           where: {
             object: { id },
             users: { some: { id: getUserID(context) } },
+            deletedAt: null,
           },
           select: {
             type: true,

@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { CreateNoteCommentInput, UpdateNoteCommentInput } from './note-comment.input';
 import { WhereUniqueInput } from '../input';
+import { CreateNoteCommentInput, UpdateNoteCommentInput } from './note-comment.input';
 
 export const NoteCommentMutation = extendType({
   type: 'Mutation',
@@ -38,8 +38,11 @@ export const NoteCommentMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.noteComments.delete({
+        return ctx.photon.noteComments.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

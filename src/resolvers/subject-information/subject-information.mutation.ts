@@ -1,9 +1,9 @@
 import { extendType } from 'nexus';
+import { WhereUniqueInput } from '../input';
 import {
   CreateSubjectInformationInput,
   UpdateSubjectInformationInput,
 } from './subject-information.input';
-import { WhereUniqueInput } from '../input';
 
 export const SubjectInformationMutation = extendType({
   type: 'Mutation',
@@ -41,8 +41,11 @@ export const SubjectInformationMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.subjectInformations.delete({
+        return ctx.photon.subjectInformations.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

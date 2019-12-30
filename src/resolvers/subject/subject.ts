@@ -11,12 +11,68 @@ export const Subject = objectType({
 
     t.model.department({ type: 'Department' });
     t.model.moderators({ type: 'User' });
-    t.model.teachers({ type: 'User' });
-    t.model.students({ type: 'User' });
-    t.model.informations({ type: 'SubjectInformation' });
-    t.model.notes({ type: 'Note' });
-    t.model.posts({ type: 'Post', ordering: { createdAt: true } });
     t.model.language({ type: 'Language' });
+
+    t.field('informations', {
+      type: 'SubjectInformation',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.subjectInformations.findMany({
+          where: {
+            subject: { id },
+            deletedAt: null,
+          },
+        });
+      },
+    });
+    t.field('notes', {
+      type: 'Note',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.notes.findMany({
+          where: {
+            subject: { id },
+            deletedAt: null,
+          },
+        });
+      },
+    });
+    t.field('posts', {
+      type: 'Post',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.posts.findMany({
+          where: {
+            subject: { id },
+            deletedAt: null,
+          },
+        });
+      },
+    });
+    t.field('students', {
+      type: 'User',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.users.findMany({
+          where: {
+            studiedSubjects: { some: { id } },
+            deletedAt: null,
+          },
+        });
+      },
+    });
+    t.field('teachers', {
+      type: 'User',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.users.findMany({
+          where: {
+            teachedSubjects: { some: { id } },
+            deletedAt: null,
+          },
+        });
+      },
+    });
 
     t.field('permissions', {
       type: 'SubjectPermissionType',
@@ -26,6 +82,7 @@ export const Subject = objectType({
           where: {
             object: { id },
             users: { some: { id: getUserID(context) } },
+            deletedAt: null,
           },
           select: {
             type: true,

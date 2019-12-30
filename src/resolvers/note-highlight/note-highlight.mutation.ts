@@ -1,6 +1,6 @@
 import { extendType } from 'nexus';
-import { CreateNoteHighlightInput, UpdateNoteHighlightInput } from './note-highlight.input';
 import { WhereUniqueInput } from '../input';
+import { CreateNoteHighlightInput, UpdateNoteHighlightInput } from './note-highlight.input';
 
 export const NoteHighlightMutation = extendType({
   type: 'Mutation',
@@ -39,8 +39,11 @@ export const NoteHighlightMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.noteHighlights.delete({
+        return ctx.photon.noteHighlights.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

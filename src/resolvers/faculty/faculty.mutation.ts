@@ -43,8 +43,11 @@ export const FacultyMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.faculties.delete({
+        return ctx.photon.faculties.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });

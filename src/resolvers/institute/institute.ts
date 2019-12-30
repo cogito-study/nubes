@@ -9,6 +9,19 @@ export const Institute = objectType({
 
     t.model.departments({ type: 'Department' });
     t.model.users({ type: 'User' });
+
+    t.field('faculties', {
+      type: 'Faculty',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.faculties.findMany({
+          where: {
+            institute: { id },
+            deletedAt: null,
+          },
+        });
+      },
+    });
     t.model.faculties({ type: 'Faculty' });
 
     t.field('permissions', {
@@ -19,6 +32,7 @@ export const Institute = objectType({
           where: {
             object: { id },
             users: { some: { id: getUserID(context) } },
+            deletedAt: null,
           },
         });
         return permissions.map((p) => p.type);

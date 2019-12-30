@@ -1,7 +1,7 @@
 import { extendType } from 'nexus';
-import { CreatePostCommentInput, UpdatePostCommentInput } from './post-comment.input';
-import { WhereUniqueInput } from '../input';
 import { getUserID } from '../../utils/authentication';
+import { WhereUniqueInput } from '../input';
+import { CreatePostCommentInput, UpdatePostCommentInput } from './post-comment.input';
 
 export const PostCommentMutation = extendType({
   type: 'Mutation',
@@ -40,8 +40,11 @@ export const PostCommentMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: (_, { where }, ctx) => {
-        return ctx.photon.postComments.delete({
+        return ctx.photon.postComments.update({
           where,
+          data: {
+            deletedAt: new Date(),
+          },
         });
       },
     });
