@@ -25,7 +25,7 @@ const server = new ApolloServer({
         return await resolveToken;
       }
 
-      throw new Error(__('invalid_missing_token'));
+      throw new Error(__('invalid_expired_token'));
     },
   },
   context: async ({ req, connection }) => {
@@ -42,6 +42,11 @@ const server = new ApolloServer({
       photon,
       pubsub,
     };
+  },
+  formatError: (error) => {
+    if (Environment.nodeEnv === 'development') return error;
+
+    return error.message.includes('photon.') ? new Error(__('internal_server_error')) : error;
   },
   playground: Environment.nodeEnv === 'development',
   debug: Environment.nodeEnv === 'development',

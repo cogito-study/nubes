@@ -1,4 +1,5 @@
 import { AuthenticationError } from 'apollo-server';
+import { __ } from 'i18n';
 import { extendType } from 'nexus';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
 import { sendEmail } from '../../utils/email';
@@ -19,7 +20,6 @@ import {
   ValidateTokenInput,
 } from './authentication.input';
 
-// TODO: Localize
 export const AuthenticationMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
@@ -31,16 +31,16 @@ export const AuthenticationMutation = extendType({
       resolve: async (_, { data: { email, password } }, context) => {
         const user = await context.photon.users.findOne({ where: { email } });
         if (user === null) {
-          throw new AuthenticationError('Invalid email or password');
+          throw new AuthenticationError(__('invalid_email_password'));
         }
 
         if (!user.isActive) {
-          throw new AuthenticationError('Inactive user tried to log in');
+          throw new AuthenticationError(__('inactive_user_login'));
         }
 
         const isValidPassword = await comparePasswords(password, user.password);
         if (!isValidPassword) {
-          throw new AuthenticationError('Invalid email or password');
+          throw new AuthenticationError(__('invalid_email_password'));
         }
 
         return {
@@ -58,7 +58,7 @@ export const AuthenticationMutation = extendType({
       resolve: async (_, { data }, context) => {
         const { email, password, firstName, lastName, preferredLanguage } = data;
         if ((await context.photon.users.findOne({ where: { email } })) !== null)
-          throw new AuthenticationError('User already registered!');
+          throw new AuthenticationError(__('used_email'));
 
         try {
           const user = await context.photon.users.create({
@@ -90,7 +90,7 @@ export const AuthenticationMutation = extendType({
 
           return user;
         } catch (error) {
-          throw new AuthenticationError('Unable to create user');
+          throw new AuthenticationError(__('auth_register_error'));
         }
       },
     });
@@ -102,7 +102,7 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { token, subjects, major } }, context) => {
         const activationToken = await validateActivationToken({ token, context });
-        if (activationToken === null) throw new AuthenticationError('Invalid or expired token');
+        if (activationToken === null) throw new AuthenticationError(__('invalid_expired_token'));
 
         try {
           const user = await context.photon.users.update({
@@ -120,7 +120,7 @@ export const AuthenticationMutation = extendType({
 
           return user;
         } catch {
-          throw new AuthenticationError('Error happened while activating invitation');
+          throw new AuthenticationError(__('auth_activation_error'));
         }
       },
     });
@@ -132,7 +132,7 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { token, password } }, context) => {
         const activationToken = await validateActivationToken({ token, context });
-        if (activationToken === null) throw new AuthenticationError('Invalid or expired token');
+        if (activationToken === null) throw new AuthenticationError(__('invalid_expired_token'));
 
         try {
           await context.photon.users.update({
@@ -147,7 +147,7 @@ export const AuthenticationMutation = extendType({
 
           await context.photon.activationTokens.delete({ where: { token } });
         } catch {
-          throw new AuthenticationError('Error happened while activating invitation');
+          throw new AuthenticationError(__('auth_activation_error'));
         }
 
         return true;
@@ -201,7 +201,7 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { token, password } }, context) => {
         const resetPasswordToken = await validateResetPasswordToken({ token, context });
-        if (resetPasswordToken === null) throw new AuthenticationError('Invalid or expired token');
+        if (resetPasswordToken === null) throw new AuthenticationError(__('invalid_expired_token'));
 
         try {
           await context.photon.users.update({
@@ -215,7 +215,7 @@ export const AuthenticationMutation = extendType({
 
           await context.photon.resetPasswordTokens.delete({ where: { token } });
         } catch {
-          throw new AuthenticationError('Error while trying to reset password');
+          throw new AuthenticationError(__('auth_reset_password_error'));
         }
 
         return true;

@@ -1,20 +1,24 @@
 {
-  "invalid_expired_token": "Nem létező, vagy lejárt token",
-  "invalid_missing_token": "Hiányzó vagy nem létező token",
-  "invalid_token": "Nem létező token",
-  "token_expired": "Lejárt token",
-  "invalid_email": "Nem megfelelő e-mail cím!",
-  "no_permission": "Nincs jogosultságod ehhez!",
-  "suggestion_has_no_note": "Nem tartozik jegyzet a leadni kívánt javaslathoz",
-  "user_no_exist": "Nem létező felhasználói profil",
-  "invalid_language": "Ehhez az ID-hoz nem tartozik nyelv!",
-  "existing_email": "Ez az e-mail cím már használatban van, kérlek próbáld meg egy másikkal!",
-
-  "wait_%s_minutes": {
-    "one": "Kérlek várj egy percet",
-    "other": "Kérlek várj %s percet"
-  },
-  "unauthenticated": "Előbb jelentkezz be!",
+  "auth_activation_error": "Valamilyen hiba történt a regisztrációd aktiválása során..",
+  "auth_register_error": "Valamilyen hiba történt a regisztrációd során..",
+  "auth_reset_password_error": "Valamilyen hiba történt a jelszód visszaállítása során..",
+  "format_invalid_email": "Nem megfelelő az e-mail cím formátuma!",
   "full_name": "{{lastName}} {{firstName}}",
-  "sender_name": "{{name}} a Cogito-tól"
+  "inactive_user_login": "Úgy tűnik, hogy még nem aktiváltad a profilodat. Kérlek erősítsd meg az e-mail címed és utána be tudsz lépni!",
+  "internal_server_error": "Belső szerver hiba!",
+  "invalid_email_password": "A megadott e-mail vagy jelsző nem megfelelő!",
+  "invalid_expired_token": "Az általad megadott token lejárt vagy nem létezik!",
+  "invalid_language": "Ehhez az ID-hoz nem tartozik nyelv!",
+  "invalid_token": "Nem létező token!",
+  "no_permission": "Nincs jogosultságod ehhez a művelethez!",
+  "sender_name": "{{name}} a Cogito-tól",
+  "suggestion_has_no_note": "Nem tartozik jegyzet a leadni kívánt javaslathoz!",
+  "token_expired": "Az általad megadott token lejárt!",
+  "unauthenticated": "Kérlek először jelentkezz be!",
+  "used_email": "Ezt az e-mail címet már valaki használja, kérlek próbáld meg egy másikkal!",
+  "user_no_exist": "Nem létező felhasználói profil!",
+  "wait_%s_minutes": {
+    "one": "Kérlek várj egy percet!",
+    "other": "Kérlek várj %s percet!"
+  }
 }
