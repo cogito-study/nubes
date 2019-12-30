@@ -1,5 +1,6 @@
 {
   "invalid_expired_token": "Nem létező, vagy lejárt token",
+  "invalid_missing_token": "Hiányzó vagy nem létező token",
   "invalid_token": "Nem létező token",
   "token_expired": "Lejárt token",
   "invalid_email": "Nem megfelelő e-mail cím!",

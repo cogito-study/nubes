@@ -8,6 +8,7 @@ const nodeEnv = process.env.NODE_ENV;
 const claraURL = process.env.MINERVA_URL;
 const secret = process.env.APP_SECRET;
 const sendInBlueKey = process.env.SIB_API_KEY;
+const sentryDSN = process.env.SENTRY_DSN;
 const googleCloud = {
   projectID: process.env.GOOGLE_CLOUD_PROJECT_ID,
   bucketName: process.env.GOOGLE_CLOUD_BUCKET_NAME,
@@ -23,6 +24,7 @@ const resetPasswordLink = (token: string) => `${claraURL}/reset-password?token=$
 export const Environment = {
   nodeEnv,
   claraURL,
+  sentryDSN,
   sendInBlueKey,
   secret,
   googleCloud,

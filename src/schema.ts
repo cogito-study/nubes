@@ -1,9 +1,7 @@
 import { config } from 'dotenv';
-import { applyMiddleware } from 'graphql-middleware';
 import { makeSchema } from 'nexus';
 import { nexusPrismaPlugin } from 'nexus-prisma';
 import { join, resolve } from 'path';
-import { middlewares } from './middlewares';
 import * as allTypes from './resolvers';
 
 config({ path: resolve(__dirname, '../.env') });
@@ -30,6 +28,3 @@ export const schema = makeSchema({
     contextType: 'ctx.Context',
   },
 });
-
-// @ts-ignore
-applyMiddleware(schema, ...middlewares);

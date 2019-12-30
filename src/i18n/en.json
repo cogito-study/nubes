@@ -1,5 +1,6 @@
 {
   "invalid_expired_token": "Invalid or expired token",
+  "invalid_missing_token": "Invalid or missing token",
   "invalid_token": "Invalid token",
   "token_expired": "Token expired",
   "invalid_email": "Invalid email address!",
