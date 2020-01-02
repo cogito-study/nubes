@@ -67,6 +67,7 @@
     "build": "yarn lint && yarn tsc",
     "debug": "yarn build && yarn watch:debug",
     "dev": "prisma2 dev",
+    "studio": "prisma2 studio",
     "format": "prettier --write './src/**/*.ts'",
     "generate": "yarn generate:prisma && yarn generate:nexus",
     "generate:prisma": "prisma2 generate",

@@ -33,6 +33,7 @@ export const User = objectType({
     t.model.departments({ type: 'Department' });
     t.model.institutes({ type: 'Institute' });
     t.model.preferredLanguage({ type: 'Language' });
+    t.model.newMajorRequest({ type: 'NewMajorRequest' });
 
     t.field('teachedSubjects', {
       type: 'Subject',

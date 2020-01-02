@@ -90,6 +90,14 @@ input CreateMajorInput {
   name: String!
 }
 
+"""Input of create new major request"""
+input CreateNewMajorRequest {
+  faculty: String!
+  institute: String!
+  major: String!
+  token: String!
+}
+
 """Input of create note comment"""
 input CreateNoteCommentInput {
   author: ConnectRelation!
@@ -523,6 +531,7 @@ type Mutation {
   createFaculty(data: CreateFacultyInput!): Faculty!
   createInstitute(data: CreateInstituteInput!): Institute!
   createMajor(data: CreateMajorInput!): Major!
+  createNewMajorRequest(data: CreateNewMajorRequest!): NewMajorRequest!
   createNote(data: CreateNoteInput!): Note!
   createNoteComment(data: CreateNoteCommentInput!): NoteComment!
   createNoteCommentThread(data: CreateNoteCommentThreadInput!): NoteCommentThread!
@@ -570,6 +579,28 @@ type Mutation {
   updateUser(data: UpdateUserInput!, where: WhereUniqueInput!): User!
   uploadImage(data: ImageUploadInput!): String!
   validateToken(data: ValidateTokenInput): Boolean!
+}
+
+type NewMajorRequest {
+  faculty: String!
+  id: ID!
+  institute: String!
+  major: String!
+  user: User!
+}
+
+input NewMajorRequestWhereInput {
+  AND: [NewMajorRequestWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: NullableDateTimeFilter
+  faculty: StringFilter
+  id: StringFilter
+  institute: StringFilter
+  major: StringFilter
+  NOT: [NewMajorRequestWhereInput!]
+  OR: [NewMajorRequestWhereInput!]
+  updatedAt: DateTimeFilter
+  user: UserWhereInput
 }
 
 type Note {
@@ -1517,6 +1548,7 @@ type User {
   likedNotes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
   likedPostComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [PostComment!]!
   major: Major
+  newMajorRequest: NewMajorRequest
   noteComments(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteComment!]!
   noteHighlights(after: ID, before: ID, first: Int, last: Int, skip: Int): [NoteHighlight!]!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int): [Note!]!
@@ -1626,6 +1658,7 @@ input UserWhereInput {
   major: MajorWhereInput
   majorPermissions: MajorPermissionFilter
   moderatedSubjects: SubjectFilter
+  newMajorRequest: NewMajorRequestWhereInput
   NOT: [UserWhereInput!]
   noteCommentPermissions: NoteCommentPermissionFilter
   noteComments: NoteCommentFilter
