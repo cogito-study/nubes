@@ -1,7 +1,7 @@
 import { extendType } from 'nexus';
-import { WhereUniqueInput } from '..';
 import { NexusGenRootTypes } from '../../../generated/nexus-typegen';
 import { deleteSoftDeletedObjectFromResponse } from '../../utils/soft-delete';
+import { SubjectWhereUniqueInput } from './subject.input';
 
 export const SubjectQuery = extendType({
   type: 'Query',
@@ -9,7 +9,7 @@ export const SubjectQuery = extendType({
     t.field('subject', {
       type: 'Subject',
       args: {
-        where: WhereUniqueInput.asArg({ required: true }),
+        where: SubjectWhereUniqueInput.asArg({ required: true }),
       },
       nullable: true,
       resolve: async (_, { where }, ctx) => {
