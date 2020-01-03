@@ -12,3 +12,11 @@ export const UpdateSubjectInput = inputObjectType({
     t.field('moderators', { type: 'ConnectOrDisconnectRelation' });
   },
 });
+
+export const SubjectWhereUniqueInput = inputObjectType({
+  name: 'SubjectWhereUniqueInput',
+  definition(t) {
+    t.string('id');
+    t.string('code');
+  },
+});

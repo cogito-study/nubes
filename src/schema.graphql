@@ -1120,7 +1120,7 @@ type Query {
   noteHighlight(where: NoteHighlightWhereUniqueInput!): NoteHighlight
   postComment(where: PostCommentWhereUniqueInput!): PostComment
   posts: [Post!]!
-  subject(where: WhereUniqueInput!): Subject
+  subject(where: SubjectWhereUniqueInput!): Subject
   subjectInformation(where: SubjectInformationWhereUniqueInput!): SubjectInformation
   subjects(after: ID, before: ID, first: Int, last: Int, skip: Int): [Subject!]!
   suggestion(where: SuggestionWhereUniqueInput!): Suggestion
@@ -1343,6 +1343,11 @@ input SubjectWhereInput {
   students: UserFilter
   teachers: UserFilter
   updatedAt: DateTimeFilter
+}
+
+input SubjectWhereUniqueInput {
+  code: String
+  id: String
 }
 
 type Subscription {

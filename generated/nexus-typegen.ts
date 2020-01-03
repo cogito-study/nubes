@@ -841,6 +841,11 @@ export interface NexusGenInputs {
     teachers?: NexusGenInputs['UserFilter'] | null; // UserFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   };
+  SubjectWhereUniqueInput: {
+    // input type
+    code?: string | null; // String
+    id?: string | null; // String
+  };
   SuggestionFilter: {
     // input type
     every?: NexusGenInputs['SuggestionWhereInput'] | null; // SuggestionWhereInput
@@ -1256,6 +1261,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectPermissionFilter: NexusGenInputs['SubjectPermissionFilter'];
   SubjectPermissionWhereInput: NexusGenInputs['SubjectPermissionWhereInput'];
   SubjectWhereInput: NexusGenInputs['SubjectWhereInput'];
+  SubjectWhereUniqueInput: NexusGenInputs['SubjectWhereUniqueInput'];
   SuggestionFilter: NexusGenInputs['SuggestionFilter'];
   SuggestionPermissionFilter: NexusGenInputs['SuggestionPermissionFilter'];
   SuggestionPermissionWhereInput: NexusGenInputs['SuggestionPermissionWhereInput'];
@@ -2223,7 +2229,7 @@ export interface NexusGenArgTypes {
     };
     subject: {
       // args
-      where: NexusGenInputs['WhereUniqueInput']; // WhereUniqueInput!
+      where: NexusGenInputs['SubjectWhereUniqueInput']; // SubjectWhereUniqueInput!
     };
     subjectInformation: {
       // args
@@ -2514,6 +2520,7 @@ export type NexusGenInputNames =
   | 'SubjectPermissionFilter'
   | 'SubjectPermissionWhereInput'
   | 'SubjectWhereInput'
+  | 'SubjectWhereUniqueInput'
   | 'SuggestionFilter'
   | 'SuggestionPermissionFilter'
   | 'SuggestionPermissionWhereInput'

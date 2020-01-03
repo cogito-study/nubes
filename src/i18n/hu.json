@@ -10,6 +10,7 @@
   "invalid_expired_token": "Az általad megadott token lejárt vagy nem létezik!",
   "invalid_language": "Ehhez az ID-hoz nem tartozik nyelv!",
   "invalid_token": "Nem létező token!",
+  "new_major_reuqest_exist": "Már elküldted az igényt a terjeszkedésről!",
   "no_permission": "Nincs jogosultságod ehhez a művelethez!",
   "sender_name": "{{name}} a Cogito-tól",
   "suggestion_has_no_note": "Nem tartozik jegyzet a leadni kívánt javaslathoz!",
