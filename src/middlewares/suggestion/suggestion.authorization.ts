@@ -6,19 +6,16 @@ import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
 import { hasSuggestionPermission } from './suggestion.permission';
 
-export const updateSuggestion = async (
-  resolve: FieldResolver<'Mutation', 'updateSuggestion'>,
+export const approveSuggestion = async (
+  resolve: FieldResolver<'Mutation', 'approveSuggestion'>,
   parent: {},
-  args: {
-    where: NexusGenInputs['WhereUniqueInput'];
-    data: NexusGenInputs['UpdateSuggestionInput'];
-  },
+  args: { where: NexusGenInputs['WhereUniqueInput'] },
   context: Context,
   info: GraphQLResolveInfo,
 ) => {
   if (
     await hasSuggestionPermission({
-      permission: 'UPDATE_SUGGESTION',
+      permission: 'APPROVE_SUGGESTION',
       suggestionID: args.where.id,
       context: context,
     })
@@ -29,8 +26,8 @@ export const updateSuggestion = async (
   throw new ForbiddenError(__('no_permission'));
 };
 
-export const deleteSuggestion = async (
-  resolve: FieldResolver<'Mutation', 'deleteSuggestion'>,
+export const rejectSuggestion = async (
+  resolve: FieldResolver<'Mutation', 'rejectSuggestion'>,
   parent: {},
   args: { where: NexusGenInputs['WhereUniqueInput'] },
   context: Context,
@@ -38,7 +35,7 @@ export const deleteSuggestion = async (
 ) => {
   if (
     await hasSuggestionPermission({
-      permission: 'DELETE_SUGGESTION',
+      permission: 'REJECT_SUGGESTION',
       suggestionID: args.where.id,
       context: context,
     })
