@@ -42,7 +42,7 @@ export const addSubjectPermission = async ({
         data: {
           type: permission,
           object: {
-            connect: subject,
+            connect: { id: subject.id },
           },
           users: {
             connect: mapObjectsToIdentifiables(users),
