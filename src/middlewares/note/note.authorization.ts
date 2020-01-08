@@ -23,46 +23,59 @@ export const createSuggestion = async (
     })
   ) {
     const response = await resolve(parent, args, context, info);
+
     const suggestion = await context.photon.suggestions.findOne({
-      include: {
-        note: true,
-        author: true,
-      },
-      where: {
-        id: await response.id,
-      },
+      where: { id: await response.id },
+      include: { note: true, author: true },
     });
+
     const note = await context.photon.notes.findOne({
-      include: {
-        subject: true,
-      },
-      where: {
-        id: suggestion.note.id,
-      },
+      where: { id: suggestion.note.id },
+      include: { subject: true },
     });
+
     const subject = await context.photon.subjects.findOne({
-      include: {
-        teachers: true,
-        students: true,
-        moderators: true,
-      },
-      where: {
-        id: note.subject.id,
-      },
+      where: { id: note.subject.id },
+      include: { teachers: true, moderators: true, students: true },
     });
+
     addSuggestionPermissions({
-      permissions: subjectPermissions.notes.suggestions.permissions.teachers,
-      users: [...subject.teachers, ...subject.moderators],
+      permissions: subjectPermissions.notes.suggestions.permissions.teachers.others,
       suggestions: [suggestion],
+      users: [
+        ...subject.teachers.filter((teacher) => suggestion.author.id !== teacher.id),
+        ...subject.moderators.filter((moderator) => suggestion.author.id !== moderator.id),
+      ],
       context,
     });
+
     addSuggestionPermissions({
-      permissions: subjectPermissions.notes.suggestions.permissions.students,
-      users: subject.students,
+      permissions: subjectPermissions.notes.suggestions.permissions.students.others,
       suggestions: [suggestion],
+      users: subject.students.filter((student) => suggestion.author.id !== student.id),
       context,
     });
-    return suggestion;
+
+    if (
+      subject.teachers.includes(suggestion.author) ||
+      subject.moderators.includes(suggestion.author)
+    ) {
+      addSuggestionPermissions({
+        permissions: subjectPermissions.notes.suggestions.permissions.teachers.own,
+        suggestions: [suggestion],
+        users: [suggestion.author],
+        context,
+      });
+    } else {
+      addSuggestionPermissions({
+        permissions: subjectPermissions.notes.suggestions.permissions.students.own,
+        suggestions: [suggestion],
+        users: [suggestion.author],
+        context,
+      });
+    }
+
+    return response;
   }
 
   throw new ForbiddenError(__('no_permission'));

@@ -48,6 +48,7 @@ export const createNote = async (
       include: {
         teachers: true,
         students: true,
+        moderators: true,
       },
       where: {
         id: note.subject.id,
@@ -63,7 +64,7 @@ export const createNote = async (
 
     await addNotePermissions({
       permissions: subjectPermissions.notes.permissions.teachers,
-      users: subject.teachers,
+      users: [...subject.teachers, ...subject.moderators],
       notes: [note],
       context,
     });
@@ -140,7 +141,12 @@ export const createPost = async (
     })
   ) {
     const response = await resolve(parent, args, context, info);
-    const post = await context.photon.posts.findOne({ where: { id: await response.id } });
+
+    const post = await context.photon.posts.findOne({
+      where: { id: await response.id },
+      include: { author: true },
+    });
+
     const subject = await context.photon.subjects.findOne({
       include: {
         teachers: true,
@@ -153,18 +159,38 @@ export const createPost = async (
     });
 
     await addPostPermissions({
-      permissions: subjectPermissions.posts.permissions.teachers,
-      users: [...subject.teachers, ...subject.moderators],
+      permissions: subjectPermissions.posts.permissions.teachers.others,
+      users: [
+        ...subject.teachers.filter((teacher) => post.author.id != teacher.id),
+        ...subject.moderators.filter((moderator) => post.author.id != moderator.id),
+      ],
       posts: [post],
       context,
     });
 
     await addPostPermissions({
-      permissions: subjectPermissions.posts.permissions.students,
-      users: subject.students,
+      permissions: subjectPermissions.posts.permissions.students.others,
+      users: subject.students.filter((student) => post.author.id != student.id),
       posts: [post],
       context,
     });
+
+    if (subject.teachers.includes(post.author) || subject.moderators.includes(post.author)) {
+      await addPostPermissions({
+        permissions: subjectPermissions.posts.permissions.teachers.own,
+        users: [post.author],
+        posts: [post],
+        context,
+      });
+    } else {
+      await addPostPermissions({
+        permissions: subjectPermissions.posts.permissions.students.own,
+        users: [post.author],
+        posts: [post],
+        context,
+      });
+    }
+
     return response;
   }
 
@@ -227,13 +253,13 @@ export const updateSubject = async (
           context,
         });
         await addSuggestionPermissions({
-          permissions: subjectPermissions.notes.suggestions.permissions.students,
+          permissions: subjectPermissions.notes.suggestions.permissions.students.others,
           users: students.connect,
           suggestions,
           context,
         });
         await addPostPermissions({
-          permissions: subjectPermissions.posts.permissions.students,
+          permissions: subjectPermissions.posts.permissions.students.others,
           users: students.connect,
           posts: subject.posts,
           context,
@@ -273,13 +299,13 @@ export const updateSubject = async (
           context,
         });
         await addSuggestionPermissions({
-          permissions: subjectPermissions.notes.suggestions.permissions.teachers,
+          permissions: subjectPermissions.notes.suggestions.permissions.teachers.others,
           users: teachers.connect,
           suggestions,
           context,
         });
         await addPostPermissions({
-          permissions: subjectPermissions.posts.permissions.teachers,
+          permissions: subjectPermissions.posts.permissions.teachers.others,
           users: teachers.connect,
           posts: subject.posts,
           context,
@@ -322,13 +348,13 @@ export const updateSubject = async (
           context,
         });
         await addSuggestionPermissions({
-          permissions: subjectPermissions.notes.suggestions.permissions.teachers,
+          permissions: subjectPermissions.notes.suggestions.permissions.teachers.others,
           users: moderators.connect,
           suggestions,
           context,
         });
         await addPostPermissions({
-          permissions: subjectPermissions.posts.permissions.teachers,
+          permissions: subjectPermissions.posts.permissions.teachers.others,
           users: moderators.connect,
           posts: subject.posts,
           context,
