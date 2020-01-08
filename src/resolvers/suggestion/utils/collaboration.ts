@@ -4,9 +4,15 @@ import { getUserID } from '../../../utils/authentication';
 import { publishSuggestionEvent } from './../suggestion.subscription';
 import { isActiveSuggestion } from './is-active';
 
-export async function applySuggestion(suggestionId: string, ctx: Context) {
+export const applySuggestion = async ({
+  suggestionID,
+  ctx,
+}: {
+  suggestionID: string;
+  ctx: Context;
+}) => {
   const suggestion = await ctx.photon.suggestions.findOne({
-    where: { id: suggestionId },
+    where: { id: suggestionID },
     include: { note: true },
   });
   const { note } = suggestion;
@@ -15,7 +21,7 @@ export async function applySuggestion(suggestionId: string, ctx: Context) {
   );
 
   await ctx.photon.suggestions.update({
-    where: { id: suggestionId },
+    where: { id: suggestionID },
     data: { approvedAt: new Date(), approvedBy: { connect: { id: getUserID(ctx) } } },
   });
 
@@ -44,4 +50,4 @@ export async function applySuggestion(suggestionId: string, ctx: Context) {
     if (isActiveSuggestion(updatedSuggestion))
       await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
   }
-}
+};

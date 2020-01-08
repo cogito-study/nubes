@@ -6,7 +6,8 @@ export const SubjectPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.object({ type: 'Subject' });
+    t.model.object();
+
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

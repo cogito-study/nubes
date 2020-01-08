@@ -52,7 +52,7 @@ export const SuggestionMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: async (_, { where }, ctx: Context) => {
-        await applySuggestion(where.id, ctx);
+        await applySuggestion({ suggestionID: where.id, ctx });
         const suggestion = await ctx.photon.suggestions.findOne({ where, include: { note: true } });
         await publishSuggestionEvent('SUGGESTION_APPROVE', suggestion, ctx);
         return suggestion;
@@ -65,7 +65,7 @@ export const SuggestionMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: async (_, { where }, ctx) => {
-        // Here we will need a different implementation
+        // TODO: Here we will need a different implementation
         const suggestion = await ctx.photon.suggestions.update({
           include: {
             note: true,

@@ -6,9 +6,8 @@ import { getUserID } from '../../utils/authentication';
 export const UserQuery = extendType({
   type: 'Query',
   definition: (t) => {
-    t.crud.user({ alias: 'user' });
+    t.crud.user();
     t.crud.users({
-      alias: 'users',
       filtering: {
         email: true,
         firstName: true,
@@ -17,6 +16,7 @@ export const UserQuery = extendType({
         identifier: true,
         phoneNumber: true,
         role: true,
+        deletedAt: true,
       },
     });
 

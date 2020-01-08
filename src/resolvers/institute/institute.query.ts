@@ -7,7 +7,7 @@ export const InstituteQuery = extendType({
   type: 'Query',
   definition: (t) => {
     t.crud.institute();
-    t.crud.institutes();
+    t.crud.institutes({ filtering: { deletedAt: true } });
 
     t.field('institutesByToken', {
       type: 'Institute',

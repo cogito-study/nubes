@@ -21,44 +21,22 @@ export const User = objectType({
       },
     });
 
-    t.model.role({ type: 'UserRole' });
-    t.model.major({ type: 'Major' });
-    t.model.notes({ type: 'Note' });
-    t.model.noteHighlights({ type: 'NoteHighlight' });
-    t.model.suggestions({ type: 'Suggestion' });
-    t.model.approvedSuggestions({ type: 'Suggestion' });
-    t.model.likedNotes({ type: 'Note' });
-    t.model.noteComments({ type: 'NoteComment' });
-    t.model.likedPostComments({ type: 'PostComment' });
-    t.model.departments({ type: 'Department' });
-    t.model.institutes({ type: 'Institute' });
-    t.model.preferredLanguage({ type: 'Language' });
-    t.model.newMajorRequest({ type: 'NewMajorRequest' });
+    t.model.approvedSuggestions({ filtering: { deletedAt: true } });
+    t.model.departments({ filtering: { deletedAt: true } });
+    t.model.institutes({ filtering: { deletedAt: true } });
+    t.model.likedNotes({ filtering: { deletedAt: true } });
+    t.model.likedPostComments({ filtering: { deletedAt: true } });
+    t.model.major();
+    t.model.newMajorRequest();
+    t.model.noteComments({ filtering: { deletedAt: true } });
+    t.model.noteHighlights({ filtering: { deletedAt: true } });
+    t.model.notes({ filtering: { deletedAt: true } });
+    t.model.preferredLanguage();
+    t.model.role();
+    t.model.studiedSubjects({ filtering: { deletedAt: true } });
+    t.model.suggestions({ filtering: { deletedAt: true } });
+    t.model.teachedSubjects({ filtering: { deletedAt: true } });
 
-    t.field('teachedSubjects', {
-      type: 'Subject',
-      list: true,
-      resolve: async ({ id }, args, context) => {
-        return await context.photon.subjects.findMany({
-          where: {
-            teachers: { some: { id } },
-            deletedAt: null,
-          },
-        });
-      },
-    });
-    t.field('studiedSubjects', {
-      type: 'Subject',
-      list: true,
-      resolve: async ({ id }, args, context) => {
-        return await context.photon.subjects.findMany({
-          where: {
-            students: { some: { id } },
-            deletedAt: null,
-          },
-        });
-      },
-    });
     t.field('permissions', {
       type: 'UserPermissionType',
       list: true,

@@ -9,7 +9,7 @@ export const SubjectInformation = objectType({
     t.model.subtitle();
     t.model.content();
 
-    t.model.subject({ type: 'Subject' });
+    t.model.subject();
 
     t.field('permissions', {
       type: 'SubjectInformationPermissionType',

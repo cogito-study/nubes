@@ -7,6 +7,6 @@ export const NewMajorRequest = objectType({
     t.model.institute();
     t.model.faculty();
     t.model.major();
-    t.model.user({ type: 'User' });
+    t.model.user();
   },
 });

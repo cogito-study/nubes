@@ -4,8 +4,21 @@ import { extendType } from 'nexus';
 import { comparePasswords, generateJWToken, hashPassword } from '../../utils/authentication';
 import { sendEmail } from '../../utils/email';
 import { Environment } from '../../utils/environment';
-import { generateResetPasswordToken, generateToken, validateActivationToken, validateResetPasswordToken } from '../../utils/token';
-import { ActivateInvitationInput, ActivateRegistrationInput, ForgotPasswordInput, LoginUserInput, RegisterUserInput, ResetPasswordInput, ValidateTokenInput } from './authentication.input';
+import {
+  generateResetPasswordToken,
+  generateToken,
+  validateActivationToken,
+  validateResetPasswordToken,
+} from '../../utils/token';
+import {
+  ActivateInvitationInput,
+  ActivateRegistrationInput,
+  ForgotPasswordInput,
+  LoginUserInput,
+  RegisterUserInput,
+  ResetPasswordInput,
+  ValidateTokenInput,
+} from './authentication.input';
 
 export const AuthenticationMutation = extendType({
   type: 'Mutation',
@@ -17,7 +30,7 @@ export const AuthenticationMutation = extendType({
       },
       resolve: async (_, { data: { email, password } }, context) => {
         const user = await context.photon.users.findOne({ where: { email } });
-        if (user === null || user.deletedAt != null) {
+        if (user === null || user.deletedAt !== null) {
           throw new AuthenticationError(__('invalid_email_password'));
         }
 

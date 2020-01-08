@@ -31,7 +31,6 @@ export const authenticationMiddlewares: Middleware = {
   Mutation: {
     register,
     activateRegistration,
-    uploadImage: requireLogin,
     createDepartment: requireLogin,
     updateDepartment: requireLogin,
     deleteDepartment: requireLogin,

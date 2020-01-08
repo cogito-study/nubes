@@ -7,22 +7,9 @@ export const Institute = objectType({
     t.model.id();
     t.model.name();
 
-    t.model.departments({ type: 'Department' });
-    t.model.users({ type: 'User' });
-
-    t.field('faculties', {
-      type: 'Faculty',
-      list: true,
-      resolve: async ({ id }, _, context) => {
-        return await context.photon.faculties.findMany({
-          where: {
-            institute: { id },
-            deletedAt: null,
-          },
-        });
-      },
-    });
-    t.model.faculties({ type: 'Faculty' });
+    t.model.departments({ filtering: { deletedAt: true } });
+    t.model.users({ filtering: { deletedAt: true } });
+    t.model.faculties({ filtering: { deletedAt: true } });
 
     t.field('permissions', {
       type: 'InstitutePermissionType',

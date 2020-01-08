@@ -6,7 +6,8 @@ export const PostPermission = objectType({
     t.model.id();
     t.model.type();
 
-    t.model.object({ type: 'Post' });
+    t.model.object();
+
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

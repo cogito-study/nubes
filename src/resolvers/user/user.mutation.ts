@@ -8,8 +8,7 @@ import { ChangeEmailInput, ChangePasswordInput, ChangePreferredLanguageInput } f
 /**
  * TODO:
  * 1. logout
- * 2. check existing email before updating
- * 3. send email after  changing
+ * 2. send email after changing
  *     - password
  *     - email
  */
