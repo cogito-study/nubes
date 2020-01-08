@@ -17,6 +17,7 @@ export const hasSuggestionPermission = async ({
       type: permission,
       object: { id: suggestionID },
       users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;

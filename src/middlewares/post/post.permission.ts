@@ -14,15 +14,10 @@ export const hasPostPermission = async ({
 }) => {
   const permissions = await context.photon.postPermissions.findMany({
     where: {
-      AND: [
-        {
-          type: permission,
-          object: { id: postID },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: postID },
+      users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;

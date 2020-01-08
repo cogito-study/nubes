@@ -16,6 +16,7 @@ export const hasNoteCommentThreadPermission = async ({
       type: permission,
       object: { id: noteCommentThreadID },
       users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;

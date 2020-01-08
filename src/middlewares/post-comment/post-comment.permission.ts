@@ -17,6 +17,7 @@ export const hasPostCommentPermission = async ({
       type: permission,
       object: { id: postCommentID },
       users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;

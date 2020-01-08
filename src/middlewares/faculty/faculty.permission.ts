@@ -14,15 +14,10 @@ export const hasFacultyPermission = async ({
 }) => {
   const permissions = await context.photon.facultyPermissions.findMany({
     where: {
-      AND: [
-        {
-          type: permission,
-          object: { id: facultyID },
-        },
-        {
-          users: { some: { id: getUserID(context) } },
-        },
-      ],
+      type: permission,
+      object: { id: facultyID },
+      users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;
