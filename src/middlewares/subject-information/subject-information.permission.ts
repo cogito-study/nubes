@@ -17,6 +17,7 @@ export const hasSubjectInformationPermission = async ({
       type: permission,
       object: { id: subjectInformationID },
       users: { some: { id: getUserID(context) } },
+      deletedAt: null,
     },
   });
   return permissions.length !== 0;
