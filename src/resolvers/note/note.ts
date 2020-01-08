@@ -12,17 +12,19 @@ export const Note = objectType({
     t.model.description();
     t.model.noteCategory();
 
-    t.model.commentThreads({ type: 'NoteCommentThread' });
-    t.model.authors({ type: 'User' });
-    t.model.likers({ type: 'User' });
-    t.model.highlights({ type: 'NoteHighlight' });
-    t.model.subject({ type: 'Subject' });
+    t.model.commentThreads({ filtering: { deletedAt: true } });
+    t.model.authors({ filtering: { deletedAt: true } });
+    t.model.likers({ filtering: { deletedAt: true } });
+    t.model.highlights({ filtering: { deletedAt: true } });
+    t.model.subject();
 
     t.field('likesCount', {
       type: 'Int',
       description: 'Number of likes on the note',
       resolve: async ({ id }, args, context) => {
-        const likers = await context.photon.notes.findOne({ where: { id } }).likers();
+        const likers = await context.photon.notes
+          .findOne({ where: { id } })
+          .likers({ where: { deletedAt: null } });
         return likers.length;
       },
     });

@@ -8,21 +8,10 @@ export const Department = objectType({
     t.model.name();
     t.model.description();
 
-    t.model.leader({ type: 'User' });
-    t.model.institute({ type: 'Institute' });
+    t.model.leader();
+    t.model.institute();
+    t.model.subjects({ filtering: { deletedAt: true } });
 
-    t.field('subjects', {
-      type: 'Subject',
-      list: true,
-      resolve: async ({ id }, _, context) => {
-        return await context.photon.subjects.findMany({
-          where: {
-            deletedAt: null,
-            department: { id },
-          },
-        });
-      },
-    });
     t.field('permissions', {
       type: 'DepartmentPermissionType',
       list: true,

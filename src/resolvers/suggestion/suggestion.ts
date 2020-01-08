@@ -10,10 +10,10 @@ export const Suggestion = objectType({
     t.model.rejectedAt();
     t.model.delta();
 
-    t.model.likers({ type: 'User' });
-    t.model.note({ type: 'Note' });
-    t.model.author({ type: 'User' });
-    t.model.approvedBy({ type: 'User' });
+    t.model.likers({ filtering: { deletedAt: true } });
+    t.model.note();
+    t.model.author();
+    t.model.approvedBy();
 
     t.field('permissions', {
       type: 'SuggestionPermissionType',
@@ -37,7 +37,9 @@ export const Suggestion = objectType({
       type: 'Int',
       description: 'Number of likes on the suggestion',
       resolve: async ({ id }, args, context) => {
-        const likers = await context.photon.suggestions.findOne({ where: { id } }).likers();
+        const likers = await context.photon.suggestions
+          .findOne({ where: { id } })
+          .likers({ where: { deletedAt: null } });
         return likers.length;
       },
     });

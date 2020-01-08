@@ -7,16 +7,18 @@ export const NoteComment = objectType({
     t.model.id();
     t.model.content();
 
-    t.model.author({ type: 'User' });
-    t.model.likers({ type: 'User' });
-    t.model.thread({ type: 'NoteCommentThread' });
-    t.model.threadReply({ type: 'NoteCommentThread' });
+    t.model.author();
+    t.model.likers({ filtering: { deletedAt: true } });
+    t.model.thread();
+    t.model.threadReply();
 
     t.field('likesCount', {
       type: 'Int',
       description: 'Number of likes on the note comment',
       resolve: async ({ id }, args, context) => {
-        const likers = await context.photon.noteComments.findOne({ where: { id } }).likers();
+        const likers = await context.photon.noteComments
+          .findOne({ where: { id } })
+          .likers({ where: { deletedAt: null } });
         return likers.length;
       },
     });

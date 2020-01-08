@@ -6,8 +6,8 @@ export const NoteHighlight = objectType({
     t.model.id();
     t.model.position();
 
-    t.model.user({ type: 'User' });
-    t.model.note({ type: 'Note' });
+    t.model.user();
+    t.model.note();
 
     t.model.createdAt();
     t.model.updatedAt();

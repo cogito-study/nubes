@@ -6,32 +6,22 @@ export const Post = objectType({
   definition(t) {
     t.model.id();
     t.model.content();
-    t.model.author({ type: 'User' });
-    t.model.likers({ type: 'User' });
-    t.model.subject({ type: 'Subject' });
 
-    t.field('comments', {
-      type: 'PostComment',
-      list: true,
-      resolve: async ({ id }, _, context) => {
-        return await context.photon.postComments.findMany({
-          where: {
-            post: { id },
-            deletedAt: null,
-          },
-        });
-      },
-    });
+    t.model.author();
+    t.model.comments({ filtering: { deletedAt: true } });
+    t.model.likers({ filtering: { deletedAt: true } });
+    t.model.subject();
+
     t.field('hasLikedPost', {
       type: 'Boolean',
       description: 'Whether the logged in user liked a post before',
       resolve: async ({ id }, _, context) => {
         const likers = await context.photon.posts
           .findOne({ where: { id } })
-          .likers({ select: { id: true } });
+          .likers({ where: { deletedAt: null }, select: { id: true } });
         const userID = getUserID(context);
 
-        return likers.map((liker) => liker.id).includes(userID);
+        return likers.some(({ id }) => id === userID);
       },
     });
 
@@ -39,7 +29,9 @@ export const Post = objectType({
       type: 'Int',
       description: 'Number of likes on the post',
       resolve: async ({ id }, args, context) => {
-        const likers = await context.photon.posts.findOne({ where: { id } }).likers();
+        const likers = await context.photon.posts
+          .findOne({ where: { id } })
+          .likers({ where: { deletedAt: null } });
         return likers.length;
       },
     });

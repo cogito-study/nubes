@@ -6,6 +6,7 @@ export const SuggestionQuery = extendType({
   type: 'Query',
   definition: (t) => {
     t.crud.suggestion();
+
     t.field('activeSuggestions', {
       type: 'Suggestion',
       list: true,

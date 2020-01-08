@@ -224,7 +224,7 @@
     "@sentry/types" "5.10.0"
     tslib "^1.9.3"
 
-"@sentry/node@^5.10.2":
+"@sentry/node@5.10.2":
   version "5.10.2"
   resolved "https://registry.yarnpkg.com/@sentry/node/-/node-5.10.2.tgz#1f5d6deefb2c1549ddb542c10952cccf5f9a4ac2"
   integrity sha512-1ib1hAhVtmfXOThpcCfR4S6wFopd6lHqgOMrAUPo9saHy8zseZPRC7iTWGoSPy2RMwjrURAk54VvFnLe7G+PdQ==
@@ -2312,7 +2312,7 @@ graphql-import@^0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
-graphql-middleware-sentry@^3.2.1:
+graphql-middleware-sentry@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/graphql-middleware-sentry/-/graphql-middleware-sentry-3.2.1.tgz#b5653d78903d655cf4212a602cfa6e26689cda07"
   integrity sha512-lAwmHwsyey1db6scQg32javmqAFifabhqPIr0SUzx46O4kvjQlLZZn7KrRT12XDwgW7i6goAotdSPl9Fq+TBrQ==

@@ -6,9 +6,9 @@ export const NoteCommentThread = objectType({
     t.model.id();
     t.model.position();
 
-    t.model.comment({ type: 'NoteComment' });
-    t.model.replies({ type: 'NoteComment' });
-    t.model.note({ type: 'Note' });
+    t.model.comment();
+    t.model.replies({ filtering: { deletedAt: true } });
+    t.model.note();
 
     t.model.createdAt();
     t.model.updatedAt();

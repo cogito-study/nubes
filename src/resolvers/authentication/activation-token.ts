@@ -5,7 +5,7 @@ export const ActivationToken = objectType({
   definition(t) {
     t.model.id();
     t.model.token();
-    t.model.user({ type: 'User' });
+    t.model.user();
     t.model.createdAt();
   },
 });

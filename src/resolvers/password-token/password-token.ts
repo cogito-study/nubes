@@ -6,7 +6,7 @@ export const PasswordToken = objectType({
     t.model.id();
     t.model.token();
 
-    t.model.user({ type: 'User' });
+    t.model.user();
 
     t.model.createdAt();
     t.model.updatedAt();

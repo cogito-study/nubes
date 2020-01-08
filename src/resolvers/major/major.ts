@@ -7,20 +7,9 @@ export const Major = objectType({
     t.model.id();
     t.model.name();
 
-    t.model.faculty({ type: 'Faculty' });
+    t.model.faculty();
+    t.model.subjects({ filtering: { deletedAt: true } });
 
-    t.field('subjects', {
-      type: 'Subject',
-      list: true,
-      resolve: async ({ id }, _, context) => {
-        return await context.photon.subjects.findMany({
-          where: {
-            majors: { some: { id } },
-            deletedAt: null,
-          },
-        });
-      },
-    });
     t.field('permissions', {
       type: 'MajorPermissionType',
       list: true,

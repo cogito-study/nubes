@@ -6,7 +6,6 @@ export * from './input';
 export * from './institute';
 export * from './language';
 export * from './major';
-export * from './mutation';
 export * from './new-major-request';
 export * from './note';
 export * from './note-comment';
