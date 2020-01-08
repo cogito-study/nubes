@@ -988,6 +988,11 @@ input NullableStringFilter {
   startsWith: String
 }
 
+enum OrderByArg {
+  asc
+  desc
+}
+
 type PasswordToken {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -1290,7 +1295,7 @@ type Subject {
   name: String!
   notes(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SubjectNotesWhereInput): [Note!]!
   permissions: [SubjectPermissionType!]!
-  posts(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SubjectPostsWhereInput): [Post!]!
+  posts(after: ID, before: ID, first: Int, last: Int, orderBy: SubjectPostsOrderByInput, skip: Int, where: SubjectPostsWhereInput): [Post!]!
   students(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SubjectStudentsWhereInput): [User!]!
   teachers(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SubjectTeachersWhereInput): [User!]!
   updatedAt: DateTime!
@@ -1420,6 +1425,10 @@ input SubjectPermissionWhereInput {
   type: SubjectPermissionType
   updatedAt: DateTimeFilter
   users: UserFilter
+}
+
+input SubjectPostsOrderByInput {
+  createdAt: OrderByArg
 }
 
 input SubjectPostsWhereInput {

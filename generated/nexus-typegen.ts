@@ -3,8 +3,8 @@
  * Do not make changes to this file directly
  */
 
-import * as ctx from '../src/types';
 import * as photon from '@prisma/photon';
+import * as ctx from '../src/types';
 
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
@@ -919,6 +919,10 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
   };
+  SubjectPostsOrderByInput: {
+    // input type
+    createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
+  };
   SubjectPostsWhereInput: {
     // input type
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -1258,6 +1262,7 @@ export interface NexusGenEnums {
   NoteCommentThreadPermissionType: photon.NoteCommentThreadPermissionType;
   NoteHighlightPermissionType: photon.NoteHighlightPermissionType;
   NotePermissionType: photon.NotePermissionType;
+  OrderByArg: photon.OrderByArg;
   PostCommentPermissionType: photon.PostCommentPermissionType;
   PostPermissionType: photon.PostPermissionType;
   SubjectInformationPermissionType: photon.SubjectInformationPermissionType;
@@ -1446,6 +1451,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SubjectNotesWhereInput: NexusGenInputs['SubjectNotesWhereInput'];
   SubjectPermissionFilter: NexusGenInputs['SubjectPermissionFilter'];
   SubjectPermissionWhereInput: NexusGenInputs['SubjectPermissionWhereInput'];
+  SubjectPostsOrderByInput: NexusGenInputs['SubjectPostsOrderByInput'];
   SubjectPostsWhereInput: NexusGenInputs['SubjectPostsWhereInput'];
   SubjectStudentsWhereInput: NexusGenInputs['SubjectStudentsWhereInput'];
   SubjectTeachersWhereInput: NexusGenInputs['SubjectTeachersWhereInput'];
@@ -1500,6 +1506,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   NoteCommentThreadPermissionType: NexusGenEnums['NoteCommentThreadPermissionType'];
   NoteHighlightPermissionType: NexusGenEnums['NoteHighlightPermissionType'];
   NotePermissionType: NexusGenEnums['NotePermissionType'];
+  OrderByArg: NexusGenEnums['OrderByArg'];
   PostCommentPermissionType: NexusGenEnums['PostCommentPermissionType'];
   PostPermissionType: NexusGenEnums['PostPermissionType'];
   SubjectInformationPermissionType: NexusGenEnums['SubjectInformationPermissionType'];
@@ -2560,6 +2567,7 @@ export interface NexusGenArgTypes {
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['SubjectPostsOrderByInput'] | null; // SubjectPostsOrderByInput
       skip?: number | null; // Int
       where?: NexusGenInputs['SubjectPostsWhereInput'] | null; // SubjectPostsWhereInput
     };
@@ -2879,6 +2887,7 @@ export type NexusGenInputNames =
   | 'SubjectNotesWhereInput'
   | 'SubjectPermissionFilter'
   | 'SubjectPermissionWhereInput'
+  | 'SubjectPostsOrderByInput'
   | 'SubjectPostsWhereInput'
   | 'SubjectStudentsWhereInput'
   | 'SubjectTeachersWhereInput'
@@ -2935,6 +2944,7 @@ export type NexusGenEnumNames =
   | 'NoteCommentThreadPermissionType'
   | 'NoteHighlightPermissionType'
   | 'NotePermissionType'
+  | 'OrderByArg'
   | 'PostCommentPermissionType'
   | 'PostPermissionType'
   | 'SubjectInformationPermissionType'

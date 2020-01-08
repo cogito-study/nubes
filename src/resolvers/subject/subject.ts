@@ -14,7 +14,7 @@ export const Subject = objectType({
     t.model.language();
     t.model.moderators({ filtering: { deletedAt: true } });
     t.model.notes({ filtering: { deletedAt: true } });
-    t.model.posts({ filtering: { deletedAt: true } });
+    t.model.posts({ filtering: { deletedAt: true }, ordering: { createdAt: true } });
     t.model.students({ filtering: { deletedAt: true } });
     t.model.teachers({ filtering: { deletedAt: true } });
 
