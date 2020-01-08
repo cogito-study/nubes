@@ -18,15 +18,27 @@ export const subjectPermissions: {
     };
     suggestions: {
       permissions: {
-        teachers: Array<SuggestionPermissionType>;
-        students: Array<SuggestionPermissionType>;
+        teachers: {
+          own: Array<SuggestionPermissionType>;
+          others: Array<SuggestionPermissionType>;
+        };
+        students: {
+          own: Array<SuggestionPermissionType>;
+          others: Array<SuggestionPermissionType>;
+        };
       };
     };
   };
   posts: {
     permissions: {
-      teachers: Array<PostPermissionType>;
-      students: Array<PostPermissionType>;
+      teachers: {
+        own: Array<PostPermissionType>;
+        others: Array<PostPermissionType>;
+      };
+      students: {
+        own: Array<PostPermissionType>;
+        others: Array<PostPermissionType>;
+      };
     };
   };
   subjectInformations: {
@@ -37,31 +49,37 @@ export const subjectPermissions: {
   };
 } = {
   permissions: {
-    teachers: [
-      'READ_SUBJECT',
-      'UPDATE_SUBJECT',
-      'DELETE_SUBJECT',
-      'CREATE_NOTE',
-      'CREATE_SUBJECT_INFORMATION',
-    ],
-    students: ['READ_SUBJECT', 'CREATE_POST'],
+    teachers: ['READ_SUBJECT', 'CREATE_POST', 'CREATE_NOTE', 'CREATE_SUBJECT_INFORMATION'],
+    students: ['READ_SUBJECT', 'CREATE_POST', 'CREATE_NOTE', 'CREATE_SUBJECT_INFORMATION'],
   },
   notes: {
     permissions: {
-      teachers: ['READ_NOTE', 'UPDATE_NOTE', 'DELETE_NOTE', 'CREATE_SUGGESTION'],
-      students: ['READ_NOTE', 'CREATE_SUGGESTION'],
+      teachers: ['READ_NOTE', 'UPDATE_NOTE', 'CREATE_SUGGESTION', 'DELETE_NOTE'],
+      students: ['READ_NOTE', 'UPDATE_NOTE', 'CREATE_SUGGESTION'],
     },
     suggestions: {
       permissions: {
-        teachers: ['APPROVE_SUGGESTION', 'REJECT_SUGGESTION'],
-        students: ['READ_SUGGESTION'],
+        teachers: {
+          own: ['READ_SUGGESTION', 'APPROVE_SUGGESTION', 'REJECT_SUGGESTION'],
+          others: ['READ_SUGGESTION', 'APPROVE_SUGGESTION', 'REJECT_SUGGESTION'],
+        },
+        students: {
+          own: ['READ_SUGGESTION'],
+          others: ['READ_SUGGESTION', 'APPROVE_SUGGESTION'],
+        },
       },
     },
   },
   posts: {
     permissions: {
-      teachers: ['UPDATE_POST', 'DELETE_POST', 'READ_POST'],
-      students: ['READ_POST'],
+      teachers: {
+        own: ['UPDATE_POST', 'DELETE_POST', 'READ_POST'],
+        others: ['DELETE_POST', 'READ_POST'],
+      },
+      students: {
+        own: ['UPDATE_POST', 'DELETE_POST', 'READ_POST'],
+        others: ['READ_POST'],
+      },
     },
   },
   subjectInformations: {
@@ -71,7 +89,7 @@ export const subjectPermissions: {
         'UPDATE_SUBJECT_INFORMATION',
         'DELETE_SUBJECT_INFORMATION',
       ],
-      students: ['READ_SUBJECT_INFORMATION'],
+      students: ['READ_SUBJECT_INFORMATION', 'UPDATE_SUBJECT_INFORMATION'],
     },
   },
 };

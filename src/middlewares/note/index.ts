@@ -1,8 +1,9 @@
 import { Middleware } from '../types';
-import { deleteNote, updateNote } from './note.authorization';
+import { createSuggestion, deleteNote, updateNote } from './note.authorization';
 
 export const noteMiddlewares: Middleware = {
   Mutation: {
+    createSuggestion,
     updateNote,
     deleteNote,
   },
