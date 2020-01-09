@@ -62,7 +62,8 @@ export const addSubjectPermissions = async ({
   subjects: Array<{ id: string }>;
   context: Context;
 }) => {
-  await Promise.all(
+  if (users.length === 0) return;
+  return Promise.all(
     permissions.map(
       async (permission) => await addSubjectPermission({ permission, users, subjects, context }),
     ),

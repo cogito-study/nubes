@@ -3,6 +3,7 @@ import { GraphQLResolveInfo } from 'graphql';
 import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
+import { publishSuggestionEvent } from '../../resolvers';
 import { Context } from '../../types';
 import { subjectPermissions } from '../permissions';
 import { addSuggestionPermissions } from '../suggestion/suggestion.permission';
@@ -39,7 +40,7 @@ export const createSuggestion = async (
       include: { teachers: true, moderators: true, students: true },
     });
 
-    addSuggestionPermissions({
+    await addSuggestionPermissions({
       permissions: subjectPermissions.notes.suggestions.permissions.teachers.others,
       suggestions: [suggestion],
       users: [
@@ -49,7 +50,7 @@ export const createSuggestion = async (
       context,
     });
 
-    addSuggestionPermissions({
+    await addSuggestionPermissions({
       permissions: subjectPermissions.notes.suggestions.permissions.students.others,
       suggestions: [suggestion],
       users: subject.students.filter((student) => suggestion.author.id !== student.id),
@@ -60,20 +61,22 @@ export const createSuggestion = async (
       subject.teachers.includes(suggestion.author) ||
       subject.moderators.includes(suggestion.author)
     ) {
-      addSuggestionPermissions({
+      await addSuggestionPermissions({
         permissions: subjectPermissions.notes.suggestions.permissions.teachers.own,
         suggestions: [suggestion],
         users: [suggestion.author],
         context,
       });
     } else {
-      addSuggestionPermissions({
+      await addSuggestionPermissions({
         permissions: subjectPermissions.notes.suggestions.permissions.students.own,
         suggestions: [suggestion],
         users: [suggestion.author],
         context,
       });
     }
+
+    await publishSuggestionEvent('SUGGESTION_CREATE', suggestion, context);
 
     return response;
   }

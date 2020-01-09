@@ -64,7 +64,7 @@ export const subjectPermissions: {
           others: ['READ_SUGGESTION', 'APPROVE_SUGGESTION', 'REJECT_SUGGESTION'],
         },
         students: {
-          own: ['READ_SUGGESTION'],
+          own: ['READ_SUGGESTION', 'REJECT_SUGGESTION'],
           others: ['READ_SUGGESTION', 'APPROVE_SUGGESTION'],
         },
       },

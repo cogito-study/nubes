@@ -3,8 +3,8 @@
  * Do not make changes to this file directly
  */
 
-import * as photon from '@prisma/photon';
 import * as ctx from '../src/types';
+import * as photon from '@prisma/photon';
 
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
