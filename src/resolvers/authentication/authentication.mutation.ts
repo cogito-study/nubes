@@ -81,8 +81,12 @@ export const AuthenticationMutation = extendType({
 
           if (activationToken) {
             sendEmail({
-              to: user.email,
-              params: { link: Environment.activateRegistrationLink(activationToken.token) },
+              to: email,
+              params: {
+                firstName,
+                lastName,
+                link: Environment.activateRegistrationLink(activationToken.token),
+              },
               template: 'RegisterActivation',
               preferredLanguage: user.preferredLanguage.code,
             });
@@ -181,12 +185,17 @@ export const AuthenticationMutation = extendType({
         });
         if (user !== null) {
           const resetPasswordToken = await generateResetPasswordToken({ email, context });
+          const { firstName, lastName, preferredLanguage } = user;
 
           sendEmail({
-            to: user.email,
-            params: { link: Environment.resetPasswordLink(resetPasswordToken.token) },
+            to: email,
+            params: {
+              firstName,
+              lastName,
+              link: Environment.resetPasswordLink(resetPasswordToken.token),
+            },
             template: 'ForgotPassword',
-            preferredLanguage: user.preferredLanguage.code,
+            preferredLanguage: preferredLanguage.code,
           });
           return true;
         }

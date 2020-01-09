@@ -23,7 +23,7 @@ export const emailTemplates: LocalizedEmailTemplateType = {
 
 type SendEmailOptions = {
   to: string;
-  params: { link: string };
+  params: { link: string; firstName: string; lastName: string };
   template: EmailTemplateType;
   preferredLanguage: LanguageCode;
 };

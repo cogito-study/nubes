@@ -2,16 +2,11 @@ import { ApolloError } from 'apollo-server';
 import { __ } from 'i18n';
 import { extendType } from 'nexus';
 import { comparePasswords, getCurrentUser, hashPassword } from '../../utils/authentication';
+import { sendEmail } from '../../utils/email';
+import { Environment } from '../../utils/environment';
 import { WhereUniqueInput } from '../input';
 import { ChangeEmailInput, ChangePasswordInput, ChangePreferredLanguageInput } from './user.input';
 
-/**
- * TODO:
- * 1. logout
- * 2. send email after changing
- *     - password
- *     - email
- */
 export const UserMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
@@ -22,16 +17,30 @@ export const UserMutation = extendType({
         data: ChangePasswordInput.asArg({ required: true }),
       },
       resolve: async (_, { where, data: { oldPassword, newPassword } }, ctx) => {
-        const user = await getCurrentUser(ctx);
+        const user = await getCurrentUser(ctx, { preferredLanguage: true });
         if (user === null) throw new Error(__('user_no_exist'));
 
         const isValidPassword = await comparePasswords(oldPassword, user.password);
         if (!isValidPassword) throw new Error(__('old_password_validation'));
 
-        return await ctx.photon.users.update({
+        const { email, firstName, lastName, preferredLanguage } = user;
+        const response = await ctx.photon.users.update({
           where,
           data: { password: await hashPassword(newPassword) },
         });
+
+        sendEmail({
+          to: email,
+          params: {
+            firstName,
+            lastName,
+            link: Environment.claraURL,
+          },
+          template: 'ChangePassword',
+          preferredLanguage: preferredLanguage.code,
+        });
+
+        return response;
       },
     });
 
@@ -42,16 +51,31 @@ export const UserMutation = extendType({
         data: ChangeEmailInput.asArg({ required: true }),
       },
       resolve: async (_, { where, data: { email } }, ctx) => {
-        const user = await getCurrentUser(ctx);
+        const user = await getCurrentUser(ctx, { preferredLanguage: true });
         if (user === null) throw new Error(__('user_no_exist'));
 
         if ((await ctx.photon.users.findOne({ where: { email } })) !== null)
           throw new ApolloError(__('used_email'));
 
-        return await ctx.photon.users.update({
+        const oldEmail = user.email;
+        const { firstName, lastName, preferredLanguage } = user;
+        const response = await ctx.photon.users.update({
           where,
           data: { email },
         });
+
+        sendEmail({
+          to: oldEmail,
+          params: {
+            firstName,
+            lastName,
+            link: Environment.claraURL,
+          },
+          template: 'ChangeEmail',
+          preferredLanguage: preferredLanguage.code,
+        });
+
+        return response;
       },
     });
 

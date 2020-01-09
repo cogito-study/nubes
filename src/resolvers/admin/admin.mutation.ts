@@ -97,12 +97,16 @@ export const AdminMutation = extendType({
             const activationToken = await ctx.photon.activationTokens.create({
               data: { token: generateToken(), user: { connect: { id } } },
             });
-
+            const { email, firstName, lastName, preferredLanguage } = user;
             sendEmail({
-              to: user.email,
-              params: { link: Environment.activateInvitationLink(activationToken.token) },
+              to: email,
+              params: {
+                firstName,
+                lastName,
+                link: Environment.activateInvitationLink(activationToken.token),
+              },
               template: 'RegisterActivation',
-              preferredLanguage: user.preferredLanguage.code,
+              preferredLanguage: preferredLanguage.code,
             });
           }),
         );
