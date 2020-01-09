@@ -34,13 +34,13 @@ export const createSubject = async (
       },
     });
 
-    addSubjectPermissions({
+    await addSubjectPermissions({
       permissions: subjectPermissions.permissions.teachers,
       users: [...subject.teachers, ...subject.moderators],
       subjects: [subject],
       context,
     });
-    addSubjectPermissions({
+    await addSubjectPermissions({
       permissions: subjectPermissions.permissions.students,
       users: subject.students,
       subjects: [subject],

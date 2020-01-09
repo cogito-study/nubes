@@ -31,26 +31,26 @@ export const createDepartment = async (
         id: await response.id,
       },
     });
-    addDepartmentPermission({
+    await addDepartmentPermission({
       permission: 'CREATE_SUBJECT',
       users: [department.leader],
       departmentID: department.id,
       context,
     });
-    addDepartmentPermission({
+    await addDepartmentPermission({
       permission: 'UPDATE_DEPARTMENT',
       users: [department.leader],
       departmentID: department.id,
       context,
     });
-    addDepartmentPermission({
+    await addDepartmentPermission({
       permission: 'DELETE_DEPARTMENT',
       users: [department.leader],
       departmentID: department.id,
       context,
     });
 
-    addDepartmentPermission({
+    await addDepartmentPermission({
       permission: 'READ_DEPARTMENT',
       users: [department.leader],
       departmentID: department.id,

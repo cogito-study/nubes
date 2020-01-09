@@ -64,7 +64,8 @@ export const addSuggestionPermissions = async ({
   suggestions: Array<{ id: string }>;
   context: Context;
 }) => {
-  await Promise.all(
+  if (users.length === 0) return;
+  return Promise.all(
     permissions.map(
       async (permission) =>
         await addSuggestionPermission({ permission, users, suggestions, context }),

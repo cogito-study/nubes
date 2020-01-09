@@ -17,6 +17,7 @@ export const SuggestionMutation = extendType({
         const suggestion = await ctx.photon.suggestions.create({
           include: {
             note: true,
+            permissions: true,
           },
           data: {
             author: { connect: creator },
@@ -24,7 +25,6 @@ export const SuggestionMutation = extendType({
             ...rest,
           },
         });
-        await publishSuggestionEvent('SUGGESTION_CREATE', suggestion, ctx);
         return suggestion;
       },
     });
