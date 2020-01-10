@@ -1690,6 +1690,7 @@ type User {
   profilePictureURL: String
   role: UserRole
   studiedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int, where: UserStudiedSubjectsWhereInput): [Subject!]!
+  subjects: [Subject!]!
   suggestions(after: ID, before: ID, first: Int, last: Int, skip: Int, where: UserSuggestionsWhereInput): [Suggestion!]!
   teachedSubjects(after: ID, before: ID, first: Int, last: Int, skip: Int, where: UserTeachedSubjectsWhereInput): [Subject!]!
   updatedAt: DateTime!

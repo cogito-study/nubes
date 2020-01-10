@@ -37,6 +37,23 @@ export const User = objectType({
     t.model.suggestions({ filtering: { deletedAt: true } });
     t.model.teachedSubjects({ filtering: { deletedAt: true } });
 
+    t.field('subjects', {
+      type: 'Subject',
+      list: true,
+      resolve: async ({ id }, _, context) => {
+        return await context.photon.subjects.findMany({
+          where: {
+            OR: [
+              { teachers: { some: { id } } },
+              { students: { some: { id } } },
+              { moderators: { some: { id } } },
+            ],
+            deletedAt: null,
+          },
+        });
+      },
+    });
+
     t.field('permissions', {
       type: 'UserPermissionType',
       list: true,
