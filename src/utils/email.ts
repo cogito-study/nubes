@@ -28,14 +28,21 @@ type SendEmailOptions = {
   preferredLanguage: LanguageCode;
 };
 
-export const sendEmail = ({ to, params, template, preferredLanguage }: SendEmailOptions) => {
+type SendEmailByIDOptions = {
+  to: string;
+  params: { link: string; firstName: string; lastName: string };
+  templateID: number;
+};
+
+export const sendEmailByID = ({ to, params, templateID }: SendEmailByIDOptions) => {
   const sender = {
     email: 'welcome@cogito.study',
     name: __('sender_name', { name: randomFounder() }),
   };
+
   const options: OptionsWithUrl = {
     method: 'POST',
-    url: `https://api.sendinblue.com/v3/smtp/templates/${emailTemplates[template][preferredLanguage]}/send`,
+    url: `https://api.sendinblue.com/v3/smtp/templates/${templateID}/send`,
     headers: {
       'Content-Type': 'application/json',
       'api-key': Environment.sendInBlueKey,
@@ -51,4 +58,9 @@ export const sendEmail = ({ to, params, template, preferredLanguage }: SendEmail
   post(options, (error) => {
     if (error) throw new ApolloError(error);
   });
+};
+
+export const sendEmail = ({ to, params, template, preferredLanguage }: SendEmailOptions) => {
+  const templateID = emailTemplates[template][preferredLanguage];
+  sendEmailByID({ to, params, templateID });
 };

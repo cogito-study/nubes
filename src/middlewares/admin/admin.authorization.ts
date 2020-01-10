@@ -4,6 +4,7 @@ import { __ } from 'i18n';
 import { FieldResolver } from 'nexus';
 import { NexusGenInputs } from '../../../generated/nexus-typegen';
 import { Context } from '../../types';
+import { getUserID } from '../../utils/authentication';
 import { hasDepartmentPermission } from '../department/department.permission';
 import { addInstitutePermission } from '../institute/institute.permission';
 
@@ -87,5 +88,22 @@ export const deleteDepartment = async (
     return await resolve(parent, args, context, info);
   }
 
+  throw new ForbiddenError(__('no_permission'));
+};
+
+export const sendEmail = async (
+  resolve: FieldResolver<'Query', 'sendEmail'>,
+  parent: {},
+  args: {},
+  context: Context,
+  info: GraphQLResolveInfo,
+) => {
+  const user = await context.photon.users.findOne({
+    where: { id: getUserID(context) },
+    include: {
+      role: true,
+    },
+  });
+  if (user && user.role.type == 'ADMIN') return await resolve(parent, args, context, info);
   throw new ForbiddenError(__('no_permission'));
 };
