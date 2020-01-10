@@ -1977,6 +1977,7 @@ export interface NexusGenFieldTypes {
     profilePictureURL: string | null; // String
     role: NexusGenRootTypes['UserRole'] | null; // UserRole
     studiedSubjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
+    subjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     suggestions: NexusGenRootTypes['Suggestion'][]; // [Suggestion!]!
     teachedSubjects: NexusGenRootTypes['Subject'][]; // [Subject!]!
     updatedAt: any; // DateTime!
