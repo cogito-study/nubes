@@ -596,6 +596,7 @@ type Mutation {
   rejectSuggestion(where: WhereUniqueInput!): Suggestion!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendActivationEmails(data: SendActivationEmailsInput!): Boolean!
+  sendEmail(data: SendEmailInput!): Boolean!
   updateDepartment(data: UpdateDepartmentInput!, where: WhereUniqueInput!): Department!
   updateFaculty(data: UpdateFacultyInput!, where: WhereUniqueInput!): Faculty!
   updateInstitute(data: UpdateInstituteInput!, where: WhereUniqueInput!): Institute!
@@ -1265,6 +1266,12 @@ input ResetPasswordTokenWhereInput {
 
 """Input of activation emails"""
 input SendActivationEmailsInput {
+  ids: [String!]!
+}
+
+"""Input of emails"""
+input SendEmailInput {
+  emailTemplateID: Int!
   ids: [String!]!
 }
 

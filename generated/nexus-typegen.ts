@@ -824,6 +824,11 @@ export interface NexusGenInputs {
     // input type
     ids: string[]; // [String!]!
   };
+  SendEmailInput: {
+    // input type
+    emailTemplateID: number; // Int!
+    ids: string[]; // [String!]!
+  };
   StringFilter: {
     // input type
     contains?: string | null; // String
@@ -1439,6 +1444,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ResetPasswordInput: NexusGenInputs['ResetPasswordInput'];
   ResetPasswordTokenWhereInput: NexusGenInputs['ResetPasswordTokenWhereInput'];
   SendActivationEmailsInput: NexusGenInputs['SendActivationEmailsInput'];
+  SendEmailInput: NexusGenInputs['SendEmailInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   SubjectFilter: NexusGenInputs['SubjectFilter'];
   SubjectInformationFilter: NexusGenInputs['SubjectInformationFilter'];
@@ -1664,6 +1670,7 @@ export interface NexusGenFieldTypes {
     rejectSuggestion: NexusGenRootTypes['Suggestion']; // Suggestion!
     resetPassword: boolean; // Boolean!
     sendActivationEmails: boolean; // Boolean!
+    sendEmail: boolean; // Boolean!
     updateDepartment: NexusGenRootTypes['Department']; // Department!
     updateFaculty: NexusGenRootTypes['Faculty']; // Faculty!
     updateInstitute: NexusGenRootTypes['Institute']; // Institute!
@@ -2240,6 +2247,10 @@ export interface NexusGenArgTypes {
     sendActivationEmails: {
       // args
       data: NexusGenInputs['SendActivationEmailsInput']; // SendActivationEmailsInput!
+    };
+    sendEmail: {
+      // args
+      data: NexusGenInputs['SendEmailInput']; // SendEmailInput!
     };
     updateDepartment: {
       // args
@@ -2876,6 +2887,7 @@ export type NexusGenInputNames =
   | 'ResetPasswordInput'
   | 'ResetPasswordTokenWhereInput'
   | 'SendActivationEmailsInput'
+  | 'SendEmailInput'
   | 'StringFilter'
   | 'SubjectFilter'
   | 'SubjectInformationFilter'

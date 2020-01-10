@@ -1,5 +1,5 @@
 import { extendType } from 'nexus';
-import { sendEmail } from '../../utils/email';
+import { sendEmail, sendEmailByID } from '../../utils/email';
 import { Environment } from '../../utils/environment';
 import { generateToken } from '../../utils/token';
 import { WhereUniqueInput } from '../input';
@@ -8,6 +8,7 @@ import {
   CreateSubjectInput,
   CreateUserInput,
   SendActivationEmailsInput,
+  SendEmailInput,
   UpdateUserInput,
 } from './admin.input';
 
@@ -81,6 +82,32 @@ export const AdminMutation = extendType({
           },
         });
         return user;
+      },
+    });
+
+    t.field('sendEmail', {
+      type: 'Boolean',
+      args: { data: SendEmailInput.asArg({ required: true }) },
+      resolve: async (_, { data: { ids, emailTemplateID } }, context) => {
+        await Promise.all(
+          ids.map(async (id: string) => {
+            const user = await context.photon.users.findOne({
+              where: { id },
+            });
+
+            const { email, firstName, lastName } = user;
+            sendEmailByID({
+              to: email,
+              params: {
+                firstName,
+                lastName,
+                link: Environment.claraURL,
+              },
+              templateID: emailTemplateID,
+            });
+          }),
+        );
+        return true;
       },
     });
 

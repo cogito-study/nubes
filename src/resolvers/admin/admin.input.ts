@@ -54,3 +54,12 @@ export const SendActivationEmailsInput = inputObjectType({
     t.field('ids', { required: true, list: true, type: 'String' });
   },
 });
+
+export const SendEmailInput = inputObjectType({
+  name: 'SendEmailInput',
+  description: 'Input of emails',
+  definition(t) {
+    t.field('ids', { required: true, list: true, type: 'String' });
+    t.int('emailTemplateID', { required: true });
+  },
+});
