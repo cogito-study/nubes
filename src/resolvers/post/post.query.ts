@@ -13,9 +13,23 @@ export const PostQuery = extendType({
           orderBy: { createdAt: 'desc' },
           where: {
             subject: {
-              students: {
-                some: { id: getUserID(ctx) },
-              },
+              OR: [
+                {
+                  students: {
+                    some: { id: getUserID(ctx) },
+                  },
+                },
+                {
+                  teachers: {
+                    some: { id: getUserID(ctx) },
+                  },
+                },
+                {
+                  moderators: {
+                    some: { id: getUserID(ctx) },
+                  },
+                },
+              ],
             },
             deletedAt: null,
           },
