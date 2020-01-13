@@ -70,6 +70,7 @@ export const UserMutation = extendType({
             firstName,
             lastName,
             link: Environment.claraURL,
+            newEmail: email,
           },
           template: 'ChangeEmail',
           preferredLanguage: preferredLanguage.code,
