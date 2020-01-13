@@ -12,6 +12,7 @@
   "invalid_token": "Invalid token!",
   "new_major_reuqest_exist": "New major request already exist!",
   "no_permission": "You don't have permission to this operation!",
+  "old_password_validation": "Wrong password",
   "sender_name": "{{name}} from Cogito",
   "suggestion_has_no_note": "No note included to the published suggestion!",
   "token_expired": "The provided token is expired!",
