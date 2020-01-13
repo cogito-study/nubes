@@ -5,7 +5,7 @@ const path = resolve(__dirname, '../../.env');
 config({ path });
 
 const nodeEnv = process.env.NODE_ENV;
-const claraURL = process.env.MINERVA_URL;
+const claraURL = process.env.CLARA_URL;
 const secret = process.env.APP_SECRET;
 const sendInBlueKey = process.env.SIB_API_KEY;
 const sentryDSN = process.env.SENTRY_DSN;
