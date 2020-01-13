@@ -18,7 +18,7 @@ export const emailTemplates: LocalizedEmailTemplateType = {
   ChangePassword: { hu: 11, en: 15 },
   ChangeEmail: { hu: 14, en: 13 },
   ForgotPassword: { hu: 16, en: 12 },
-  RegisterActivation: { hu: 17, en: 19 },
+  RegisterActivation: { hu: 17, en: 18 },
 };
 
 type SendEmailOptions = {
@@ -42,15 +42,16 @@ export const sendEmailByID = ({ to, params, templateID }: SendEmailByIDOptions) 
 
   const options: OptionsWithUrl = {
     method: 'POST',
-    url: `https://api.sendinblue.com/v3/smtp/templates/${templateID}/send`,
+    url: `https://api.sendinblue.com/v3/smtp/email`,
     headers: {
       'Content-Type': 'application/json',
       'api-key': Environment.sendInBlueKey,
     },
     body: {
       sender,
-      emailTo: [to],
-      replyTo: 'support@cogito.study',
+      to: [{ email: to }],
+      replyTo: { email: 'support@cogito.study' },
+      templateId: templateID,
       params,
     },
     json: true,
