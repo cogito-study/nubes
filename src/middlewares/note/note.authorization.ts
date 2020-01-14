@@ -58,8 +58,8 @@ export const createSuggestion = async (
     });
 
     if (
-      subject.teachers.includes(suggestion.author) ||
-      subject.moderators.includes(suggestion.author)
+      subject.teachers.filter((teacher) => teacher.id === suggestion.author.id).length ||
+      subject.moderators.filter((moderator) => moderator.id === suggestion.author.id).length
     ) {
       await addSuggestionPermissions({
         permissions: subjectPermissions.notes.suggestions.permissions.teachers.own,
