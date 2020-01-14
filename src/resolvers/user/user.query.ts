@@ -44,7 +44,7 @@ export const UserQuery = extendType({
           where: { token },
         });
         if (resetPasswordToken !== null)
-          await ctx.photon.users.findOne({ where: { email: resetPasswordToken.email } });
+          return await ctx.photon.users.findOne({ where: { email: resetPasswordToken.email } });
 
         throw new ApolloError(__('invalid_token'));
       },
