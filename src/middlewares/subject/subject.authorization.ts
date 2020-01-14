@@ -175,7 +175,10 @@ export const createPost = async (
       context,
     });
 
-    if (subject.teachers.includes(post.author) || subject.moderators.includes(post.author)) {
+    if (
+      subject.teachers.filter((teacher) => teacher.id === post.author.id).length ||
+      subject.moderators.filter((moderator) => moderator.id === post.author.id).length
+    ) {
       await addPostPermissions({
         permissions: subjectPermissions.posts.permissions.teachers.own,
         users: [post.author],
