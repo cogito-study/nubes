@@ -34,7 +34,6 @@ export const authenticationMiddlewares: Middleware = {
     createDepartment: requireLogin,
     updateDepartment: requireLogin,
     deleteDepartment: requireLogin,
-    createInstitute: requireLogin,
     updateInstitute: requireLogin,
     deleteInstitute: requireLogin,
     createNote: requireLogin,

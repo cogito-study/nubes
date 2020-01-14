@@ -1,3 +1,4 @@
+import { getLocale } from 'i18n';
 import { objectType } from 'nexus';
 import { getUserID } from '../../utils/authentication';
 
@@ -5,11 +6,24 @@ export const Institute = objectType({
   name: 'Institute',
   definition(t) {
     t.model.id();
-    t.model.name();
 
     t.model.departments({ filtering: { deletedAt: true } });
     t.model.users({ filtering: { deletedAt: true } });
     t.model.faculties({ filtering: { deletedAt: true } });
+
+    t.field('name', {
+      type: 'String',
+      resolve: async ({ id }, _, context) => {
+        const translation = await context.photon.instituteTranslations.findMany({
+          where: {
+            institute: { id },
+            language: { code: getLocale() },
+          },
+        });
+        if (translation === null || !translation[0]) return '';
+        return translation[0].name;
+      },
+    });
 
     t.field('permissions', {
       type: 'InstitutePermissionType',
