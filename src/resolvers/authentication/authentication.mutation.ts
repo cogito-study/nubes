@@ -213,16 +213,25 @@ export const AuthenticationMutation = extendType({
         if (resetPasswordToken === null) throw new AuthenticationError(__('invalid_expired_token'));
 
         try {
-          await context.photon.users.update({
+          const user = await context.photon.users.update({
             where: {
               email: resetPasswordToken.email,
             },
             data: {
               password: await hashPassword(password),
             },
+            include: { preferredLanguage: true },
           });
 
           await context.photon.resetPasswordTokens.delete({ where: { token } });
+
+          const { email, firstName, lastName, preferredLanguage } = user;
+          sendEmail({
+            to: email,
+            params: { firstName, lastName, link: Environment.claraURL },
+            template: 'ChangePassword',
+            preferredLanguage: preferredLanguage.code,
+          });
         } catch {
           throw new AuthenticationError(__('auth_reset_password_error'));
         }
