@@ -76,18 +76,11 @@ input CreateDepartmentInput {
 """Input of create faculty"""
 input CreateFacultyInput {
   institute: ConnectRelation!
-  name: String!
-}
-
-"""Input of create institute"""
-input CreateInstituteInput {
-  name: String!
 }
 
 """Input of create major"""
 input CreateMajorInput {
   faculty: ConnectRelation!
-  name: String!
 }
 
 """Input of create new major request"""
@@ -247,19 +240,42 @@ input DepartmentSubjectsWhereInput {
   deletedAt: NullableDateTimeFilter
 }
 
+type DepartmentTranslation {
+  description: String!
+  id: ID!
+  language: Language!
+  name: String!
+}
+
+input DepartmentTranslationFilter {
+  every: DepartmentTranslationWhereInput
+  none: DepartmentTranslationWhereInput
+  some: DepartmentTranslationWhereInput
+}
+
+input DepartmentTranslationWhereInput {
+  AND: [DepartmentTranslationWhereInput!]
+  department: DepartmentWhereInput
+  description: StringFilter
+  id: StringFilter
+  language: LanguageWhereInput
+  name: StringFilter
+  NOT: [DepartmentTranslationWhereInput!]
+  OR: [DepartmentTranslationWhereInput!]
+}
+
 input DepartmentWhereInput {
   AND: [DepartmentWhereInput!]
   createdAt: DateTimeFilter
   deletedAt: NullableDateTimeFilter
-  description: StringFilter
   id: StringFilter
   institute: InstituteWhereInput
   leader: UserWhereInput
-  name: StringFilter
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
   permissions: DepartmentPermissionFilter
   subjects: SubjectFilter
+  translations: DepartmentTranslationFilter
   updatedAt: DateTimeFilter
 }
 
@@ -322,6 +338,28 @@ input FacultyPermissionWhereInput {
   users: UserFilter
 }
 
+type FacultyTranslation {
+  id: ID!
+  language: Language!
+  name: String!
+}
+
+input FacultyTranslationFilter {
+  every: FacultyTranslationWhereInput
+  none: FacultyTranslationWhereInput
+  some: FacultyTranslationWhereInput
+}
+
+input FacultyTranslationWhereInput {
+  AND: [FacultyTranslationWhereInput!]
+  faculty: FacultyWhereInput
+  id: StringFilter
+  language: LanguageWhereInput
+  name: StringFilter
+  NOT: [FacultyTranslationWhereInput!]
+  OR: [FacultyTranslationWhereInput!]
+}
+
 input FacultyWhereInput {
   AND: [FacultyWhereInput!]
   createdAt: DateTimeFilter
@@ -329,10 +367,10 @@ input FacultyWhereInput {
   id: StringFilter
   institute: InstituteWhereInput
   majors: MajorFilter
-  name: StringFilter
   NOT: [FacultyWhereInput!]
   OR: [FacultyWhereInput!]
   permissions: FacultyPermissionFilter
+  translations: FacultyTranslationFilter
   updatedAt: DateTimeFilter
 }
 
@@ -411,6 +449,28 @@ input InstitutePermissionWhereInput {
   users: UserFilter
 }
 
+type InstituteTranslation {
+  id: ID!
+  language: Language!
+  name: String!
+}
+
+input InstituteTranslationFilter {
+  every: InstituteTranslationWhereInput
+  none: InstituteTranslationWhereInput
+  some: InstituteTranslationWhereInput
+}
+
+input InstituteTranslationWhereInput {
+  AND: [InstituteTranslationWhereInput!]
+  id: StringFilter
+  institute: InstituteWhereInput
+  language: LanguageWhereInput
+  name: StringFilter
+  NOT: [InstituteTranslationWhereInput!]
+  OR: [InstituteTranslationWhereInput!]
+}
+
 input InstituteUsersWhereInput {
   deletedAt: NullableDateTimeFilter
 }
@@ -422,10 +482,10 @@ input InstituteWhereInput {
   departments: DepartmentFilter
   faculties: FacultyFilter
   id: StringFilter
-  name: StringFilter
   NOT: [InstituteWhereInput!]
   OR: [InstituteWhereInput!]
   permissions: InstitutePermissionFilter
+  translations: InstituteTranslationFilter
   updatedAt: DateTimeFilter
   users: UserFilter
 }
@@ -459,7 +519,11 @@ enum LanguageCode {
 input LanguageWhereInput {
   AND: [LanguageWhereInput!]
   code: LanguageCode
+  departmentTranslations: DepartmentTranslationFilter
+  facultyTranslations: FacultyTranslationFilter
   id: StringFilter
+  instituteTranslations: InstituteTranslationFilter
+  majorTranslations: MajorTranslationFilter
   name: StringFilter
   NOT: [LanguageWhereInput!]
   OR: [LanguageWhereInput!]
@@ -537,17 +601,39 @@ input MajorSubjectsWhereInput {
   deletedAt: NullableDateTimeFilter
 }
 
+type MajorTranslation {
+  id: ID!
+  language: Language!
+  name: String!
+}
+
+input MajorTranslationFilter {
+  every: MajorTranslationWhereInput
+  none: MajorTranslationWhereInput
+  some: MajorTranslationWhereInput
+}
+
+input MajorTranslationWhereInput {
+  AND: [MajorTranslationWhereInput!]
+  id: StringFilter
+  language: LanguageWhereInput
+  major: MajorWhereInput
+  name: StringFilter
+  NOT: [MajorTranslationWhereInput!]
+  OR: [MajorTranslationWhereInput!]
+}
+
 input MajorWhereInput {
   AND: [MajorWhereInput!]
   createdAt: DateTimeFilter
   deletedAt: NullableDateTimeFilter
   faculty: FacultyWhereInput
   id: StringFilter
-  name: StringFilter
   NOT: [MajorWhereInput!]
   OR: [MajorWhereInput!]
   permissions: MajorPermissionFilter
   subjects: SubjectFilter
+  translations: MajorTranslationFilter
   updatedAt: DateTimeFilter
   users: UserFilter
 }
@@ -561,7 +647,6 @@ type Mutation {
   changePreferredLanguage(data: ChangePreferredLanguageInput!, where: WhereUniqueInput!): User!
   createDepartment(data: CreateDepartmentInput!): Department!
   createFaculty(data: CreateFacultyInput!): Faculty!
-  createInstitute(data: CreateInstituteInput!): Institute!
   createMajor(data: CreateMajorInput!): Major!
   createNewMajorRequest(data: CreateNewMajorRequest!): NewMajorRequest!
   createNote(data: CreateNoteInput!): Note!
@@ -1582,29 +1667,24 @@ enum TokenType {
 
 """Input of update department"""
 input UpdateDepartmentInput {
-  description: String
   leader: ConnectRelation
-  name: String
 }
 
 """Input of update faculty"""
 input UpdateFacultyInput {
   institute: ConnectRelation
   major: ConnectOrDisconnectRelation
-  name: String
 }
 
 """Input of update institute"""
 input UpdateInstituteInput {
   departments: ConnectOrDisconnectRelation
   faculties: ConnectOrDisconnectRelation
-  name: String
 }
 
 """Input of update major"""
 input UpdateMajorInput {
   faculty: ConnectRelation
-  name: String
   subjects: ConnectOrDisconnectRelation
 }
 

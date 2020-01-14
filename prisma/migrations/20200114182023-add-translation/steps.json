@@ -1,0 +1,409 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "model": "DepartmentTranslation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentTranslation",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentTranslation",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentTranslation",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentTranslation",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentTranslation",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentTranslation",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentTranslation",
+      "field": "description",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentTranslation",
+      "field": "department",
+      "type": "Department",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "DepartmentTranslation",
+      "field": "department",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "DepartmentTranslation",
+      "field": "department",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentTranslations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DepartmentTranslation",
+      "field": "language",
+      "type": "Language",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "FacultyTranslation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyTranslation",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyTranslation",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyTranslation",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyTranslation",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyTranslation",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyTranslation",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyTranslation",
+      "field": "faculty",
+      "type": "Faculty",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "FacultyTranslation",
+      "field": "faculty",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "FacultyTranslation",
+      "field": "faculty",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyTranslations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "FacultyTranslation",
+      "field": "language",
+      "type": "Language",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "InstituteTranslation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstituteTranslation",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstituteTranslation",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstituteTranslation",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstituteTranslation",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstituteTranslation",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstituteTranslation",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstituteTranslation",
+      "field": "institute",
+      "type": "Institute",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "InstituteTranslation",
+      "field": "institute",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "InstituteTranslation",
+      "field": "institute",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteTranslations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "InstituteTranslation",
+      "field": "language",
+      "type": "Language",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "MajorTranslation"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorTranslation",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorTranslation",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorTranslation",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorTranslation",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorTranslation",
+      "field": "id",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorTranslation",
+      "field": "name",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorTranslation",
+      "field": "major",
+      "type": "Major",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "MajorTranslation",
+      "field": "major",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "MajorTranslation",
+      "field": "major",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorTranslations\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MajorTranslation",
+      "field": "language",
+      "type": "Language",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Department",
+      "field": "translations",
+      "type": "DepartmentTranslation",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Department",
+      "field": "translations",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Department",
+      "field": "translations",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"DepartmentTranslations\""
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Department",
+      "field": "name"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Department",
+      "field": "description"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Faculty",
+      "field": "translations",
+      "type": "FacultyTranslation",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Faculty",
+      "field": "translations",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Faculty",
+      "field": "translations",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"FacultyTranslations\""
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Faculty",
+      "field": "name"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Institute",
+      "field": "translations",
+      "type": "InstituteTranslation",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Institute",
+      "field": "translations",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Institute",
+      "field": "translations",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"InstituteTranslations\""
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Institute",
+      "field": "name"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Major",
+      "field": "translations",
+      "type": "MajorTranslation",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Major",
+      "field": "translations",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Major",
+      "field": "translations",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"MajorTranslations\""
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Major",
+      "field": "name"
+    }
+  ]
+}
