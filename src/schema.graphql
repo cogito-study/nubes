@@ -115,8 +115,6 @@ input CreateNoteHighlightInput {
 
 """Input of create note"""
 input CreateNoteInput {
-  content: String!
-  contentHTML: String!
   description: String
   noteCategory: NoteCategory!
   number: Int!
@@ -1700,8 +1698,6 @@ input UpdateNoteHighlightInput {
 
 """Input of update note"""
 input UpdateNoteInput {
-  content: String
-  contentHTML: String
   description: String
   noteCategory: NoteCategory
   number: Int

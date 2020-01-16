@@ -5,8 +5,6 @@ export const CreateNoteInput = inputObjectType({
   description: 'Input of create note',
   definition(t) {
     t.string('title', { required: true });
-    t.string('content', { required: true });
-    t.string('contentHTML', { required: true });
     t.int('number', { required: true });
     t.string('description');
     t.field('noteCategory', { type: 'NoteCategory', required: true });
@@ -19,8 +17,6 @@ export const UpdateNoteInput = inputObjectType({
   description: 'Input of update note',
   definition(t) {
     t.string('title');
-    t.string('content');
-    t.string('contentHTML');
     t.int('number');
     t.string('description');
     t.field('noteCategory', { type: 'NoteCategory' });
