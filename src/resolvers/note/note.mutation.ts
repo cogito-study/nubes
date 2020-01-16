@@ -11,6 +11,8 @@ export const NoteMutation = extendType({
       resolve: (_, { data: { subject, ...rest } }, ctx) => {
         return ctx.photon.notes.create({
           data: {
+            content: '{"ops":[]}',
+            contentHTML: '',
             subject: { connect: subject },
             ...rest,
           },
