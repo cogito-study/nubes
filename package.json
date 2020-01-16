@@ -84,5 +84,5 @@
     "watch:node": "nodemon dist/src/index.js",
     "watch:ts": "tsc -w"
   },
-  "version": "0.1.4"
+  "version": "1.0.0"
 }
