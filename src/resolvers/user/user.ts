@@ -50,6 +50,9 @@ export const User = objectType({
             ],
             deletedAt: null,
           },
+          orderBy: {
+            name: 'asc',
+          },
         });
       },
     });

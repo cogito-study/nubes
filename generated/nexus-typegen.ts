@@ -439,6 +439,10 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     users?: NexusGenInputs['UserFilter'] | null; // UserFilter
   };
+  MajorSubjectsOrderByInput: {
+    // input type
+    name?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
+  };
   MajorSubjectsWhereInput: {
     // input type
     deletedAt?: NexusGenInputs['NullableDateTimeFilter'] | null; // NullableDateTimeFilter
@@ -1453,6 +1457,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   MajorFilter: NexusGenInputs['MajorFilter'];
   MajorPermissionFilter: NexusGenInputs['MajorPermissionFilter'];
   MajorPermissionWhereInput: NexusGenInputs['MajorPermissionWhereInput'];
+  MajorSubjectsOrderByInput: NexusGenInputs['MajorSubjectsOrderByInput'];
   MajorSubjectsWhereInput: NexusGenInputs['MajorSubjectsWhereInput'];
   MajorTranslationFilter: NexusGenInputs['MajorTranslationFilter'];
   MajorTranslationWhereInput: NexusGenInputs['MajorTranslationWhereInput'];
@@ -2156,6 +2161,7 @@ export interface NexusGenArgTypes {
       before?: string | null; // ID
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['MajorSubjectsOrderByInput'] | null; // MajorSubjectsOrderByInput
       skip?: number | null; // Int
       where?: NexusGenInputs['MajorSubjectsWhereInput'] | null; // MajorSubjectsWhereInput
     };
@@ -2927,6 +2933,7 @@ export type NexusGenInputNames =
   | 'MajorFilter'
   | 'MajorPermissionFilter'
   | 'MajorPermissionWhereInput'
+  | 'MajorSubjectsOrderByInput'
   | 'MajorSubjectsWhereInput'
   | 'MajorTranslationFilter'
   | 'MajorTranslationWhereInput'
