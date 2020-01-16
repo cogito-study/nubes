@@ -61,12 +61,14 @@ export const addNotePermissions = async ({
   users: Array<{ id: string }>;
   notes: Array<{ id: string }>;
   context: Context;
-}) =>
-  await Promise.all(
+}) => {
+  if (users.length === 0) return;
+  return Promise.all(
     permissions.map(
       async (permission) => await addNotePermission({ permission, users, notes, context }),
     ),
   );
+};
 
 export const deleteNotePermission = async ({
   users,
