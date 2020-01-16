@@ -547,7 +547,7 @@ type Major {
   id: ID!
   name: String!
   permissions: [MajorPermissionType!]!
-  subjects(after: ID, before: ID, first: Int, last: Int, skip: Int, where: MajorSubjectsWhereInput): [Subject!]!
+  subjects(after: ID, before: ID, first: Int, last: Int, orderBy: MajorSubjectsOrderByInput, skip: Int, where: MajorSubjectsWhereInput): [Subject!]!
   updatedAt: DateTime!
 }
 
@@ -593,6 +593,10 @@ input MajorPermissionWhereInput {
   type: MajorPermissionType
   updatedAt: DateTimeFilter
   users: UserFilter
+}
+
+input MajorSubjectsOrderByInput {
+  name: OrderByArg
 }
 
 input MajorSubjectsWhereInput {

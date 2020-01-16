@@ -8,7 +8,7 @@ export const Major = objectType({
     t.model.id();
 
     t.model.faculty();
-    t.model.subjects({ filtering: { deletedAt: true } });
+    t.model.subjects({ filtering: { deletedAt: true }, ordering: { name: true } });
 
     t.field('name', {
       type: 'String',
