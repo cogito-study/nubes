@@ -41,13 +41,25 @@ export const applySuggestion = async ({
       new Delta(JSON.parse(remainingSuggestion.delta)),
     );
 
-    const updatedSuggestion = await ctx.photon.suggestions.update({
-      where: { id: remainingSuggestion.id },
-      data: { delta: JSON.stringify(transformedDelta) },
-      include: { note: true },
-    });
+    if (transformedDelta.ops.length === 0) {
+      const deletedSuggestion = await ctx.photon.suggestions.update({
+        include: {
+          note: true,
+        },
+        where: { id: remainingSuggestion.id },
+        data: { deletedAt: new Date() },
+      });
+      await publishSuggestionEvent('SUGGESTION_REJECT', deletedSuggestion, ctx);
+    } else {
+      const updatedSuggestion = await ctx.photon.suggestions.update({
+        where: { id: remainingSuggestion.id },
+        data: { delta: JSON.stringify(transformedDelta) },
+        include: { note: true },
+      });
 
-    if (isActiveSuggestion(updatedSuggestion))
-      await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
+      if (isActiveSuggestion(updatedSuggestion)) {
+        await publishSuggestionEvent('SUGGESTION_UPDATE', updatedSuggestion, ctx);
+      }
+    }
   }
 };
