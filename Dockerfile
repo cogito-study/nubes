@@ -8,4 +8,4 @@ COPY . /usr/src/server
 RUN npm install -g concurrently --unsafe-perm
 RUN yarn install
 COPY . /usr/src/server
-CMD yarn run lift up && concurrently "yarn run start" "yarn run studio"
+CMD yarn run lift up && NODE_ENV=production concurrently "yarn run start" "yarn run studio"
