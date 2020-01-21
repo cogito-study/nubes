@@ -1,10 +1,12 @@
 import { extendType } from 'nexus';
+import Delta from 'quill-delta';
 import { getUserID } from '../../utils/authentication';
 import { WhereUniqueInput } from '../input';
 import { Context } from './../../types';
 import { CreateSuggestionInput, UpdateSuggestionInput } from './suggestion.input';
 import { publishSuggestionEvent } from './suggestion.subscription';
 import { applySuggestion } from './utils/collaboration';
+import { convertDeltaImages } from './utils/image-handler';
 
 export const SuggestionMutation = extendType({
   type: 'Mutation',
@@ -12,7 +14,10 @@ export const SuggestionMutation = extendType({
     t.field('createSuggestion', {
       type: 'Suggestion',
       args: { data: CreateSuggestionInput.asArg({ required: true }) },
-      resolve: async (_, { data: { note, ...rest } }, ctx) => {
+      resolve: async (_, { data: { note, delta } }, ctx) => {
+        const deltaWithConvertedImages = JSON.stringify(
+          await convertDeltaImages(new Delta(JSON.parse(delta))),
+        );
         const creator = { id: getUserID(ctx) };
         const suggestion = await ctx.photon.suggestions.create({
           include: {
@@ -22,7 +27,7 @@ export const SuggestionMutation = extendType({
           data: {
             author: { connect: creator },
             note: { connect: note },
-            ...rest,
+            delta: deltaWithConvertedImages,
           },
         });
         return suggestion;
@@ -65,13 +70,12 @@ export const SuggestionMutation = extendType({
         where: WhereUniqueInput.asArg({ required: true }),
       },
       resolve: async (_, { where }, ctx) => {
-        // TODO: Here we will need a different implementation
         const suggestion = await ctx.photon.suggestions.update({
           include: {
             note: true,
           },
           where,
-          data: { deletedAt: new Date() },
+          data: { deletedAt: new Date(), rejectedAt: new Date() },
         });
         await publishSuggestionEvent('SUGGESTION_REJECT', suggestion, ctx);
         return suggestion;

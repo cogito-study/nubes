@@ -22,5 +22,6 @@
   "wait_%s_minutes": {
     "one": "Try again after a minute!",
     "other": "Try again after %s minutes!"
-  }
+  },
+  "invalid_image_upload": "The image you want to insert is invalid. Try again with a different format!"
 }

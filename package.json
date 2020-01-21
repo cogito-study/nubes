@@ -3,6 +3,7 @@
     "@google-cloud/storage": "3.3.1",
     "@prisma/photon": "2.0.0-preview017.2",
     "@sentry/node": "5.10.2",
+    "@types/request-promise": "^4.1.45",
     "apollo-server": "2.9.8",
     "bcrypt": "3.0.6",
     "date-fns": "2.7.0",
@@ -15,6 +16,7 @@
     "nexus": "0.12.0-rc.5",
     "nexus-prisma": "0.6.1",
     "quill-delta": "4.2.1",
+    "request-promise": "^4.2.5",
     "stream": "0.0.2",
     "uuid": "3.3.3",
     "yup": "0.27.0"

@@ -22,5 +22,6 @@
   "wait_%s_minutes": {
     "one": "Próbáld újra egy perc múlva!",
     "other": "Próbáld újra %s perc múlva!"
-  }
+  },
+  "invalid_image_upload": "A beilleszteni kívánt kép nem megfelelő. Próbáld újra más formátummal!"
 }
