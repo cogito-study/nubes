@@ -1,5 +1,5 @@
 import { ApolloError } from 'apollo-server';
-import { addMinutes, isBefore } from 'date-fns';
+import { addMinutes, differenceInMinutes, isBefore } from 'date-fns';
 import { __n } from 'i18n';
 import { v4 as uuid } from 'uuid';
 import { NexusGenEnums } from '../../generated/nexus-typegen';
@@ -32,7 +32,7 @@ const checkTokenGenerationFrequency = (token: { createdAt: Date }) => {
   const maxFrequency = 5;
   const canCreateAt = addMinutes(token.createdAt, maxFrequency);
   if (isBefore(createdAt, canCreateAt)) {
-    throw new ApolloError(__n('wait_%s_minutes', maxFrequency));
+    throw new ApolloError(__n('wait_%s_minutes', differenceInMinutes(canCreateAt, createdAt) + 1));
   }
 };
 

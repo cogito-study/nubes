@@ -183,8 +183,10 @@ export const AuthenticationMutation = extendType({
           where: { email },
           include: { preferredLanguage: true },
         });
+
+        const resetPasswordToken = await generateResetPasswordToken({ email, context });
+
         if (user !== null) {
-          const resetPasswordToken = await generateResetPasswordToken({ email, context });
           const { firstName, lastName, preferredLanguage } = user;
 
           sendEmail({
@@ -199,7 +201,7 @@ export const AuthenticationMutation = extendType({
           });
           return true;
         }
-        return false;
+        return true;
       },
     });
 
