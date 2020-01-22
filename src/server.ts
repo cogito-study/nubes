@@ -48,11 +48,12 @@ const server = new ApolloServer({
 
     return error.message.includes('photon.') ? new Error(__('internal_server_error')) : error;
   },
-  playground: Environment.nodeEnv === 'development',
+  playground: true,
   debug: Environment.nodeEnv === 'development',
 });
 
 server.listen().then(({ url, subscriptionsUrl }) => {
+  console.log(Environment.nodeEnv);
   console.log(`🚀 Server is running on ${url}`);
   console.log(`🚀 Subscriptions ready at ${subscriptionsUrl}`);
 });
