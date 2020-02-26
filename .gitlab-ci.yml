@@ -1,0 +1,17 @@
+image: node:latest
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update -qy
+    - apt-get install -y heroku-toolbelt
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=nubes-hasura --api-key=$HEROKU_API_KEY
+  only:
+    - master
