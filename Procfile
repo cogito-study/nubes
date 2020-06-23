@@ -1,1 +1,1 @@
-web: npm run generate && npm run build && npm run serve
+web: yarn generate && yarn build && yarn serve

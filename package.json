@@ -78,7 +78,7 @@
     "lint": "eslint \"**/*.{js,ts}\" --quiet --fix",
     "postinstall": "yarn generate",
     "seed": "ts-node prisma/seed.ts",
-    "serve": "node dist/src/index.js",
+    "serve": "node dist/src/server.js",
     "serve:debug": "nodemon --inspect dist/src/index.js",
     "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src/server.ts",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\"  \"yarn run watch:ts\" \"yarn run watch:node\"",
