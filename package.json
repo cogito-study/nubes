@@ -75,7 +75,7 @@
     "dev": "prisma2 dev",
     "studio": "prisma2 studio",
     "format": "prettier --write './src/**/*.ts'",
-    "generate": "yarn generate:prisma && yarn generate:nexus",
+    "generate": "yarn generate:prisma",
     "generate:prisma": "prisma2 generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "lift": "prisma2 lift",
