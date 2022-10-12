@@ -6,7 +6,7 @@
     "@typescript-eslint/eslint-plugin": "2.8.0",
     "@typescript-eslint/parser": "2.8.0",
     "@types/request-promise": "^4.1.45",
-    "apollo-server": "2.9.8",
+    "apollo-server": "2.25.4",
     "bcrypt": "3.0.6",
     "date-fns": "2.7.0",
     "dotenv": "8.2.0",
